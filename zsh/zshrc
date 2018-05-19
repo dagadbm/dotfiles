@@ -110,18 +110,13 @@ bindkey '^ ' autosuggest-accept # ctrl+space to accept suggestion
 
 
 #####################################
-# Dotfiles Management
-#
-
-alias submodules_init='git submodule update --init --recursive'
-alias submodules_update='git pull origin master --recurse-submodules && dgit submodule update --recursive --remote'
-
-#####################################
 # Alias
 #
 
 alias g='git'
+alias gs='git submodule update --init --recursive --remote'
 alias l='ls -all'
+alias fv='f -e vim'
 if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
   alias vi=nvim
