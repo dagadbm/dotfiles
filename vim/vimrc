@@ -40,9 +40,9 @@ Plug 'zhaocai/GoldenView.Vim'
 " Automaticaly resize windows to golden ratio. Used in simpler windows
 Plug 'roman/golden-ratio'
 " CTRL-W o to maximize current window. Toggle to restore previous layout
-Plug 'ZoomWin'
+Plug 'vim-scripts/ZoomWin'
 " Delete buffers without deleting windows
-Plug 'bufkill.vim'
+Plug 'vim-scripts/bufkill.vim'
 
 " ==> UI
 " Light as air status-bar
@@ -73,7 +73,7 @@ Plug 'OrangeT/vim-csharp'
 
 " ==> Code Navigation
 " Vim matchit plugin (makes % match with other tags)
-Plug 'matchit.zip'
+Plug 'vim-scripts/matchit.zip'
 " Highlights matching HTML tags
 Plug 'gregsexton/MatchTag'
 " Use platinum searcher instead of crappy grep
