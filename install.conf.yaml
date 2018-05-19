@@ -1,0 +1,22 @@
+- defaults:
+    clean:
+        force: true
+    link:
+        create: true 
+        relink: true
+        force: true
+
+- clean: ['~']
+
+- link:
+    /usr/local/iterm2: iterm2
+    ~/.emacs.d: emacs/emacs.d
+    ~/.spacemacs.d: emacs/spacemacs.d
+    ~/.zshrc: zsh/zshrc
+    ~/.oh-my-zsh: zsh/oh-my-zsh
+    ~/.oh-my-zsh/custom: zsh/custom
+    ~/.tmux.conf: tmux/tmux.conf
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+    - [git pull --recurse-submodules && git submodule update --recursive --remote, Updating submodules]
