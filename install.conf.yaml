@@ -13,6 +13,6 @@
     ~/.emacs.d: emacs/emacs.d
     ~/.spacemacs.d: emacs/spacemacs.d
     ~/.zshrc: zsh/zshrc
-    ~/.oh-my-zsh/custom: zsh/custom
     ~/.oh-my-zsh: zsh/oh-my-zsh
+    ~/.oh-my-zsh/custom: zsh/custom
     ~/.tmux.conf: tmux/tmux.conf
