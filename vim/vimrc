@@ -1,0 +1,359 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Custom variables
+let vimDir = (has('win64')) ? '$HOMEPATH/vimfiles': '$HOME/.vim'
+let pluginsDir = expand(vimDir . '/plugins/')
+let vimPlugInstalled = isdirectory(pluginsDir)
+
+" Specific visual studio keybindings
+" 0 => false
+" 1 => true
+let vsVim = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Auto vim-plug installation if plugin folder isn't present
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Vim-Plug start
+call plug#begin(pluginsDir)
+
+" ==> Files and Folders Navigation
+" Hierarchical folder structure support
+Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
+" NERDTree tab support
+Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
+" Ctrl-P to find
+Plug 'ctrlpvim/ctrlp.vim'
+
+" ==> Window and Buffer Management
+" Maintain a stable and coherent window management
+Plug 'zhaocai/GoldenView.Vim'
+" Automaticaly resize windows to golden ratio. Used in simpler windows
+Plug 'roman/golden-ratio'
+" CTRL-W o to maximize current window. Toggle to restore previous layout
+Plug 'ZoomWin'
+" Delete buffers without deleting windows
+Plug 'bufkill.vim'
+
+" ==> UI
+" Light as air status-bar
+Plug 'vim-airline/vim-airline'
+" More color themes for airline
+Plug 'vim-airline/vim-airline-themes'
+" Enable window transparency in windows
+" Copy vimtweak.dll (https://github.com/jdve/vimtweak) to gvim.exe location
+Plug 'mattn/transparency-windows-vim'
+
+" ==> Editting
+" Press <Tab> to show all kinds of auto complete
+Plug 'ervandew/supertab'
+" Surround text with s motion
+Plug 'tpope/vim-surround'
+" Allow the . command to work on plugin actions (for surround)
+Plug 'tpope/vim-repeat'
+" Add commentary with gcc for line. g<b and g>b for block
+Plug 'tomtom/tcomment_vim'
+" Emmet (Prev. Zen Coding on visual studio) plugin for fast HTML/CSS typing
+Plug 'mattn/emmet-vim' , { 'for': ['html', 'css'] }
+
+" ==> Syntax
+" Syntax pack
+Plug 'sheerun/vim-polyglot'
+" C# support
+Plug 'OrangeT/vim-csharp'
+
+" ==> Code Navigation
+" Vim matchit plugin (makes % match with other tags)
+Plug 'matchit.zip'
+" Highlights matching HTML tags
+Plug 'gregsexton/MatchTag'
+" Use platinum searcher instead of crappy grep
+Plug 'nazo/pt.vim'
+
+" ==> Snippets
+" Snippets database
+Plug 'honza/vim-snippets'
+" Snipmate dependencies
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+" VimL snippet implementation
+Plug 'garbas/vim-snipmate'
+
+" ==> External Integrations
+" Git
+Plug 'tpope/vim-fugitive'
+
+" ==> Color Schemes
+Plug 'nanotech/jellybeans.vim'
+
+" ==> Unused (Historical purposes only)
+" Tilled window management in VIM
+" Plug 'spolu/dwm.vim'  "Doesn't work very well with NERDTree
+" Buffer explorer
+" Plug 'fholgado/minibufexpl.vim'  "Compatibility issues with dwm
+" <Leader>ww to select a window. <Leader>ww to swap it with other window
+" Plug 'wesQ3/vim-windowswap'  "Currently unused due to dwm window management
+" Automatically resize selected windows
+" Plug 'justincampbell/vim-eighties'  "Conflicts with dwm
+" Color schemes
+" Plug 'flazz/vim-colorschemes' "Unused
+" Plug 'altercation/vim-colors-solarized' "Unused
+" Plug 'sjl/badwolf' "Unused
+" Plug 'tomasr/molokai' "Unused
+
+" Vim-Plug end
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Turn backup and swap files off
+set nobackup
+set nowb
+set noswapfile
+
+" Reload when a file is changed from the outside
+set autoread
+
+" Tab completion on Vim commands with extra-Tab support
+set wildmode=longest,list,full
+set wildmenu
+
+" Treat all numbers as decimals
+" useful when using <C-a> and <C-x>
+set nrformats=
+
+" Disabled automatic new line comment (annoying specially when editing vimrc)
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM UI
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Always show current position
+set ruler
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" (Don't) Highlight search results
+" set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+
+" Remove GVIM menus
+:set guioptions-=m  "menu bar
+:set guioptions-=T  "toolbar
+:set guioptions-=r  "right-hand scroll bar
+:set guioptions-=L  "left-hand scroll bar
+
+" Always show the status line
+:set laststatus=2
+
+" Set extra margin to the left side of the screen
+set foldcolumn=0
+
+" Start GVIM maximized on Windows
+if(has('win32') || has('win64'))
+    autocmd GUIEnter * simalt ~x
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable syntax highlighting
+syntax enable
+
+" Set background colour
+set background=dark
+
+" Define colorscheme
+if (has('gui_running') && vimPlugInstalled)
+    colorscheme jellybeans
+endif
+
+" Define font
+if has('gui_running')
+    if has('unix')
+        set guifont=Monaco:h10
+    else
+        set guifont=Consolas:h10
+    endif
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text Editing
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" set utf8 as standard encoding
+set encoding=utf8
+
+" Use spaces instead of tabs
+set expandtab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Auto indent - next line in same location
+set ai
+
+" Word Wrap
+set wrap
+
+" Indent wrapped lines
+set breakindent
+
+" Set absolute and relative line numbers
+set number
+set relativenumber
+
+" Use default system clipboard.
+set clipboard=unnamed
+
+" Make backspace work like most applications
+set backspace=indent,eol,start
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Keybindings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"<Leader> key avoids default vim key collision
+let mapleader = "\<Space>"
+
+" Make Enter and Shift-Enter insert lines below and above
+" without entering insert mode
+nnoremap <CR> o<Esc>k
+nnoremap <S-Enter> O<Esc>j
+
+" Space jk for normal mode on visual mode and not on insert mode to avoid
+" row selection delay in visual mode
+inoremap jk <Esc>
+vnoremap <Leader>jk <Esc>
+
+" Traverse only display lines (like normal text editors)
+nnoremap j gj
+nnoremap k gk
+
+" Make gm go to exact position of any mark
+nnoremap gm `
+
+"Make gM go to start of line of any mark
+nnoremap gM '
+
+" Make tabs behave like modern text editors
+nnoremap <C-Tab> :tabnext<CR>
+nnoremap <C-S-Tab> :tabprevious<CR>
+nnoremap <Leader>tn :tabnew<CR>
+nnoremap <C-F4> :tabclose!<CR>
+
+" Shortcut to open NERDTree
+nnoremap <Leader>ft :NERDTreeToggle<CR>
+
+" Change vim working directory to the current file dir
+nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" Edit vim dot files on current window
+nnoremap <Leader>fed :edit<Space>$MYVIMRC<CR>
+" Edit vim dot files on a new tab
+nnoremap <Leader>fedt :tabnew<Space>$MYVIMRC<CR>
+" Run the current file. (Useful for updating vim config)
+nnoremap <Leader>feR :source %<CR>
+
+" Make SPC b d forcefully close the current buffer without deleting window
+nnoremap <Leader>bd :BD!<CR>
+
+" Make SPC w c forcefully close the current window
+nnoremap <Leader>wc :close!<CR>
+
+" ==> Visual Studio Specific Keybindings
+if vsVim
+	nnoremap <C-O> :vsc View.NavigateBackward<CR>
+	nnoremap <C-I> :vsc View.NavigateForward<CR>
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin Configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" ==> NERDTree
+" Open a new NERDTree everytime you open a tab
+let g:nerdtree_tabs_open_on_new_tab = 0
+" VIM current working directory is never changed to NERDTree root
+let g:NERDTreeChDirMode = 0
+" Show bookmarks when opening a NERDTree
+let g:NERDTreeShowBookmarks = 1
+" Show hidden files on NERDTree
+let NERDTreeShowHidden = 1
+
+" ==> Ctrl-P
+" Make Ctrl-P start on VIM current working directory
+let g:ctrlp_working_path_mode = 'w'
+" Allow Ctrl-P to search hidden files
+let g:ctrlp_show_hidden = 1
+" On default search on buffers files and MRU
+let g:ctrlp_cmd = 'CtrlPMixed'
+" To make the folder structure a project just an empty file called ctrlp
+let g:ctrlp_root_markers = ['ctrlp']
+
+" ==> Airline
+let g:airline#extensions#tabline#enabled = 1
+
+" ==> GoldenView
+" Allow custom mappings
+let g:goldenview__enable_default_mapping = 0
+
+" Split to tiled windows
+nnoremap <silent> <Leader>ws  <Plug>GoldenViewSplit
+
+" Quickly switch current window with the main pane and toggle back
+nnoremap <silent> <Leader>ww <Plug>GoldenViewSwitchMain
+nnoremap <silent> <Leader>wW <Plug>GoldenViewSwitchToggle
+
+" Jump to next and previous window
+nnoremap <silent> <Leader>wn  <Plug>GoldenViewNext
+nnoremap <silent> <Leader>wp  <Plug>GoldenViewPrevious
+
+" Manually resize focused window
+nmap <silent> <Leader>wr <Plug>GoldenViewResize
+
+" Toggle automatic window resizing
+nmap <silent> <Leader>wtr <Plug>ToggleGoldenViewAutoResize
+
+" ==> Platinum Searcher (pt)
+" Add pt.exe in path if running from windows 64 bits
+" For linux make sure to install it using a packet manager
+if(has('win64'))
+    let ptBinDir = expand('$HOMEPATH/vimfiles/bin/pt.exe')
+    let g:ptprg= fnamemodify(expand(ptBinDir), ':p:8') . ' --column'
+end
