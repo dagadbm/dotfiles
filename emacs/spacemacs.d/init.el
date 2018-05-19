@@ -351,14 +351,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
                               `([,(cdr char-regexp) 0 font-shape-gstring]))))
     )
 
-  (add-to-list 'auto-mode-alist '("\\.?\\(bashrc\\|zshrc\\|shellrc\\|bash_profile\\)" . sh-mode))
-  (add-to-list 'auto-mode-alist '("\\.?\\(eslintrc\\|babelrc\\)" . json-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.?\\(js\\|jsx\\)" . rjsx-mode))
-
   (setq
 
    ;; Fix powerline separator colors on mac
-   powerline-image-apple-rgb t
+   ;; powerline-image-apple-rgb t
 
    ;; Hide title bar
    ;; initial-frame-alist '((undecorated . t))
