@@ -522,11 +522,12 @@ before packages are loaded."
    css-indent-offset 2
 
    ;; mac cmd = meta and allow option for braces in en_PT keyboard
-   default-input-method "MacOSX"
-   mac-command-modifier 'meta
-   mac-option-modifier nil
-   mac-allow-anti-aliasing t
-   mac-command-key-is-meta t)
+   (when (system-type 'darwin)
+     default-input-method "MacOSX"
+     mac-command-modifier 'meta
+     mac-option-modifier nil
+     mac-allow-anti-aliasing t
+     mac-command-key-is-meta t))
 
   (setq-default
 
