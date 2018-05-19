@@ -51,7 +51,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="yyyy/mm/dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.zsh/oh-my-zsh
+#ZSH_CUSTOM=$HOME/.zsh/oh-my-zsh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -113,9 +113,8 @@ bindkey '^ ' autosuggest-accept # ctrl+space to accept suggestion
 # Dotfiles Management
 #
 
-alias dgit='git --git-dir=$HOME/dotfiles.git/ --work-tree=$HOME' 
-alias dgit_init='dgit submodule update --init --recursive'
-alias dgit_update_submodules='dgit pull origin master --recurse-submodules && dgit submodule update --recursive --remote'
+alias submodules_init='git submodule update --init --recursive'
+alias submodules_update='git pull origin master --recurse-submodules && dgit submodule update --recursive --remote'
 
 #####################################
 # Alias
