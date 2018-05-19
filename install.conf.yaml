@@ -11,14 +11,15 @@
         - '~'
 -
     link:
-        /usr/local/share/iterm2: iterm2
         ~/.emacs.d: emacs/emacs.d
+        ~/.spacemacs.d: emacs/spacemacs.d
+        ~/.spacemacs.d/spacemacs.template.el: emacs/emacs.d/core/templates/.spacemacs.template
         ~/.oh-my-zsh: zsh/oh-my-zsh
         ~/.oh-my-zsh/custom: zsh/custom
-        ~/.spacemacs.d: emacs/spacemacs.d
-        ~/.tmux.conf: tmux/tmux.conf
         ~/.zshrc: zsh/zshrc
         ~/.vimrc: vim/vimrc
         ~/.config/nvim/init.vim: vim/vimrc
         ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
+        ~/.tmux.conf: tmux/tmux.conf
+        /usr/local/share/iterm2: iterm2
 
