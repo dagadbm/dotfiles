@@ -1,18 +1,21 @@
-- defaults:
+-
+    defaults:
+        clean:
+            force: true
+        link:
+            create: true
+            force: true
+            relink: true
+-
     clean:
-        force: true
+        - '~'
+-
     link:
-        create: true 
-        relink: true
-        force: true
+        /usr/local/share/iterm2: iterm2
+        ~/.emacs.d: emacs/emacs.d
+        ~/.oh-my-zsh: zsh/oh-my-zsh
+        ~/.oh-my-zsh/custom: zsh/custom
+        ~/.spacemacs.d: emacs/spacemacs.d
+        ~/.tmux.conf: tmux/tmux.conf
+        ~/.zshrc: zsh/zshrc
 
-- clean: ['~']
-
-- link:
-    /usr/local/share/iterm2: iterm2
-    ~/.emacs.d: emacs/emacs.d
-    ~/.spacemacs.d: emacs/spacemacs.d
-    ~/.zshrc: zsh/zshrc
-    ~/.oh-my-zsh: zsh/oh-my-zsh
-    ~/.oh-my-zsh/custom: zsh/custom
-    ~/.tmux.conf: tmux/tmux.conf
