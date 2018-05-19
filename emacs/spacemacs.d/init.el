@@ -36,12 +36,13 @@ This function should only modify configuration layer settings."
    '(
      ;; common
      (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
-                      auto-completion-complete-with-key-sequence "kj")
+                      auto-completion-complete-with-key-sequence "jk"
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-sort-by-usage t)
      better-defaults
      helm
      git
@@ -128,7 +129,7 @@ It should only modify the values of Spacemacs settings."
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
    ;; whenever you start Emacs. (default nil)
-   dotspacemacs-check-for-update t
+   dotspacemacs-check-for-update nil
 
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
@@ -176,8 +177,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(molokai
-                         monokai
+   dotspacemacs-themes '(monokai
                          spacemacs-dark) ;; userthemes
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -359,8 +359,6 @@ It should only modify the values of Spacemacs settings."
    ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
    ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
    ;; This variable can also be set to a property list for finer control:
-   ;; '(:relative nil
-   ;;   :disabled-for-modes dired-mode
    ;;                       doc-view-mode
    ;;                       markdown-mode
    ;;                       org-mode
@@ -368,7 +366,7 @@ It should only modify the values of Spacemacs settings."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(relative: t)
+   dotspacemacs-line-numbers 'relative
 
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
@@ -505,6 +503,18 @@ before packages are loaded."
   ;; Prevent visual selection overriding system clipboard
   (fset 'evil-visual-update-x-selection 'ignore)
 
+  ;; Use emacs as default git commit editor
+  (global-git-commit-mode t)
+
+  ;; mac cmd = meta and allow option for braces in en_PT keyboard
+  (when (eq system-type 'darwin)
+    (setq
+      default-input-method "MacOSX"
+      mac-command-modifier 'meta
+      mac-option-modifier nil
+      mac-allow-anti-aliasing t
+      mac-command-key-is-meta t))
+
   (setq
 
    ;; lock files and friends
@@ -519,15 +529,7 @@ before packages are loaded."
    standard-indent 2
    sh-basic-offset 2
    sh-indentation 2
-   css-indent-offset 2
-
-   ;; mac cmd = meta and allow option for braces in en_PT keyboard
-   (when (system-type 'darwin)
-     default-input-method "MacOSX"
-     mac-command-modifier 'meta
-     mac-option-modifier nil
-     mac-allow-anti-aliasing t
-     mac-command-key-is-meta t))
+   css-indent-offset 2)
 
   (setq-default
 
