@@ -255,6 +255,10 @@ set backspace=indent,eol,start
 "<Leader> key avoids default vim key collision
 let mapleader = "\<Space>"
 
+" stop it with the annoying macro q that I never use (re map it to <Leader> q)
+noremap <Leader>q q
+noremap q <Nop>
+
 " Make Enter and Shift-Enter insert lines below and above
 " without entering insert mode
 nnoremap <CR> o<Esc>k
