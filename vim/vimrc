@@ -70,6 +70,8 @@ Plug 'mattn/emmet-vim' , { 'for': ['html', 'css'] }
 Plug 'sheerun/vim-polyglot'
 " C# support
 Plug 'OrangeT/vim-csharp'
+" tmux.conf support
+Plug 'tmux-plugins/vim-tmux'
 
 " ==> Code Navigation
 " Vim matchit plugin (makes % match with other tags)
@@ -91,6 +93,8 @@ Plug 'garbas/vim-snipmate'
 " ==> External Integrations
 " Git
 Plug 'tpope/vim-fugitive'
+" Tmux
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " ==> Color Schemes
 Plug 'nanotech/jellybeans.vim'

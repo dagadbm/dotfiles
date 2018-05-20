@@ -21,5 +21,6 @@
         ~/.config/nvim/init.vim: vim/vimrc
         ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
         ~/.tmux.conf: tmux/tmux.conf
+        ~/.tmux/tpm: tmux/tpm
         /usr/local/share/iterm2: iterm2
 
