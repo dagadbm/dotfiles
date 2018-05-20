@@ -13,7 +13,6 @@
     link:
         ~/.emacs.d: emacs/emacs.d
         ~/.spacemacs.d: emacs/spacemacs.d
-        ~/.spacemacs.d/spacemacs.template.el: emacs/emacs.d/core/templates/.spacemacs.template
         ~/.oh-my-zsh: zsh/oh-my-zsh
         ~/.oh-my-zsh/custom: zsh/custom
         ~/.zshrc: zsh/zshrc
