@@ -113,18 +113,18 @@ bindkey '^ ' autosuggest-accept # ctrl+space to accept suggestion
 #
 
 alias g='git'
+alias gs='git status'
 alias gsr='git submodule foreach --recursive git reset --hard'
 alias gsu='git submodule update --init --recursive --remote'
-alias gs='gsr && gsu'
+alias gsa='gsr && gsu && gsr'
 alias l='ls -all'
 alias fv='f -e vim'
+alias tmux='tmux -u' # suggest utf-8 to tmux on start-up
+
+# use nvim if possible, vim otherwise
 if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
-  alias vi=nvim
-else
-  alias vi=vim
 fi
-
 
 
 #####################################
