@@ -28,8 +28,3 @@
 	path = emacs/emacs.d
 	url = https://github.com/syl20bnr/spacemacs.git
 	branch = develop
-[submodule "tmux/tpm"]
-	path = tmux/tpm
-	url = https://github.com/tmux-plugins/tpm
-    branch = master
-	ignore = dirty
