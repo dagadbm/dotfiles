@@ -59,8 +59,8 @@ HIST_STAMPS="yyyy/mm/dd"
 plugins=(
   vi-mode
   fasd
-  zsh-autosuggestions
   zsh-completions
+  zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
