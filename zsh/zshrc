@@ -114,6 +114,7 @@ bindkey '^ ' autosuggest-accept # ctrl+space to accept suggestion
 
 alias g='git'
 alias gs='git status'
+alias gd='git diff'
 alias gsr='git submodule foreach --recursive git reset --hard'
 alias gsu='git submodule update --init --recursive --remote'
 alias gsa='gsr && gsu && gsr'
@@ -125,12 +126,17 @@ if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
 fi
 
+# run this command inside the dotfiles repo
+alias dotfiles-update='gsa && ./install'
+
 
 #####################################
 # SpaceMacs related
 #
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.nvm/version/node/v8.11.1/bin:$PATH
-nvm_start
+
+# commented out since I am currently not using spacemacs.
+# export PATH=$HOME/bin:/usr/local/bin:$HOME/.nvm/version/node/v8.11.1/bin:$PATH
+# nvm_start
 
 
 #####################################
