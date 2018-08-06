@@ -129,6 +129,11 @@ fi
 # run this command inside the dotfiles repo
 alias dotfiles-update='gsa && ./install'
 
+#####################################
+# Git
+#
+git config --global alias.lg !"git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+
 
 #####################################
 # SpaceMacs related
@@ -136,7 +141,7 @@ alias dotfiles-update='gsa && ./install'
 
 # commented out since I am currently not using spacemacs.
 # export PATH=$HOME/bin:/usr/local/bin:$HOME/.nvm/version/node/v8.11.1/bin:$PATH
-# nvm_start
+nvm_start
 
 
 #####################################
