@@ -170,5 +170,6 @@ function jenkins()
 function infrav3() 
 {
     export PATH="$PATH:$HOME/.bskube/bin"
+    export KUBE_ENV_DISABLE_PROMPT=1
     source ~/work/bs/infrav3/aliases.sh
 }
