@@ -161,5 +161,8 @@ function jenkins()
 }
 
 # kubernetes related
-# export PATH="$PATH:$HOME/.bskube/bin"
-# source ~/work/bitsight/infrav3/aliases.sh
+function infrav3() 
+{
+    export PATH="$PATH:$HOME/.bskube/bin"
+    source ~/work/bs/infrav3/aliases.sh
+}
