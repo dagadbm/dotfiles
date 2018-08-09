@@ -46830,9 +46830,9 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>-1651 126 606 469 -1920 0 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>284 405 796 473 0 0 1440 878 </string>
+	<string>284 426 918 452 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1440 878 0 0 1440 878 </string>
+	<string>1145 900 954 1058 182 900 1920 1058 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>176 70 570 401 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_BD6E116F-CBCF-4225-B8FD-4BAABF7391E7</key>
@@ -47461,7 +47461,7 @@
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
-			<integer>1</integer>
+			<integer>0</integer>
 			<key>Working Directory</key>
 			<string>/Users/davidBarbosaMaia</string>
 		</dict>
@@ -47552,13 +47552,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-08-03T17:46:22Z</date>
+	<date>2018-08-08T12:39:50Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>SmartPlacement</key>
 	<true/>
 	<key>SplitPaneDimmingAmount</key>
@@ -47576,7 +47576,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.1.6</string>
+	<string>3.1.7</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
