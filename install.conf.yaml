@@ -1,24 +1,24 @@
--
-    defaults:
-        clean:
-            force: true
-        link:
-            create: true
-            force: true
-            relink: true
--
+- defaults:
     clean:
-        - '~'
--
+      force: true
     link:
-        ~/.emacs.d: emacs/emacs.d
-        ~/.spacemacs.d: emacs/spacemacs.d
-        ~/.oh-my-zsh: zsh/oh-my-zsh
-        ~/.oh-my-zsh/custom: zsh/custom
-        ~/.zshrc: zsh/zshrc
-        ~/.vimrc: vim/vimrc
-        ~/.config/nvim/init.vim: vim/vimrc
-        ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
-        ~/.tmux.conf: tmux/tmux.conf
-        /usr/local/share/iterm2: iterm2
-
+      create: true
+      force: true
+      relink: true
+- clean:
+    - "~"
+- shell:
+    - [git submodule foreach --recursive git reset --hard, Resetting submodules]
+    - [git submodule update --init --recursive --remote, Installing submodules]
+    - [git submodule foreach --recursive git reset --hard, Resetting submodules]
+- link:
+    ~/.emacs.d: emacs/emacs.d
+    ~/.spacemacs.d: emacs/spacemacs.d
+    ~/.oh-my-zsh: zsh/oh-my-zsh
+    ~/.zshrc: zsh/zshrc
+    ~/.vimrc: vim/vimrc
+    ~/.config/nvim/init.vim: vim/vimrc
+    ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.oh-my-zsh/custom: zsh/custom
+    /usr/local/share/iterm2: iterm2
