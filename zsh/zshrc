@@ -123,6 +123,7 @@ alias gd='git diff'
 alias gsr='git submodule foreach --recursive git reset --hard'
 alias gsu='git submodule update --init --recursive --remote'
 alias gsa='gsr && gsu && gsr'
+alias gprune='git remote prune origin && git branch --merged | grep -Ev \"(\\*|master)\" | xargs git branch -d"'
 alias l='ls -all'
 alias fv='f -e vim'
 
@@ -147,29 +148,34 @@ git config --global mergetool.keepBackup false
 
 # commented out since I am currently not using spacemacs.
 # export PATH=$HOME/bin:/usr/local/bin:$HOME/.nvm/version/node/v8.11.1/bin:$PATH
-nvm_start
 
 
 #####################################
 # Work configuration
 #
 
-# stop all the containers
-function docker_stop ()
-{
-    docker stop $(docker ps -aq)
-}
+# run nvm start
+function bs-nvm-start() {
+    nvm_start
+}{
 
 # transform jenkins failed test path to a proper path to be re-run
-function jenkins()
-{
+function bs-jenkins() {
     python ~/work/helpers/transform_jenkins_path.py $1
 }
 
 # kubernetes related
-function infrav3() 
-{
-    export PATH="$PATH:$HOME/.bskube/bin"
-    export KUBE_ENV_DISABLE_PROMPT=1
+function bs-alias-infrav3() {
+    export PATH="$HOME/.bskube/bin:$PATH"
+    # export KUBE_ENV_DISABLE_PROMPT=1
     source ~/work/bs/infrav3/aliases.sh
+}
+
+function bs-alias-em() {
+    source ~/work/bs/bs-entity-manager/aliases.sh
+}
+
+# jenv related
+function  bs-jenv() {
+    if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 }
