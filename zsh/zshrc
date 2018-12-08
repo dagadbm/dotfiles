@@ -157,7 +157,7 @@ git config --global mergetool.keepBackup false
 # run nvm start
 function bs-nvm-start() {
     nvm_start
-}{
+}
 
 # transform jenkins failed test path to a proper path to be re-run
 function bs-jenkins() {
@@ -176,6 +176,10 @@ function bs-alias-em() {
 }
 
 # jenv related
-function  bs-jenv() {
-    if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+function bs-jenv() {
+    if which jenv > /dev/null; then
+        eval "$(jenv init -)"
+        export PATH=”$HOME/.jenv/bin:$PATH”
+        export JAVA_HOME="$(jenv prefix)"
+    fi
 }
