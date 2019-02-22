@@ -14,6 +14,8 @@
 - link:
     ~/.emacs.d: emacs/emacs.d
     ~/.spacemacs.d: emacs/spacemacs.d
+    ~/.z: z
+    ~/.fzf: fzf
     ~/.oh-my-zsh: zsh/oh-my-zsh
     ~/.zshrc: zsh/zshrc
     ~/.vimrc: vim/vimrc
