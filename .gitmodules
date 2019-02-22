@@ -28,3 +28,10 @@
 	path = emacs/emacs.d
 	url = https://github.com/syl20bnr/spacemacs.git
 	branch = develop
+[submodule "z"]
+	path = z
+	url = https://github.com/rupa/z
+	ignore = dirty
+[submodule "fzf"]
+	path = fzf
+	url = https://github.com/junegunn/fzf
