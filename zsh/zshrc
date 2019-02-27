@@ -70,7 +70,7 @@
     # User configuration
     #
 
-    export LANG=pt_PT.UTF-8
+    export LANG=en_US.UTF-8
     DEFAULT_USER=$USER
     prompt_context() {}
 
@@ -147,7 +147,7 @@ alias dotfiles-update='gsa; ./install'
 #####################################
 # Git
 #
-git config --global alias.lg !"git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
 git config --global mergetool.keepBackup false
 
 
