@@ -1,97 +1,96 @@
-    # Path to your oh-my-zsh installation.
-    export ZSH=~/.oh-my-zsh
+# Path to your oh-my-zsh installation.
+export ZSH=~/.oh-my-zsh
 
-    # Set name of the theme to load. Optionally, if you set this to "random"
-    # it'll load a random theme each time that oh-my-zsh is loaded.
-    # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-    # ZSH_THEME="agnoster"
-    ZSH_THEME="refined"
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="agnoster"
+ZSH_THEME="refined"
 
-    # Set list of themes to load
-    # Setting this variable when ZSH_THEME=random
-    # cause zsh load theme from this variable instead of
-    # looking in ~/.oh-my-zsh/themes/
-    # An empty array have no effect
-    # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-    # Uncomment the following line to use case-sensitive completion.
-    # CASE_SENSITIVE="true"
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-    # Uncomment the following line to use hyphen-insensitive completion. Case
-    # sensitive completion must be off. _ and - will be interchangeable.
-    # HYPHEN_INSENSITIVE="true"
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-    # Uncomment the following line to disable bi-weekly auto-update checks.
-    # DISABLE_AUTO_UPDATE="true"
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-    # Uncomment the following line to change how often to auto-update (in days).
-    # export UPDATE_ZSH_DAYS=13
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-    # Uncomment the following line to disable colors in ls.
-    # DISABLE_LS_COLORS="true"
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-    # Uncomment the following line to disable auto-setting terminal title.
-    # DISABLE_AUTO_TITLE="true"
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-    # Uncomment the following line to enable command auto-correction.
-    # ENABLE_CORRECTION="true"
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-    # Uncomment the following line to display red dots whilst waiting for completion.
-    COMPLETION_WAITING_DOTS="true"
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
 
-    # Uncomment the following line if you want to disable marking untracked files
-    # under VCS as dirty. This makes repository status check for large repositories
-    # much, much faster.
-    DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-    # Uncomment the following line if you want to change the command execution time
-    # stamp shown in the history command output.
-    # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-    HIST_STAMPS="yyyy/mm/dd"
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+HIST_STAMPS="yyyy/mm/dd"
 
-    # Would you like to use another custom folder than $ZSH/custom?
-    #ZSH_CUSTOM=~/.zsh/oh-my-zsh
+# Would you like to use another custom folder than $ZSH/custom?
+#ZSH_CUSTOM=~/.zsh/oh-my-zsh
 
-    # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-    # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-    # Example format: plugins=(rails git textmate ruby lighthouse)
-    # Add wisely, as too many plugins slow down shell startup.
-    plugins=(
-      vi-mode
-      fasd
-      zsh-completions
-      zsh-syntax-highlighting
-      zsh-autosuggestions
-    )
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  vi-mode
+  fasd
+  zsh-completions
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+)
 
-    source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
-    #####################################
-    # User configuration
-    #
+#####################################
+# User configuration
+#
 
-    export LANG=en_US.UTF-8
-    DEFAULT_USER=$USER
-    prompt_context() {}
+export LANG=en_US.UTF-8
+DEFAULT_USER=$USER
+prompt_context() {}
 
-    # nvm slows up zsh ALOT if nvm is needed run nvm_start command
-    function nvm_start ()
-    {
-      export NVM_DIR="~/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    }
+# nvm slows up zsh ALOT if nvm is needed run nvm_start command
+function nvm_start() {
+  export NVM_DIR="~/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+}
 
-    # do a fuzzy checkout in the shell using git.
-    # pass update as second param to git fetch and pull all the things before and after checkout
-    function fcheckout() {
-      if [ "$1" = "update" ]; then
-        git fetch
-      fi
-      local branches branch
-      branches=$(git branch -a) &&
-      branch=$(echo "$branches" | fzf +s +m -e) &&
-  git checkout $(echo "$branch" | sed "s:.* remotes/origin/::" | sed "s:.* ::")
+# do a fuzzy checkout in the shell using git.
+# pass update as second param to git fetch and pull all the things before and after checkout
+function fcheckout() {
+  if [ "$1" = "update" ]; then
+    git fetch
+  fi
+  local branches branch
+  branches=$(git branch -a) &&
+    branch=$(echo "$branches" | fzf +s +m -e) &&
+    git checkout $(echo "$branch" | sed "s:.* remotes/origin/::" | sed "s:.* ::")
   if [ "$1" = "update" ]; then
     git pull
   fi
@@ -108,9 +107,9 @@ export _Z_DATA=~/.z/z.datafile
 
 # fzf setup
 if [ -f ~/.fzf.zsh ]; then
-    source ~/.fzf.zsh
+  source ~/.fzf.zsh
 else
-    ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+  ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 fi
 
 #####################################
@@ -119,8 +118,7 @@ fi
 
 # zsh-autosuggestions plugin
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan' # set completion color to cyan
-bindkey '^ ' autosuggest-accept # ctrl+space to accept suggestion
-
+bindkey '^ ' autosuggest-accept           # ctrl+space to accept suggestion
 
 #####################################
 # Alias
@@ -141,6 +139,11 @@ if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
 fi
 
+# use vscode-insiders as default code exec if exists
+if [ -x "$(command -v code-insiders)" ]; then
+  alias code=code-insiders
+fi
+
 # run this command in the root of the dotfiles repo
 alias dotfiles-update='gsa; ./install'
 
@@ -150,7 +153,6 @@ alias dotfiles-update='gsa; ./install'
 git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
 git config --global mergetool.keepBackup false
 
-
 #####################################
 # SpaceMacs related
 #
@@ -158,38 +160,36 @@ git config --global mergetool.keepBackup false
 # commented out since I am currently not using spacemacs.
 # export PATH=~/bin:/usr/local/bin:~/.nvm/version/node/v8.11.1/bin:$PATH
 
-
 #####################################
 # Work configuration
 #
 
 # run nvm start
 function bs-nvm-start() {
-    nvm_start
+  nvm_start
 }
 
 # transform jenkins failed test path to a proper path to be re-run
 function bs-jenkins() {
-    python ~/work/helpers/transform_jenkins_path.py $1
+  python ~/work/helpers/transform_jenkins_path.py $1
 }
 
 # kubernetes related
 function bs-alias-infrav3() {
-    export PATH="~/.bskube/bin:$PATH"
-    # export KUBE_ENV_DISABLE_PROMPT=1
-    source ~/work/bs/infrav3/aliases.sh
+  export PATH="~/.bskube/bin:$PATH"
+  # export KUBE_ENV_DISABLE_PROMPT=1
+  source ~/work/bs/infrav3/aliases.sh
 }
 
 function bs-alias-em() {
-    source ~/work/bs/bs-entity-manager/aliases.sh
+  source ~/work/bs/bs-entity-manager/aliases.sh
 }
 
 # jenv related
 function bs-jenv() {
-    if which jenv > /dev/null; then
-        eval "$(jenv init -)"
-        export PATH=”~/.jenv/bin:$PATH”
-        export JAVA_HOME="$(jenv prefix)"
-    fi
+  if which jenv >/dev/null; then
+    eval "$(jenv init -)"
+    export PATH=”~/.jenv/bin:$PATH”
+    export JAVA_HOME="$(jenv prefix)"
+  fi
 }
-
