@@ -20,6 +20,14 @@
 	path = zsh/custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 	branch = master
+[submodule "zsh/custom/plugins/zsh-nvm"]
+	path = zsh/custom/plugins/zsh-nvm
+	url = https://github.com/lukechilds/zsh-nvm.git
+	branch = master
+[submodule "zsh/custom/plugins/zsh-better-npm-completion"]
+	path = zsh/custom/plugins/zsh-better-npm-completion
+	url = https://github.com/lukechilds/zsh-better-npm-completion
+	branch = master
 [submodule "vim/vim-plug"]
 	path = vim/vim-plug
 	url = https://github.com/junegunn/vim-plug.git

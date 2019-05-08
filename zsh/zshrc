@@ -1,40 +1,23 @@
+#####################################
+# Oh-My-Zsh Setup
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="agnoster"
 ZSH_THEME="refined"
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -49,9 +32,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy/mm/dd"
 
-# Would you like to use another custom folder than $ZSH/custom?
-#ZSH_CUSTOM=~/.zsh/oh-my-zsh
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -59,24 +39,55 @@ HIST_STAMPS="yyyy/mm/dd"
 plugins=(
   vi-mode
   fasd
+  zsh-nvm
+  zsh-better-npm-completion
   zsh-completions
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
 
-source $ZSH/oh-my-zsh.sh
-
-#####################################
-# User configuration
-#
-
-export LANG=en_US.UTF-8
+# reset prompt
 DEFAULT_USER=$USER
 prompt_context() {}
 
+# zsh-nvm config must be run before sourcing oh-my-zsh
+# if set to true nvm will not auto load on start up
+NVM_LAZY_LOAD=true
+# if set to true nvm use <version> must be used explicitly before running node/npm commands
+NVM_NO_USE=false
+# call nvm use automatically when you cd into a dir with .nvmrc
+NVM_AUTO_USE=false
+
+source $ZSH/oh-my-zsh.sh
+
+
+#####################################
+# Plugins
+#
+
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan' # set completion color to cyan
+bindkey '^ ' autosuggest-accept           # ctrl+space to accept suggestion
+
+# z
+export _Z_DATA=~/.z/z.datafile
+. ~/.z/z.sh
+
+# fzf
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+else
+  ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+fi
+
+
+#####################################
+# Functions
+#
+
 # nvm slows up zsh ALOT if nvm is needed run nvm_start command
 function nvm_start() {
-  export NVM_DIR="~/.nvm"
+  export NVM_DIR="$(realpath ~/.nvm)"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 }
@@ -96,40 +107,16 @@ function fcheckout() {
   fi
 }
 
-# Brew shell completion for zsh. For more information visit: https://docs.brew.sh/Shell-Completion
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-
-# z setup
-export _Z_DATA=~/.z/z.datafile
-. ~/.z/z.sh
-
-# fzf setup
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
-else
-  ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
-fi
-
-#####################################
-# Plugin configuration
-#
-
-# zsh-autosuggestions plugin
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan' # set completion color to cyan
-bindkey '^ ' autosuggest-accept           # ctrl+space to accept suggestion
 
 #####################################
 # Alias
 #
 
+# git
 alias g='git'
 alias gs='git status'
-alias gd='git diff'
 alias gsr='git submodule foreach --recursive git reset --hard'
 alias gsu='git submodule update --init --recursive --remote'
-alias gsa='gsr && gsu && gsr'
 alias gprune='git remote prune origin && git branch --merged | grep -Ev \"(\\*|master)\" | xargs git branch -d"'
 alias l='ls -all'
 alias fv='f -e vim'
@@ -145,51 +132,26 @@ if [ -x "$(command -v code-insiders)" ]; then
 fi
 
 # run this command in the root of the dotfiles repo
-alias dotfiles-update='gsa; ./install'
+alias dotfiles_update='gsr && gsu && gsr; ./install'
+
+# git
+git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+
 
 #####################################
-# Git
+# Misc
 #
-git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+
+# lang
+export LANG=en_US.UTF-8
+
+# Brew shell completion for zsh. For more information visit: https://docs.brew.sh/Shell-Completion
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
+# git
 git config --global mergetool.keepBackup false
 
-#####################################
-# SpaceMacs related
-#
-
-# commented out since I am currently not using spacemacs.
-# export PATH=~/bin:/usr/local/bin:~/.nvm/version/node/v8.11.1/bin:$PATH
 
 #####################################
-# Work configuration
-#
-
-# run nvm start
-function bs-nvm-start() {
-  nvm_start
-}
-
-# transform jenkins failed test path to a proper path to be re-run
-function bs-jenkins() {
-  python ~/work/helpers/transform_jenkins_path.py $1
-}
-
-# kubernetes related
-function bs-alias-infrav3() {
-  export PATH="~/.bskube/bin:$PATH"
-  # export KUBE_ENV_DISABLE_PROMPT=1
-  source ~/work/bs/infrav3/aliases.sh
-}
-
-function bs-alias-em() {
-  source ~/work/bs/bs-entity-manager/aliases.sh
-}
-
-# jenv related
-function bs-jenv() {
-  if which jenv >/dev/null; then
-    eval "$(jenv init -)"
-    export PATH=”~/.jenv/bin:$PATH”
-    export JAVA_HOME="$(jenv prefix)"
-  fi
-}
