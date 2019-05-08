@@ -7,7 +7,7 @@ This was done with a lot of love and I occasionally update it.
 # Install
 
 First run install script `./install` to set up the install scripts
-Switch over to zsh or even better make it your default one `sudo chsh $(which zsh`
+Switch over to zsh or even better make it your default one `sudo chsh $(which zsh)`
 Reload the shell now using zsh
 go into the dotfiles repo and run the command `dotfiles_update` which is an alias to setup git submodules
 
