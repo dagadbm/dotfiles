@@ -7,10 +7,6 @@
       relink: true
 - clean:
     - "~"
-- shell:
-    - [git submodule foreach --recursive git reset --hard, Resetting submodules]
-    - [git submodule update --init --recursive --remote, Installing submodules]
-    - [git submodule foreach --recursive git reset --hard, Resetting submodules]
 - link:
     ~/.emacs.d: emacs/emacs.d
     ~/.spacemacs.d: emacs/spacemacs.d
