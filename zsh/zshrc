@@ -17,7 +17,7 @@ HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -38,7 +38,8 @@ HIST_STAMPS="yyyy/mm/dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   vi-mode
-  fasd
+  git
+  gitfast
   zsh-nvm
   zsh-better-npm-completion
   zsh-completions
@@ -46,24 +47,32 @@ plugins=(
   zsh-autosuggestions
 )
 
-# reset prompt
-DEFAULT_USER=$USER
-prompt_context() {}
-
-# zsh-nvm config must be run before sourcing oh-my-zsh
+# zsh-nvm config must be set before sourcing oh-my-zsh
 # if set to true nvm will not auto load on start up
 NVM_LAZY_LOAD=true
 # if set to true nvm use <version> must be used explicitly before running node/npm commands
 NVM_NO_USE=false
-# call nvm use automatically when you cd into a dir with .nvmrc
+# if set to true call nvm use is automatically called when you cd into a dir with a .nvmrc file
 NVM_AUTO_USE=false
+
+# Brew shell completion for zsh. Must be set before sourcing oh-my-zsh
+if [ -x "$(command -v brew)" ]; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 
 source $ZSH/oh-my-zsh.sh
 
 
 #####################################
-# Plugins
+# User Configuration
 #
+
+# reset prompt
+DEFAULT_USER=$USER
+prompt_context() {}
+
+# lang
+export LANG=en_US.UTF-8
 
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan' # set completion color to cyan
@@ -74,27 +83,23 @@ export _Z_DATA=~/.z.datafile
 . ~/.z/z.sh
 
 # fzf
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
-else
+source ~/.fzf.zsh
+if ! [ -x "$(command -v fzf)" ]; then
   ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 fi
+
+# git
+git config --global mergetool.keepBackup false
+git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
 
 
 #####################################
 # Functions
 #
 
-# nvm slows up zsh ALOT if nvm is needed run nvm_start command
-function nvm_start() {
-  export NVM_DIR="$(realpath ~/.nvm)"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-}
-
 # do a fuzzy checkout in the shell using git.
 # pass update as second param to git fetch and pull all the things before and after checkout
-function fcheckout() {
+function git_checkout_fuzzy() {
   if [ "$1" = "update" ]; then
     git fetch
   fi
@@ -109,48 +114,29 @@ function fcheckout() {
 
 
 #####################################
-# Alias
+# Aliases
 #
 
 # git
 alias g='git'
 alias gs='git status'
-alias gsr='git submodule foreach --recursive git reset --hard'
-alias gsu='git submodule update --init --recursive --remote'
-alias gprune='git remote prune origin && git branch --merged | grep -Ev \"(\\*|master)\" | xargs git branch -d"'
-git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+alias gap='git add --patch'
+alias gcof='git_checkout_fuzzy'
+alias gcop='git checkout --patch'
 
 # misc
 alias l='ls -all'
+alias zsh_reload='. ~/.zshrc'
 
 # use nvim if possible, vim otherwise
 if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
 fi
 
-# use vscode-insiders as default code exec if exists
+# use vscode-insiders as code if installed
 if [ -x "$(command -v code-insiders)" ]; then
   alias code=code-insiders
 fi
-
-# run this command in the root of the dotfiles repo to update it
-alias dotfiles_update='gsr && gsu && gsr; ./install'
-
-
-#####################################
-# Misc
-#
-
-# lang
-export LANG=en_US.UTF-8
-
-# Brew shell completion for zsh. For more information visit: https://docs.brew.sh/Shell-Completion
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-
-# git
-git config --global mergetool.keepBackup false
 
 
 #####################################
