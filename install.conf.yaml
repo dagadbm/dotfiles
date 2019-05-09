@@ -9,8 +9,6 @@
     - "~"
 - link:
     # shells
-    ~/.bashrc: bash/bashrc
-    ~/.bash_profile: bash/bash_profile
     ~/.oh-my-zsh: zsh/oh-my-zsh
     ~/.zshrc: zsh/zshrc
     ~/.oh-my-zsh/custom: zsh/custom
