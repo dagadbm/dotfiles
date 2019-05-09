@@ -12,3 +12,6 @@ cd "${BASEDIR}"
 git submodule update --recursive --init --remote --merge --init --recursive
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+
+# symlink all zsh-theme files under custom/themes folder
+for f in $(find $ZSH/custom/themes -name "*.zsh-theme"); do ln -f -s $f $ZSH/custom/themes; done

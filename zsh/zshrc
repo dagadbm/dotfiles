@@ -7,7 +7,8 @@ export ZSH=~/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="refined"
+# ZSH_THEME="refined"
+ZSH_THEME="spaceship"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -75,8 +76,15 @@ prompt_context() {}
 export LANG=en_US.UTF-8
 
 # zsh-autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan' # set completion color to cyan
-bindkey '^ ' autosuggest-accept           # ctrl+space to accept suggestion
+# colors https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
+# bindkey variables https://unix.stackexchange.com/a/117162
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=248'
+# accept suggestion word by word (tab+w)
+bindkey '^Iw' forward-word
+# accept all suggestions (tab+tab)
+bindkey '^I^I' autosuggest-accept
+# execute suggestion (tab+enter)
+bindkey '^I^M' autosuggest-execute
 
 # z
 export _Z_DATA=~/.z.datafile
@@ -87,6 +95,39 @@ source ~/.fzf.zsh
 if ! [ -x "$(command -v fzf)" ]; then
   ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 fi
+
+# zsh-spaceship-prompt
+# https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
+SPACESHIP_PROMPT_ORDER=(
+  dir
+  git
+  line_sep # next line
+  char
+)
+SPACESHIP_RPROMPT_ORDER=(
+  battery
+  jobs
+  exec_time
+)
+#SPACESHIP_CHAR_SYMBOL="λ"
+SPACESHIP_CHAR_SYMBOL="❯"
+SPACESHIP_CHAR_SUFFIX=" "
+SPACESHIP_PROMPT_FIRST_PREFIX_SHOW="false"
+SPACESHIP_USER_SHOW="false"
+SPACESHIP_HOST_SHOW="false"
+SPACESHIP_TIME_SHOW="true"
+SPACESHIP_EXIT_CODE_SHOW="false"
+SPACESHIP_BATTERY_SHOW="true"
+SPACESHIP_BATTERY_PREFIX=""
+SPACESHIP_BATTERY_SUFFIX="🔋 "
+SPACESHIP_BATTERY_THRESHOLD="10"
+SPACESHIP_BATTERY_SYMBOL_CHARGING=""
+SPACESHIP_BATTERY_SYMBOL_DISCHARGING=""
+SPACESHIP_BATTERY_SYMBOL_FULL=""
+SPACESHIP_DIR_TRUNC_PREFIX=""
+SPACESHIP_DIR_LOCK_SYMBOL="🔒"
+SPACESHIP_DIR_TRUNC_REPO="true"
+SPACESHIP_JOBS_SYMBOL=""
 
 # git
 git config --global mergetool.keepBackup false
@@ -123,10 +164,12 @@ alias gs='git status'
 alias gap='git add --patch'
 alias gcof='git_checkout_fuzzy'
 alias gcop='git checkout --patch'
+alias gsa='git submodule add'
 
 # misc
 alias l='ls -all'
-alias zsh_reload='. ~/.zshrc'
+alias zr='source ~/.zshrc'
+alias ze='vim ~/.zshrc'
 
 # use nvim if possible, vim otherwise
 if [ -x "$(command -v nvim)" ]; then
