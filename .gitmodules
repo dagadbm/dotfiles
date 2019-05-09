@@ -1,48 +1,49 @@
 [submodule "dotbot"]
-	path = dotbot
-	url = https://github.com/anishathalye/dotbot
-	branch = master
-	ignore = dirty
+    path = dotbot
+    url = https://github.com/anishathalye/dotbot
+    branch = master
+    ignore = dirty
 [submodule "zsh/oh-my-zsh"]
-	path = zsh/oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
-	branch = master
-	ignore = dirty
+    path = zsh/oh-my-zsh
+    url = https://github.com/robbyrussell/oh-my-zsh.git
+    branch = master
+    ignore = dirty
 [submodule "zsh/custom/plugins/zsh-autosuggestions"]
-	path = zsh/custom/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-	branch = master
+    path = zsh/custom/plugins/zsh-autosuggestions
+    url = https://github.com/zsh-users/zsh-autosuggestions.git
+    branch = master
 [submodule "zsh/custom/plugins/zsh-completions"]
-	path = zsh/custom/plugins/zsh-completions
-	url = https://github.com/zsh-users/zsh-completions.git
-	branch = master
+    path = zsh/custom/plugins/zsh-completions
+    url = https://github.com/zsh-users/zsh-completions.git
+    branch = master
 [submodule "zsh/custom/plugins/zsh-syntax-highlighting"]
-	path = zsh/custom/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-	branch = master
+    path = zsh/custom/plugins/zsh-syntax-highlighting
+    url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+    branch = master
 [submodule "zsh/custom/plugins/zsh-nvm"]
-	path = zsh/custom/plugins/zsh-nvm
-	url = https://github.com/lukechilds/zsh-nvm.git
-	branch = master
+    path = zsh/custom/plugins/zsh-nvm
+    url = https://github.com/lukechilds/zsh-nvm.git
+    branch = master
 [submodule "zsh/custom/plugins/zsh-better-npm-completion"]
-	path = zsh/custom/plugins/zsh-better-npm-completion
-	url = https://github.com/lukechilds/zsh-better-npm-completion
-	branch = master
+    path = zsh/custom/plugins/zsh-better-npm-completion
+    url = https://github.com/lukechilds/zsh-better-npm-completion
+    branch = master
+[submodule "zsh/custom/themes/spaceship-prompt"]
+    path = zsh/custom/themes/spaceship-prompt
+    url = https://github.com/denysdovhan/spaceship-prompt.git
+    branch = master
+    ignore = dirty
 [submodule "vim/vim-plug"]
-	path = vim/vim-plug
-	url = https://github.com/junegunn/vim-plug.git
+    path = vim/vim-plug
+    url = https://github.com/junegunn/vim-plug.git
     branch = master
 [submodule "emacs/emacs.d"]
-	path = emacs/emacs.d
-	url = https://github.com/syl20bnr/spacemacs.git
-	branch = develop
+    path = emacs/emacs.d
+    url = https://github.com/syl20bnr/spacemacs.git
+    branch = develop
 [submodule "z"]
-	path = z
-	url = https://github.com/rupa/z
-	ignore = dirty
+    path = z
+    url = https://github.com/rupa/z
 [submodule "fzf"]
-	path = fzf
-	url = https://github.com/junegunn/fzf
-[submodule "zsh/custom/themes/spaceship-prompt"]
-	path = zsh/custom/themes/spaceship-prompt
-	url = https://github.com/denysdovhan/spaceship-prompt.git
+    path = fzf
+    url = https://github.com/junegunn/fzf
