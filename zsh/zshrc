@@ -70,7 +70,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan' # set completion color to cyan
 bindkey '^ ' autosuggest-accept           # ctrl+space to accept suggestion
 
 # z
-export _Z_DATA=~/.z/z.datafile
+export _Z_DATA=~/.z.datafile
 . ~/.z/z.sh
 
 # fzf
