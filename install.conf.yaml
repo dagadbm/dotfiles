@@ -8,15 +8,21 @@
 - clean:
     - "~"
 - link:
-    ~/.emacs.d: emacs/emacs.d
-    ~/.spacemacs.d: emacs/spacemacs.d
-    ~/.z: z
-    ~/.fzf: fzf
+    # shells
+    ~/.bashrc: bash/bashrc
+    ~/.bash_profile: bash/bash_profile
     ~/.oh-my-zsh: zsh/oh-my-zsh
     ~/.zshrc: zsh/zshrc
+    ~/.oh-my-zsh/custom: zsh/custom
+    # tools
+    ~/.z: z
+    ~/.fzf: fzf
+    ~/.tmux.conf: tmux/tmux.conf
+    # editors
     ~/.vimrc: vim/vimrc
     ~/.config/nvim/init.vim: vim/vimrc
     ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
-    ~/.tmux.conf: tmux/tmux.conf
-    ~/.oh-my-zsh/custom: zsh/custom
+    ~/.emacs.d: emacs/emacs.d
+    ~/.spacemacs.d: emacs/spacemacs.d
+    # terminals
     /usr/local/share/iterm2: iterm2

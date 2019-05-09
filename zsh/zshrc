@@ -118,8 +118,10 @@ alias gs='git status'
 alias gsr='git submodule foreach --recursive git reset --hard'
 alias gsu='git submodule update --init --recursive --remote'
 alias gprune='git remote prune origin && git branch --merged | grep -Ev \"(\\*|master)\" | xargs git branch -d"'
+git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+
+# misc
 alias l='ls -all'
-alias fv='f -e vim'
 
 # use nvim if possible, vim otherwise
 if [ -x "$(command -v nvim)" ]; then
@@ -131,11 +133,8 @@ if [ -x "$(command -v code-insiders)" ]; then
   alias code=code-insiders
 fi
 
-# run this command in the root of the dotfiles repo
+# run this command in the root of the dotfiles repo to update it
 alias dotfiles_update='gsr && gsu && gsr; ./install'
-
-# git
-git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
 
 
 #####################################
