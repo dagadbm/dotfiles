@@ -79,12 +79,12 @@ export LANG=en_US.UTF-8
 # colors https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 # bindkey variables https://unix.stackexchange.com/a/117162
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=248'
-# accept suggestion word by word (tab+w)
-bindkey '^Iw' forward-word
-# accept all suggestions (tab+tab)
-bindkey '^I^I' autosuggest-accept
-# execute suggestion (tab+enter)
-bindkey '^I^M' autosuggest-execute
+# accept suggestion word by word (ctrl+w)
+bindkey '^w' forward-word
+# accept all suggestions (ctrl+space)
+bindkey '^ ' autosuggest-accept
+# execute suggestion (ctrl+e)
+bindkey '^e' autosuggest-execute
 
 # z
 export _Z_DATA=~/.z.datafile
