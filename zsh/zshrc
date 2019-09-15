@@ -97,7 +97,7 @@ if ! [ -x "$(command -v fzf)" ]; then
 fi
 
 # volta
-if ! [ -x "$(command -v volta)" ]; then
+if ! [ -d "$HOME/.volta" ]; then
   curl https://get.volta.sh | bash
 fi
 export VOLTA_HOME="$HOME/.volta"

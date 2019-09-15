@@ -1,0 +1,17 @@
+tap "caskroom/fonts"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+
+brew "python"
+brew "git"
+brew "htop"
+brew "jq"
+brew "neovim"
+brew "reattach-to-user-namespace"
+brew "tmux"
+brew "vim"
+cask "emacs"
+cask "caskroom/fonts/font-fira-code"
+cask "caskroom/fonts/font-source-code-pro"
+
