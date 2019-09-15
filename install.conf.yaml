@@ -20,6 +20,7 @@
     ~/.vimrc: vim/vimrc
     ~/.config/nvim/init.vim: vim/vimrc
     ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
+    ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
     ~/.emacs.d: emacs/emacs.d
     ~/.spacemacs.d: emacs/spacemacs.d
     # terminals

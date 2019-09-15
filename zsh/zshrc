@@ -96,6 +96,15 @@ if ! [ -x "$(command -v fzf)" ]; then
   ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 fi
 
+# volta
+if ! [ -x "$(command -v volta)" ]; then
+  curl https://get.volta.sh | bash
+fi
+export VOLTA_HOME="$HOME/.volta"
+[ -s "$VOLTA_HOME/load.sh" ] && . "$VOLTA_HOME/load.sh"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+
 # zsh-spaceship-prompt
 # https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
 SPACESHIP_PROMPT_ORDER=(
@@ -171,11 +180,6 @@ alias l='ls -all'
 alias zr='source ~/.zshrc'
 alias ze='vim ~/.zshrc'
 
-# use nvim if possible, vim otherwise
-if [ -x "$(command -v nvim)" ]; then
-  alias vim=nvim
-fi
-
 # use vscode-insiders as code if installed
 if [ -x "$(command -v code-insiders)" ]; then
   alias code=code-insiders
@@ -183,3 +187,5 @@ fi
 
 
 #####################################
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
