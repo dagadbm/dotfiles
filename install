@@ -9,7 +9,8 @@ DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "${BASEDIR}"
-git submodule update --recursive --init --remote --merge --init --recursive
+git submodule update --recursive --init --remote --merge 
+git submodule foreach --recursive git reset --hard
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
 

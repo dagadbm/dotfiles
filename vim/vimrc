@@ -24,7 +24,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 " Vim-Plug start
-call plug#begin(pluginsDir)
+call plug#begin()
 
 " ==> Files and Folders Navigation
 " Hierarchical folder structure support
@@ -196,7 +196,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable syntax highlighting
-syntax enable
+syntax on
 
 " Set background colour
 set background=dark
