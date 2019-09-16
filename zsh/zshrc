@@ -56,10 +56,16 @@ NVM_NO_USE=false
 # if set to true call nvm use is automatically called when you cd into a dir with a .nvmrc file
 NVM_AUTO_USE=false
 
+# Install brew if needed
+if ! [ -x "$(command -v brew)" ]; then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
 # Brew shell completion for zsh. Must be set before sourcing oh-my-zsh
 if [ -x "$(command -v brew)" ]; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
+
 
 source $ZSH/oh-my-zsh.sh
 
