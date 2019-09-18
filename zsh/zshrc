@@ -41,20 +41,11 @@ plugins=(
   vi-mode
   git
   gitfast
-  zsh-nvm
   zsh-better-npm-completion
   zsh-completions
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
-
-# zsh-nvm config must be set before sourcing oh-my-zsh
-# if set to true nvm will not auto load on start up
-NVM_LAZY_LOAD=true
-# if set to true nvm use <version> must be used explicitly before running node/npm commands
-NVM_NO_USE=false
-# if set to true call nvm use is automatically called when you cd into a dir with a .nvmrc file
-NVM_AUTO_USE=false
 
 # Install brew if needed
 if ! [ -x "$(command -v brew)" ]; then
@@ -65,7 +56,6 @@ fi
 if [ -x "$(command -v brew)" ]; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
-
 
 source $ZSH/oh-my-zsh.sh
 
