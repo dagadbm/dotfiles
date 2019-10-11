@@ -12,6 +12,8 @@ brew "neovim"
 brew "ripgrep"
 brew "reattach-to-user-namespace"
 brew "tmux"
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
+
 cask "emacs"
 cask "flux"
 cask "alfred"

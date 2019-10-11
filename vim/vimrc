@@ -7,11 +7,6 @@ let vimDir = (has('win64')) ? '$HOMEPATH/vimfiles': '$HOME/.vim'
 let pluginsDir = expand(vimDir . '/plugins/')
 let vimPlugInstalled = isdirectory(pluginsDir)
 
-" Specific visual studio keybindings
-" 0 => false
-" 1 => true
-let vsVim = 0
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -23,6 +18,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
 " Vim-Plug start
 call plug#begin()
 
@@ -31,8 +27,6 @@ call plug#begin()
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
 " NERDTree tab support
 Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
-" Ctrl-P to find
-Plug 'ctrlpvim/ctrlp.vim'
 
 " ==> Window and Buffer Management
 " Maintain a stable and coherent window management
@@ -65,6 +59,9 @@ Plug 'tomtom/tcomment_vim'
 " Emmet (Prev. Zen Coding on visual studio) plugin for fast HTML/CSS typing
 Plug 'mattn/emmet-vim' , { 'for': ['html', 'css'] }
 
+" ==> LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " ==> Syntax
 " Syntax pack
 Plug 'sheerun/vim-polyglot'
@@ -78,8 +75,8 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'vim-scripts/matchit.zip'
 " Highlights matching HTML tags
 Plug 'gregsexton/MatchTag'
-" Use platinum searcher instead of crappy grep
-Plug 'nazo/pt.vim'
+" Tags
+Plug 'ludovicchabant/vim-gutentags'
 
 " ==> Snippets
 " Snippets database
@@ -95,6 +92,9 @@ Plug 'garbas/vim-snipmate'
 Plug 'tpope/vim-fugitive'
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
+" Fzf
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
 
 " ==> Color Schemes
 Plug 'nanotech/jellybeans.vim'
@@ -146,6 +146,10 @@ set nrformats=
 
 " Disabled automatic new line comment (annoying specially when editing vimrc)
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Correct comment highlighting on coc json config file
+" https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM UI
@@ -255,6 +259,18 @@ set backspace=indent,eol,start
 "<Leader> key avoids default vim key collision
 let mapleader = "\<Space>"
 
+" fzf
+" https://jesseleite.com/posts/2/its-dangerous-to-vim-alone-take-fzf
+nmap <Leader>/ :BLines<CR>
+nnoremap <Leader>p :Files<CR>
+nnoremap <Leader>f :Rg<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>t :Tags<CR>
+
+" gutentags
+let g:gutentags_cache_dir = '~/.gutentags_cache'
+
 " stop it with the annoying macro q that I never use (re map it to <Leader> q)
 noremap <Leader>q q
 noremap q <Nop>
@@ -291,12 +307,8 @@ nnoremap <Leader>ft :NERDTreeToggle<CR>
 " Change vim working directory to the current file dir
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
-" Edit vim dot files on current window
-nnoremap <Leader>fed :edit<Space>$MYVIMRC<CR>
-" Edit vim dot files on a new tab
-nnoremap <Leader>fedt :tabnew<Space>$MYVIMRC<CR>
 " Run the current file. (Useful for updating vim config)
-nnoremap <Leader>feR :source %<CR>
+nnoremap <Leader>R :source %<CR>
 
 " Make SPC b d forcefully close the current buffer without deleting window
 nnoremap <Leader>bd :BD!<CR>
@@ -304,15 +316,34 @@ nnoremap <Leader>bd :BD!<CR>
 " Make SPC w c forcefully close the current window
 nnoremap <Leader>wc :close!<CR>
 
-" ==> Visual Studio Specific Keybindings
-if vsVim
-	nnoremap <C-O> :vsc View.NavigateBackward<CR>
-	nnoremap <C-I> :vsc View.NavigateForward<CR>
-endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" coc 
+let g:coc_global_extensions = [
+\  'coc-webpack',
+\  'coc-docker',
+\  'coc-sh',
+\  'coc-json',
+\  'coc-tsserver',
+\  'coc-html',
+\  'coc-css',
+\  'coc-yaml',
+\  'coc-yaml',
+\  'coc-marketplace',
+\  'coc-vetur',
+\  'coc-highlight',
+\  'coc-emmet',
+\  'coc-svg',
+\  'coc-vimlsp',
+\  'coc-python',
+\  'coc-gitignore',
+\  'coc-import-cost',
+\  'coc-prettier',
+\  'coc-eslint',
+\  'coc-stylelint',
+\]
 
 " ==> NERDTree
 " Open a new NERDTree everytime you open a tab
@@ -323,16 +354,6 @@ let g:NERDTreeChDirMode = 0
 let g:NERDTreeShowBookmarks = 1
 " Show hidden files on NERDTree
 let NERDTreeShowHidden = 1
-
-" ==> Ctrl-P
-" Make Ctrl-P start on VIM current working directory
-let g:ctrlp_working_path_mode = 'w'
-" Allow Ctrl-P to search hidden files
-let g:ctrlp_show_hidden = 1
-" On default search on buffers files and MRU
-let g:ctrlp_cmd = 'CtrlPMixed'
-" To make the folder structure a project just an empty file called ctrlp
-let g:ctrlp_root_markers = ['ctrlp']
 
 " ==> Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -357,11 +378,3 @@ nmap <silent> <Leader>wr <Plug>GoldenViewResize
 
 " Toggle automatic window resizing
 nmap <silent> <Leader>wtr <Plug>ToggleGoldenViewAutoResize
-
-" ==> Platinum Searcher (pt)
-" Add pt.exe in path if running from windows 64 bits
-" For linux make sure to install it using a packet manager
-if(has('win64'))
-    let ptBinDir = expand('$HOMEPATH/vimfiles/bin/pt.exe')
-    let g:ptprg= fnamemodify(expand(ptBinDir), ':p:8') . ' --column'
-end
