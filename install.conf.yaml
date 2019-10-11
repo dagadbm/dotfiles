@@ -18,10 +18,17 @@
     ~/.tmux.conf: tmux/tmux.conf
     # editors
     ~/.vimrc: vim/vimrc
+    ~/.vim/coc-settings.json: vim/coc-settings.json
     ~/.config/nvim/init.vim: vim/vimrc
+    ~/.config/nvim/coc-settings.json: vim/coc-settings.json
     ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
+    ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
     ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
     ~/.emacs.d: emacs/emacs.d
     ~/.spacemacs.d: emacs/spacemacs.d
     # terminals
     /usr/local/share/iterm2: iterm2
+    ~/.hyper.js: hyper/hyper.js
+    '~/Library/Application Support/Hyper/.hyper.js': hyper/hyper.js
+    ~/.config/Hyper/.hyper.js: hyper/hyper.js
+
