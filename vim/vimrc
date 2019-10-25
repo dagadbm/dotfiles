@@ -198,6 +198,7 @@ set background=dark
 
 " Define colorscheme
 set termguicolors
+set t_Co=256
 colorscheme gruvbox
 
 " Define font
