@@ -23,41 +23,28 @@ endif
 call plug#begin()
 
 " ==> Files and Folders Navigation
-" Hierarchical folder structure support
-Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
-" NERDTree tab support
-Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
 
 " ==> Window and Buffer Management
-" Maintain a stable and coherent window management
-Plug 'zhaocai/GoldenView.Vim'
 " Automaticaly resize windows to golden ratio. Used in simpler windows
 Plug 'roman/golden-ratio'
-" CTRL-W o to maximize current window. Toggle to restore previous layout
-Plug 'vim-scripts/ZoomWin'
-" Delete buffers without deleting windows
-Plug 'vim-scripts/bufkill.vim'
 
 " ==> UI
 " Light as air status-bar
 Plug 'vim-airline/vim-airline'
-" More color themes for airline
-Plug 'vim-airline/vim-airline-themes'
-" Enable window transparency in windows
-" Copy vimtweak.dll (https://github.com/jdve/vimtweak) to gvim.exe location
-Plug 'mattn/transparency-windows-vim'
 
 " ==> Editting
 " Press <Tab> to show all kinds of auto complete
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 " Surround text with s motion
 Plug 'tpope/vim-surround'
 " Allow the . command to work on plugin actions (for surround)
 Plug 'tpope/vim-repeat'
 " Add commentary with gcc for line. g<b and g>b for block
 Plug 'tomtom/tcomment_vim'
-" Emmet (Prev. Zen Coding on visual studio) plugin for fast HTML/CSS typing
-Plug 'mattn/emmet-vim' , { 'for': ['html', 'css'] }
+" Respect editor config file
+Plug 'editorconfig/editorconfig-vim'
+" Multiple cursors with <C-n>
+Plug 'terryma/vim-multiple-cursors'
 
 " ==> LSP
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -65,18 +52,20 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ==> Syntax
 " Syntax pack
 Plug 'sheerun/vim-polyglot'
-" C# support
-Plug 'OrangeT/vim-csharp'
 " tmux.conf support
 Plug 'tmux-plugins/vim-tmux'
+
+" ==> Autocompletion
+Plug 'wellle/tmux-complete.vim'
 
 " ==> Code Navigation
 " Vim matchit plugin (makes % match with other tags)
 Plug 'vim-scripts/matchit.zip'
 " Highlights matching HTML tags
 Plug 'gregsexton/MatchTag'
-" Tags
-Plug 'ludovicchabant/vim-gutentags'
+" Navigate quick lists and others easily with < and >
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
 
 " ==> Snippets
 " Snippets database
@@ -87,32 +76,25 @@ Plug 'tomtom/tlib_vim'
 " VimL snippet implementation
 Plug 'garbas/vim-snipmate'
 
+" ==> Tags
+Plug 'ludovicchabant/vim-gutentags'
+
 " ==> External Integrations
 " Git
 Plug 'tpope/vim-fugitive'
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'roxma/vim-tmux-clipboard'
+
 " Fzf
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 
 " ==> Color Schemes
 Plug 'nanotech/jellybeans.vim'
-
-" ==> Unused (Historical purposes only)
-" Tilled window management in VIM
-" Plug 'spolu/dwm.vim'  "Doesn't work very well with NERDTree
-" Buffer explorer
-" Plug 'fholgado/minibufexpl.vim'  "Compatibility issues with dwm
-" <Leader>ww to select a window. <Leader>ww to swap it with other window
-" Plug 'wesQ3/vim-windowswap'  "Currently unused due to dwm window management
-" Automatically resize selected windows
-" Plug 'justincampbell/vim-eighties'  "Conflicts with dwm
-" Color schemes
-" Plug 'flazz/vim-colorschemes' "Unused
-" Plug 'altercation/vim-colors-solarized' "Unused
-" Plug 'sjl/badwolf' "Unused
-" Plug 'tomasr/molokai' "Unused
+Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
 
 " Vim-Plug end
 call plug#end()
@@ -123,10 +105,14 @@ call plug#end()
 
 " Set to auto read when a file is changed from the outside
 set autoread
+au FocusGained,BufEnter * :checktime
 
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
+
+" Allows to hide buffers instead of closing them when files are not saved
+set hidden
 
 " Turn backup and swap files off
 set nobackup
@@ -151,6 +137,10 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+" Show tabs and space
+:set list
+:set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -164,8 +154,9 @@ set ignorecase
 " When searching try to be smart about cases
 set smartcase
 
-" (Don't) Highlight search results
-" set hlsearch
+" Set/ Don't set Highlight search results
+"set hlsearch
+set nohlsearch
 
 " Makes search act like search in modern browsers
 set incsearch
@@ -206,9 +197,8 @@ syntax on
 set background=dark
 
 " Define colorscheme
-if (has('gui_running') && vimPlugInstalled)
-    colorscheme jellybeans
-endif
+set termguicolors
+colorscheme gruvbox
 
 " Define font
 if has('gui_running')
@@ -226,8 +216,9 @@ endif
 " set utf8 as standard encoding
 set encoding=utf8
 
-" Use spaces instead of tabs
-set expandtab
+" Use (or not) spaces instead of tabs
+" set expandtab
+set expandtab!
 
 " 1 tab == 4 spaces
 set shiftwidth=4
@@ -259,13 +250,22 @@ set backspace=indent,eol,start
 "<Leader> key avoids default vim key collision
 let mapleader = "\<Space>"
 
+" use < and > to replace [ and ] everywhere
+nmap < [
+nmap > ]
+omap < [
+omap > ]
+xmap < [
+xmap > ]
+
 " fzf
 " https://jesseleite.com/posts/2/its-dangerous-to-vim-alone-take-fzf
-nmap <Leader>/ :BLines<CR>
+nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>p :Files<CR>
 nnoremap <Leader>f :Rg<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
+nnoremap <Leader>H :Helptags<CR>
 nnoremap <Leader>t :Tags<CR>
 
 " gutentags
@@ -295,26 +295,38 @@ nnoremap gm `
 "Make gM go to start of line of any mark
 nnoremap gM '
 
+" Remap gotos with coc
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " Make tabs behave like modern text editors
 nnoremap <C-Tab> :tabnext<CR>
 nnoremap <C-S-Tab> :tabprevious<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <C-F4> :tabclose!<CR>
 
-" Shortcut to open NERDTree
-nnoremap <Leader>ft :NERDTreeToggle<CR>
+" Make window navigation faster
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Change vim working directory to the current file dir
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
-" Run the current file. (Useful for updating vim config)
-nnoremap <Leader>R :source %<CR>
+" Edit vimrc
+nnoremap <Leader>E :edit $MYVIMRC<CR>
+" Update vimrc
+nnoremap <Leader>R :source $MYVIMRC<CR>
 
 " Make SPC b d forcefully close the current buffer without deleting window
 nnoremap <Leader>bd :BD!<CR>
 
 " Make SPC w c forcefully close the current window
 nnoremap <Leader>wc :close!<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Configurations
@@ -330,8 +342,6 @@ let g:coc_global_extensions = [
 \  'coc-html',
 \  'coc-css',
 \  'coc-yaml',
-\  'coc-yaml',
-\  'coc-marketplace',
 \  'coc-vetur',
 \  'coc-highlight',
 \  'coc-emmet',
@@ -343,38 +353,38 @@ let g:coc_global_extensions = [
 \  'coc-prettier',
 \  'coc-eslint',
 \  'coc-stylelint',
+\  'coc-lists',
+\  'coc-git',
+\  'coc-yank',
+\  'coc-snippets',
 \]
 
-" ==> NERDTree
-" Open a new NERDTree everytime you open a tab
-let g:nerdtree_tabs_open_on_new_tab = 0
-" VIM current working directory is never changed to NERDTree root
-let g:NERDTreeChDirMode = 0
-" Show bookmarks when opening a NERDTree
-let g:NERDTreeShowBookmarks = 1
-" Show hidden files on NERDTree
-let NERDTreeShowHidden = 1
+" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+let g:coc_snippet_next = '<tab>'
+
+" Use <Tab> and <S-Tab> to navigate the completion list:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Close the preview window when completion is done.
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " ==> Airline
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 
-" ==> GoldenView
-" Allow custom mappings
-let g:goldenview__enable_default_mapping = 0
+" ==> netrw
+let g:netrw_liststyle = 3
 
-" Split to tiled windows
-nnoremap <silent> <Leader>ws  <Plug>GoldenViewSplit
 
-" Quickly switch current window with the main pane and toggle back
-nnoremap <silent> <Leader>ww <Plug>GoldenViewSwitchMain
-nnoremap <silent> <Leader>wW <Plug>GoldenViewSwitchToggle
-
-" Jump to next and previous window
-nnoremap <silent> <Leader>wn  <Plug>GoldenViewNext
-nnoremap <silent> <Leader>wp  <Plug>GoldenViewPrevious
-
-" Manually resize focused window
-nmap <silent> <Leader>wr <Plug>GoldenViewResize
-
-" Toggle automatic window resizing
-nmap <silent> <Leader>wtr <Plug>ToggleGoldenViewAutoResize
