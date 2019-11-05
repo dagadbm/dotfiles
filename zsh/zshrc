@@ -101,6 +101,23 @@ if [ -x "$(command -v rg)" ]; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
+_fzf_complete_git() {
+    ARGS="$@"
+    local branches
+    branches=$(git branch -vv --all)
+    if [[ $ARGS == 'git checkout'* ]]; then
+        _fzf_complete "--reverse --multi" "$@" < <(
+            echo $branches
+        )
+    else
+        eval "zle ${fzf_default_completion:-expand-or-complete}"
+    fi
+}
+
+_fzf_complete_git_post() {
+    awk '{print $1}'
+}
+
 # volta
 if ! [ -d "$HOME/.volta" ]; then
   curl https://get.volta.sh | bash
@@ -145,6 +162,7 @@ SPACESHIP_JOBS_SYMBOL=""
 
 # git
 git config --global mergetool.keepBackup false
+git config --global rerere.enabled true
 git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
 
 
@@ -181,7 +199,7 @@ alias gcop='git checkout --patch'
 alias gsa='git submodule add'
 
 # misc
-alias l='ls -all'
+alias l='ls -hall'
 alias zr='source ~/.zshrc'
 alias ze='vim ~/.zshrc'
 
