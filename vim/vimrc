@@ -23,6 +23,7 @@ endif
 call plug#begin()
 
 " ==> Files and Folders Navigation
+Plug 'justinmk/vim-dirvish'
 
 " ==> Window and Buffer Management
 " Automaticaly resize windows to golden ratio. Used in simpler windows
@@ -53,20 +54,14 @@ Plug 'tmux-plugins/vim-tmux'
 
 " ==> Autocompletion
 Plug 'wellle/tmux-complete.vim'
-Plug 'zxqfl/tabnine-vim'
 
 " ==> Code Navigation
 " Vim matchit plugin (makes % match with other tags)
 Plug 'vim-scripts/matchit.zip'
 " Highlights matching HTML tags
 Plug 'gregsexton/MatchTag'
-" Pass in arguments to Rg
-Plug 'jesseleite/vim-agriculture'
 " Make vim current directory the project root
 Plug 'airblade/vim-rooter'
-
-" ==> File system explorer
-Plug 'jeetsukumaran/vim-filebeagle'
 
 " ==> Snippets
 " Snippets database
@@ -250,6 +245,9 @@ set clipboard=unnamed
 " Make backspace work like most applications
 set backspace=indent,eol,start
 
+" Make ripgrep be the default vimgrep
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -260,14 +258,17 @@ let mapleader = "\<Space>"
 " fzf
 " https://jesseleite.com/posts/2/its-dangerous-to-vim-alone-take-fzf
 nnoremap <Leader>/ :BLines<CR>
+nnoremap <Leader>: :History:<CR>
 nnoremap <Leader>p :Files<CR>
 nnoremap <Leader>f :Rg<CR>
-nmap <Leader>rg <Plug>RgRawSearch
-nmap <Leader>ag <Plug>AgRawSearch
+nnoremap <Leader>rg :RgRaw<space>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>H :Helptags<CR>
 nnoremap <Leader>t :Tags<CR>
+" Type <Leader>* to search everywhere for the selected word on normal and visual mode
+nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
+xnoremap <silent> <Leader>* y:Rg <C-R>"<CR>
 
 " stop it with the annoying macro q that I never use (re map it to <Leader> q)
 noremap <Leader>q q
@@ -347,16 +348,16 @@ let g:coc_global_extensions = [
 
 " https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
 " use <tab> for trigger completion and navigate to the next complete item
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-inoremap <silent><expr> <TAB>
-\  pumvisible() ? coc#_select_confirm() :
-\  coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-\  <SID>check_back_space() ? "\<TAB>" :
-\  coc#refresh()
 
 let g:coc_snippet_next = '<tab>'
 
@@ -375,6 +376,9 @@ nmap <silent> gD <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Use <C-e> for trigger snippet expand.
+imap <C-e> <Plug>(coc-snippets-expand)
+
 " Cursor support with <C-e>
 nmap <silent> <C-e> <Plug>(coc-cursors-word)*
 xmap <silent> <C-e> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
@@ -385,18 +389,46 @@ let g:airline#extensions#tabline#enabled = 0
 " ==> netrw
 let g:netrw_liststyle = 3
 
-" ==> Filebeagle
-let g:filebeagle_suppress_keymaps = 1
-map <silent> <Leader>d <Plug>FileBeagleOpenCurrentWorkingDir
-map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
-
-" ==> fzf
+" ==> fzf related
+" Use fzf with_preview
 "Make :Rg not show file name as results
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --hidden --follow --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),
+  \   <bang>0)
+command! -bang -nargs=* RgRaw
+  \ call fzf#vim#grep(
+  \   'rg --hidden --follow --glob "!{.git,node_modules}/*" --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),
+  \   <bang>0)
 
-" ==> vim-agriculture
-" Disable the need to use quotes to call RgRaw
-let g:agriculture#disable_smart_quoting = 1
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:60%:hidden', '?'), <bang>0)
+
+" floating fzf
+if has('nvim') && exists('&winblend') && &termguicolors
+  set winblend=20
+
+  let $FZF_DEFAULT_OPTS = '--layout=reverse'
+
+  function! FloatingFZF()
+    let width = float2nr(&lines * 0.8)
+    let height = float2nr(&columns * 0.1)
+    let horizontal = float2nr((&columns - width) / 4)
+    let vertical = 1
+    let opts = { 'relative': 'editor',
+               \ 'row': vertical,
+               \ 'col': horizontal,
+               \ 'width': width,
+               \ 'height': height }
+
+    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+  endfunction
+
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+endif
 
 " ==> Gutentags
 let g:gutentags_add_default_project_roots = 0
