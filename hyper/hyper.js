@@ -140,10 +140,7 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
 
     //custom plugin configuration
-    gruvboxTheme: {
-      style: 'dark', // 'light', 'dark'
-      contrast: 'normal' // 'soft', 'normal', 'hard'
-    },
+    //
   },
 
   // a list of plugins to fetch and install from npm
@@ -152,7 +149,8 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hyperterm-safepaste", "hyperterm-gruvbox"],
+  plugins: ["hyperterm-safepaste", "hyper-one-dark"],
+
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

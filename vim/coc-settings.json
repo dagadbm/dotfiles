@@ -1,0 +1,21 @@
+{
+    // python
+    "python.jediEnabled": false,
+
+    // diagnostiscs and floating windows
+    "suggest.enablePreview": true,
+    "suggest.floatEnable": true,
+    "suggest.autoTrigger": "trigger",
+    "suggest.echodocSupport": true,
+    "diagnostic.enable": true,
+    "diagnostic.enableMessage": "always",
+
+    "list.source.files.defaultOptions": ["--number-select"],
+
+    // prettier support
+    "prettier.eslintIntegration": true,
+    "prettier.tslintIntegration": true,
+    "prettier.stylelintIntegration": true,
+    "prettier.disableLanguages": [],
+    "prettier.disableSuccessMessage": false
+}
