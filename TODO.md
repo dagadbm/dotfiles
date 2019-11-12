@@ -22,4 +22,10 @@ https://github.com/janko/vim-test -> This sounds AMAZING
 https://github.com/ctrlpvim/ctrlp.vim -> maybe just user ctrlP for this and let fzf do everything else
 ## Start up screen
 https://github.com/mhinz/vim-startify
+## More tmux goodness
+https://github.com/benmills/vimux -> not sure if this will be what i want but its nice that it can also run tests. maybe good together with vim-test ?
+# Tmux
+## Tmux alternatives
+http://www.brain-dump.org/projects/abduco/ for session storage
+http://www.brain-dump.org/projects/dvtm/ for tiling window
 
