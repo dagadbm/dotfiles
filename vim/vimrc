@@ -103,6 +103,10 @@ call plug#end()
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Open new split panes to right and bottom, which feels more natural than the default
+set splitbelow
+set splitright
+
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * :checktime
@@ -337,13 +341,11 @@ let g:coc_global_extensions = [
 \  'coc-svg',
 \  'coc-vimlsp',
 \  'coc-python',
-\  'coc-gitignore',
 \  'coc-import-cost',
 \  'coc-prettier',
 \  'coc-eslint',
 \  'coc-stylelint',
 \  'coc-lists',
-\  'coc-git',
 \  'coc-yank',
 \  'coc-snippets',
 \  'coc-dictionary',
@@ -358,6 +360,7 @@ inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -400,6 +403,13 @@ let g:airline_theme='onedark'
 let g:netrw_liststyle = 3
 
 " ==> fzf related
+" fzf actions similar to tmux splits
+let g:fzf_action = {
+\  'ctrl-t': 'tab split',
+\  'ctrl-s': 'split',
+\  'ctrl-v': 'vsplit',
+\  'enter': 'edit',
+\}
 " Use fzf with_preview
 "Make :Rg not show file name as results
 command! -bang -nargs=* Rg
