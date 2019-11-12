@@ -41,10 +41,13 @@ Plug 'tpope/vim-repeat'
 " Add commentary with gcc for line. g<b and g>b for block
 Plug 'tomtom/tcomment_vim'
 " Respect editor config file
-Plug 'editorconfig/editorconfig-vim'
+Plug 'sgur/vim-editorconfig'
+" * and # to work on visual mode
+Plug 'bronson/vim-visual-star-search'
 
 " ==> LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 " ==> Syntax
 " Syntax pack
@@ -91,6 +94,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 
 " Vim-Plug end
 call plug#end()
@@ -200,7 +204,7 @@ set background=dark
 " Define colorscheme
 set termguicolors
 set t_Co=256
-colorscheme gruvbox
+colorscheme onedark
 
 " Define font
 if has('gui_running')
@@ -270,9 +274,11 @@ nnoremap <Leader>t :Tags<CR>
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 xnoremap <silent> <Leader>* y:Rg <C-R>"<CR>
 
-" stop it with the annoying macro q that I never use (re map it to <Leader> q)
+" stop it with the annoying macro q and ex mode that I never use (re map it to <Leader> q)
 noremap <Leader>q q
 noremap q <Nop>
+noremap q: <Nop>
+noremap Q <Nop>
 
 " Make Enter and Shift-Enter insert lines below and above
 " without entering insert mode
@@ -342,8 +348,7 @@ let g:coc_global_extensions = [
 \  'coc-snippets',
 \  'coc-dictionary',
 \  'coc-tag',
-\  'coc-syntax',
-\  'coc-tabnine',
+\  'coc-syntax'
 \]
 
 " https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
@@ -376,15 +381,20 @@ nmap <silent> gD <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use <C-e> for trigger snippet expand.
+" Use <c-e> to trigger snippet expansion
 imap <C-e> <Plug>(coc-snippets-expand)
 
 " Cursor support with <C-e>
 nmap <silent> <C-e> <Plug>(coc-cursors-word)*
 xmap <silent> <C-e> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
 
+" Use control+space to trigger completion menu
+inoremap <silent><expr> <C-space> coc#refresh()
+
+
 " ==> Airline
 let g:airline#extensions#tabline#enabled = 0
+let g:airline_theme='onedark'
 
 " ==> netrw
 let g:netrw_liststyle = 3
