@@ -32,6 +32,7 @@ Plug 'roman/golden-ratio'
 " ==> UI
 " Light as air status-bar
 Plug 'vim-airline/vim-airline'
+Plug 'mhinz/vim-startify'
 
 " ==> Editting
 " Surround text with s motion
@@ -40,14 +41,26 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 " Add commentary with gcc for line. g<b and g>b for block
 Plug 'tomtom/tcomment_vim'
-" Respect editor config file
+" Automatically find correct file indentation while respecting editor config files
+Plug 'tpope/vim-sleuth'
 Plug 'sgur/vim-editorconfig'
 " * and # to work on visual mode
 Plug 'bronson/vim-visual-star-search'
-
+" Add additional text objects to vim
+Plug 'wellle/targets.vim'
+" Make vim current directory the project root
+Plug 'airblade/vim-rooter'
+" indentation as an object (i)
+Plug 'michaeljsmith/vim-indent-object'
+" Sneak anywhere using s/S
+Plug 'justinmk/vim-sneak'
 " ==> LSP
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+" ==> Testing
+Plug 'janko/vim-test'
+
+" ==> Undo history
+Plug 'mbbill/undotree'
 
 " ==> Syntax
 " Syntax pack
@@ -55,16 +68,25 @@ Plug 'sheerun/vim-polyglot'
 " tmux.conf support
 Plug 'tmux-plugins/vim-tmux'
 
-" ==> Autocompletion
-Plug 'wellle/tmux-complete.vim'
-
 " ==> Code Navigation
 " Vim matchit plugin (makes % match with other tags)
-Plug 'vim-scripts/matchit.zip'
+Plug 'andymass/vim-matchup'
 " Highlights matching HTML tags
 Plug 'gregsexton/MatchTag'
-" Make vim current directory the project root
-Plug 'airblade/vim-rooter'
+" Highlight f/F/t/T when needed
+Plug 'unblevable/quick-scope'
+" Show buffers on the status bar
+Plug 'bling/vim-bufferline'
+" tagbar with lsp support
+Plug 'liuchengxu/vista.vim'
+" Use f/F t/T to go to next match of f/t searches
+Plug 'rhysd/clever-f.vim'
+" Fzf
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
+
+" ==> Key Bindings
+Plug 'tpope/vim-unimpaired'
 
 " ==> Snippets
 " Snippets database
@@ -81,14 +103,17 @@ Plug 'ludovicchabant/vim-gutentags'
 " ==> External Integrations
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'sodapopcan/vim-twiggy'
+Plug 'junegunn/gv.vim'
+Plug 'iberianpig/tig-explorer.vim'
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'roxma/vim-tmux-clipboard'
-
-" Fzf
-Plug '~/.fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'wellle/tmux-complete.vim'
+" Terminal
+Plug 'wincent/terminus'
 
 " ==> Color Schemes
 Plug 'nanotech/jellybeans.vim'
@@ -150,9 +175,17 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 :set list
 :set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
 
+" reduce updatetime and time to next key
+set updatetime=100
+set timeoutlen=500
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Maintain undo history between sessions
+set undofile
+set undodir=~/.vim/undo_history
 
 " Always show current position
 set ruler
@@ -163,12 +196,14 @@ set ignorecase
 " When searching try to be smart about cases
 set smartcase
 
-" Set/ Don't set Highlight search results
-"set hlsearch
-set nohlsearch
-
-" Makes search act like search in modern browsers
+" Highlight search results when /?
 set incsearch
+set nohlsearch
+augroup vimrc-incsearch-highlight
+  autocmd!
+  autocmd CmdlineEnter [/\?] :set hlsearch
+  autocmd CmdlineLeave [/\?] :set nohlsearch
+augroup END
 
 " Show matching brackets when text indicator is over them
 set showmatch
@@ -226,14 +261,6 @@ endif
 " set utf8 as standard encoding
 set encoding=utf8
 
-" Use (or not) spaces instead of tabs
-" set expandtab
-set expandtab!
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-
 " Auto indent - next line in same location
 set ai
 
@@ -266,17 +293,29 @@ let mapleader = "\<Space>"
 " fzf
 " https://jesseleite.com/posts/2/its-dangerous-to-vim-alone-take-fzf
 nnoremap <Leader>/ :BLines<CR>
-nnoremap <Leader>: :History:<CR>
+nnoremap <Leader>: :Commands<CR>
 nnoremap <Leader>p :Files<CR>
+nnoremap <Leader>ph :History<CR>
 nnoremap <Leader>f :Rg<CR>
 nnoremap <Leader>rg :RgRaw<space>
 nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>h :History<CR>
-nnoremap <Leader>H :Helptags<CR>
+nnoremap <Leader>c :Commands<CR>
+nnoremap <Leader>ht :Helptags<CR>
+nnoremap <Leader>m :Maps<CR>
 nnoremap <Leader>t :Tags<CR>
 " Type <Leader>* to search everywhere for the selected word on normal and visual mode
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 xnoremap <silent> <Leader>* y:Rg <C-R>"<CR>
+
+" map >< to [] (tpope/vim-unimpaired)
+" usually mapped to next
+nmap < ]
+omap < ]
+xmap < ]
+" usually mapped to previous
+nmap > [
+omap > [
+xmap > [
 
 " stop it with the annoying macro q and ex mode that I never use (re map it to <Leader> q)
 noremap <Leader>q q
@@ -325,8 +364,9 @@ nnoremap gt <C-]>
 " => Plugin Configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" coc 
+" coc
 let g:coc_global_extensions = [
+\  'coc-webpack',
 \  'coc-webpack',
 \  'coc-docker',
 \  'coc-sh',
@@ -336,7 +376,6 @@ let g:coc_global_extensions = [
 \  'coc-css',
 \  'coc-yaml',
 \  'coc-vetur',
-\  'coc-highlight',
 \  'coc-emmet',
 \  'coc-svg',
 \  'coc-vimlsp',
@@ -419,7 +458,7 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 command! -bang -nargs=* RgRaw
   \ call fzf#vim#grep(
-  \   'rg --hidden --follow --glob "!{.git,node_modules}/*" --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
+  \   'rg --hidden --follow --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),
   \   <bang>0)
 
@@ -430,7 +469,7 @@ command! -bang -nargs=? -complete=dir Files
 if has('nvim') && exists('&winblend') && &termguicolors
   set winblend=20
 
-  let $FZF_DEFAULT_OPTS = '--layout=reverse'
+  let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
 
   function! FloatingFZF()
     let width = float2nr(&lines * 0.8)
@@ -483,3 +522,19 @@ let g:gutentags_ctags_exclude = [
 \  '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
 \  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx', '*.xls',
 \]
+
+" ==> quick-scope
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+" ==> Twiggy
+let g:twiggy_group_locals_by_slash = 0
+let g:twiggy_local_branch_sort = 'mru'
+let g:twiggy_remote_branch_sort = 'date'
+
+" ==>  Bufferline integratino with airline
+let g:bufferline_echo=0
+
+" ==> Sneak
+let g:sneak#label = 1
+let g:sneak#s_next = 1

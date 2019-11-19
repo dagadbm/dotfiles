@@ -7,6 +7,9 @@
       relink: true
 - clean:
     - "~"
+- create:
+    # create undo dir for vim undo -
+    ~/.vim/undo_history
 - link:
     # shells
     ~/.oh-my-zsh: zsh/oh-my-zsh
@@ -17,12 +20,11 @@
     ~/.fzf: fzf
     ~/.tmux.conf: tmux/tmux.conf
     # editors
-    ~/.vimrc: vim/vimrc
-    ~/.vim/coc-settings.json: vim/coc-settings.json
-    ~/.config/nvim/init.vim: vim/vimrc
-    ~/.config/nvim/coc-settings.json: vim/coc-settings.json
+    ~/.vimrc: vim/init.vim
+    ~/.config/nvim/init.vim: vim/init.vim
+    ~/.config/coc/coc-settings.json: vim/coc-settings.json
+    ~/.config/coc/coc-settings.json: vim/coc-settings.json
     ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
-    ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
     ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
     ~/.emacs.d: emacs/emacs.d
     ~/.spacemacs.d: emacs/spacemacs.d
