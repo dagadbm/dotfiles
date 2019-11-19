@@ -14,6 +14,7 @@ https://github.com/jreybert/vimagit
 https://github.com/airblade/vim-gitgutter
 https://github.com/mhinz/vim-signify
 https://github.com/neoclide/coc-git -> maybe delete this dependency as well and let COC just handle LSP stuff and not really git stuff
+Start adding shortcuts to <Leader>g (g for git)
 ## Floating windows
 https://github.com/liuchengxu/vim-clap -> maybe this can be used to replace fzf window code on my vimrc?
 ## Testing!

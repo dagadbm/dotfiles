@@ -1,25 +1,37 @@
-tap "caskroom/fonts"
-tap "caskroom/versions"
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap "homebrew/cask-fonts"
 tap "homebrew/core"
+tap "caskroom/versions"
+tap "dandavison/delta", "https://github.com/dandavison/delta"
 
 brew "git"
+brew "dandavison/delta/git-delta"
 brew "tig"
+
+brew "ripgrep"
+brew "fd"
+brew "tree"
 brew "htop"
+brew "tldr"
+brew "jq"
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["with-jansson", "HEAD"]
+
 brew "vim"
 brew "neovim"
-brew "ripgrep"
-brew "the_silver_searcher"
+
 brew "reattach-to-user-namespace"
 brew "tmux"
-brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 
-cask "emacs"
-cask "flux"
+brew "zsh"
+
 cask "alfred"
-cask "spectacle"
+cask "brave-browser"
 cask "firefox-developer-edition"
+cask "flux"
+cask "font-fira-code"
+cask "hyper"
+cask "iterm2"
+cask "spectacle"
+cask "spotify"
 cask "visual-studio-code"
-cask "caskroom/fonts/font-fira-code"
-cask "caskroom/fonts/font-source-code-pro"

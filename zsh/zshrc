@@ -39,7 +39,6 @@ HIST_STAMPS="yyyy/mm/dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   vi-mode
-  git
   gitfast
   zsh-better-npm-completion
   zsh-completions
@@ -91,30 +90,114 @@ source ~/.fzf.zsh
 if ! [ -x "$(command -v fzf)" ]; then
   ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 fi
-if [ -x "$(command -v rg)" ]; then
-  # --files: List files that would be searched but do not search
-  # --hidden: Search hidden files and folders
-  # --follow: Follow symlinks
-  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --smart-case 2> /dev/null'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-fi
 
-_fzf_complete_git() {
-    ARGS="$@"
-    local branches
-    branches=$(git branch -vv --all)
-    if [[ $ARGS == 'git checkout'* ]]; then
-        _fzf_complete "--reverse --multi" "$@" < <(
-            echo $branches
-        )
-    else
-        eval "zle ${fzf_default_completion:-expand-or-complete}"
-    fi
+command -v bat > /dev/null && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --color=always --exclude .git'
+command -v bat > /dev/null && export FZF_DEFAULT_OPTS="\
+  --ansi \
+  --bind='?:toggle-preview' \
+  --bind='ctrl-u:preview-page-up' \
+  --bind='ctrl-d:preview-page-down' \
+  --preview-window 'right:60%:hidden' \
+  --preview 'bat --style=full --color=always {}'"
+
+command -v bat > /dev/null && export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --color=always --exclude .git'
+command -v tree > /dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+
+command -v bat > /dev/null && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --color=always --exclude .git'
+
+# Use Ctrl-Z to cd to a different directory using fzf! (similar to using z)
+bindkey '^z' fzf-cd-widget
+# Use Ctrl-F to print files using fzf (same as Ctrl-T)
+bindkey '^f' fzf-file-widget
+
+# Options to fzf command
+export FZF_COMPLETION_OPTS='+c -x'
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-_fzf_complete_git_post() {
-    awk '{print $1}'
+# fzf git integration from https://junegunn.kr/2016/07/fzf-git/
+# CTRL-GCTRL-F for files
+# CTRL-GCTRL-B for branches
+# CTRL-GCTRL-T for tags
+# CTRL-GCTRL-R for remotes
+# CTRL-GCTRL-M for comMit hashes (had to rebind H due to tmux vim navigation
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
 }
+
+fzf-down() {
+  fzf --height 50% "$@" --border
+}
+
+fzf-gf() {
+  is_in_git_repo || return
+  git -c color.status=always status --short |
+  fzf-down -m --ansi --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+  cut -c4- | sed 's/.* -> //'
+}
+
+fzf-gb() {
+  is_in_git_repo || return
+  git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf-down --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/##'
+}
+
+fzf-gt() {
+  is_in_git_repo || return
+  git tag --sort -version:refname |
+  fzf-down --multi --preview-window right:70% \
+    --preview 'git show --color=always {} | head -'$LINES
+}
+
+# for commit hashes
+fzf-gm() {
+  is_in_git_repo || return
+  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+    --header 'Press CTRL-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+  grep -o "[a-f0-9]\{7,\}"
+}
+
+fzf-gr() {
+  is_in_git_repo || return
+  git remote -v | awk '{print $1 "\t" $2}' | uniq |
+  fzf-down --tac \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
+  cut -d$'\t' -f1
+}
+
+join-lines() {
+  local item
+  while read item; do
+    echo -n "${(q)item} "
+  done
+}
+
+bind-git-helper() {
+  local c
+  for c in $@; do
+    eval "fzf-g$c-widget() { local result=\$(fzf-g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+    eval "zle -N fzf-g$c-widget"
+    eval "bindkey '^g^$c' fzf-g$c-widget"
+  done
+}
+
+bind-git-helper f b t r m
+unset -f bind-git-helper
 
 # volta
 if ! [ -d "$HOME/.volta" ]; then
@@ -124,6 +207,8 @@ export VOLTA_HOME="$HOME/.volta"
 [ -s "$VOLTA_HOME/load.sh" ] && . "$VOLTA_HOME/load.sh"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
+# bat
+command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # zsh-spaceship-prompt
 # https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
@@ -158,30 +243,13 @@ SPACESHIP_DIR_LOCK_SYMBOL="🔒"
 SPACESHIP_DIR_TRUNC_REPO="true"
 SPACESHIP_JOBS_SYMBOL=""
 
-# git
+# .gitconfig
+git config --global diff.algorithm histogram
 git config --global mergetool.keepBackup false
 git config --global rerere.enabled true
 git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
-
-
-#####################################
-# Functions
-#
-
-# do a fuzzy checkout in the shell using git.
-# pass update as second param to git fetch and pull all the things before and after checkout
-function git_checkout_fuzzy() {
-  if [ "$1" = "update" ]; then
-    git fetch
-  fi
-  local branches branch
-  branches=$(git branch -a) &&
-    branch=$(echo "$branches" | fzf +s +m -e) &&
-    git checkout $(echo "$branch" | sed "s:.* remotes/origin/::" | sed "s:.* ::")
-  if [ "$1" = "update" ]; then
-    git pull
-  fi
-}
+git config --global alias.fadd "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
+command -v delta > /dev/null && git config --global core.pager "delta --dark"
 
 
 #####################################
@@ -192,21 +260,16 @@ function git_checkout_fuzzy() {
 alias g='git'
 alias gs='git status'
 alias gap='git add --patch'
-alias gcof='git_checkout_fuzzy'
 alias gcop='git checkout --patch'
-alias gsa='git submodule add'
 
 # misc
 alias l='ls -hall'
-alias zr='source ~/.zshrc'
-alias ze='vim ~/.zshrc'
 
 # use neovim as vim
 if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
   export EDITOR=nvim
 fi
-
 
 #####################################
 
