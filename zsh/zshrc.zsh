@@ -91,19 +91,16 @@ if ! [ -x "$(command -v fzf)" ]; then
   ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 fi
 
-command -v bat > /dev/null && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --color=always --exclude .git'
-command -v bat > /dev/null && export FZF_DEFAULT_OPTS="\
-  --ansi \
+command -v fd > /dev/null && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+command -v bat > /dev/null && command -v tree > /dev/null && export FZF_DEFAULT_OPTS="\
   --bind='?:toggle-preview' \
   --bind='ctrl-u:preview-page-up' \
   --bind='ctrl-d:preview-page-down' \
   --preview-window 'right:60%:hidden' \
-  --preview 'bat --style=full --color=always {}'"
+  --preview '[[ -d {} ]] && tree -C {} || bat --style=full --color=always {}'"
 
-command -v bat > /dev/null && export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --color=always --exclude .git'
-command -v tree > /dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-
-command -v bat > /dev/null && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --color=always --exclude .git'
+command -v fd > /dev/null && export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+command -v fd > /dev/null && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
 
 # Use Ctrl-Z to cd to a different directory using fzf! (similar to using z)
 bindkey '^z' fzf-cd-widget

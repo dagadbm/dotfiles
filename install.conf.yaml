@@ -9,11 +9,11 @@
     - "~"
 - create:
     # create undo dir for vim undo -
-    ~/.vim/undo_history
+    - ~/.vim/undo_history
 - link:
     # shells
     ~/.oh-my-zsh: zsh/oh-my-zsh
-    ~/.zshrc: zsh/zshrc
+    ~/.zshrc: zsh/zshrc.zsh
     ~/.oh-my-zsh/custom: zsh/custom
     # tools
     ~/.z: z
@@ -22,7 +22,6 @@
     # editors
     ~/.vimrc: vim/init.vim
     ~/.config/nvim/init.vim: vim/init.vim
-    ~/.config/coc/coc-settings.json: vim/coc-settings.json
     ~/.config/coc/coc-settings.json: vim/coc-settings.json
     ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
     ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
