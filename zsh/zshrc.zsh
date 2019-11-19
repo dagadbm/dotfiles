@@ -91,14 +91,15 @@ if ! [ -x "$(command -v fzf)" ]; then
   ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 fi
 
-command -v fd > /dev/null && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-command -v bat > /dev/null && command -v tree > /dev/null && export FZF_DEFAULT_OPTS="\
-  --bind='?:toggle-preview' \
-  --bind='ctrl-u:preview-page-up' \
-  --bind='ctrl-d:preview-page-down' \
-  --preview-window 'right:60%:hidden' \
+FZF_COMMON_OPTIONS="
+  --bind='?:toggle-preview'
+  --bind='ctrl-u:preview-page-up'
+  --bind='ctrl-d:preview-page-down'
+  --preview-window 'right:60%:hidden'
   --preview '[[ -d {} ]] && tree -C {} || bat --style=full --color=always {}'"
 
+command -v fd > /dev/null && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+command -v bat > /dev/null && command -v tree > /dev/null && export FZF_DEFAULT_OPTS="$FZF_COMMON_OPTIONS"
 command -v fd > /dev/null && export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 command -v fd > /dev/null && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
 
@@ -122,11 +123,11 @@ _fzf_compgen_dir() {
 }
 
 # fzf git integration from https://junegunn.kr/2016/07/fzf-git/
-# CTRL-GCTRL-F for files
-# CTRL-GCTRL-B for branches
-# CTRL-GCTRL-T for tags
-# CTRL-GCTRL-R for remotes
-# CTRL-GCTRL-M for comMit hashes (had to rebind H due to tmux vim navigation
+# CTRL-G CTRL-F for files
+# CTRL-G CTRL-B for branches
+# CTRL-G CTRL-T for tags
+# CTRL-G CTRL-R for remotes
+# CTRL-G CTRL-G for commit hashes
 is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
@@ -160,7 +161,7 @@ fzf-gt() {
 }
 
 # for commit hashes
-fzf-gm() {
+fzf-gg() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
   fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
@@ -193,7 +194,7 @@ bind-git-helper() {
   done
 }
 
-bind-git-helper f b t r m
+bind-git-helper f b t r g
 unset -f bind-git-helper
 
 # volta
