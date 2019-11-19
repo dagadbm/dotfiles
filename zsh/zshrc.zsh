@@ -96,7 +96,7 @@ FZF_COMMON_OPTIONS="
   --bind='ctrl-u:preview-page-up'
   --bind='ctrl-d:preview-page-down'
   --preview-window 'right:60%:hidden'
-  --preview '[[ -d {} ]] && tree -C {} || bat --style=full --color=always {}'"
+  --preview '[[ -d {} ]] && tree -C {} || [[ -f {} ]] && bat --style=full --color=always {} || echo {}'"
 
 command -v fd > /dev/null && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 command -v bat > /dev/null && command -v tree > /dev/null && export FZF_DEFAULT_OPTS="$FZF_COMMON_OPTIONS"
@@ -133,7 +133,7 @@ is_in_git_repo() {
 }
 
 fzf-down() {
-  fzf --height 50% "$@" --border
+  fzf --height 40% "$@"
 }
 
 fzf-gf() {
