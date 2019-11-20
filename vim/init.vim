@@ -536,3 +536,20 @@ let g:bufferline_echo=0
 " ==> Sneak
 let g:sneak#label = 1
 let g:sneak#s_next = 1
+
+" ==> GitGutter
+let g:gitgutter_map_keys = 0
+" hunk should be h but h is very unconfortable so i am using c as in (c)hunk
+" navigate through hunks with nN
+" git hunk add / git hunk checkout / git hunk preview
+nmap <Leader>ghn <Plug>(GitGutterNextHunk)
+nmap <Leader>ghN <Plug>(GitGutterPrevHunk)
+nmap <Leader>gha <Plug>(GitGutterStageHunk) 
+nmap <Leader>ghc <Plug>(GitGutterUndoHunk)
+nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
+
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+

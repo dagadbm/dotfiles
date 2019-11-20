@@ -192,7 +192,7 @@ bind reflog	!	?git reset --hard %(commit)
 # ---------------
 
 # View switching
-bind generic	x	view-main
+bind generic	m	view-main
 bind generic	d	view-diff
 bind generic	l	view-log
 bind generic	L	view-reflog
