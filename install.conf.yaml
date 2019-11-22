@@ -8,8 +8,8 @@
 - clean:
     - "~"
 - create:
-    # create undo dir for vim undo -
-    - ~/.vim/undo_history
+    # extra folders for vim related features like undo, sessions, etc
+    - ~/.vim/extra
 - link:
     # shells
     ~/.oh-my-zsh: zsh/oh-my-zsh
