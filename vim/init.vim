@@ -2,15 +2,6 @@
 " => Setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Custom variables
-let vimDir = (has('win64')) ? '$HOMEPATH/vimfiles': '$HOME/.vim'
-let pluginsDir = expand(vimDir . '/plugins/')
-let vimPlugInstalled = isdirectory(pluginsDir)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Auto vim-plug installation if plugin folder isn't present
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -18,6 +9,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Vim-Plug start
 call plug#begin()
@@ -54,8 +48,10 @@ Plug 'airblade/vim-rooter'
 Plug 'michaeljsmith/vim-indent-object'
 " Sneak anywhere using s/S
 Plug 'justinmk/vim-sneak'
+
 " ==> LSP
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+
 " ==> Testing
 Plug 'janko/vim-test'
 
@@ -76,7 +72,7 @@ Plug 'gregsexton/MatchTag'
 " Highlight f/F/t/T when needed
 Plug 'unblevable/quick-scope'
 " Show buffers on the status bar
-Plug 'bling/vim-bufferline'
+" Plug 'bling/vim-bufferline'
 " tagbar with lsp support
 Plug 'liuchengxu/vista.vim'
 " Use f/F t/T to go to next match of f/t searches
@@ -120,6 +116,9 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
+
+" ==> Session Management
+Plug 'thaerkh/vim-workspace'
 
 " Vim-Plug end
 call plug#end()
@@ -165,7 +164,7 @@ set t_RS=
 set t_SH=
 
 " Disabled automatic new line comment (annoying specially when editing vimrc)
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd FileType vim setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Correct comment highlighting on coc json config file
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
@@ -179,13 +178,22 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 set updatetime=100
 set timeoutlen=500
 
+" Better display for messages
+set cmdheight=2
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Maintain undo history between sessions
 set undofile
-set undodir=~/.vim/undo_history
+set undodir='$HOME/.vim/extra'
 
 " Always show current position
 set ruler
@@ -283,6 +291,9 @@ set backspace=indent,eol,start
 " Make ripgrep be the default vimgrep
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
+set title
+set titlestring=%F
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -290,32 +301,32 @@ set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 "<Leader> key avoids default vim key collision
 let mapleader = "\<Space>"
 
-" fzf
-" https://jesseleite.com/posts/2/its-dangerous-to-vim-alone-take-fzf
+" text related searches
 nnoremap <Leader>/ :BLines<CR>
-nnoremap <Leader>: :Commands<CR>
-nnoremap <Leader>p :Files<CR>
-nnoremap <Leader>ph :History<CR>
-nnoremap <Leader>f :Rg<CR>
-nnoremap <Leader>rg :RgRaw<space>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>c :Commands<CR>
-nnoremap <Leader>ht :Helptags<CR>
-nnoremap <Leader>m :Maps<CR>
-nnoremap <Leader>t :Tags<CR>
 " Type <Leader>* to search everywhere for the selected word on normal and visual mode
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 xnoremap <silent> <Leader>* y:Rg <C-R>"<CR>
+nnoremap <Leader>p :Files<CR>
+nnoremap <Leader>P :History<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>f :Rg<CR>
+nnoremap <Leader>F :RgRaw<space>
 
-" map >< to [] (tpope/vim-unimpaired)
-" usually mapped to next
-nmap < ]
-omap < ]
-xmap < ]
-" usually mapped to previous
-nmap > [
-omap > [
-xmap > [
+" vim related searches
+nnoremap <Leader>. :Commands<CR>
+nnoremap <Leader>: :History:<CR>
+nnoremap <Leader>h :Helptags<CR>
+nnoremap <Leader>m :Maps<CR>
+nnoremap <Leader>t :Tags<CR>
+
+" git related searches
+nnoremap <Leader>gc :BCommits<CR>
+nnoremap <Leader>gC :Commits<CR>
+nnoremap <Leader>gf :GFiles?<CR>
+nnoremap <Leader>gb :Gblame<CR>
+
+" save
+nnoremap <C-s> :w<CR>
 
 " stop it with the annoying macro q and ex mode that I never use (re map it to <Leader> q)
 noremap <Leader>q q
@@ -361,6 +372,13 @@ nnoremap <Leader>R :source $MYVIMRC<CR>
 nnoremap gt <C-]>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Custom Commands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+:command! -nargs=0 Tabs2Spaces :set et|retab<CR>
+:command! -nargs=0 Spaces2Tabs :set noet|retab!<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -390,6 +408,7 @@ let g:coc_global_extensions = [
 \  'coc-yank',
 \]
 
+" https://ianding.io/2019/07/29/configure-coc-nvim-for-c-c++-development/
 " https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
 " use <tab> for trigger completion and navigate to the next complete item
 inoremap <silent><expr> <TAB>
@@ -397,7 +416,6 @@ inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -412,6 +430,9 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Close the preview window when completion is done.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Keybinding
 
@@ -431,6 +452,15 @@ xmap <silent> <C-e> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)
 " Use control+space to trigger completion menu
 inoremap <silent><expr> <C-space> coc#refresh()
 
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " ==> Airline
 let g:airline#extensions#tabline#enabled = 0
@@ -447,6 +477,7 @@ let g:fzf_action = {
 \  'ctrl-v': 'vsplit',
 \  'enter': 'edit',
 \}
+
 " Use fzf with_preview
 "Make :Rg not show file name as results
 command! -bang -nargs=* Rg
@@ -552,4 +583,9 @@ omap ih <Plug>(GitGutterTextObjectInnerPending)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+
+" ==> vim workspace
+let g:workspace_session_directory = $HOME . '/.vim/extra'
+let g:workspace_undodir=$HOME . '/.vim/extra'
+let g:workspace_autosave_always = 1
 
