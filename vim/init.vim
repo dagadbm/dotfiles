@@ -585,7 +585,7 @@ xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 " ==> vim workspace
-let g:workspace_session_directory = $HOME . '/.vim/extra'
-let g:workspace_undodir=$HOME . '/.vim/extra'
+let g:workspace_session_directory = $HOME . '/.vim/extra/'
+let g:workspace_undodir=$HOME . '/.vim/extra/'
 let g:workspace_autosave_always = 1
 
