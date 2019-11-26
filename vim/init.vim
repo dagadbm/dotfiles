@@ -1,4 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " => Setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -48,7 +49,10 @@ Plug 'airblade/vim-rooter'
 Plug 'michaeljsmith/vim-indent-object'
 " Sneak anywhere using s/S
 Plug 'justinmk/vim-sneak'
+" Auto save buffers
 Plug '907th/vim-auto-save'
+" Multi cursor support
+Plug 'terryma/vim-multiple-cursors'
 
 
 " ==> LSP
@@ -191,7 +195,7 @@ set signcolumn=yes
 
 " Maintain undo history between sessions
 set undofile
-set undodir='$HOME/.vim/extra'
+set undodir=~/.vim/extra
 
 " Always show current position
 set ruler

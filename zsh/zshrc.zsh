@@ -255,6 +255,7 @@ command -v delta > /dev/null && git config --global core.pager "delta --dark"
 #
 
 # git
+alias t='tig status'
 alias g='git'
 alias gs='git status'
 alias gap='git add --patch'
