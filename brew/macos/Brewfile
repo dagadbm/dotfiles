@@ -16,15 +16,13 @@ brew "tree"
 brew "htop"
 brew "tldr"
 brew "jq"
-brew "universal-ctags/universal-ctags/universal-ctags", args: ["with-jansson", "HEAD"]
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 
 brew "vim"
 brew "neovim"
 
 brew "reattach-to-user-namespace"
 brew "tmux"
-
-brew "zsh"
 
 cask "alfred"
 
@@ -37,6 +35,5 @@ cask "hyper"
 cask "iterm2"
 
 cask "rectangle"
-cask "spotify"
 cask "flux"
 cask "visual-studio-code"

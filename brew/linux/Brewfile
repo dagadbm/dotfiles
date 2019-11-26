@@ -1,5 +1,8 @@
 tap "homebrew/core"
 tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "caskroom/cask-versions"
 
 brew "zsh"
 brew "zsh-completions"
@@ -13,7 +16,7 @@ brew "tree"
 brew "htop"
 brew "tldr"
 brew "jq"
-brew "universal-ctags/universal-ctags/universal-ctags", args: ["with-jansson", "HEAD"]
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 
 brew "vim"
 brew "neovim"
@@ -21,4 +24,12 @@ brew "neovim"
 brew "reattach-to-user-namespace"
 brew "tmux"
 
-brew "zsh"
+cask "brave-browser"
+cask "firefox-developer-edition"
+cask "chrome"
+
+cask "font-fira-code"
+cask "hyper"
+
+cask "flux"
+cask "visual-studio-code"
