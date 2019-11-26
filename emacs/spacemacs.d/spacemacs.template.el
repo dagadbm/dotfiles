@@ -1,1 +1,1 @@
-/Users/davidBarbosaMaia/dotfiles/emacs/emacs.d/core/templates/.spacemacs.template
+../emacs.d/core/templates/.spacemacs.template
