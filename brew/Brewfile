@@ -3,10 +3,11 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "caskroom/versions"
-tap "dandavison/delta", "https://github.com/dandavison/delta"
 
+brew "zsh"
+brew "zsh-completions"
 brew "git"
-brew "dandavison/delta/git-delta"
+brew "diff-so-fancy"
 brew "tig"
 
 brew "ripgrep"
@@ -26,12 +27,16 @@ brew "tmux"
 brew "zsh"
 
 cask "alfred"
+
 cask "brave-browser"
 cask "firefox-developer-edition"
-cask "flux"
+cask "chrome"
+
 cask "font-fira-code"
 cask "hyper"
 cask "iterm2"
-cask "spectacle"
+
+cask "rectangle"
 cask "spotify"
+cask "flux"
 cask "visual-studio-code"

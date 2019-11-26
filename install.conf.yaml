@@ -20,6 +20,8 @@
     ~/.fzf: fzf
     ~/.tmux.conf: tmux/tmux.conf
     /usr/local/etc/tigrc: tig/tigrc
+    # apps
+    ~/.config/karabiner/karabiner.json: macos/karabiner.json
     # editors
     ~/.vimrc: vim/init.vim
     ~/.config/nvim/init.vim: vim/init.vim

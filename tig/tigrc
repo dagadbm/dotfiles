@@ -122,8 +122,8 @@ set show-notes			= yes		# When non-bool passed as `--show-notes=...` (diff)
 
 # Misc
 set start-on-head		= no		# Start with cursor on HEAD commit
-set refresh-mode		= auto		# Enum: manual, auto, after-command, periodic
-set refresh-interval		= 10		# Interval in seconds between refreshes
+set refresh-mode		= periodic		# Enum: manual, auto, after-command, periodic
+set refresh-interval		= 1		# Interval in seconds between refreshes
 set ignore-case			= no		# Enum: no, yes, smart-case
 						# Ignore case when searching? Smart-case option will
 set wrap-search			= yes		# Wrap around to top/bottom of view when searching
@@ -180,6 +180,7 @@ set mouse-wheel-cursor		= no		# Prefer moving the cursor to scrolling the view?
 
 bind main	C	?git cherry-pick %(commit)
 bind status	C	!git commit
+bind status	P	?git push
 bind stash	A	?git stash apply %(stash)
 bind stash	P	?git stash pop %(stash)
 bind stash	!	?git stash drop %(stash)
@@ -203,9 +204,8 @@ bind generic	r	view-refs
 bind generic	p	view-pager
 bind generic	h	view-help
 bind generic	s	view-status
-bind generic	S	view-status		# Compat binding to avoid going crazy!
-bind generic	c	view-stage
-bind generic	y	view-stash
+bind generic	S	view-stash
+bind generic	e	view-stage
 bind generic	g	view-grep
 
 # View manipulation
@@ -227,13 +227,13 @@ bind generic	Q	quit			# Close all views and quit
 bind generic	<C-C>	quit			# Close all views and quit
 
 # View specific
-bind status	u	status-update		# Stage/unstage changes in file
-bind status	!	status-revert		# Revert changes in file
+bind status	A	status-update		# Stage/unstage changes in file
+bind status	R	status-revert		# Revert changes in file
 bind status	M	status-merge		# Open git-mergetool(1)
 #bind status	???	:toggle status		# Show short or long status labels
-bind stage	u	status-update		# Stage/unstage current diff (c)hunk
+bind stage	a	status-update		# Stage/unstage current diff (c)hunk
 bind stage	1	stage-update-line	# Stage/unstage current line
-bind stage	!	status-revert		# Revert current diff (c)hunk
+bind stage	r	status-revert		# Revert current diff (c)hunk
 bind stage	\	stage-split-chunk	# Split current diff (c)hunk
 bind stage	@	:/^@@			# Jump to next (c)hunk
 bind stage	[	:toggle diff-context -1	# Decrease the diff context
