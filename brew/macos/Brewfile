@@ -1,8 +1,8 @@
+tap "homebrew/core"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
-tap "homebrew/core"
-tap "caskroom/versions"
+tap "caskroom/cask-versions"
 
 brew "zsh"
 brew "zsh-completions"

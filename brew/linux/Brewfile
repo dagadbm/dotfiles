@@ -1,0 +1,24 @@
+tap "homebrew/core"
+tap "homebrew/bundle"
+
+brew "zsh"
+brew "zsh-completions"
+brew "git"
+brew "diff-so-fancy"
+brew "tig"
+
+brew "ripgrep"
+brew "fd"
+brew "tree"
+brew "htop"
+brew "tldr"
+brew "jq"
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["with-jansson", "HEAD"]
+
+brew "vim"
+brew "neovim"
+
+brew "reattach-to-user-namespace"
+brew "tmux"
+
+brew "zsh"
