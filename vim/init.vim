@@ -48,6 +48,8 @@ Plug 'airblade/vim-rooter'
 Plug 'michaeljsmith/vim-indent-object'
 " Sneak anywhere using s/S
 Plug 'justinmk/vim-sneak'
+Plug '907th/vim-auto-save'
+
 
 " ==> LSP
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
@@ -75,8 +77,6 @@ Plug 'unblevable/quick-scope'
 " Plug 'bling/vim-bufferline'
 " tagbar with lsp support
 Plug 'liuchengxu/vista.vim'
-" Use f/F t/T to go to next match of f/t searches
-Plug 'rhysd/clever-f.vim'
 " Fzf
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -117,8 +117,6 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 
-" ==> Session Management
-Plug 'thaerkh/vim-workspace'
 
 " Vim-Plug end
 call plug#end()
@@ -584,8 +582,10 @@ omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
-" ==> vim workspace
-let g:workspace_session_directory = $HOME . '/.vim/extra/'
-let g:workspace_undodir=$HOME . '/.vim/extra/'
-let g:workspace_autosave_always = 1
+" ==> Startify
+let g:startify_change_to_vcs_root = 1
 
+" ==> vim auto save
+let g:auto_save = 1
+let g:auto_save_silent = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
