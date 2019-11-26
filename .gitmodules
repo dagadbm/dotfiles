@@ -50,7 +50,7 @@
     path = emacs/emacs.d
     url = https://github.com/syl20bnr/spacemacs.git
     branch = develop
-    shallow = true
+    shallow = false
 [submodule "z"]
     path = z
     url = https://github.com/rupa/z
