@@ -247,7 +247,21 @@ git config --global mergetool.keepBackup false
 git config --global rerere.enabled true
 git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
 git config --global alias.fadd "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
-command -v delta > /dev/null && git config --global core.pager "delta --dark"
+command -v diff-so-fancy > /dev/null && git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+if [ -x "$(command -v diff-so-fancy)" ]; then
+  git config --global color.ui true
+  git config --global color.diff-highlight.oldNormal    "red bold"
+  git config --global color.diff-highlight.oldHighlight "red bold 52"
+  git config --global color.diff-highlight.newNormal    "green bold"
+  git config --global color.diff-highlight.newHighlight "green bold 22"
+  git config --global color.diff.meta       "11"
+  git config --global color.diff.frag       "magenta bold"
+  git config --global color.diff.commit     "yellow bold"
+  git config --global color.diff.old        "red bold"
+  git config --global color.diff.new        "green bold"
+  git config --global color.diff.whitespace "red reverse"
+fi
+
 
 
 #####################################

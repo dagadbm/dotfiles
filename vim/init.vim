@@ -588,6 +588,8 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 " ==> Startify
 let g:startify_change_to_vcs_root = 1
+let g:startify_session_autoload = 1
+let g:startify_session_persistence = 1
 
 " ==> vim auto save
 let g:auto_save = 1
