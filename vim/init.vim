@@ -1,5 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " => Setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -27,6 +26,7 @@ Plug 'roman/golden-ratio'
 " ==> UI
 " Light as air status-bar
 Plug 'vim-airline/vim-airline'
+" Start page
 Plug 'mhinz/vim-startify'
 
 " ==> Editting
@@ -53,7 +53,7 @@ Plug 'justinmk/vim-sneak'
 Plug '907th/vim-auto-save'
 " Multi cursor support
 Plug 'terryma/vim-multiple-cursors'
-
+" Tab all the things
 
 " ==> LSP
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
@@ -78,7 +78,6 @@ Plug 'gregsexton/MatchTag'
 " Highlight f/F/t/T when needed
 Plug 'unblevable/quick-scope'
 " Show buffers on the status bar
-" Plug 'bling/vim-bufferline'
 " tagbar with lsp support
 Plug 'liuchengxu/vista.vim'
 " Fzf
@@ -166,7 +165,7 @@ set t_RS=
 set t_SH=
 
 " Disabled automatic new line comment (annoying specially when editing vimrc)
-autocmd FileType vim setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Correct comment highlighting on coc json config file
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
@@ -196,6 +195,7 @@ set signcolumn=yes
 " Maintain undo history between sessions
 set undofile
 set undodir=~/.vim/extra
+
 
 " Always show current position
 set ruler
@@ -231,6 +231,8 @@ set t_vb=
 
 " Always show the status line
 :set laststatus=2
+" Dont show mode (handled by status line)
+set noshowmode
 
 " Set extra margin to the left side of the screen
 set foldcolumn=0
@@ -294,7 +296,7 @@ set backspace=indent,eol,start
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
 set title
-set titlestring=%F
+set titlestring=%f
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Keybindings
@@ -310,9 +312,9 @@ nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 xnoremap <silent> <Leader>* y:Rg <C-R>"<CR>
 nnoremap <Leader>p :Files<CR>
 nnoremap <Leader>P :History<CR>
-nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :Rg<CR>
-nnoremap <Leader>F :RgRaw<space>
+" Find by filtered file type. After typing the file type just press Ctrl-e to go to end of line and type the expression you want
+nnoremap <Leader>F :RgRaw -g '*.'<space><Left><Left>
 
 " vim related searches
 nnoremap <Leader>. :Commands<CR>
@@ -320,6 +322,8 @@ nnoremap <Leader>: :History:<CR>
 nnoremap <Leader>h :Helptags<CR>
 nnoremap <Leader>m :Maps<CR>
 nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>w :Windows<CR>
+nnoremap <Leader>b :Buffers<CR>
 
 " git related searches
 nnoremap <Leader>gc :BCommits<CR>
@@ -355,12 +359,6 @@ nnoremap gm `
 
 "Make gM go to start of line of any mark
 nnoremap gM '
-
-" Make window navigation faster
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
 " Change vim working directory to the current file dir
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -465,8 +463,30 @@ function! s:show_documentation()
 endfunction
 
 " ==> Airline
-let g:airline#extensions#tabline#enabled = 0
 let g:airline_theme='onedark'
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#show_message = 0
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_splits = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 1
+
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#show_tab_count = 0
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#alt_sep = 0
+let g:airline#extensions#tabline#buf_label_first = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+let g:airline#extensions#tabline#formatter = 'short_path'
+let g:airline#extensions#tabline#fnamemod = ':.'
+let g:airline#extensions#tabline#fnametruncate = 10
+let g:airline#extensions#tabline#fnamecollapse = 1
 
 " ==> netrw
 let g:netrw_liststyle = 3
@@ -497,24 +517,36 @@ command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:60%:hidden', '?'), <bang>0)
 
 " floating fzf
-if has('nvim') && exists('&winblend') && &termguicolors
-  set winblend=20
-
+if has('nvim')
   let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
 
   function! FloatingFZF()
-    let width = float2nr(&lines * 0.8)
-    let height = float2nr(&columns * 0.1)
-    let horizontal = float2nr((&columns - width) / 4)
-    let vertical = 1
-    let opts = { 'relative': 'editor',
-               \ 'row': vertical,
-               \ 'col': horizontal,
-               \ 'width': width,
-               \ 'height': height }
+    let buf = nvim_create_buf(v:false, v:true)
 
-    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-    call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+    let height = &lines
+    let width = float2nr(&columns - (&columns * 2 / 10))
+    let col = float2nr((&columns - width) / 2)
+    let col_offset = &columns / 10
+    let opts = {
+          \ 'relative': 'editor',
+          \ 'row': 1,
+          \ 'col': col + col_offset,
+          \ 'width': width * 2 / 1,
+          \ 'height': height / 2
+          \ }
+
+    let win = nvim_open_win(buf, v:true, opts)
+    "call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+    "call setwinvar(win, '&winhl', 'NormalFloat:Pmenu')
+    call setwinvar(win, '&winhl', 'NormalFloat:TabLine')
+
+    setlocal
+          \ buftype=nofile
+          \ nobuflisted
+          \ bufhidden=hide
+          \ nonumber
+          \ norelativenumber
+          \ signcolumn=no
   endfunction
 
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
@@ -563,7 +595,7 @@ let g:twiggy_group_locals_by_slash = 0
 let g:twiggy_local_branch_sort = 'mru'
 let g:twiggy_remote_branch_sort = 'date'
 
-" ==>  Bufferline integratino with airline
+" ==>  Bufferline integration with airline
 let g:bufferline_echo=0
 
 " ==> Sneak
@@ -590,8 +622,13 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 let g:startify_change_to_vcs_root = 1
 let g:startify_session_autoload = 1
 let g:startify_session_persistence = 1
+let g:startify_lists = [
+\ { 'type': 'sessions',  'header': ['   Sessions']       },
+\ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+\ { 'type': 'files',     'header': ['   MRU']            },
+\ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+\ { 'type': 'commands',  'header': ['   Commands']       },
+\]
 
 " ==> vim auto save
 let g:auto_save = 1
-let g:auto_save_silent = 1
-let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]

@@ -5,7 +5,6 @@ tap "homebrew/cask-fonts"
 tap "caskroom/cask-versions"
 
 brew "zsh"
-brew "zsh-completions"
 brew "git"
 brew "diff-so-fancy"
 brew "tig"
@@ -18,7 +17,6 @@ brew "tldr"
 brew "jq"
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 
-brew "vim"
 brew "neovim"
 
 brew "reattach-to-user-namespace"

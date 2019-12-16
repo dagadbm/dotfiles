@@ -73,7 +73,7 @@ export LANG=en_US.UTF-8
 # zsh-autosuggestions
 # colors https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 # bindkey variables https://unix.stackexchange.com/a/117162
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=248'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 # accept suggestion word by word (ctrl+w)
 bindkey '^w' forward-word
 # accept all suggestions (ctrl+space)
@@ -93,6 +93,8 @@ fi
 
 FZF_COMMON_OPTIONS="
   --bind='?:toggle-preview'
+  --bind='ctrl-p:half-page-up'
+  --bind='ctrl-n:half-page-down'
   --bind='ctrl-u:preview-page-up'
   --bind='ctrl-d:preview-page-down'
   --preview-window 'right:60%:hidden:wrap'
@@ -246,7 +248,6 @@ git config --global diff.algorithm histogram
 git config --global mergetool.keepBackup false
 git config --global rerere.enabled true
 git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
-git config --global alias.fadd "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
 command -v diff-so-fancy > /dev/null && git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 if [ -x "$(command -v diff-so-fancy)" ]; then
   git config --global color.ui true
