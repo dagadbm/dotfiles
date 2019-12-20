@@ -1,3 +1,5 @@
+# Dotfiles
+Remove emacs once and for all accept the vim master race
 # Vim 
 ## Tutorials
 https://github.com/mhinz/vim-galore -> seems like a really in depth tutorial of vim

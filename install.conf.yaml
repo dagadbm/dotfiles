@@ -32,7 +32,6 @@
     ~/.spacemacs.d: emacs/spacemacs.d
     # terminals
     /usr/local/share/iterm2: iterm2
-    ~/.hyper.js: hyper/hyper.js
-    '~/Library/Application Support/Hyper/.hyper.js': hyper/hyper.js
-    ~/.config/Hyper/.hyper.js: hyper/hyper.js
+    ~/.hyper.js: hyper/hyper.config.js
+    ~/.hyper_plugins/local/hyper-config/index.js: hyper/hyper.plugin.js
 

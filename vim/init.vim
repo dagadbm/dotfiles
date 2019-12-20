@@ -73,8 +73,6 @@ Plug 'tmux-plugins/vim-tmux'
 " ==> Code Navigation
 " Vim matchit plugin (makes % match with other tags)
 Plug 'andymass/vim-matchup'
-" Highlights matching HTML tags
-Plug 'gregsexton/MatchTag'
 " Highlight f/F/t/T when needed
 Plug 'unblevable/quick-scope'
 " Show buffers on the status bar
@@ -251,6 +249,20 @@ syntax on
 
 " Set background colour
 set background=dark
+
+" onedark.vim override: Don't set a background color when running in a terminal;
+" just use the terminal's background color
+" `gui` is the hex color code used in GUI mode/nvim true-color mode
+" `cterm` is the color code used in 256-color mode
+" `cterm16` is the color code used in 16-color mode
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    " `bg` will not be styled since there is no `bg` setting
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white })
+  augroup END
+endif
 
 " Define colorscheme
 set termguicolors
@@ -487,6 +499,7 @@ let g:airline#extensions#tabline#formatter = 'short_path'
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnametruncate = 10
 let g:airline#extensions#tabline#fnamecollapse = 1
+let g:airline_section_z = airline#section#create(['%L', ' ☰ '])
 
 " ==> netrw
 let g:netrw_liststyle = 3
@@ -523,30 +536,18 @@ if has('nvim')
   function! FloatingFZF()
     let buf = nvim_create_buf(v:false, v:true)
 
-    let height = &lines
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    let col = float2nr((&columns - width) / 2)
-    let col_offset = &columns / 10
-    let opts = {
-          \ 'relative': 'editor',
-          \ 'row': 1,
-          \ 'col': col + col_offset,
-          \ 'width': width * 2 / 1,
-          \ 'height': height / 2
-          \ }
+    let width = float2nr(&columns * 0.7)
+    let height = float2nr(&lines * 0.7)
+    let opts = { 'relative': 'editor',
+          \ 'row': (&lines - height) / 2,
+          \ 'col': (&columns - width) / 2,
+          \ 'width': width,
+          \ 'height': height,
+          \ 'style': 'minimal'
+          \}
 
     let win = nvim_open_win(buf, v:true, opts)
-    "call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
-    "call setwinvar(win, '&winhl', 'NormalFloat:Pmenu')
     call setwinvar(win, '&winhl', 'NormalFloat:TabLine')
-
-    setlocal
-          \ buftype=nofile
-          \ nobuflisted
-          \ bufhidden=hide
-          \ nonumber
-          \ norelativenumber
-          \ signcolumn=no
   endfunction
 
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
