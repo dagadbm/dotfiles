@@ -6,7 +6,7 @@ module.exports = {
   config: {
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
-    updateChannel: 'stable',
+    updateChannel: 'canary',
 
     // default font size in pixels for all tabs
     fontSize: 12,
@@ -52,7 +52,14 @@ module.exports = {
     borderColor: '#333',
 
     // custom CSS to embed in the main window
-    css: '',
+    css: `
+      .tabs_title, .header_header {
+        display: none;
+      }
+      .terms_terms {
+        margin: 0;
+      }
+    `,
 
     // custom CSS to embed in the terminal window
     termCSS: '',
@@ -67,7 +74,7 @@ module.exports = {
     showWindowControls: '',
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
-    padding: '12px 14px',
+    padding: '6px 2px 2px 8px',
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -139,8 +146,13 @@ module.exports = {
 
     // for advanced config flags please refer to https://hyper.is/#cfg
 
-    //custom plugin configuration
-    //
+    //custom plugin configurations
+    init: [
+      {
+        rule: 'once',
+        commands: ['clear']
+      },
+    ],
   },
 
   // a list of plugins to fetch and install from npm
@@ -149,13 +161,13 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hyperterm-safepaste", "hyper-one-dark"],
+  plugins: ["hyperterm-safepaste", "hyper-one-dark", "hyper-init"],
 
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  localPlugins: [],
+  localPlugins: ['hyper-config'],
 
   keymaps: {
     // Example

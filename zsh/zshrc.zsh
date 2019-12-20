@@ -278,6 +278,7 @@ alias gcop='git checkout --patch'
 
 # misc
 alias l='ls -hall'
+alias vi=vim
 
 # use neovim as vim
 if [ -x "$(command -v nvim)" ]; then
