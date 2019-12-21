@@ -101,14 +101,13 @@ Plug 'ludovicchabant/vim-gutentags'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'sodapopcan/vim-twiggy'
-Plug 'junegunn/gv.vim'
-Plug 'iberianpig/tig-explorer.vim'
+
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'wellle/tmux-complete.vim'
+
 " Terminal
 Plug 'wincent/terminus'
 
@@ -590,11 +589,6 @@ let g:gutentags_ctags_exclude = [
 " ==> quick-scope
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-" ==> Twiggy
-let g:twiggy_group_locals_by_slash = 0
-let g:twiggy_local_branch_sort = 'mru'
-let g:twiggy_remote_branch_sort = 'date'
 
 " ==>  Bufferline integration with airline
 let g:bufferline_echo=0
