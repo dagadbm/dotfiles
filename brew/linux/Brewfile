@@ -23,7 +23,6 @@ brew "tmux"
 
 cask "brave-browser"
 cask "firefox-developer-edition"
-cask "chrome"
 
 cask "font-fira-code"
 cask "hyper"
