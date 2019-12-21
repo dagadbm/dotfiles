@@ -332,7 +332,8 @@ nnoremap <Leader>. :Commands<CR>
 nnoremap <Leader>: :History:<CR>
 nnoremap <Leader>h :Helptags<CR>
 nnoremap <Leader>m :Maps<CR>
-nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>t :Vista finder fzf:ctags<CR>
+nnoremap <Leader>T :Vista finder fzf:coc<CR>
 nnoremap <Leader>w :Windows<CR>
 nnoremap <Leader>b :Buffers<CR>
 
@@ -341,6 +342,55 @@ nnoremap <Leader>gc :BCommits<CR>
 nnoremap <Leader>gC :Commits<CR>
 nnoremap <Leader>gf :GFiles?<CR>
 nnoremap <Leader>gb :Gblame<CR>
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Keybinding
+
+" Remap gotos with coc
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use <c-e> to trigger snippet expansion
+imap <C-e> <Plug>(coc-snippets-expand)
+
+" Cursor support with <C-e>
+nmap <silent> <C-e> <Plug>(coc-cursors-word)*
+xmap <silent> <C-e> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+
+" Use control+space to trigger completion menu
+inoremap <silent><expr> <C-space> coc#refresh()
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" https://ianding.io/2019/07/29/configure-coc-nvim-for-c-c++-development/
+" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
+" use <tab> for trigger completion and navigate to the next complete item
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <Tab> and <S-Tab> to navigate the completion list:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " save
 nnoremap <C-s> :w<CR>
@@ -382,6 +432,7 @@ nnoremap <Leader>R :source $MYVIMRC<CR>
 " Go to tag
 nnoremap gt <C-]>
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom Commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -419,59 +470,10 @@ let g:coc_global_extensions = [
 \  'coc-yank',
 \]
 
-" https://ianding.io/2019/07/29/configure-coc-nvim-for-c-c++-development/
-" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
-" use <tab> for trigger completion and navigate to the next complete item
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 let g:coc_snippet_next = '<tab>'
-
-" Use <Tab> and <S-Tab> to navigate the completion list:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Close the preview window when completion is done.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Keybinding
-
-" Remap gotos with coc
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use <c-e> to trigger snippet expansion
-imap <C-e> <Plug>(coc-snippets-expand)
-
-" Cursor support with <C-e>
-nmap <silent> <C-e> <Plug>(coc-cursors-word)*
-xmap <silent> <C-e> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
-
-" Use control+space to trigger completion menu
-inoremap <silent><expr> <C-space> coc#refresh()
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 " ==> Airline
 let g:airline_theme='onedark'
@@ -498,6 +500,7 @@ let g:airline#extensions#tabline#formatter = 'short_path'
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnametruncate = 10
 let g:airline#extensions#tabline#fnamecollapse = 1
+" I cannot get the line numbers and percentages to work correctly so I just use a static value always of max lines
 let g:airline_section_z = airline#section#create(['%L', ' ☰ '])
 
 " ==> netrw
@@ -605,7 +608,7 @@ let g:gitgutter_map_keys = 0
 nmap <Leader>ghn <Plug>(GitGutterNextHunk)
 nmap <Leader>ghN <Plug>(GitGutterPrevHunk)
 nmap <Leader>gha <Plug>(GitGutterStageHunk) 
-nmap <Leader>ghc <Plug>(GitGutterUndoHunk)
+nmap <Leader>ghr <Plug>(GitGutterUndoHunk)
 nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
 
 omap ih <Plug>(GitGutterTextObjectInnerPending)
