@@ -1,1 +1,0 @@
-../emacs.d/core/templates/.spacemacs.template

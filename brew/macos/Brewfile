@@ -26,12 +26,10 @@ cask "alfred"
 
 cask "brave-browser"
 cask "firefox-developer-edition"
-cask "chrome"
 
 cask "font-fira-code"
 cask "hyper"
-cask "iterm2"
 
-cask "rectangle"
 cask "flux"
 cask "visual-studio-code"
+cask "rectangle"
