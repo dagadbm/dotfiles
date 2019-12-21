@@ -269,8 +269,8 @@ if [ -x "$(command -v nvim)" ]; then
   export EDITOR=nvim
 fi
 
-# Opens tmux without creating an empty session by restoring previous session
-alias tmux-init='pgrep -vxq tmux && tmux new -d -s delete-me && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t delete-me && tmux attach || tmux attach'
+# restores tmux without creating an empty session on startup
+alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
 
 #####################################
 

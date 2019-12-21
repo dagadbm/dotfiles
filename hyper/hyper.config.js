@@ -150,7 +150,7 @@ module.exports = {
     init: [
       {
         rule: 'once',
-        commands: ['clear', 'tmux-init']
+        commands: ['reset', 'tmux-restore']
       },
     ],
   },
