@@ -46,11 +46,6 @@
     url = https://github.com/junegunn/vim-plug.git
     branch = master
     shallow = true
-[submodule "emacs/emacs.d"]
-    path = emacs/emacs.d
-    url = https://github.com/syl20bnr/spacemacs.git
-    branch = develop
-    shallow = false
 [submodule "z"]
     path = z
     url = https://github.com/rupa/z
