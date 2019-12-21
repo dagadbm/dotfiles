@@ -243,26 +243,8 @@ SPACESHIP_DIR_LOCK_SYMBOL="🔒"
 SPACESHIP_DIR_TRUNC_REPO="true"
 SPACESHIP_JOBS_SYMBOL=""
 
-# .gitconfig
-git config --global diff.algorithm histogram
-git config --global mergetool.keepBackup false
-git config --global rerere.enabled true
-git config --global alias.lg !"git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
-command -v diff-so-fancy > /dev/null && git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
-if [ -x "$(command -v diff-so-fancy)" ]; then
-  git config --global color.ui true
-  git config --global color.diff-highlight.oldNormal    "red bold"
-  git config --global color.diff-highlight.oldHighlight "red bold 52"
-  git config --global color.diff-highlight.newNormal    "green bold"
-  git config --global color.diff-highlight.newHighlight "green bold 22"
-  git config --global color.diff.meta       "11"
-  git config --global color.diff.frag       "magenta bold"
-  git config --global color.diff.commit     "yellow bold"
-  git config --global color.diff.old        "red bold"
-  git config --global color.diff.new        "green bold"
-  git config --global color.diff.whitespace "red reverse"
-fi
-
+# include common gitconfig file on dotfiles repo
+git config --global include.path .gitconfig.common
 
 
 #####################################
@@ -286,6 +268,9 @@ if [ -x "$(command -v nvim)" ]; then
   export EDITOR=nvim
 fi
 
+# Opens tmux without creating an empty session by restoring previous session
+alias tmux-init='pgrep -vxq tmux && tmux new -d -s delete-me && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t delete-me && tmux attach || tmux attach'
+
 #####################################
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
