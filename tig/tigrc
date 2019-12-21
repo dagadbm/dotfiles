@@ -180,6 +180,7 @@ set mouse-wheel-cursor		= no		# Prefer moving the cursor to scrolling the view?
 
 bind main	C	?git cherry-pick %(commit)
 bind status	C	!git commit
+bind status	P	!git push
 bind stash	A	?git stash apply %(stash)
 bind stash	P	?git stash pop %(stash)
 bind stash	!	?git stash drop %(stash)
