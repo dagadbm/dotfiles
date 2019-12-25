@@ -325,7 +325,7 @@ nnoremap <Leader>p :Files<CR>
 nnoremap <Leader>P :History<CR>
 nnoremap <Leader>f :Rg<CR>
 " Find by filtered file type. After typing the file type just press Ctrl-e to go to end of line and type the expression you want
-nnoremap <Leader>F :RgRaw -g '*.'<space><Left><Left>
+nnoremap <Leader>F :RgRaw -g '*'<space><Left><Left>
 
 " vim related searches
 nnoremap <Leader>. :Commands<CR>
@@ -353,6 +353,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gD <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
 
 " Use <c-e> to trigger snippet expansion
 imap <C-e> <Plug>(coc-snippets-expand)
