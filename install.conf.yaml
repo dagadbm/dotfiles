@@ -12,25 +12,43 @@
     - ~/.vim/extra
 - link:
     # shells
+    ## oh-my-zsh
     ~/.oh-my-zsh: zsh/oh-my-zsh
     ~/.zshrc: zsh/zshrc.zsh
     ~/.oh-my-zsh/custom: zsh/custom
+
     # tools
+    ## z
     ~/.z: z
+    ## fzf
     ~/.fzf: fzf
+    ### tmux
     ~/.tmux.conf: tmux/tmux.conf
+    ## tig
     /usr/local/etc/tigrc: tig/tigrc
+    ## git
     ~/.gitconfig.common: git/gitconfig
-    # apps
+
+    # macos apps
+    ## karabiner
     ~/.config/karabiner/karabiner.json: macos/karabiner.json
+    ## rectangle
+    ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
+
     # editors
+    ## vim 
     ~/.vimrc: vim/init.vim
     ~/.config/nvim/init.vim: vim/init.vim
     ~/.config/coc/coc-settings.json: vim/coc-settings.json
     ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
     ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
+
     # terminals
+    ## iterm2
     /usr/local/share/iterm2: iterm2
+    ## hyper
     ~/.hyper.js: hyper/hyper.config.js
     ~/.hyper_plugins/local/hyper-config/index.js: hyper/hyper.plugin.js
+    ## kitty
+    ~/.config/kitty: kitty
 

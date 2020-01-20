@@ -51,7 +51,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'justinmk/vim-sneak'
 " Auto save buffers
 Plug '907th/vim-auto-save'
-" Multi cursor support
+" Multi cursor support (<C-n>)
 Plug 'terryma/vim-multiple-cursors'
 " Tab all the things
 
@@ -108,14 +108,14 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'wellle/tmux-complete.vim'
 
+" Make vim color scheme integrate automatically with tmux
+Plug 'edkolev/tmuxline.vim'
+
 " Terminal
 Plug 'wincent/terminus'
 
 " ==> Color Schemes
-Plug 'nanotech/jellybeans.vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
+Plug 'sonph/onehalf', {'rtp': 'vim'}
 
 
 " Vim-Plug end
@@ -128,6 +128,8 @@ call plug#end()
 " Open new split panes to right and bottom, which feels more natural than the default
 set splitbelow
 set splitright
+
+set cursorline
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -247,35 +249,19 @@ endif
 syntax on
 
 " Set background colour
-set background=dark
+" set background=dark
 
-" onedark.vim override: Don't set a background color when running in a terminal;
-" just use the terminal's background color
-" `gui` is the hex color code used in GUI mode/nvim true-color mode
-" `cterm` is the color code used in 256-color mode
-" `cterm16` is the color code used in 16-color mode
-if (has("autocmd") && !has("gui_running"))
-  augroup colorset
-    autocmd!
-    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
-    " `bg` will not be styled since there is no `bg` setting
-    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white })
-  augroup END
-endif
+" let &t_ut=''
 
 " Define colorscheme
-set termguicolors
-set t_Co=256
-colorscheme onedark
-
-" Define font
-if has('gui_running')
-    if has('unix')
-        set guifont=Monaco:h10
-    else
-        set guifont=Consolas:h10
-    endif
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
+set t_Co=256
+colorscheme onehalfdark
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text Editing
@@ -430,8 +416,8 @@ nnoremap <Leader>E :edit $MYVIMRC<CR>
 " Update vimrc
 nnoremap <Leader>R :source $MYVIMRC<CR>
 
-" Go to tag
-nnoremap gt <C-]>
+" Go to tag (use h instead of t so I dont lose tab navigation by number e.g. 1gt, 2gt, etc)
+nnoremap gh <C-]>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -477,7 +463,8 @@ let g:coc_snippet_next = '<tab>'
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " ==> Airline
-let g:airline_theme='onedark'
+" let g:airline_theme='onedark'
+let g:airline_theme='onehalfdark'
 let g:airline_powerline_fonts = 1
 
 let g:airline#extensions#whitespace#enabled = 0
