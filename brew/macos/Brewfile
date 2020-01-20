@@ -1,8 +1,10 @@
 tap "homebrew/core"
 tap "homebrew/bundle"
+
 tap "homebrew/cask"
-tap "homebrew/cask-fonts"
 tap "caskroom/cask-versions"
+
+tap "homebrew/cask-fonts"
 
 brew "zsh"
 brew "git"
@@ -29,6 +31,7 @@ cask "firefox-developer-edition"
 
 cask "font-fira-code"
 cask "hyper"
+cask "kitty"
 
 cask "flux"
 cask "visual-studio-code"

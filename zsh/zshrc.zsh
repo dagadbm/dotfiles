@@ -165,7 +165,7 @@ fzf-gt() {
 # for commit hashes
 fzf-gg() {
   is_in_git_repo || return
-  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  git log --reflog --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
   fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
     --header 'Press CTRL-S to toggle sort' \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
@@ -209,6 +209,9 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 
 # bat
 command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# kubectl
+command -v kubectl > /dev/null && source <(kubectl completion zsh)
 
 # zsh-spaceship-prompt
 # https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
@@ -275,3 +278,6 @@ alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.t
 #####################################
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+source /Users/david.maia/Library/Preferences/org.dystroy.broot/launcher/bash/br
