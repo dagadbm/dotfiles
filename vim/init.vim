@@ -156,8 +156,8 @@ set nrformats=
 
 " Fix paste on terminals with tmux (mostly happens on hyper)
 " https://vi.stackexchange.com/questions/14491/strange-vim-xterm-interaction-auto-insertion-of-register-when-opening-file
-set t_RS=
-set t_SH=
+" set t_RS=
+" set t_SH=
 
 " Disabled automatic new line comment (annoying specially when editing vimrc)
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -247,12 +247,10 @@ syntax on
 
 " Setup 256 color support
 if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 set t_Co=256
-let &t_ut=''
+
 set background=dark
 
 " onedark.vim override: Don't set a background color when running in a terminal;
@@ -273,6 +271,8 @@ endif
 let g:onedark_hide_endofbuffer = 1
 let g:onedark_terminal_italics = 1
 colorscheme onedark
+let g:onedark_hide_endofbuffer = 1
+let g:onedark_terminal_italics = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

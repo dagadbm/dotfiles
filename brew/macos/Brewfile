@@ -30,9 +30,9 @@ cask "brave-browser"
 cask "firefox-developer-edition"
 
 cask "font-fira-code"
-cask "hyper"
-cask "kitty"
+cask "font-jet-brains-mono"
 
+cask "kitty"
 cask "flux"
 cask "visual-studio-code"
 cask "rectangle"
