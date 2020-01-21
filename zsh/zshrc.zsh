@@ -278,6 +278,4 @@ alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.t
 #####################################
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-
-source /Users/david.maia/Library/Preferences/org.dystroy.broot/launcher/bash/br
+tmux-restore
