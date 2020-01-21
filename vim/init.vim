@@ -251,6 +251,7 @@ if exists('+termguicolors')
 endif
 set t_Co=256
 
+let &t_ut=''
 set background=dark
 
 " onedark.vim override: Don't set a background color when running in a terminal;
@@ -271,8 +272,6 @@ endif
 let g:onedark_hide_endofbuffer = 1
 let g:onedark_terminal_italics = 1
 colorscheme onedark
-let g:onedark_hide_endofbuffer = 1
-let g:onedark_terminal_italics = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
