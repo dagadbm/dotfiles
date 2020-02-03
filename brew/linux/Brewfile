@@ -15,6 +15,7 @@ brew "tree"
 brew "htop"
 brew "tldr"
 brew "jq"
+brew "rename"
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 
 brew "neovim"

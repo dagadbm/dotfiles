@@ -211,7 +211,9 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # kubectl
-command -v kubectl > /dev/null && source <(kubectl completion zsh)
+kubectl_completion() {
+  command -v kubectl > /dev/null && source <(kubectl completion zsh)
+}
 
 # zsh-spaceship-prompt
 # https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
@@ -278,4 +280,5 @@ alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.t
 #####################################
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-tmux-restore
+
+# https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
