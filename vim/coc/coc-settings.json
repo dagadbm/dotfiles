@@ -1,0 +1,39 @@
+{
+    // python
+    "python.jediEnabled": false,
+
+    // diagnostiscs and floating windows
+    "suggest.enablePreview": true,
+    "suggest.floatEnable": true,
+    "suggest.autoTrigger": "always",
+    "suggest.echodocSupport": true,
+    "suggest.maxCompleteItemCount": 20,
+    "diagnostic.enable": true,
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.enableMessage": "always",
+    "suggest.numberSelect": false,
+    "diagnostic.locationlist": true,
+    "diagnostic.virtualText": true,
+    "coc.preferences.previewAutoClose": true,
+
+
+
+    "list.source.files.defaultOptions": ["--number-select"],
+
+    // prettier support
+    "prettier.eslintIntegration": true,
+    "prettier.tslintIntegration": true,
+    "prettier.stylelintIntegration": true,
+    "prettier.disableLanguages": ["vue"],
+    "prettier.disableSuccessMessage": false,
+
+    // emmet
+    "emmet.includeLanguages": {"vue-html": "html", "vue": "html", "javascript": "javascriptreact"}
+
+    // use GitGutter highlights instead of the default Diff ones since onedark.vim has colours for these
+    "git.addedSign.hlGroup": "GitGutterAdd",
+    "git.changedSign.hlGroup": "GitGutterChange",
+    "git.removedSign.hlGroup": "GitGutterDelete",
+    "git.topRemovedSign.hlGroup": "GitGutterDelete",
+    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+}

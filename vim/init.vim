@@ -26,8 +26,6 @@ Plug 'roman/golden-ratio'
 " ==> UI
 " Light as air status-bar
 Plug 'vim-airline/vim-airline'
-" Start page
-Plug 'mhinz/vim-startify'
 
 " ==> Editting
 " Surround text with s motion
@@ -43,15 +41,20 @@ Plug 'sgur/vim-editorconfig'
 Plug 'bronson/vim-visual-star-search'
 " Add additional text objects to vim
 Plug 'wellle/targets.vim'
+Plug 'michaeljsmith/vim-indent-object'
 " Make vim current directory the project root
 Plug 'airblade/vim-rooter'
 " indentation as an object (i)
 Plug 'michaeljsmith/vim-indent-object'
 " Sneak anywhere using s/S
 Plug 'justinmk/vim-sneak'
-" Auto save buffers
-Plug '907th/vim-auto-save'
 " Tab all the things
+" Auto close html tags
+Plug 'alvan/vim-closetag'
+
+" ==> Extra vim behavior
+Plug 'qpkorr/vim-bufkill'
+Plug 'junegunn/vim-peekaboo'
 
 " ==> LSP
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
@@ -61,6 +64,10 @@ Plug 'janko/vim-test'
 
 " ==> Undo history
 Plug 'mbbill/undotree'
+
+" ==> Session Management
+Plug 'tpope/vim-obsession'
+Plug 'dhruvasagar/vim-prosession'
 
 " ==> Syntax
 " Syntax pack
@@ -168,7 +175,7 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Show tabs and space
 :set list
-:set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
+set listchars=tab:→\ ,space:·,nbsp:␣,extends:»,precedes:«,trail:•
 
 " reduce updatetime and time to next key
 set updatetime=100
@@ -189,7 +196,7 @@ set signcolumn=yes
 
 " Maintain undo history between sessions
 set undofile
-set undodir=~/.vim/extra
+set undodir=~/.vim/undo
 
 
 " Always show current position
@@ -295,7 +302,7 @@ set number
 set relativenumber
 
 " Use default system clipboard.
-set clipboard=unnamed
+" set clipboard=unnamed
 
 " Make backspace work like most applications
 set backspace=indent,eol,start
@@ -318,16 +325,21 @@ nnoremap <Leader>/ :BLines<CR>
 " Type <Leader>* to search everywhere for the selected word on normal and visual mode
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 xnoremap <silent> <Leader>* y:Rg <C-R>"<CR>
+" Type <Leader>+ to search on the current buffer for the selected word on normal and visual mode
+nnoremap <silent> <Leader>+ :BLines <C-R><C-W><CR>
+xnoremap <silent> <Leader>+ y:BLines <C-R>"<CR>
 nnoremap <Leader>p :Files<CR>
-nnoremap <Leader>P :History<CR>
+" Type <Leader>P to search for files with the content off the selected word on normal mode
+nnoremap <silent> <Leader>P :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
 nnoremap <Leader>f :Rg<CR>
 " Find by filtered file type. After typing the file type just press Ctrl-e to go to end of line and type the expression you want
-nnoremap <Leader>F :RgRaw -g '*'<space><Left><Left>
+nnoremap <Leader>F :RgInput -g '*'<space><Left><Left>
 
 " vim related searches
 nnoremap <Leader>. :Commands<CR>
 nnoremap <Leader>: :History:<CR>
 nnoremap <Leader>h :Helptags<CR>
+nnoremap <Leader>H :History<CR>
 nnoremap <Leader>m :Maps<CR>
 nnoremap <Leader>t :Vista finder fzf:ctags<CR>
 nnoremap <Leader>T :Vista finder fzf:coc<CR>
@@ -343,6 +355,19 @@ nnoremap <Leader>gb :Gblame<CR>
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
+" Use <c-e> for multiple cursor
+nmap <expr> <silent> <C-e> <SID>select_current_word()
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
+
+" Use leader-e to use operations on cursor as a text object
+nmap <leader>e  <Plug>(coc-cursors-operator)
+
+
 " Keybinding
 
 " Remap gotos with coc
@@ -354,10 +379,6 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use <c-e> to trigger snippet expansion
 imap <C-e> <Plug>(coc-snippets-expand)
-
-" Cursor support with <C-e>
-nmap <silent> <C-e> <Plug>(coc-cursors-word)*
-xmap <silent> <C-e> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
 
 " Use control+space to trigger completion menu
 inoremap <silent><expr> <C-space> coc#refresh()
@@ -404,10 +425,14 @@ noremap Q <Nop>
 nnoremap <CR> o<Esc>k
 nnoremap <S-Enter> O<Esc>j
 
-" Space jk for normal mode on visual mode and not on insert mode to avoid
-" row selection delay in visual mode
-inoremap jk <Esc>
-vnoremap <Leader>jk <Esc>
+" Ctrl-j/k to quit to normal mode
+inoremap <C-j> <Esc>
+inoremap <C-j> <Esc>
+inoremap <C-k> <Esc>
+vnoremap <C-j> <Esc>
+vnoremap <C-k> <Esc>
+xnoremap <C-j> <Esc>
+xnoremap <C-k> <Esc>
 
 " Traverse only display lines (like normal text editors)
 nnoremap j gj
@@ -422,8 +447,6 @@ nnoremap gM '
 " Change vim working directory to the current file dir
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
-" Edit vimrc
-nnoremap <Leader>E :edit $MYVIMRC<CR>
 " Update vimrc
 nnoremap <Leader>R :source $MYVIMRC<CR>
 
@@ -441,32 +464,6 @@ nnoremap gh <C-]>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" coc
-let g:coc_global_extensions = [
-\  'coc-css',
-\  'coc-dictionary',
-\  'coc-docker',
-\  'coc-emmet',
-\  'coc-eslint',
-\  'coc-html',
-\  'coc-json',
-\  'coc-lists',
-\  'coc-prettier',
-\  'coc-python',
-\  'coc-sh',
-\  'coc-snippets',
-\  'coc-stylelint',
-\  'coc-svg',
-\  'coc-syntax',
-\  'coc-tag',
-\  'coc-tsserver',
-\  'coc-vetur',
-\  'coc-vimlsp',
-\  'coc-webpack',
-\  'coc-yaml',
-\  'coc-yank',
-\]
 
 let g:coc_snippet_next = '<tab>'
 
@@ -521,7 +518,7 @@ command! -bang -nargs=* Rg
   \   'rg --hidden --follow --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),
   \   <bang>0)
-command! -bang -nargs=* RgRaw
+command! -bang -nargs=* RgInput
   \ call fzf#vim#grep(
   \   'rg --hidden --follow --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),

@@ -25,8 +25,7 @@ brew "tmux"
 cask "brave-browser"
 cask "firefox-developer-edition"
 
-cask "font-fira-code"
-cask "hyper"
+cask "font-jetbrainsmono-nerd-font"
 
 cask "flux"
 cask "visual-studio-code"
