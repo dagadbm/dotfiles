@@ -9,8 +9,8 @@
     - "~"
 - create:
     # extra folders for vim related features like undo, sessions, etc
-    - ~/.vim/undo
-    - ~/.vim/session
+    - ~/.vim/undos
+    - ~/.vim/sessions
 - link:
     # shells
     ## oh-my-zsh

@@ -196,7 +196,7 @@ set signcolumn=yes
 
 " Maintain undo history between sessions
 set undofile
-set undodir=~/.vim/undo
+set undodir=~/.vim/undos
 
 
 " Always show current position
@@ -626,6 +626,6 @@ let g:sneak#s_next = 1
 let g:BufKillCreateMappings = 0
 
 " Session Management
-" let g:prosession_dir = '~/.vim/session/' (default value)
+let g:prosession_dir = '~/.vim/sessions/'
 let g:prosession_on_startup = 1
 let g:prosession_per_branch = 1
