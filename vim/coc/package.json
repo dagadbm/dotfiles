@@ -25,7 +25,6 @@
     "coc-vetur": ">=1.1.7",
     "coc-marketplace": ">=1.7.0",
     "coc-tslint": ">=1.0.17",
-    "coc-stylelintplus": ">=1.0.3",
-    "coc-git": ">=1.7.0"
+    "coc-stylelintplus": ">=1.0.3"
   }
 }
