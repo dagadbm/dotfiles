@@ -411,13 +411,31 @@ endfunction
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" save
-nnoremap <C-s> :w<CR>
+" ==> GitGutter
+let g:gitgutter_map_keys = 0
+" hunk should be h but h is very unconfortable so i am using c as in (c)hunk
+" navigate through hunks with nN
+" git hunk add / git hunk checkout / git hunk preview
+nmap <Leader>ghn <Plug>(GitGutterNextHunk)
+nmap <Leader>ghp <Plug>(GitGutterPrevHunk)
+nmap <Leader>ghs <Plug>(GitGutterStageHunk)
+nmap <Leader>ghu <Plug>(GitGutterUndoHunk)
+nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
+
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+
+
+" User leader s/S to save save all buffers
+nnoremap <Leader>s :w<CR>
+nnoremap <Leader>S :wa<CR>
 
 " stop it with the annoying macro q and ex mode that I never use (re map it to <Leader> q)
 noremap <Leader>q q
+noremap <Leader>Q @
 noremap q <Nop>
-noremap q: <Nop>
 noremap Q <Nop>
 
 " Make Enter and Shift-Enter insert lines below and above
@@ -475,6 +493,10 @@ let g:airline_theme='onedark'
 
 let g:airline_powerline_fonts = 1
 
+let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#vista#enabled = 0
+
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#show_message = 0
 
@@ -496,8 +518,12 @@ let g:airline#extensions#tabline#formatter = 'short_path'
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnametruncate = 10
 let g:airline#extensions#tabline#fnamecollapse = 1
+
+
+let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'gutentags', 'grepper' ])
+let g:airline_section_y = ''
 " I cannot get the line numbers and percentages to work correctly so I just use a static value always of max lines
-let g:airline_section_z = airline#section#create(['%L', ' ☰ '])
+let g:airline_section_z = airline#section#create(['%L', '☰'])
 
 " ==> netrw
 let g:netrw_liststyle = 3
@@ -596,33 +622,10 @@ let g:bufferline_echo=0
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 
-" ==> GitGutter
-let g:gitgutter_map_keys = 0
-" hunk should be h but h is very unconfortable so i am using c as in (c)hunk
-" navigate through hunks with nN
-" git hunk add / git hunk checkout / git hunk preview
-nmap <Leader>ghn <Plug>(GitGutterNextHunk)
-nmap <Leader>ghN <Plug>(GitGutterPrevHunk)
-nmap <Leader>gha <Plug>(GitGutterStageHunk) 
-nmap <Leader>ghr <Plug>(GitGutterUndoHunk)
-nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
+" BufKill
+let g:BufKillCreateMappings = 0
 
-omap ih <Plug>(GitGutterTextObjectInnerPending)
-omap ah <Plug>(GitGutterTextObjectOuterPending)
-xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-
-" ==> Startify
-let g:startify_change_to_vcs_root = 1
-let g:startify_session_autoload = 1
-let g:startify_session_persistence = 1
-let g:startify_lists = [
-\ { 'type': 'sessions',  'header': ['   Sessions']       },
-\ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-\ { 'type': 'files',     'header': ['   MRU']            },
-\ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-\ { 'type': 'commands',  'header': ['   Commands']       },
-\]
-
-" ==> vim auto save
-let g:auto_save = 1
+" Session Management
+" let g:prosession_dir = '~/.vim/session/' (default value)
+let g:prosession_on_startup = 1
+let g:prosession_per_branch = 1
