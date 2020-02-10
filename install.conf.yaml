@@ -9,7 +9,8 @@
     - "~"
 - create:
     # extra folders for vim related features like undo, sessions, etc
-    - ~/.vim/extra
+    - ~/.vim/undo
+    - ~/.vim/session
 - link:
     # shells
     ## oh-my-zsh
@@ -39,7 +40,8 @@
     ## vim 
     ~/.vimrc: vim/init.vim
     ~/.config/nvim/init.vim: vim/init.vim
-    ~/.config/coc/coc-settings.json: vim/coc-settings.json
+    ~/.config/coc/coc-settings.json: vim/coc/coc-settings.json
+    ~/.config/coc/extensions/package.json: vim/coc/package.json
     ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
     ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
 

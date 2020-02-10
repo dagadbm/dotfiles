@@ -30,8 +30,7 @@ cask "alfred"
 cask "brave-browser"
 cask "firefox-developer-edition"
 
-cask "font-fira-code"
-cask "font-jet-brains-mono"
+cask "font-jetbrainsmono-nerd-font"
 
 cask "kitty"
 cask "flux"
