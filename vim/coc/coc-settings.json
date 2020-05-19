@@ -26,5 +26,9 @@
     "prettier.disableSuccessMessage": false,
 
     // emmet
-    "emmet.includeLanguages": {"vue-html": "html", "vue": "html", "javascript": "javascriptreact"}
+    "emmet.includeLanguages": {"vue-html": "html", "vue": "html", "javascript": "javascriptreact"},
+    "emmet.showAbbreviationSuggestions": true,
+
+    // explorer
+    "explorer.icon.enableNerdfont": true
 }

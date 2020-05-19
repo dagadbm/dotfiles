@@ -1,5 +1,9 @@
 # Dotfiles
 Remove emacs once and for all accept the vim master race
+# MacOS
+## tiling window manager holy shit!
+https://github.com/koekeishiya/yabai
+
 # Vim 
 ## Tutorials
 https://github.com/mhinz/vim-galore -> seems like a really in depth tutorial of vim
@@ -27,8 +31,18 @@ https://github.com/ctrlpvim/ctrlp.vim -> maybe just user ctrlP for this and let 
 https://github.com/mhinz/vim-startify
 ## More tmux goodness
 https://github.com/benmills/vimux -> not sure if this will be what i want but its nice that it can also run tests. maybe good together with vim-test ?
+## fzf/coc love
+https://github.com/dominickng/fzf-session.vim
+https://github.com/antoinemadec/coc-fzf/
+https://github.com/iamcco/coc-actions
+
+
 # Tmux
 ## Tmux alternatives
 http://www.brain-dump.org/projects/abduco/ for session storage
 http://www.brain-dump.org/projects/dvtm/ for tiling window
+# icons!
+https://coreyja.com/vim-fzf-with-devicons/
 
+# asdf
+Configure asdf for python and node!

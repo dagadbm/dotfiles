@@ -295,6 +295,7 @@ bind generic	~	:toggle line-graphics	# Toggle (line) graphics mode
 bind generic	F	:toggle file-name	# Toggle file name display
 # bind generic	???	:toogle show-changes	# Toggle local changes display in the main view
 bind generic	W	:toggle ignore-space	# Toggle ignoring whitespace in diffs
+bind generic	w	:toggle wrap-lines	# Toggle wrap lines in diffs
 # bind generic	?	:toggle commit-order	# Toggle commit ordering
 bind generic	X	:toggle id		# Toggle commit ID display
 bind generic	$	:toggle commit-title-overflow

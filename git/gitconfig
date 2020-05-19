@@ -20,3 +20,7 @@
 [mergetool "nvimmerge"]
 	prompt = false
 	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[core]
+	pager = delta --plus-color="#012800" --minus-color="#340001"
+[interactive]
+	diffFilter = delta --color-only

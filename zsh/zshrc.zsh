@@ -152,7 +152,7 @@ fzf-gb() {
   fzf-down --ansi --multi --tac --preview-window right:70% \
     --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
   sed 's/^..//' | cut -d' ' -f1 |
-  sed 's#^remotes/##'
+  sed 's#^remotes/origin/##'
 }
 
 fzf-gt() {
@@ -213,6 +213,7 @@ command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # kubectl
 kubectl_completion() {
   command -v kubectl > /dev/null && source <(kubectl completion zsh)
+  alias k k
 }
 
 # zsh-spaceship-prompt
@@ -224,9 +225,6 @@ SPACESHIP_PROMPT_ORDER=(
   char
 )
 SPACESHIP_RPROMPT_ORDER=(
-  battery
-  jobs
-  exec_time
 )
 #SPACESHIP_CHAR_SYMBOL="λ"
 SPACESHIP_CHAR_SYMBOL="❯"
@@ -247,6 +245,7 @@ SPACESHIP_DIR_TRUNC_PREFIX=""
 SPACESHIP_DIR_LOCK_SYMBOL="🔒"
 SPACESHIP_DIR_TRUNC_REPO="true"
 SPACESHIP_JOBS_SYMBOL=""
+SPACESHIP_KUBECTL_SHOW="true"
 
 # include common gitconfig file on dotfiles repo
 git config --global include.path .gitconfig.common
@@ -274,6 +273,9 @@ if [ -x "$(command -v nvim)" ]; then
   export EDITOR=nvim
 fi
 
+# k8s
+alias k=kubectl
+
 # restores tmux without creating an empty session on startup
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
 
@@ -282,3 +284,4 @@ alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.t
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
+export PATH="/usr/local/opt/awscli@1/bin:$PATH"
