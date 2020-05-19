@@ -21,11 +21,13 @@ Plug 'justinmk/vim-dirvish'
 
 " ==> Window and Buffer Management
 " Automaticaly resize windows to golden ratio. Used in simpler windows
-Plug 'roman/golden-ratio'
+" Plug 'roman/golden-ratio'
 
 " ==> UI
 " Light as air status-bar
 Plug 'vim-airline/vim-airline'
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
 
 " ==> Editting
 " Surround text with s motion
@@ -33,15 +35,18 @@ Plug 'tpope/vim-surround'
 " Allow the . command to work on plugin actions (for surround)
 Plug 'tpope/vim-repeat'
 " Add commentary with gcc for line. g<b and g>b for block
-Plug 'tomtom/tcomment_vim'
+" Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
 " Automatically find correct file indentation while respecting editor config files
+" Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-sleuth'
-Plug 'sgur/vim-editorconfig'
 " * and # to work on visual mode
 Plug 'bronson/vim-visual-star-search'
 " Add additional text objects to vim
 Plug 'wellle/targets.vim'
-Plug 'michaeljsmith/vim-indent-object'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-indent'
 " Make vim current directory the project root
 Plug 'airblade/vim-rooter'
 " indentation as an object (i)
@@ -53,14 +58,19 @@ Plug 'justinmk/vim-sneak'
 Plug 'alvan/vim-closetag'
 
 " ==> Extra vim behavior
-Plug 'qpkorr/vim-bufkill'
+" Plug 'qpkorr/vim-bufkill'
 Plug 'junegunn/vim-peekaboo'
+Plug 'tpope/vim-eunuch'
 
 " ==> LSP
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 " ==> Testing
 Plug 'janko/vim-test'
+
+" ==> Find and Replace workflow
+Plug 'jremmen/vim-ripgrep'
+Plug 'stefandtw/quickfix-reflector.vim'
 
 " ==> Undo history
 Plug 'mbbill/undotree'
@@ -105,7 +115,9 @@ Plug 'ludovicchabant/vim-gutentags'
 " ==> External Integrations
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
+Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'tpope/vim-rhubarb' 
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -118,6 +130,8 @@ Plug 'edkolev/tmuxline.vim'
 
 " Terminal
 Plug 'wincent/terminus'
+Plug 'vimlab/split-term.vim'
+Plug 'voldikss/vim-floaterm'
 
 " ==> Color Schemes
 Plug 'joshdick/onedark.vim'
@@ -166,16 +180,11 @@ set nrformats=
 " set t_RS=
 " set t_SH=
 
-" Disabled automatic new line comment (annoying specially when editing vimrc)
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" Correct comment highlighting on coc json config file
-" https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
-autocmd FileType json syntax match Comment +\/\/.\+$+
-
 " Show tabs and space
-:set list
+set list
 set listchars=tab:→\ ,space:·,nbsp:␣,extends:»,precedes:«,trail:•
+
+set tabstop=4
 
 " reduce updatetime and time to next key
 set updatetime=100
@@ -211,11 +220,6 @@ set smartcase
 " Highlight search results when /?
 set incsearch
 set nohlsearch
-augroup vimrc-incsearch-highlight
-  autocmd!
-  autocmd CmdlineEnter [/\?] :set hlsearch
-  autocmd CmdlineLeave [/\?] :set nohlsearch
-augroup END
 
 " Show matching brackets when text indicator is over them
 set showmatch
@@ -236,13 +240,13 @@ set t_vb=
 " Dont show mode (handled by status line)
 set noshowmode
 
-" Set extra margin to the left side of the screen
-set foldcolumn=0
-
 " Start GVIM maximized on Windows
 if(has('win32') || has('win64'))
     autocmd GUIEnter * simalt ~x
 endif
+
+autocmd BufEnter term://* startinsert
+autocmd BufLeave term://* stopinsert
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -320,37 +324,54 @@ set titlestring=%f
 "<Leader> key avoids default vim key collision
 let mapleader = "\<Space>"
 
+" Terminal mode
+" Allow hitting <Esc> to switch to normal mode
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+" Ctrl+[hjkl] to navigate through windows in insert mode
+tnoremap <buffer> <C-h> <C-\><C-n><C-w>h
+tnoremap <buffer> <C-j> <C-\><C-n><C-w>j
+tnoremap <buffer> <C-k> <C-\><C-n><C-w>k
+tnoremap <buffer> <C-l> <C-\><C-n><C-w>l
+" Simulate i_Ctrl-R
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+
+" change star (c*) to to something similar to multiple cursors
+" Use . to repeat the motion
+" Does not pollute the jump list
+nnoremap c* *<C-o>cgn
+nnoremap c# #<C-o>cgn
+
 " text related searches
-nnoremap <Leader>/ :BLines<CR>
+nnoremap <Leader>/ :FzfBLines<CR>
 " Type <Leader>* to search everywhere for the selected word on normal and visual mode
-nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
-xnoremap <silent> <Leader>* y:Rg <C-R>"<CR>
+nnoremap <silent> <Leader>* :FzfRg <C-R><C-W><CR>
+xnoremap <silent> <Leader>* y:FzfRg <C-R>"<CR>
 " Type <Leader>+ to search on the current buffer for the selected word on normal and visual mode
-nnoremap <silent> <Leader>+ :BLines <C-R><C-W><CR>
-xnoremap <silent> <Leader>+ y:BLines <C-R>"<CR>
-nnoremap <Leader>p :Files<CR>
+nnoremap <silent> <Leader>+ :FzfBLines <C-R><C-W><CR>
+xnoremap <silent> <Leader>+ y:FzfBLines <C-R>"<CR>
+nnoremap <Leader>p :FzfFiles<CR>
 " Type <Leader>P to search for files with the content off the selected word on normal mode
 nnoremap <silent> <Leader>P :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
-nnoremap <Leader>f :Rg<CR>
+nnoremap <Leader>f :FzfRg<CR>
 " Find by filtered file type. After typing the file type just press Ctrl-e to go to end of line and type the expression you want
-nnoremap <Leader>F :RgInput -g '*'<space><Left><Left>
+nnoremap <Leader>F :FzfRgInput -g '*'<space><Left><Left>
 
 " vim related searches
-nnoremap <Leader>. :Commands<CR>
-nnoremap <Leader>: :History:<CR>
-nnoremap <Leader>h :Helptags<CR>
-nnoremap <Leader>H :History<CR>
-nnoremap <Leader>m :Maps<CR>
+nnoremap <Leader>. :FzfCommands<CR>
+nnoremap <Leader>: :FzfHistory:<CR>
+nnoremap <Leader>h :FzfHelptags<CR>
+nnoremap <Leader>H :FzfHistory<CR>
+nnoremap <Leader>m :FzfMaps<CR>
 nnoremap <Leader>t :Vista finder fzf:ctags<CR>
 nnoremap <Leader>T :Vista finder fzf:coc<CR>
-nnoremap <Leader>w :Windows<CR>
-nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>w :FzfWindows<CR>
+nnoremap <Leader>b :FzfBuffers<CR>
 
 " git related searches
-nnoremap <Leader>gc :BCommits<CR>
-nnoremap <Leader>gC :Commits<CR>
-nnoremap <Leader>gf :GFiles?<CR>
-nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gc :FzfBCommits<CR>
+nnoremap <Leader>gC :FzfCommits<CR>
+nnoremap <Leader>gf :FzfGFiles?<CR>
+nnoremap <Leader>gb :FzfGblame<CR>
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -367,8 +388,10 @@ endfunc
 " Use leader-e to use operations on cursor as a text object
 nmap <leader>e  <Plug>(coc-cursors-operator)
 
-
 " Keybinding
+
+" Since Tab and Ctrl-I are interchaneable in vim i need to map Ctrl-l to serve as a workaround of ctrl-i
+nnoremap <A-o> <C-i>
 
 " Remap gotos with coc
 nmap <silent> gd <Plug>(coc-definition)
@@ -376,6 +399,13 @@ nmap <silent> gD <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Activate diagnostic error message with keybinding!
+nmap <silent> <leader>cdp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>cdn <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>cdi <Plug>(coc-diagnostic-info)
+nmap <silent> <leader>ca <Plug>(coc-codeaction)
+nmap <silent> <leader>ci :CocCommand editor.action.organizeImport<CR>
+nmap <leader> <leader>cr <Plug>(coc-refactor)
 
 " Use <c-e> to trigger snippet expansion
 imap <C-e> <Plug>(coc-snippets-expand)
@@ -411,21 +441,23 @@ endfunction
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" ==> GitGutter
-let g:gitgutter_map_keys = 0
-" hunk should be h but h is very unconfortable so i am using c as in (c)hunk
-" navigate through hunks with nN
-" git hunk add / git hunk checkout / git hunk preview
-nmap <Leader>ghn <Plug>(GitGutterNextHunk)
-nmap <Leader>ghp <Plug>(GitGutterPrevHunk)
-nmap <Leader>ghs <Plug>(GitGutterStageHunk)
-nmap <Leader>ghu <Plug>(GitGutterUndoHunk)
-nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)
+" ==> Signify
+let g:signify_sign_add = '+'
+let g:signify_sign_delete = '-'
+let g:signify_sign_delete_first_line = '-'
+let g:signify_sign_change = '~'
+let g:signify_sign_show_count = 0
+nmap <Leader>ghn <Plug>(signify-next-hunk)
+nmap <Leader>ghp <Plug>(signify-prev-hunk)
+nmap ]h <Plug>(signify-next-hunk)
+nmap [h <Plug>(signify-prev-hunk)
+nmap <Leader>ghu :SignifyHunkUndo<CR>
+nmap <Leader>ghi :SignifyHunkDiff<CR>
 
-omap ih <Plug>(GitGutterTextObjectInnerPending)
-omap ah <Plug>(GitGutterTextObjectOuterPending)
-xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+omap ih <plug>(signify-motion-inner-pending)
+xmap ih <plug>(signify-motion-inner-visual)
+omap ah <plug>(signify-motion-outer-pending)
+xmap ah <plug>(signify-motion-outer-visual)
 
 
 " User leader s/S to save save all buffers
@@ -443,14 +475,11 @@ noremap Q <Nop>
 nnoremap <CR> o<Esc>k
 nnoremap <S-Enter> O<Esc>j
 
-" Ctrl-j/k to quit to normal mode
-inoremap <C-j> <Esc>
-inoremap <C-j> <Esc>
-inoremap <C-k> <Esc>
-vnoremap <C-j> <Esc>
-vnoremap <C-k> <Esc>
-xnoremap <C-j> <Esc>
-xnoremap <C-k> <Esc>
+" jk to quit to normal mode
+tnoremap <buffer> jk <C-\><C-n>
+inoremap jk <Esc>
+inoremap jk <Esc>
+inoremap jk <Esc>
 
 " Traverse only display lines (like normal text editors)
 nnoremap j gj
@@ -478,6 +507,17 @@ nnoremap gh <C-]>
 
 :command! -nargs=0 Tabs2Spaces :set et|retab<CR>
 :command! -nargs=0 Spaces2Tabs :set noet|retab!<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Auto Commands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Disabled automatic new line comment (annoying specially when editing vimrc)
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Correct comment highlighting on coc json config file
+" https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Configurations
@@ -529,6 +569,7 @@ let g:airline_section_z = airline#section#create(['%L', '☰'])
 let g:netrw_liststyle = 3
 
 " ==> fzf related
+let g:fzf_command_prefix = 'Fzf'
 " fzf actions similar to tmux splits
 let g:fzf_action = {
 \  'ctrl-t': 'tab split',
@@ -539,18 +580,18 @@ let g:fzf_action = {
 
 " Use fzf with_preview
 "Make :Rg not show file name as results
-command! -bang -nargs=* Rg
+command! -bang -nargs=* FzfRg
   \ call fzf#vim#grep(
-  \   'rg --hidden --follow --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --follow --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),
   \   <bang>0)
-command! -bang -nargs=* RgInput
+command! -bang -nargs=* FzfRgInput
   \ call fzf#vim#grep(
-  \   'rg --hidden --follow --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
+  \   'rg --follow --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),
   \   <bang>0)
 
-command! -bang -nargs=? -complete=dir Files
+command! -bang -nargs=? -complete=dir FzfFiles
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:60%:hidden', '?'), <bang>0)
 
 " floating fzf
@@ -623,9 +664,35 @@ let g:sneak#label = 1
 let g:sneak#s_next = 1
 
 " BufKill
-let g:BufKillCreateMappings = 0
+" let g:BufKillCreateMappings = 0
 
 " Session Management
 let g:prosession_dir = '~/.vim/sessions/'
 let g:prosession_on_startup = 1
 let g:prosession_per_branch = 1
+
+" Terminal
+let g:disable_key_mappings = 0
+
+
+" Animate buffer resizes
+" Preping for plugin
+let g:ensure#animate = 1
+" Don't resize beyond X lines
+let g:ensure#height_resize_max = 40
+" Don't resize smaller than X lines
+let g:ensure#height_resize_min = 10
+" Don't resize larger than X cols
+let g:ensure#width_resize_max = 100
+" Don't resize smaller than X cols
+let g:ensure#width_resize_min = 40
+
+" Find and replace workflow
+let g:rg_command = 'rg --vimgrep -S'
+
+" EditorConfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" quickfix-reflector
+"run :setlocal modifiable to enable find and replace workflow
+let g:qf_modifiable = 0
