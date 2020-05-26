@@ -56,10 +56,10 @@ Plug 'justinmk/vim-sneak'
 " Tab all the things
 " Auto close html tags
 Plug 'alvan/vim-closetag'
+Plug 'mtth/scratch.vim'
 
 " ==> Extra vim behavior
-" Plug 'qpkorr/vim-bufkill'
-Plug 'junegunn/vim-peekaboo'
+Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-eunuch'
 
 " ==> LSP
@@ -203,10 +203,12 @@ set signcolumn=yes
 " => VIM UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Add vertical bar when reaching 80 chars
+set colorcolumn=80
+
 " Maintain undo history between sessions
 set undofile
 set undodir=~/.vim/undos
-
 
 " Always show current position
 set ruler
@@ -463,12 +465,6 @@ xmap ah <plug>(signify-motion-outer-visual)
 " User leader s/S to save save all buffers
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>S :wa<CR>
-
-" stop it with the annoying macro q and ex mode that I never use (re map it to <Leader> q)
-noremap <Leader>q q
-noremap <Leader>Q @
-noremap q <Nop>
-noremap Q <Nop>
 
 " Make Enter and Shift-Enter insert lines below and above
 " without entering insert mode
