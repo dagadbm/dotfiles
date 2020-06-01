@@ -35,8 +35,7 @@ Plug 'tpope/vim-surround'
 " Allow the . command to work on plugin actions (for surround)
 Plug 'tpope/vim-repeat'
 " Add commentary with gcc for line. g<b and g>b for block
-" Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
 " Automatically find correct file indentation while respecting editor config files
 " Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-sleuth'
@@ -63,13 +62,13 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-eunuch'
 
 " ==> LSP
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 " ==> Testing
 Plug 'janko/vim-test'
 
 " ==> Find and Replace workflow
-Plug 'jremmen/vim-ripgrep'
+Plug 'jesseleite/vim-agriculture'
 Plug 'stefandtw/quickfix-reflector.vim'
 
 " ==> Undo history
@@ -115,15 +114,16 @@ Plug 'ludovicchabant/vim-gutentags'
 " ==> External Integrations
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
 Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'tpope/vim-rhubarb' 
+Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'wellle/tmux-complete.vim'
+Plug 'benmills/vimux'
 
 " Make vim color scheme integrate automatically with tmux
 Plug 'edkolev/tmuxline.vim'
@@ -319,6 +319,9 @@ set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set title
 set titlestring=%f
 
+" https://github.com/neoclide/coc-eslint/issues/28
+set virtualedit=onemore
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -343,6 +346,10 @@ tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 nnoremap c* *<C-o>cgn
 nnoremap c# #<C-o>cgn
 
+" Use J and K on visual mode to move the selection up or down
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 " text related searches
 nnoremap <Leader>/ :FzfBLines<CR>
 " Type <Leader>* to search everywhere for the selected word on normal and visual mode
@@ -356,7 +363,7 @@ nnoremap <Leader>p :FzfFiles<CR>
 nnoremap <silent> <Leader>P :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
 nnoremap <Leader>f :FzfRg<CR>
 " Find by filtered file type. After typing the file type just press Ctrl-e to go to end of line and type the expression you want
-nnoremap <Leader>F :FzfRgInput -g '*'<space><Left><Left>
+nnoremap <Leader>F :RgRaw -g ''<space><Left><left>
 
 " vim related searches
 nnoremap <Leader>. :FzfCommands<CR>
@@ -373,7 +380,6 @@ nnoremap <Leader>b :FzfBuffers<CR>
 nnoremap <Leader>gc :FzfBCommits<CR>
 nnoremap <Leader>gC :FzfCommits<CR>
 nnoremap <Leader>gf :FzfGFiles?<CR>
-nnoremap <Leader>gb :FzfGblame<CR>
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -381,10 +387,10 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Use <c-e> for multiple cursor
 nmap <expr> <silent> <C-e> <SID>select_current_word()
 function! s:select_current_word()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
-  endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+if !get(g:, 'coc_cursors_activated', 0)
+  return "\<Plug>(coc-cursors-word)"
+endif
+return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
 
 " Use leader-e to use operations on cursor as a text object
@@ -396,21 +402,27 @@ nmap <leader>e  <Plug>(coc-cursors-operator)
 nnoremap <A-o> <C-i>
 
 " Remap gotos with coc
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <leader>cgd <Plug>(coc-definition)
+nmap <silent> <leader>cgD <Plug>(coc-declaration)
+nmap <silent> <leader>cgt <Plug>(coc-type-definition)
+nmap <silent> <leader>cgi <Plug>(coc-implementation)
+nmap <silent> <leader>cgr <Plug>(coc-references)
 
 " Activate diagnostic error message with keybinding!
-nmap <silent> <leader>cdp <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>cdn <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>cdi <Plug>(coc-diagnostic-info)
-nmap <silent> <leader>ca <Plug>(coc-codeaction)
-nmap <silent> <leader>ci :CocCommand editor.action.organizeImport<CR>
-nmap <leader> <leader>cr <Plug>(coc-refactor)
+nmap <silent> <leader>cp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>cn <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>ci <Plug>(coc-diagnostic-info)
+nmap <silent> <leader>cf <Plug>(coc-fix-current)
+nmap <silent> <leader>ca <Plug>(coc-codeaction-selected)
+vmap <silent> <leader>ca <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>cA <Plug>(coc-codeaction)
+nmap <silent> <leader>co <Plug>(coc-action-organizeImport)
+nmap <silent> <leader>cr <Plug>(coc-refactor)
 
-" Use <c-e> to trigger snippet expansion
-imap <C-e> <Plug>(coc-snippets-expand)
+" formaT selection and entire file
+vmap <silent> <leader>ct <Plug>(coc-format-selected)
+nmap <silent> <leader>ct <Plug>(coc-format-selected)
+nmap <silent> <leader>cT <Plug>(coc-format)
 
 " Use control+space to trigger completion menu
 inoremap <silent><expr> <C-space> coc#refresh()
@@ -427,12 +439,16 @@ endfunction
 
 " https://ianding.io/2019/07/29/configure-coc-nvim-for-c-c++-development/
 " https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
-" use <tab> for trigger completion and navigate to the next complete item
+" use <tab> for trigger completion and snippets and navigate to the next complete item
+" https://github.com/neoclide/coc-snippets
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
+" use enter to accept auto completion, default to first one if none is selected
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -443,23 +459,18 @@ endfunction
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" ==> Signify
-let g:signify_sign_add = '+'
-let g:signify_sign_delete = '-'
-let g:signify_sign_delete_first_line = '-'
-let g:signify_sign_change = '~'
-let g:signify_sign_show_count = 0
-nmap <Leader>ghn <Plug>(signify-next-hunk)
-nmap <Leader>ghp <Plug>(signify-prev-hunk)
-nmap ]h <Plug>(signify-next-hunk)
-nmap [h <Plug>(signify-prev-hunk)
-nmap <Leader>ghu :SignifyHunkUndo<CR>
-nmap <Leader>ghi :SignifyHunkDiff<CR>
+" ==> GitGutter
+let g:gitgutter_map_keys = 0
+nmap <Leader>gn <Plug>(GitGutterNextHunk)
+nmap <Leader>gp <Plug>(GitGutterPrevHunk)
+nmap <Leader>gu <Plug>(GitGutterUndoHunk)
+nmap <Leader>ga <Plug>(GitGutterStageHunk)
+nmap <Leader>gi <Plug>(GitGutterPreviewHunk)
 
-omap ih <plug>(signify-motion-inner-pending)
-xmap ih <plug>(signify-motion-inner-visual)
-omap ah <plug>(signify-motion-outer-pending)
-xmap ah <plug>(signify-motion-outer-visual)
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 
 " User leader s/S to save save all buffers
@@ -581,11 +592,6 @@ command! -bang -nargs=* FzfRg
   \   'rg --follow --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),
   \   <bang>0)
-command! -bang -nargs=* FzfRgInput
-  \ call fzf#vim#grep(
-  \   'rg --follow --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%:hidden', '?'),
-  \   <bang>0)
 
 command! -bang -nargs=? -complete=dir FzfFiles
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:60%:hidden', '?'), <bang>0)
@@ -612,6 +618,7 @@ if has('nvim')
   endfunction
 
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+  let g:fzf_preview_window = 'right:60%:hidden'
 endif
 
 " ==> Gutentags
@@ -672,16 +679,10 @@ let g:disable_key_mappings = 0
 
 
 " Animate buffer resizes
-" Preping for plugin
-let g:ensure#animate = 1
-" Don't resize beyond X lines
-let g:ensure#height_resize_max = 40
-" Don't resize smaller than X lines
-let g:ensure#height_resize_min = 10
-" Don't resize larger than X cols
-let g:ensure#width_resize_max = 100
-" Don't resize smaller than X cols
-let g:ensure#width_resize_min = 40
+let g:lens#height_resize_max = 100
+let g:lens#height_resize_min = 10
+let g:lens#width_resize_max = 100
+let g:lens#width_resize_min = 20
 
 " Find and replace workflow
 let g:rg_command = 'rg --vimgrep -S'
@@ -689,6 +690,6 @@ let g:rg_command = 'rg --vimgrep -S'
 " EditorConfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-" quickfix-reflector
-"run :setlocal modifiable to enable find and replace workflow
-let g:qf_modifiable = 0
+" vim-test
+let test#strategy = "vimux"
+

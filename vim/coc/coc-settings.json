@@ -24,6 +24,8 @@
     "prettier.stylelintIntegration": true,
     "prettier.disableLanguages": ["vue"],
     "prettier.disableSuccessMessage": false,
+    "prettier.requireConfig": true,
+    "prettier.onlyUseLocalVersion": true,
 
     // emmet
     "emmet.includeLanguages": {"vue-html": "html", "vue": "html", "javascript": "javascriptreact"},
