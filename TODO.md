@@ -35,14 +35,22 @@ https://github.com/benmills/vimux -> not sure if this will be what i want but it
 https://github.com/dominickng/fzf-session.vim
 https://github.com/antoinemadec/coc-fzf/
 https://github.com/iamcco/coc-actions
+## Ranger
+https://tzutalin.blogspot.com/2019/04/install-rangervim-based-file-manager-on.html
+## Which key
+https://github.com/liuchengxu/vim-which-key
+
+## Interesting dotfiles to learn from
+https://github.com/ChristianChiarulli/nvim
+https://www.chrisatmachine.com/neovim
 
 
 # Tmux
 ## Tmux alternatives
 http://www.brain-dump.org/projects/abduco/ for session storage
 http://www.brain-dump.org/projects/dvtm/ for tiling window
-# icons!
-https://coreyja.com/vim-fzf-with-devicons/
-
-# asdf
+# icons!  https://coreyja.com/vim-fzf-with-devicons/ # asdf
 Configure asdf for python and node!
+
+# Related
+https://gist.github.com/romainl/4b9f139d2a8694612b924322de1025ce

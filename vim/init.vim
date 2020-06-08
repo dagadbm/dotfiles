@@ -42,20 +42,20 @@ Plug 'tpope/vim-sleuth'
 " * and # to work on visual mode
 Plug 'bronson/vim-visual-star-search'
 " Add additional text objects to vim
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'wellle/targets.vim'
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-line'
-Plug 'kana/vim-textobj-indent'
 " Make vim current directory the project root
 Plug 'airblade/vim-rooter'
 " indentation as an object (i)
-Plug 'michaeljsmith/vim-indent-object'
 " Sneak anywhere using s/S
 Plug 'justinmk/vim-sneak'
 " Tab all the things
 " Auto close html tags
 Plug 'alvan/vim-closetag'
 Plug 'mtth/scratch.vim'
+
+Plug 'wellle/context.vim'
+Plug 'wellle/visual-split.vim'
 
 " ==> Extra vim behavior
 Plug 'qpkorr/vim-bufkill'
@@ -447,8 +447,8 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
-" use enter to accept auto completion, default to first one if none is selected
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" use enter to accept auto completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -458,6 +458,10 @@ endfunction
 " Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Close the preview window when completion is done.
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
 
 " ==> GitGutter
 let g:gitgutter_map_keys = 0
