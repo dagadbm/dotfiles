@@ -6,33 +6,38 @@ tap "caskroom/cask-versions"
 
 tap "homebrew/cask-fonts"
 
-brew "zsh"
+# git
 brew "git"
 brew "diff-so-fancy"
 brew "tig"
 
+# vim
+brew "neovim", args: ["HEAD"]
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
+
+# shell
+brew "zsh"
+brew "asdf", args: ["HEAD"]
 brew "ripgrep"
 brew "fd"
 brew "tree"
 brew "htop"
-brew "tldr"
 brew "jq"
-brew "rename"
-brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
+brew "curl"
+brew "ranger"
 
-brew "neovim"
-
-brew "reattach-to-user-namespace"
+# term
 brew "tmux"
+brew "reattach-to-user-namespace"
+cask "kitty"
 
+# apps
 cask "alfred"
-
+cask "visual-studio-code"
+cask "rectangle"
 cask "brave-browser"
 cask "firefox-developer-edition"
 
+# fonts
 cask "font-jetbrainsmono-nerd-font"
 
-cask "kitty"
-cask "flux"
-cask "visual-studio-code"
-cask "rectangle"

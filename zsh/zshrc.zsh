@@ -1,4 +1,4 @@
-#####################################
+e####################################
 # Oh-My-Zsh Setup
 
 # Path to your oh-my-zsh installation.
@@ -38,18 +38,13 @@ HIST_STAMPS="yyyy/mm/dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  asdf
   vi-mode
-  gitfast
-  zsh-better-npm-completion
   zsh-completions
-  zsh-syntax-highlighting
   zsh-autosuggestions
+  # https://github.com/zsh-users/zsh-syntax-highlighting#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
+  zsh-syntax-highlighting 
 )
-
-# Install brew if needed
-if ! [ -x "$(command -v brew)" ]; then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
 
 # Brew shell completion for zsh. Must be set before sourcing oh-my-zsh
 if [ -x "$(command -v brew)" ]; then
@@ -87,9 +82,6 @@ export _Z_DATA=~/.z.datafile
 
 # fzf
 source ~/.fzf.zsh
-if ! [ -x "$(command -v fzf)" ]; then
-  ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
-fi
 
 FZF_COMMON_OPTIONS="
   --bind='?:toggle-preview'
@@ -199,14 +191,6 @@ bind-git-helper() {
 bind-git-helper f b t r g
 unset -f bind-git-helper
 
-# volta
-if ! [ -d "$HOME/.volta" ]; then
-  curl https://get.volta.sh | bash
-fi
-export VOLTA_HOME="$HOME/.volta"
-[ -s "$VOLTA_HOME/load.sh" ] && . "$VOLTA_HOME/load.sh"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
 # bat
 command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
@@ -263,13 +247,14 @@ alias gap='git add --patch'
 alias gcop='git checkout --patch'
 
 # misc
-alias l='ls -hall'
+alias l='ls -hal'
 
 alias vi=vim
 alias v=vim
 # use neovim as vim
 if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
+  alias ovim=vim # to use vim type ovim
   export EDITOR=nvim
 fi
 
@@ -280,8 +265,4 @@ alias k=kubectl
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
 
 #####################################
-
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 # https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
-export PATH="/usr/local/opt/awscli@1/bin:$PATH"

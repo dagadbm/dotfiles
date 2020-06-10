@@ -25,16 +25,6 @@
     url = https://github.com/zsh-users/zsh-syntax-highlighting.git
     branch = master
     shallow = true
-[submodule "zsh/custom/plugins/zsh-nvm"]
-    path = zsh/custom/plugins/zsh-nvm
-    url = https://github.com/lukechilds/zsh-nvm.git
-    branch = master
-    shallow = true
-[submodule "zsh/custom/plugins/zsh-better-npm-completion"]
-    path = zsh/custom/plugins/zsh-better-npm-completion
-    url = https://github.com/lukechilds/zsh-better-npm-completion
-    branch = master
-    shallow = true
 [submodule "zsh/custom/themes/spaceship-prompt"]
     path = zsh/custom/themes/spaceship-prompt
     url = https://github.com/denysdovhan/spaceship-prompt.git
@@ -54,3 +44,6 @@
     path = fzf
     url = https://github.com/junegunn/fzf
     shallow = true
+[submodule "asdf"]
+    path = asdf
+    url = https://github.com/asdf-vm/asdf.git

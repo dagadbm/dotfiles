@@ -23,6 +23,8 @@
     ~/.z: z
     ## fzf
     ~/.fzf: fzf
+    ## asdf
+    ~/.asdf: asdf
     ### tmux
     ~/.tmux.conf: tmux/tmux.conf
     ## tig
@@ -31,8 +33,6 @@
     ~/.gitconfig.common: git/gitconfig
 
     # macos apps
-    ## karabiner
-    ~/.config/karabiner/karabiner.json: macos/karabiner.json
     ## rectangle
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
 
@@ -46,11 +46,6 @@
     ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
 
     # terminals
-    ## iterm2
-    /usr/local/share/iterm2: iterm2
-    ## hyper
-    ~/.hyper.js: hyper/hyper.config.js
-    ~/.hyper_plugins/local/hyper-config/index.js: hyper/hyper.plugin.js
     ## kitty
     ~/.config/kitty: kitty
 
