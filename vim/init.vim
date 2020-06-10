@@ -4,8 +4,6 @@
 
 " Auto vim-plug installation if plugin folder isn't present
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -134,7 +132,6 @@ Plug 'voldikss/vim-floaterm'
 " ==> Color Schemes
 Plug 'joshdick/onedark.vim'
 
-
 " Vim-Plug end
 call plug#end()
 
@@ -224,6 +221,9 @@ set nohlsearch
 " Show matching brackets when text indicator is over them
 set showmatch
 
+" Add spell checking
+set spell
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
@@ -240,21 +240,12 @@ set t_vb=
 " Dont show mode (handled by status line)
 set noshowmode
 
-" Start GVIM maximized on Windows
-if(has('win32') || has('win64'))
-    autocmd GUIEnter * simalt ~x
-endif
-
-autocmd BufEnter term://* startinsert
-autocmd BufLeave term://* stopinsert
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable syntax highlighting
 syntax on
-
 
 " Setup 256 color support
 if exists('+termguicolors')
@@ -500,9 +491,6 @@ nnoremap gm `
 "Make gM go to start of line of any mark
 nnoremap gM '
 
-" Change vim working directory to the current file dir
-nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
-
 " Update vimrc
 nnoremap <Leader>R :source $MYVIMRC<CR>
 
@@ -671,7 +659,7 @@ let g:sneak#label = 1
 let g:sneak#s_next = 1
 
 " BufKill
-" let g:BufKillCreateMappings = 0
+let g:BufKillCreateMappings = 0
 
 " Session Management
 let g:prosession_dir = '~/.vim/sessions/'
@@ -680,7 +668,6 @@ let g:prosession_per_branch = 1
 
 " Terminal
 let g:disable_key_mappings = 0
-
 
 " Animate buffer resizes
 let g:lens#height_resize_max = 100
