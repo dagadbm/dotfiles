@@ -47,3 +47,4 @@
 [submodule "asdf"]
     path = asdf
     url = https://github.com/asdf-vm/asdf.git
+    shallow = true
