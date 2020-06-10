@@ -41,5 +41,5 @@ asdf global python $(asdf latest python 3) $(asdf latest python 2)
 #python2 will point to version 2 latest
 
 # set homebrew zsh as the default shell
-sudo echo /usr/local/bin/zsh >> /etc/shells
-chsh -s /usr/local/bin/zsh
+sudo sh -c "echo $(which zsh) >> /etc/shells"
+chsh -s $(which zsh)
