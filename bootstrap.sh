@@ -1,3 +1,6 @@
+# mandatory install for mac
+xcode-select --install
+
 # handle git sub modules
 git submodule update --recursive --init
 ./submodules.sh
@@ -28,7 +31,6 @@ asdf plugin add yarn
 asdf install yarn latest
 
 ## python
-xcode-select --install 
 brew install openssl readline xz zlib
 asdf plugin add python
 asdf install python latest:2
