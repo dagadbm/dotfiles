@@ -230,6 +230,7 @@ defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 # 11: Launchpad
 # 12: Notification Center
 # 13: Lock Screen
+
 # Top left screen corner
 defaults write com.apple.dock wvous-tl-corner -int 11
 defaults write com.apple.dock wvous-tl-modifier -int 0
@@ -240,7 +241,7 @@ defaults write com.apple.dock wvous-tr-modifier -int 0
 defaults write com.apple.dock wvous-bl-corner -int 13
 defaults write com.apple.dock wvous-bl-modifier -int 0
 # Bottom right screen corner
-defaults write com.apple.dock wvous-br-corner -int 13
+defaults write com.apple.dock wvous-br-corner -int 12
 defaults write com.apple.dock wvous-br-modifier -int 0
 
 ###############################################################################
