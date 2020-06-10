@@ -2,6 +2,7 @@ tap "homebrew/core"
 tap "homebrew/bundle"
 
 tap "homebrew/cask"
+tap "homebrew/cask-versions"
 tap "homebrew/cask-fonts"
 
 # git
@@ -33,6 +34,7 @@ cask "kitty"
 cask "alfred"
 cask "visual-studio-code"
 cask "rectangle"
+cask "bitwarden"
 cask "brave-browser"
 cask "firefox-developer-edition"
 
