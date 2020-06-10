@@ -1,6 +1,3 @@
-# Get admin permissions
-sudo -v
-
 # mandatory install for mac
 xcode-select --install
 
