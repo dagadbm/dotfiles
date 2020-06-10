@@ -1,3 +1,6 @@
+# Get admin permissions
+sudo -v
+
 # mandatory install for mac
 xcode-select --install
 
@@ -40,5 +43,6 @@ asdf global python $(asdf latest python 3) $(asdf latest python 2)
 #python3 will point to version 3 latest
 #python2 will point to version 2 latest
 
-# set zsh as default shell
-chsh -s $(which zsh)
+# set homebrew zsh as the default shell
+sudo echo /usr/local/bin/zsh >> /etc/shells
+chsh -s /usr/local/bin/zsh
