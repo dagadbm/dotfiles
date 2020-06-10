@@ -1,4 +1,4 @@
-e####################################
+####################################
 # Oh-My-Zsh Setup
 
 # Path to your oh-my-zsh installation.
