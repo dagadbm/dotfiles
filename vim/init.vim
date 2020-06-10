@@ -44,6 +44,7 @@ Plug 'bronson/vim-visual-star-search'
 " Add additional text objects to vim
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'wellle/targets.vim'
+Plug 'wellle/line-targets.vim'
 " Make vim current directory the project root
 Plug 'airblade/vim-rooter'
 " indentation as an object (i)
@@ -53,9 +54,6 @@ Plug 'justinmk/vim-sneak'
 " Auto close html tags
 Plug 'alvan/vim-closetag'
 Plug 'mtth/scratch.vim'
-
-Plug 'wellle/context.vim'
-Plug 'wellle/visual-split.vim'
 
 " ==> Extra vim behavior
 Plug 'qpkorr/vim-bufkill'
@@ -575,6 +573,8 @@ let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'g
 let g:airline_section_y = ''
 " I cannot get the line numbers and percentages to work correctly so I just use a static value always of max lines
 let g:airline_section_z = airline#section#create(['%L', '☰'])
+
+let g:coc_node_path = '$HOME/.asdf/shims/node'
 
 " ==> netrw
 let g:netrw_liststyle = 3
