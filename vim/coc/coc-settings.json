@@ -12,7 +12,6 @@
     "diagnostic.checkCurrentLine": true,
     "diagnostic.enableMessage": "always",
     "suggest.numberSelect": false,
-    "diagnostic.locationlist": true,
     "diagnostic.virtualText": false,
     "coc.preferences.previewAutoClose": true,
 
