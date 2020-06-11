@@ -5,12 +5,12 @@ xcode-select --install
 git submodule update --recursive --init
 ./submodules.sh
 
-# setup macos defaults
-./macos/defaults.sh
-
 # setup brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 brew bundle --no-lock --file macos/Brewfile
+
+# setup macos defaults
+./macos/defaults.sh
 
 # setup dotfiles
 ./dotfiles.sh
@@ -46,12 +46,12 @@ asdf plugin add ruby
 asdf install ruby latest
 asdf global ruby $(asdf latest ruby)
 
-# set homebrew zsh as the default shell for everyone
+# set homebrew's zsh as the default shell for everyone
 sudo sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
 
-# neovim
+# neovim checkhealth fixes
 ## nvr
 pip install neovim-remote
 ## nodejs provider
@@ -65,3 +65,6 @@ asdf reshim
 ## install coc-extensions
 cd ~/.config/coc/extensions
 yarn install --frozen-lockfile
+
+## install plugins on neovim
+nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +CocRestart +qall
