@@ -58,7 +58,7 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-eunuch'
 
 " ==> LSP
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 " ==> Testing
 Plug 'janko/vim-test'
@@ -222,7 +222,7 @@ set nohlsearch
 set showmatch
 
 " Add spell checking
-set spell
+setlocal spell spelllang=en_us
 
 " No annoying sound on errors
 set noerrorbells
@@ -245,7 +245,7 @@ set noshowmode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable syntax highlighting
-syntax on
+syntax enable
 
 " Setup 256 color support
 if exists('+termguicolors')

@@ -10,7 +10,7 @@ git submodule update --recursive --init
 
 # setup brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-brew bundle --file macos/Brewfile
+brew bundle --no-lock --file macos/Brewfile
 
 # setup dotfiles
 ./dotfiles.sh
@@ -61,3 +61,7 @@ gem install neovim
 ## python provider
 python3 -m pip install --user --upgrade pynvim
 python2 -m pip install --user --upgrade pynvim
+asdf reshim
+## install coc-extensions
+cd ~/.config/coc/extensions
+yarn install --frozen-lockfile

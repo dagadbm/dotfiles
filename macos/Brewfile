@@ -16,7 +16,7 @@ brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 
 # shell
 brew "zsh"
-brew "asdf", args: ["HEAD"]
+brew "asdf"
 brew "ripgrep"
 brew "fd"
 brew "tree"
@@ -37,6 +37,11 @@ cask "rectangle"
 cask "bitwarden"
 cask "brave-browser"
 cask "firefox-developer-edition"
+cask "slack"
+cask "discord"
+cask "whatsapp"
+cask "docker"
+cask "notion"
 
 # fonts
 cask "font-jetbrainsmono-nerd-font"
