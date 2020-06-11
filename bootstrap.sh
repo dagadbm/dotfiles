@@ -41,6 +41,23 @@ asdf global python $(asdf latest python 3) $(asdf latest python 2)
 #python3 will point to version 3 latest
 #python2 will point to version 2 latest
 
-# set homebrew zsh as the default shell
+# ruby
+asdf plugin add ruby
+asdf install ruby latest
+asdf global ruby $(asdf latest ruby)
+
+# set homebrew zsh as the default shell for everyone
 sudo sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
+sudo chsh -s $(which zsh)
+
+# neovim
+## nvr
+pip install neovim-remote
+## nodejs provider
+npm install -g neovim
+## ruby provider
+gem install neovim
+## python provider
+python3 -m pip install --user --upgrade pynvim
+python2 -m pip install --user --upgrade pynvim
