@@ -16,7 +16,8 @@
     ## oh-my-zsh
     ~/.oh-my-zsh: zsh/oh-my-zsh
     ~/.zshrc: zsh/zshrc.zsh
-    ~/.oh-my-zsh/custom: zsh/custom
+    ~/.oh-my-zsh/custom/plugins: zsh/custom/plugins
+    ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme: zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme
 
     # tools
     ## z
