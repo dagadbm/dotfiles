@@ -62,9 +62,12 @@ gem install neovim
 python3 -m pip install --user --upgrade pynvim
 python2 -m pip install --user --upgrade pynvim
 asdf reshim
+## perl provider
+brew install perl cpanminus
+cpanm Neovim::Ext
+cpanm Neovim::Ext --force # Just in case it fails the first time
 ## install coc-extensions
 cd ~/.config/coc/extensions
 yarn install --frozen-lockfile
-
 ## install plugins on neovim
 nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +CocRestart +qall
