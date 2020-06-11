@@ -6,30 +6,25 @@ This was done with a lot of love and I occasionally update it.
 
 # Install
 
-First run install script `./install` to set up the install scripts
-Switch over to zsh or even better make it your default one `sudo chsh $(which zsh)`
-Reload the shell now using zsh
-go into the dotfiles repo and run the command `dotfiles_update` which is an alias to setup git submodules
-
-For mac I recommend installing iterm2 as well as Fira Code font.
+First run install script `./bootstrap.sh` to download and setup everything
 
 # Features
 
 This uses the amazing dotbot to handle all the symlinking.
-These dotfiles are mainly for zsh, vim and space-macs (though I haven't been using emacs for a while now).
+These dotfiles are mainly for zsh, vim, and macos apps
 
 # Support
 
-For now this works on linux/mac and windows (via WSL only)
+For now this works on mac os only
 If you have any questions please feel free to open an Issue
 
-
-# Git Submodules
-## Add
+# Helpers
+## Git Submodules
+### Add
 git submodule add https://github.com/url_to/awesome_submodule.git path_to_awesome_submodule
-## Update
+### Update
 ./submodules.sh
-## Delete
+### Delete
 Delete the relevant section from the .gitmodules file.
 Stage the .gitmodules changes git add .gitmodules
 Delete the relevant section from .git/config.
