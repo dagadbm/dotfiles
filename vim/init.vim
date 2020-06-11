@@ -562,8 +562,6 @@ let g:airline_section_y = ''
 " I cannot get the line numbers and percentages to work correctly so I just use a static value always of max lines
 let g:airline_section_z = airline#section#create(['%L', '☰'])
 
-let g:coc_node_path = '$HOME/.asdf/shims/node'
-
 " ==> netrw
 let g:netrw_liststyle = 3
 
