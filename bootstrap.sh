@@ -29,6 +29,7 @@ asdf global nodejs $(asdf latest nodejs)
 ## yarn
 asdf plugin add yarn
 asdf install yarn latest
+asdf global yarn $(asdf latest yarn)
 
 ## python
 brew install openssl readline xz zlib
