@@ -62,6 +62,12 @@ source $ZSH/oh-my-zsh.sh
 DEFAULT_USER=$USER
 prompt_context() {}
 
+# history size
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+# ignore duplicates on history
+setopt hist_ignore_all_dups
+
 # lang
 export LANG=en_US.UTF-8
 
@@ -266,3 +272,4 @@ alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.t
 
 #####################################
 # https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
+export PATH="/usr/local/opt/awscli@1/bin:$PATH"
