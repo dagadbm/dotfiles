@@ -38,7 +38,6 @@ HIST_STAMPS="yyyy/mm/dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  asdf
   vi-mode
   zsh-completions
   zsh-autosuggestions
@@ -81,6 +80,16 @@ bindkey '^w' forward-word
 bindkey '^ ' autosuggest-accept
 # execute suggestion (ctrl+e)
 bindkey '^e' autosuggest-execute
+
+# asdf
+if [ -x "$(command -v asdf)" ]; then
+  . $HOME/.asdf/asdf.sh
+  # append completions to fpath
+  fpath=(${ASDF_DIR}/completions $fpath)
+  # initialise completions with ZSH's compinit
+  autoload -Uz compinit
+  compinit
+fi
 
 # z
 export _Z_DATA=~/.z.datafile
