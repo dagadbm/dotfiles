@@ -49,13 +49,10 @@ Plug 'wellle/targets.vim'
 Plug 'wellle/line-targets.vim'
 " Make vim current directory the project root
 Plug 'airblade/vim-rooter'
-" Sneak anywhere using s/S
-Plug 'justinmk/vim-sneak'
 " Auto close tags
 Plug 'alvan/vim-closetag'
 
 Plug 'mattn/emmet-vim'
-
 
 " ==> Extra vim behavior
 Plug 'tpope/vim-eunuch'
@@ -567,12 +564,12 @@ let g:netrw_liststyle = 3
 
 " ==> fzf related
 let g:fzf_command_prefix = 'Fzf'
+let g:fzf_preview_window = 'right:60%:hidden'
 " fzf actions similar to tmux splits
 let g:fzf_action = {
 \  'ctrl-t': 'tab split',
 \  'ctrl-s': 'split',
 \  'ctrl-v': 'vsplit',
-\  'enter': 'edit',
 \}
 
 " Use fzf with_preview
@@ -587,29 +584,16 @@ command! -bang -nargs=? -complete=dir FzfFiles
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:60%:hidden', '?'), <bang>0)
 
 " floating fzf
-if has('nvim')
-  let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
-
-  function! FloatingFZF()
-    let buf = nvim_create_buf(v:false, v:true)
-
-    let width = float2nr(&columns * 0.7)
-    let height = float2nr(&lines * 0.7)
-    let opts = { 'relative': 'editor',
-          \ 'row': (&lines - height) / 2,
-          \ 'col': (&columns - width) / 2,
-          \ 'width': width,
-          \ 'height': height,
-          \ 'style': 'minimal'
-          \}
-
-    let win = nvim_open_win(buf, v:true, opts)
-    call setwinvar(win, '&winhl', 'NormalFloat:TabLine')
-  endfunction
-
-  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-  let g:fzf_preview_window = 'right:60%:hidden'
-endif
+" Required:
+" - width [float range [0 ~ 1]]
+" - height [float range [0 ~ 1]]
+" Optional:
+" - xoffset [float default 0.5 range [0 ~ 1]]
+" - yoffset [float default 0.5 range [0 ~ 1]]
+" - highlight [string default 'Comment']: Highlight group for border
+" - border [string default 'rounded']: Border style
+"   - 'rounded' / 'sharp' / 'horizontal' / 'vertical' / 'top' / 'bottom' / 'left' / 'right'
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8, 'xoffset': 0.5, 'yoffset': 0.2, 'border': 'rounded' } }
 
 " ==> Gutentags
 let g:gutentags_add_default_project_roots = 0
@@ -651,10 +635,6 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " ==>  Bufferline integration with airline
 let g:bufferline_echo=0
-
-" ==> Sneak
-let g:sneak#label = 1
-let g:sneak#s_next = 1
 
 " BufKill
 let g:BufKillCreateMappings = 0
