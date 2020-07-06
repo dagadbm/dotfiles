@@ -28,8 +28,13 @@
 
     // emmet
     "emmet.includeLanguages": {"vue-html": "html", "vue": "html", "javascript": "javascriptreact"},
-    "emmet.showAbbreviationSuggestions": true,
 
     // explorer
-    "explorer.icon.enableNerdfont": true
+    "explorer.icon.enableNerdfont": true,
+
+    // load gosnippetst as well as ulti snips
+    "snippets.ultisnips.directories": [
+        "UltiSnips",
+        "gosnippets/UltiSnips"
+    ]
 }
