@@ -2,7 +2,6 @@
 	keepBackup = false
 [alias]
 	lg = !git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
-	fadd = !git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add
 [rerere]
 	enabled = true
 [pull]
@@ -10,19 +9,27 @@
 [diff]
 	algorithm = histogram
 	tool = nvimdiff
-[difftool]
-	prompt = false
 [difftool "nvimdiff"]
 	prompt = false
 	cmd = nvim -d $LOCAL $REMOTE
 [merge]
 	tool = nvimmerge
-[mergetool]
-	prompt = false
 [mergetool "nvimmerge"]
 	prompt = false
-	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+	cmd = nvim -f -c "Gvdiffsplit!" "$MERGED"
 [core]
-	pager = delta --plus-color="#012800" --minus-color="#340001"
-[interactive]
-	diffFilter = delta --color-only
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
