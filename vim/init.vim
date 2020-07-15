@@ -64,6 +64,7 @@ Plug 'tpope/vim-rails'
 
 " ==> Testing
 Plug 'janko/vim-test'
+Plug 'tpope/vim-dispatch'
 
 " ==> Find and Replace workflow
 Plug 'jesseleite/vim-agriculture'
@@ -115,15 +116,12 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'wellle/tmux-complete.vim'
-Plug 'benmills/vimux'
 
 " Make vim color scheme integrate automatically with tmux
 Plug 'edkolev/tmuxline.vim'
 
 " Terminal
 Plug 'wincent/terminus'
-Plug 'vimlab/split-term.vim'
-Plug 'voldikss/vim-floaterm'
 
 " ==> Color Schemes
 Plug 'joshdick/onedark.vim'
@@ -173,7 +171,7 @@ set nrformats=
 
 " Show tabs and space
 set list
-set listchars=tab:→\ ,space:·,nbsp:␣,extends:»,precedes:«,trail:•
+set listchars=tab:→\ ,nbsp:␣,extends:»,precedes:«,trail:•
 
 set tabstop=4
 
@@ -328,6 +326,10 @@ tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 nnoremap c* *<C-o>cgn
 nnoremap c# #<C-o>cgn
 
+" use Q to play a macro.
+" disable visual mode Q (use gQ instead)
+nnoremap Q @
+
 " Use J and K on visual mode to move the selection up or down
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
@@ -336,8 +338,8 @@ vnoremap K :m '<-2<CR>gv=gv
 " H is left side, L is right side (similar to vim hjkl motions)
 " left side is the target branch (where HEAD points to), the active branch you are merging into
 " right side is the merge branch passed onto the git merge command
-nmap <leader>gdh :diffget //2<CR>
-nmap <leader>gdl :diffget //3<CR>
+nmap <leader>gdh d2o
+nmap <leader>gdl d3o
 
 " text related searches
 nnoremap <Leader>/ :FzfBLines<CR>
@@ -352,7 +354,7 @@ nnoremap <Leader>p :FzfFiles<CR>
 nnoremap <silent> <Leader>P :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
 nnoremap <Leader>f :FzfRg<CR>
 " Find by filtered file type. After typing the file type just press Ctrl-e to go to end of line and type the expression you want
-nnoremap <Leader>F :RgRaw -g ''<space><Left><left>
+nnoremap <Leader>F :RgRaw -t<space><left>
 
 " vim related searches
 nnoremap <Leader>. :FzfCommands<CR>
@@ -384,6 +386,29 @@ endfunc
 nmap <leader>e  <Plug>(coc-cursors-operator)
 
 " Keybinding
+
+" I cant fix this pesky floating window bug I have
+" This is a workaround copied from a coc function that does the same
+nnoremap <silent> ~~ :call <SID>close_all_floating_windows()<CR>
+inoremap ~~ <Esc>~~
+function! s:close_all_floating_windows()
+  if has('nvim')
+    let exists = exists('*nvim_win_get_config')
+    for id in nvim_list_wins()
+      if exists
+        if !empty(nvim_win_get_config(id)['relative'])
+          call nvim_win_close(id, 1)
+        endif
+      else
+        if getwinvar(id, 'float', 0)
+          call nvim_win_close(id, 1)
+        endif
+      endif
+    endfor
+  elseif exists('*popup_clear')
+    call popup_clear()
+  endif
+endfunction
 
 " Since Tab and Ctrl-I are interchaneable in vim i need to map Ctrl-l to serve as a workaround of ctrl-i
 nnoremap <A-o> <C-i>
@@ -527,8 +552,8 @@ let g:airline_theme='onedark'
 
 let g:airline_powerline_fonts = 1
 
-let g:airline#extensions#branch#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#hunks#enabled = 1
 let g:airline#extensions#vista#enabled = 0
 
 let g:airline#extensions#whitespace#enabled = 0
@@ -540,11 +565,11 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 1
 
 let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#show_tab_count = 0
+let g:airline#extensions#tabline#show_tab_count = 1
 let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#alt_sep = 0
+let g:airline#extensions#tabline#alt_sep = 1
 let g:airline#extensions#tabline#buf_label_first = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
@@ -554,15 +579,15 @@ let g:airline#extensions#tabline#fnametruncate = 10
 let g:airline#extensions#tabline#fnamecollapse = 1
 
 
-let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'gutentags', 'grepper' ])
+let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'gutentags', 'grepper'])
 let g:airline_section_y = ''
-" I cannot get the line numbers and percentages to work correctly so I just use a static value always of max lines
-let g:airline_section_z = airline#section#create(['%L', '☰'])
+let g:airline_section_z = airline#section#create(['%3p%% ☰  %l/%L  : %c'])
 
 " ==> netrw
 let g:netrw_liststyle = 3
 
 " ==> fzf related
+let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_preview_window = 'right:60%:hidden'
 " fzf actions similar to tmux splits
@@ -599,7 +624,7 @@ let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8, 'xoffset': 0.5, 'y
 let g:gutentags_add_default_project_roots = 0
 let g:gutentags_project_root  = ['package.json', '.git', '.hg', '.svn']
 let g:gutentags_cache_dir = expand('~/.gutentags_cache')
-let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git', 'term', 'fzf']
 let g:gutentags_generate_on_new = 1
 let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_write = 1
@@ -660,7 +685,8 @@ let g:rg_command = 'rg --vimgrep -S'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " vim-test
-let test#strategy = "vimux"
+let test#strategy = "dispatch"
+let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
 
 " vim-go
 let g:go_def_mapping_enabled = 0
