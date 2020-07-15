@@ -46,6 +46,7 @@ https://www.chrisatmachine.com/neovim
 
 
 # Tmux
+https://www.reddit.com/r/neovim/comments/aex45u/integrating_nvr_and_tmux_to_use_a_single_tmux_per/
 ## Tmux alternatives
 http://www.brain-dump.org/projects/abduco/ for session storage
 http://www.brain-dump.org/projects/dvtm/ for tiling window

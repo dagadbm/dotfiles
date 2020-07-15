@@ -38,12 +38,10 @@
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
 
     # editors
-    ## vim
-    ~/.vimrc: vim/init.vim
-    ~/.vim/autoload/plug.vim: vim/vim-plug/plug.vim
     ## neovim
     ~/.config/nvim/init.vim: vim/init.vim
     ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
+    ### coc
     ~/.config/nvim/coc-settings.json: vim/coc/coc-settings.json
     ~/.config/coc/extensions/package.json: vim/coc/package.json
 

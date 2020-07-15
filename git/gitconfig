@@ -13,10 +13,11 @@
 	prompt = false
 	cmd = nvim -d $LOCAL $REMOTE
 [merge]
-	tool = nvimmerge
-[mergetool "nvimmerge"]
+	tool = nvim-fugitive-merge
+[mergetool "nvim-fugitive-merge"]
 	prompt = false
-	cmd = nvim -f -c "Gvdiffsplit!" "$MERGED"
+	keepBackup = false
+	cmd = nvim -c "Gvdiffsplit!" -- "$MERGED"
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [color]
