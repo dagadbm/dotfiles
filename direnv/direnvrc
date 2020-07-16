@@ -6,3 +6,15 @@ ASDF_USER_SHIMS="$HOME/.asdf/shims"
 export PATH="${ASDF_BIN}:$PATH"
 
 source $(asdf which direnv_use_asdf)
+
+# example usage {{{
+# on file path/to/project/.envrc
+# use asdf global
+# use asdf .tool-versions
+# layout python python3
+
+# on file path/to/project/.tool-versions
+# python 3.8.1
+# nodejs 10.21.0
+# }}}
+

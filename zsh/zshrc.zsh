@@ -1,3 +1,6 @@
+# https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
+
+# Oh-My-Zsh Pre-Setup {{{
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,9 +8,19 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-####################################
-# Oh-My-Zsh Setup
+# Brew shell completion for zsh. Must be set before sourcing oh-my-zsh
+if [ -x "$(command -v brew)" ]; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 
+# asdf must be sourced before compinit
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+# Hook direnv into your shell.
+export DIRENV_LOG_FORMAT=
+eval "$(asdf exec direnv hook zsh)"
+# }}}
+# Oh-My-Zsh Setup {{{
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -52,25 +65,9 @@ plugins=(
   zsh-syntax-highlighting 
 )
 
-# Brew shell completion for zsh. Must be set before sourcing oh-my-zsh
-if [ -x "$(command -v brew)" ]; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-
-# asdf must be sourced before compinit
-. $HOME/.asdf/asdf.sh
-fpath=(${ASDF_DIR}/completions $fpath)
-# Hook direnv into your shell.
-export DIRENV_LOG_FORMAT=
-eval "$(asdf exec direnv hook zsh)"
-
 source $ZSH/oh-my-zsh.sh
-
-
-#####################################
-# User Configuration
-#
-
+# }}}
+# Oh-My-Zsh Post-Setup {{{
 # history size
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
@@ -215,10 +212,7 @@ kubectl_completion() {
   alias k k
 }
 
-#####################################
-# Aliases
-#
-
+# Aliases {{{
 # git
 alias t='tig status'
 alias g='git'
@@ -245,8 +239,6 @@ alias k=kubectl
 # restores tmux without creating an empty session on startup
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
 
-#####################################
-# https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# }}}}}}

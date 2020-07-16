@@ -13,7 +13,7 @@ brew bundle --no-lock --file macos/Brewfile
 ./macos/defaults.sh
 
 # setup dotfiles
-./dotfiles.sh
+./update-dotfiles.sh
 
 # setup fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish

@@ -1,9 +1,6 @@
-" Debug vim
 " https://codeinthehole.com/tips/debugging-vim-by-example/
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins {{{
 
 " Vim-Plug start
 call plug#begin()
@@ -119,11 +116,8 @@ Plug 'joshdick/onedark.vim'
 
 " Vim-Plug end
 call plug#end()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" => General {{{
 " Open new split panes to right and bottom, which feels more natural than the default
 set splitbelow
 set splitright
@@ -136,6 +130,8 @@ au FocusGained,BufEnter * :checktime
 filetype plugin on
 filetype indent on
 
+" set foldmethod to markers
+set foldmethod=marker
 " Allows to hide buffers instead of closing them when files are not saved
 set hidden
 
@@ -178,11 +174,8 @@ set shortmess+=c
 
 " always show signcolumns
 set signcolumn=yes
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM UI
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" => VIM UI {{{
 " Add vertical bar when reaching 80 chars
 set colorcolumn=80
 
@@ -221,11 +214,8 @@ set t_vb=
 :set laststatus=2
 " Dont show mode (handled by status line)
 set noshowmode
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" => Colors and Fonts {{{
 " Enable syntax highlighting
 syntax enable
 
@@ -256,12 +246,7 @@ endif
 let g:onedark_hide_endofbuffer = 1
 let g:onedark_terminal_italics = 1
 colorscheme onedark
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text Editing
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}} => Text Editing {{{
 " set utf8 as standard encoding
 set encoding=utf8
 
@@ -292,11 +277,8 @@ set titlestring=%f
 
 " https://github.com/neoclide/coc-eslint/issues/28
 set virtualedit=onemore
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Keybindings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" => Keybindings {{{
 "<Leader> key avoids default vim key collision
 let mapleader = "\<Space>"
 
@@ -509,30 +491,20 @@ nnoremap <Leader>R :source $MYVIMRC<CR>
 
 " Go to tag (use h instead of t so I dont lose tab navigation by number e.g. 1gt, 2gt, etc)
 nnoremap gh <C-]>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Custom Commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" => Custom Commands {{{
 :command! -nargs=0 Tabs2Spaces :set et|retab<CR>
 :command! -nargs=0 Spaces2Tabs :set noet|retab!<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Auto Commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" => Auto Commands {{{
 " Disabled automatic new line comment (annoying specially when editing vimrc)
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Correct comment highlighting on coc json config file
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
 autocmd FileType json syntax match Comment +\/\/.\+$+
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin Configurations
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" => Plugin Configurations {{{
 let g:coc_snippet_next = '<tab>'
 
 " Close the preview window when completion is done.
@@ -568,7 +540,6 @@ let g:airline#extensions#tabline#formatter = 'short_path'
 let g:airline#extensions#tabline#fnamemod = ':.'
 let g:airline#extensions#tabline#fnametruncate = 10
 let g:airline#extensions#tabline#fnamecollapse = 1
-
 
 let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'gutentags', 'grepper'])
 let g:airline_section_y = ''
@@ -688,3 +659,4 @@ let g:rooter_manual_only = 1
 
 " Make tab of coc work together with ulti snips
 let g:UltiSnipsExpandTrigger = "<NUL>"
+" }}}
