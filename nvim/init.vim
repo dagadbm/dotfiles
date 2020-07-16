@@ -85,8 +85,6 @@ Plug 'tpope/vim-unimpaired'
 " ==> Snippets
 " Snippets database
 Plug 'honza/vim-snippets'
-" Snipets program
-Plug 'SirVer/ultisnips'
 
 " ==> Tags
 Plug 'ludovicchabant/vim-gutentags'
@@ -488,9 +486,6 @@ nnoremap gM '
 
 " Update vimrc
 nnoremap <Leader>R :source $MYVIMRC<CR>
-
-" Go to tag (use h instead of t so I dont lose tab navigation by number e.g. 1gt, 2gt, etc)
-nnoremap gh <C-]>
 " }}}
 " => Custom Commands {{{
 :command! -nargs=0 Tabs2Spaces :set et|retab<CR>
@@ -656,7 +651,4 @@ let g:go_def_mapping_enabled = 0
 " vim-rooter
 " Manually run :Rooter to find project dir
 let g:rooter_manual_only = 1
-
-" Make tab of coc work together with ulti snips
-let g:UltiSnipsExpandTrigger = "<NUL>"
 " }}}
