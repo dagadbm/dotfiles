@@ -1,4 +1,4 @@
-## Unset asdf shims to use asdf direnv properly
+# Unset asdf shims to use asdf direnv properly
 ASDF_BIN="$HOME/.asdf/bin"
 ASDF_USER_SHIMS="$HOME/.asdf/shims"
 [[ ":$PATH:" == *":${ASDF_BIN}:"* ]] && PATH="${PATH//$ASDF_BIN:/}"

@@ -207,10 +207,7 @@ unset -f bind-git-helper
 command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # kubectl
-kubectl_completion() {
-  command -v kubectl > /dev/null && source <(kubectl completion zsh)
-  alias k k
-}
+command -v kubectl > /dev/null && source <(kubectl completion zsh)
 
 # Aliases {{{
 # git
