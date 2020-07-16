@@ -1,14 +1,5 @@
 " Debug vim
-
 " https://codeinthehole.com/tips/debugging-vim-by-example/
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Setup
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Auto vim-plug installation if plugin folder isn't present
-if empty(glob('~/.vim/autoload/plug.vim'))
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins

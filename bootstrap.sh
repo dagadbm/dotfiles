@@ -3,7 +3,7 @@ xcode-select --install
 
 # handle git sub modules
 git submodule update --recursive --init
-./submodules.sh
+./update.sh
 
 # setup brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -41,10 +41,15 @@ asdf global python $(asdf latest python 3) $(asdf latest python 2)
 #python3 will point to version 3 latest
 #python2 will point to version 2 latest
 
-# ruby
+## ruby
 asdf plugin add ruby
 asdf install ruby latest
 asdf global ruby $(asdf latest ruby)
+
+## direnv
+asdf plugin add direnv
+asdf install direnv latest
+asdf global direnv $(asdf latest direnv)
 
 # set homebrew's zsh as the default shell for everyone
 sudo sh -c "echo $(which zsh) >> /etc/shells"
