@@ -1,30 +1,51 @@
 [submodule "submodules/dotbot"]
 	path = submodules/dotbot
 	url = https://github.com/anishathalye/dotbot
+	branch = master
+	ignore = dirty
+	shallow = true
 [submodule "submodules/oh-my-zsh"]
 	path = submodules/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+	branch = master
+	shallow = true
 [submodule "submodules/zsh-autosuggestions"]
 	path = submodules/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+	branch = master
+	shallow = true
 [submodule "submodules/zsh-completions"]
 	path = submodules/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
+	branch = master
+	shallow = true
 [submodule "submodules/zsh-syntax-highlighting"]
 	path = submodules/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+	branch = master
+	shallow = true
 [submodule "submodules/vim-plug"]
 	path = submodules/vim-plug
 	url = https://github.com/junegunn/vim-plug.git
+	branch = master
+	shallow = true
 [submodule "submodules/z"]
 	path = submodules/z
 	url = https://github.com/rupa/z
+	branch = master
+	shallow = true
 [submodule "submodules/fzf"]
 	path = submodules/fzf
 	url = https://github.com/junegunn/fzf
+	branch = master
+	shallow = true
 [submodule "submodules/asdf"]
 	path = submodules/asdf
 	url = https://github.com/asdf-vm/asdf.git
+	branch = master
+	shallow = true
 [submodule "submodules/powerlevel10k"]
 	path = submodules/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+	branch = master
+	shallow = true
