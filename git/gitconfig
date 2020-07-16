@@ -1,5 +1,5 @@
-[mergetool]
-	keepBackup = false
+[credential]
+	helper = osxkeychain
 [alias]
 	lg = !git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
 [rerere]
@@ -14,6 +14,8 @@
 	cmd = nvim -d $LOCAL $REMOTE
 [merge]
 	tool = nvim-fugitive-merge
+[mergetool]
+	keepBackup = false
 [mergetool "nvim-fugitive-merge"]
 	prompt = false
 	keepBackup = false
