@@ -21,14 +21,8 @@ If you have any questions please feel free to open an Issue
 # Helpers
 ## Git Submodules
 ### Add
-git submodule add https://github.com/url_to/awesome_submodule.git path_to_awesome_submodule
+git submodule add https://github.com/user_name/repo_name.git submodules/repo_name
 ### Update
 ./submodules.sh
 ### Delete
-Delete the relevant section from the .gitmodules file.
-Stage the .gitmodules changes git add .gitmodules
-Delete the relevant section from .git/config.
-Run git rm --cached path_to_submodule (no trailing slash).
-Run rm -rf .git/modules/path_to_submodule (no trailing slash).
-Commit git commit -m "Removed submodule "
-Delete the now untracked submodule files rm -rf path_to_submodule
+export MODULE=submodules/repo_name && git submodule deinit -f $MODULE && rm -rf .git/modules/$MODULE && git rm -f $MODULE
