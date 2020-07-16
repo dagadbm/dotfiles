@@ -71,10 +71,6 @@ source $ZSH/oh-my-zsh.sh
 # User Configuration
 #
 
-# reset prompt
-DEFAULT_USER=$USER
-prompt_context() {}
-
 # history size
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
@@ -245,7 +241,6 @@ if [ -x "$(command -v nvim)" ]; then
   export EDITOR=nvim
   export GIT_EDITOR=nvim
 fi
-
 
 # k8s
 alias k=kubectl
