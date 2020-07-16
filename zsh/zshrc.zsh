@@ -243,6 +243,7 @@ if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
   alias ovim=vim # to use vim type ovim
   export EDITOR=nvim
+  export GIT_EDITOR=nvim
 fi
 
 
