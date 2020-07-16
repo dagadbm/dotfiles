@@ -74,6 +74,9 @@ SAVEHIST=$HISTSIZE
 # ignore duplicates on history
 setopt hist_ignore_all_dups
 
+# remove all beeps
+unsetopt BEEP
+
 # lang
 export LANG=en_US.UTF-8
 
