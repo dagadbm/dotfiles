@@ -1,5 +1,6 @@
 # global git ignore
 
 .vim/coc-settings.json
+.tool-versions
 .envrc
 .direnv/
