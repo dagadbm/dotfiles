@@ -1,0 +1,8 @@
+## Unset asdf shims to use asdf direnv properly
+ASDF_BIN="$HOME/.asdf/bin"
+ASDF_USER_SHIMS="$HOME/.asdf/shims"
+[[ ":$PATH:" == *":${ASDF_BIN}:"* ]] && PATH="${PATH//$ASDF_BIN:/}"
+[[ ":$PATH:" == *":${ASDF_USER_SHIMS}:"* ]] && PATH="${PATH//$ASDF_USER_SHIMS:/}"
+export PATH="${ASDF_BIN}:$PATH"
+
+source $(asdf which direnv_use_asdf)

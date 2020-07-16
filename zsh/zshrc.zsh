@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 ####################################
 # Oh-My-Zsh Setup
 
@@ -8,7 +15,7 @@ export ZSH=~/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="refined"
-ZSH_THEME="spaceship"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -38,7 +45,6 @@ HIST_STAMPS="yyyy/mm/dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  asdf
   vi-mode
   zsh-completions
   zsh-autosuggestions
@@ -50,6 +56,13 @@ plugins=(
 if [ -x "$(command -v brew)" ]; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
+
+# asdf must be sourced before compinit
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+# Hook direnv into your shell.
+export DIRENV_LOG_FORMAT=
+eval "$(asdf exec direnv hook zsh)"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -206,40 +219,8 @@ kubectl_completion() {
   alias k k
 }
 
-# zsh-spaceship-prompt
-# https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
-SPACESHIP_PROMPT_ORDER=(
-  dir
-  git
-  line_sep # next line
-  char
-)
-SPACESHIP_RPROMPT_ORDER=(
-)
-#SPACESHIP_CHAR_SYMBOL="λ"
-SPACESHIP_CHAR_SYMBOL="❯"
-SPACESHIP_CHAR_SUFFIX=" "
-SPACESHIP_PROMPT_FIRST_PREFIX_SHOW="false"
-SPACESHIP_USER_SHOW="false"
-SPACESHIP_HOST_SHOW="false"
-SPACESHIP_TIME_SHOW="true"
-SPACESHIP_EXIT_CODE_SHOW="false"
-SPACESHIP_BATTERY_SHOW="true"
-SPACESHIP_BATTERY_PREFIX=""
-SPACESHIP_BATTERY_SUFFIX="🔋 "
-SPACESHIP_BATTERY_THRESHOLD="10"
-SPACESHIP_BATTERY_SYMBOL_CHARGING=""
-SPACESHIP_BATTERY_SYMBOL_DISCHARGING=""
-SPACESHIP_BATTERY_SYMBOL_FULL=""
-SPACESHIP_DIR_TRUNC_PREFIX=""
-SPACESHIP_DIR_LOCK_SYMBOL="🔒"
-SPACESHIP_DIR_TRUNC_REPO="true"
-SPACESHIP_JOBS_SYMBOL=""
-SPACESHIP_KUBECTL_SHOW="true"
-
 # include common gitconfig file on dotfiles repo
 git config --global include.path .gitconfig.common
-
 
 #####################################
 # Aliases
@@ -273,4 +254,6 @@ alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.t
 
 #####################################
 # https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
-export PATH="/usr/local/opt/awscli@1/bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

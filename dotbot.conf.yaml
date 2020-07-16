@@ -13,39 +13,32 @@
     - ~/.vim/sessions
 - link:
     # shells
-    ## oh-my-zsh
-    ~/.oh-my-zsh: zsh/oh-my-zsh
     ~/.zshrc: zsh/zshrc.zsh
-    ~/.oh-my-zsh/custom/plugins: zsh/custom/plugins
-    ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme: zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme
+    ~/.p10k.zsh: zsh/p10k.zsh
+    ~/.oh-my-zsh: submodules/oh-my-zsh
+    ~/.oh-my-zsh/custom/plugins/zsh-completions: submodules/zsh-completions
+    ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions: submodules/zsh-autosuggestions
+    ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting: submodules/zsh-syntax-highlighting
+    ~/.oh-my-zsh/custom/themes/powerlevel10k: submodules/powerlevel10k
 
     # tools
-    ## z
-    ~/.z: z
-    ## fzf
-    ~/.fzf: fzf
-    ## asdf
-    ~/.asdf: asdf
-    ### tmux
+    ~/.z: submodules/z
+    ~/.fzf: submodules/fzf
+    ~/.asdf: submodules/asdf
+    ~/.config/direnv/direnvrc: direnv/direnvrc
     ~/.tmux.conf: tmux/tmux.conf
-    ## tig
     /usr/local/etc/tigrc: tig/tigrc
-    ## git
     ~/.gitconfig.common: git/gitconfig
 
     # macos apps
-    ## rectangle
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
 
     # editors
-    ## neovim
-    ~/.config/nvim/init.vim: vim/init.vim
-    ~/.local/share/nvim/site/autoload/plug.vim: vim/vim-plug/plug.vim
-    ### coc
-    ~/.config/nvim/coc-settings.json: vim/coc/coc-settings.json
-    ~/.config/coc/extensions/package.json: vim/coc/package.json
+    ~/.config/nvim/init.vim: nvim/init.vim
+    ~/.local/share/nvim/site/autoload/plug.vim: submodules/vim-plug/plug.vim
+    ~/.config/nvim/coc-settings.json: nvim/coc/coc-settings.json
+    ~/.config/coc/extensions/package.json: nvim/coc/package.json
 
     # terminals
-    ## kitty
     ~/.config/kitty: kitty
 
