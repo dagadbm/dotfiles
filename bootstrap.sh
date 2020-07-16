@@ -3,7 +3,7 @@ xcode-select --install
 
 # handle git sub modules
 git submodule update --recursive --init
-./update.sh
+./update-submodules.sh
 
 # setup brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -76,3 +76,6 @@ cd ~/.config/coc/extensions
 yarn install --frozen-lockfile
 ## install plugins on neovim
 nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +CocRestart +qall
+
+# include common gitconfig file on dotfiles repo
+git config --global include.path .gitconfig_global

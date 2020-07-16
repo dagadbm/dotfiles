@@ -28,7 +28,8 @@
     ~/.config/direnv/direnvrc: direnv/direnvrc
     ~/.tmux.conf: tmux/tmux.conf
     /usr/local/etc/tigrc: tig/tigrc
-    ~/.gitconfig.common: git/gitconfig
+    ~/.gitconfig_global: git/gitconfig
+    ~/.gitignore_global: git/gitignore
 
     # macos apps
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
