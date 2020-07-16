@@ -215,9 +215,6 @@ kubectl_completion() {
   alias k k
 }
 
-# include common gitconfig file on dotfiles repo
-git config --global include.path .gitconfig.common
-
 #####################################
 # Aliases
 #
