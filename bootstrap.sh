@@ -78,4 +78,4 @@ cpanm Neovim::Ext --force # Just in case it fails the first time
 cd ~/.config/coc/extensions
 yarn install --frozen-lockfile
 ## install plugins on neovim
-nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +CocRestart +qall
+nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +qall
