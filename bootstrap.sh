@@ -18,13 +18,19 @@ brew bundle --no-lock --file macos/Brewfile
 # setup fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 
+# include common gitconfig file on dotfiles repo
+git config --global include.path .gitconfig_global
+
+
 # setup asdf
 ## nodejs
 brew install coreutils gpg
 asdf plugin add nodejs
 /bin/bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
-asdf install nodejs latest
-asdf global nodejs $(asdf latest nodejs)
+### install LTS for coc
+NVIM_COC_NODE_VERSION=12.18.3
+asdf install nodejs $NVIM_COC_NODE_VERSION
+asdf global nodejs $NVIM_COC_NODE_VERSION
 
 ## yarn
 asdf plugin add yarn
@@ -37,9 +43,6 @@ asdf plugin add python
 asdf install python latest:2
 asdf install python latest:3
 asdf global python $(asdf latest python 3) $(asdf latest python 2)
-#python will point to version 3 latest
-#python3 will point to version 3 latest
-#python2 will point to version 2 latest
 
 ## ruby
 asdf plugin add ruby
@@ -76,6 +79,3 @@ cd ~/.config/coc/extensions
 yarn install --frozen-lockfile
 ## install plugins on neovim
 nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +CocRestart +qall
-
-# include common gitconfig file on dotfiles repo
-git config --global include.path .gitconfig_global

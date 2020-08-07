@@ -3,4 +3,10 @@ git submodule update --recursive --remote --merge
 git submodule foreach --recursive git reset --hard
 
 # after updating the submodules you must re-run dotbo
-./update-dotfiles.sh
+./dotbot.sh
+
+## upgrade nvim
+nvim +PlugClean +PlugInstall +PlugUpdate +CocUpdateSync +qall
+
+## upgrade brew
+brew update && brew upgrade

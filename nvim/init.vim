@@ -500,6 +500,12 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd FileType json syntax match Comment +\/\/.\+$+
 " }}}
 " => Plugin Configurations {{{
+
+" ==> coc
+if exists('$NVIM_COC_NODE_VERSION')
+  let g:coc_node_path = expand('~/.asdf/installs/nodejs/$NVIM_COC_NODE_VERSION/bin/node')
+  let g:node_host_prog = expand('~/.asdf/installs/nodejs/$NVIM_COC_NODE_VERSION/.npm/bin/neovim-node-host')
+endif
 let g:coc_snippet_next = '<tab>'
 
 " Close the preview window when completion is done.
@@ -630,10 +636,10 @@ let g:prosession_per_branch = 1
 let g:disable_key_mappings = 0
 
 " Animate buffer resizes
-let g:lens#height_resize_max = 100
-let g:lens#height_resize_min = 10
-let g:lens#width_resize_max = 100
-let g:lens#width_resize_min = 20
+" let g:lens#height_resize_max = 100
+" let g:lens#height_resize_min = 50
+" let g:lens#width_resize_max = 100
+" let g:lens#width_resize_min = 50
 
 " Find and replace workflow
 let g:rg_command = 'rg --vimgrep -S'
@@ -643,7 +649,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " vim-test
 let test#strategy = "dispatch"
-let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
 
 " vim-go
 let g:go_def_mapping_enabled = 0
@@ -651,4 +656,5 @@ let g:go_def_mapping_enabled = 0
 " vim-rooter
 " Manually run :Rooter to find project dir
 let g:rooter_manual_only = 1
+
 " }}}
