@@ -1,19 +1,17 @@
-# Unset asdf shims to use asdf direnv properly
-ASDF_BIN="$HOME/.asdf/bin"
-ASDF_USER_SHIMS="$HOME/.asdf/shims"
-[[ ":$PATH:" == *":${ASDF_BIN}:"* ]] && PATH="${PATH//$ASDF_BIN:/}"
-[[ ":$PATH:" == *":${ASDF_USER_SHIMS}:"* ]] && PATH="${PATH//$ASDF_USER_SHIMS:/}"
-export PATH="${ASDF_BIN}:$PATH"
-
 source $(asdf which direnv_use_asdf)
 
-# example usage {{{
-# on file path/to/project/.envrc
-# use asdf global
-# use asdf .tool-versions
+# Fetch the nvim python provider if needed
+use_nvim_python_provider() {
+	pip show pynvim &> /dev/null || pip install pynvim &> /dev/null
+}
+
+# basic usage {{{
+
+# .envrc
+# use asdf .tool-versions 
 # layout python python3
 
-# on file path/to/project/.tool-versions
+# .tool-versions
 # python 3.8.1
 # nodejs 10.21.0
 # }}}

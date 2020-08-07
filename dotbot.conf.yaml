@@ -29,7 +29,7 @@
     ~/.tmux.conf: tmux/tmux.conf
     /usr/local/etc/tigrc: tig/tigrc
     ~/.gitconfig_global: git/gitconfig
-    ~/.gitignore_global: git/gitignore
+    ~/.config/git/ignore: git/gitignore
 
     # macos apps
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
@@ -39,6 +39,9 @@
     ~/.local/share/nvim/site/autoload/plug.vim: submodules/vim-plug/plug.vim
     ~/.config/nvim/coc-settings.json: nvim/coc/coc-settings.json
     ~/.config/coc/extensions/package.json: nvim/coc/package.json
+    ~/.config/coc/snippets:
+      glob: true
+      path: nvim/coc/snippets/*
 
     # terminals
     ~/.config/kitty: kitty

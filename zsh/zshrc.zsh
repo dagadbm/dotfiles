@@ -16,11 +16,20 @@ fi
 # asdf must be sourced before compinit
 . $HOME/.asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)
+# export PATH="$HOME/.asdf/bin:$PATH"
 # Hook direnv into your shell.
 export DIRENV_LOG_FORMAT=
 eval "$(asdf exec direnv hook zsh)"
+# set global node version for coc to be the node LTS
+export NVIM_COC_NODE_VERSION=12.18.3
 # }}}
 # Oh-My-Zsh Setup {{{
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -61,6 +70,8 @@ plugins=(
   vi-mode
   zsh-completions
   zsh-autosuggestions
+  docker
+  docker-compose
   # https://github.com/zsh-users/zsh-syntax-highlighting#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
   zsh-syntax-highlighting 
 )
@@ -212,6 +223,7 @@ command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # kubectl
 command -v kubectl > /dev/null && source <(kubectl completion zsh)
 
+export PATH=~/.local/bin:$PATH
 # Aliases {{{
 # git
 alias t='tig status'
