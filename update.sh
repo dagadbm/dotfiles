@@ -6,7 +6,7 @@ git submodule foreach --recursive git reset --hard
 ./dotbot.sh
 
 ## upgrade nvim
-nvim +PlugClean +PlugInstall +PlugUpdate +CocUpdateSync +qall
+nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +qall
 
 ## upgrade brew
 brew update && brew upgrade
