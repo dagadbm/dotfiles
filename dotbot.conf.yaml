@@ -14,6 +14,7 @@
 - link:
     # shells
     ~/.zshrc: zsh/zshrc.zsh
+    # ~/.zshrc: zsh/zinit.zsh
     ~/.p10k.zsh: zsh/p10k.zsh
     ~/.oh-my-zsh: submodules/oh-my-zsh
     ~/.oh-my-zsh/custom/plugins/zsh-completions: submodules/zsh-completions
