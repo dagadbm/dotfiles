@@ -9,4 +9,4 @@ git submodule foreach --recursive git reset --hard
 nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +qall
 
 ## upgrade brew
-brew update && brew upgrade
+brew cleanup && brew update && brew upgrade
