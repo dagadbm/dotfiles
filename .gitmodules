@@ -49,3 +49,6 @@
 	url = https://github.com/romkatv/powerlevel10k.git
 	branch = master
 	shallow = true
+[submodule "submodules/prezto"]
+	path = submodules/prezto
+	url = https://github.com/sorin-ionescu/prezto
