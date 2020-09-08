@@ -11,7 +11,8 @@ nvim +PlugClean +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild 
 ~/.tmux/plugins/tpm/bin/install_plugins
 ~/.tmux/plugins/tpm/bin/update_plugins all
 
+# asdf
+asdf plugin update --all
+
 # brew
 brew cleanup && brew update && brew upgrade
-
-

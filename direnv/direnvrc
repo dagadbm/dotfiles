@@ -1,4 +1,4 @@
-source $(asdf which direnv_use_asdf)
+source "$(asdf direnv hook asdf)"
 
 # Fetch the nvim python provider if needed
 use_nvim_python_provider() {
@@ -8,7 +8,7 @@ use_nvim_python_provider() {
 # basic usage {{{
 
 # .envrc
-# use asdf .tool-versions 
+# use asdf
 # layout python python3
 
 # .tool-versions

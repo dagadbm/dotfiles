@@ -16,10 +16,9 @@ fi
 # asdf must be sourced before compinit
 . $HOME/.asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)
-# export PATH="$HOME/.asdf/bin:$PATH"
 # Hook direnv into your shell.
-export DIRENV_LOG_FORMAT=
 eval "$(asdf exec direnv hook zsh)"
+export DIRENV_LOG_FORMAT=
 # set global node version for coc to be the node LTS
 export NVIM_COC_NODE_VERSION=12.18.3
 # }}}
