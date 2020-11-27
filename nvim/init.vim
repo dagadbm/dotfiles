@@ -49,6 +49,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'tpope/vim-rails'
+Plug 'kkoomen/vim-doge'
 
 " ==> Testing
 Plug 'janko/vim-test'
