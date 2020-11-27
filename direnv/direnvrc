@@ -5,6 +5,10 @@ use_nvim_python_provider() {
 	pip show pynvim &> /dev/null || pip install pynvim &> /dev/null
 }
 
+direnv_layout_dir() {
+	echo "~/.direnv"
+}
+
 # basic usage {{{
 
 # .envrc

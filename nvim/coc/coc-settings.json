@@ -24,7 +24,7 @@
     "prettier.disableLanguages": ["vue"],
     "prettier.disableSuccessMessage": false,
     "prettier.requireConfig": true,
-    "prettier.onlyUseLocalVersion": true,
+    "prettier.onlyUseLocalVersion": false,
 
     // emmet
     "emmet.includeLanguages": {"vue-html": "html", "vue": "html", "javascript": "javascriptreact"},
