@@ -7,6 +7,7 @@ call plug#begin()
 
 " ==> Files and Folders Navigation
 Plug 'justinmk/vim-dirvish'
+Plug 'ryanoasis/vim-devicons'
 
 " ==> Window and Buffer Management
 " Automaticaly resize windows to golden ratio. Used in simpler windows
@@ -86,9 +87,6 @@ Plug 'tpope/vim-unimpaired'
 " ==> Snippets
 " Snippets database
 Plug 'honza/vim-snippets'
-
-" ==> Tags
-Plug 'ludovicchabant/vim-gutentags'
 
 " ==> External Integrations
 " Git

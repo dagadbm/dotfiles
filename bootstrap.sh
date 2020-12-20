@@ -1,9 +1,8 @@
+# Ask for the administrator password upfront
+sudo -v
+
 # mandatory install for mac
 xcode-select --install
-
-# handle git sub modules
-git submodule update --recursive --init
-./update-submodules.sh
 
 # setup brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -13,14 +12,17 @@ brew bundle --no-lock --file macos/Brewfile
 ./macos/defaults.sh
 
 # setup dotfiles
-./update-dotfiles.sh
-
-# setup fzf
-~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+git submodule update --recursive --init
+./dotbot.sh
+./submodules.sh
 
 # include common gitconfig file on dotfiles repo
 git config --global include.path .gitconfig_global
 
+# setup tmux
+~/.tmux/plugins/tpm/bin/clean_plugins
+~/.tmux/plugins/tpm/bin/install_plugins
+~/.tmux/plugins/tpm/bin/update_plugins all
 
 # setup asdf
 ## nodejs
@@ -64,16 +66,16 @@ sudo chsh -s $(which zsh)
 pip install neovim-remote
 ## nodejs provider
 npm install -g neovim
-## ruby provider
+## ruby provider (dont use this)
 gem install neovim
 ## python provider
 python3 -m pip install --user --upgrade pynvim
 python2 -m pip install --user --upgrade pynvim
 asdf reshim
-## perl provider
-brew install perl cpanminus
-cpanm Neovim::Ext
-cpanm Neovim::Ext --force # Just in case it fails the first time
+## perl provider (dont use this)
+# brew install perl cpanminus
+# cpanm Neovim::Ext
+# cpanm Neovim::Ext --force # Just in case it fails the first time
 ## install coc-extensions
 cd ~/.config/coc/extensions
 yarn install --frozen-lockfile
