@@ -109,7 +109,7 @@ export _Z_DATA=~/.z.datafile
 source ~/.fzf.zsh
 
 FZF_COMMON_OPTIONS="
-  --bind='?:toggle-preview'
+  --bind=',:toggle-preview'
   --bind='ctrl-p:half-page-up'
   --bind='ctrl-n:half-page-down'
   --bind='ctrl-u:preview-page-up'
@@ -117,7 +117,7 @@ FZF_COMMON_OPTIONS="
   --preview-window 'right:60%:hidden:wrap'
   --preview '([[ -d {} ]] && tree -C {}) || ([[ -f {} ]] && bat --style=full --color=always {}) || echo {}'"
 
-command -v fd > /dev/null && export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+command -v rg > /dev/null && export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --follow'
 command -v bat > /dev/null && command -v tree > /dev/null && export FZF_DEFAULT_OPTS="$FZF_COMMON_OPTIONS"
 command -v fd > /dev/null && export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 command -v fd > /dev/null && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
