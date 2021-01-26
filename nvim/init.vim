@@ -46,6 +46,9 @@ Plug 'mattn/emmet-vim'
 " ==> Extra vim behavior
 Plug 'tpope/vim-eunuch'
 
+" ==> Tags
+Plug 'ludovicchabant/vim-gutentags'
+
 " ==> LSP
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }

@@ -26,15 +26,9 @@
     "prettier.requireConfig": false,
     "prettier.onlyUseLocalVersion": false,
 
-    // emmet
-    "emmet.includeLanguages": {"vue-html": "html", "vue": "html", "javascript": "javascriptreact"},
-
-    // explorer
-    "explorer.icon.enableNerdfont": true,
-
     // load gosnippetst as well as ulti snips
     "snippets.ultisnips.directories": [
         "UltiSnips",
-        "gosnippets/UltiSnips",
-    ],
+        "gosnippets/UltiSnips"
+    ]
 }

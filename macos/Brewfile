@@ -12,12 +12,12 @@ brew "tig"
 
 # vim
 brew "neovim", args: ["HEAD"]
+brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 
 # shell
 brew "zsh"
 brew "ripgrep"
 brew "fd"
-brew "fzf"
 brew "bat"
 brew "tree"
 brew "htop"

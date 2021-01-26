@@ -63,21 +63,29 @@ sudo chsh -s $(which zsh)
 
 # neovim checkhealth fixes
 ## nvr
-pip install neovim-remote
+# pip install neovim-remote
+
 ## nodejs provider
-npm install -g neovim
+# npm install -g neovim
+
 ## ruby provider (dont use this)
-gem install neovim
+# gem install neovim
+
 ## python provider
-python3 -m pip install --user --upgrade pynvim
-python2 -m pip install --user --upgrade pynvim
-asdf reshim
-## perl provider (dont use this)
+# python3 -m pip install --user --upgrade pynvim
+# python2 -m pip install --user --upgrade pynvim
+
+## perl provider
 # brew install perl cpanminus
 # cpanm Neovim::Ext
 # cpanm Neovim::Ext --force # Just in case it fails the first time
+
 ## install coc-extensions
 cd ~/.config/coc/extensions
 yarn install --frozen-lockfile
+
 ## install plugins on neovim
 nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +qall
+
+# reshim asdf just in case
+asdf reshim
