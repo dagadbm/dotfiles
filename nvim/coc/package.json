@@ -1,40 +1,48 @@
 {
+  "name": "coc-extensions",
+  "license": "MIT",
   "dependencies": {
-    "coc-actions": ">=1.5.0",
-    "coc-css": ">=1.2.6",
-    "coc-dictionary": ">=1.2.2",
-    "coc-docker": ">=0.4.0",
-    "coc-emmet": ">=1.1.4",
-    "coc-eslint": ">=1.2.7",
-    "coc-explorer": ">=0.13.4",
-    "coc-go": ">=0.12.1",
-    "coc-html": ">=1.3.2",
-    "coc-jest": ">=1.1.3",
-    "coc-json": ">=1.3.2",
-    "coc-lists": ">=1.3.16",
-    "coc-markdownlint": ">=1.9.0",
-    "coc-marketplace": ">=1.8.0",
-    "coc-pairs": ">=1.2.21",
-    "coc-prettier": ">=1.1.20",
-    "coc-pyright": ">=1.1.95",
-    "coc-python": ">=1.2.13",
-    "coc-rls": ">=1.1.6",
-    "coc-rust-analyzer": ">=0.24.0",
-    "coc-sh": ">=0.6.0",
-    "coc-snippets": ">=2.3.1",
-    "coc-solargraph": ">=1.1.8",
-    "coc-stylelint": ">=1.2.0",
-    "coc-stylelintplus": ">=1.2.1",
-    "coc-svg": ">=0.0.13",
-    "coc-syntax": ">=1.2.4",
-    "coc-tag": ">=1.2.4",
-    "coc-tslint": ">=1.0.17",
-    "coc-tsserver": ">=1.6.6",
-    "coc-vetur": ">=1.2.3",
-    "coc-vimlsp": ">=0.11.0",
-    "coc-webpack": ">=1.5.0",
-    "coc-yaml": ">=1.2.0",
-    "coc-yank": ">=1.1.11",
-    "vue-vscode-snippets": "https://github.com/sdras/vue-vscode-snippets"
+    "coc-tsserver": "*",
+    "coc-tslint-plugin": "*",
+    "coc-vetur": "*",
+
+    "coc-html": "*",
+    "coc-svg": "*",
+
+    "coc-css": "*",
+    "coc-cssmodules": "*",
+    "coc-eslint": "*",
+    "coc-prettier": "*",
+    "coc-stylelint": "*",
+
+    "coc-go": "*",
+
+    "coc-pyright": "*",
+    "coc-jedi": "*",
+
+    "coc-sh": "*",
+
+    "coc-rls": "*",
+    "coc-rust-analyzer": "*",
+
+    "coc-docker": "*",
+
+    "coc-solargraph": "*",
+
+    "coc-vimlsp": "*",
+
+    "coc-json": "*",
+    "coc-yaml": "*",
+    "coc-markdownlint": "*",
+
+    "coc-dictionary": "*",
+    "coc-tag": "*",
+    "coc-word": "*",
+    "coc-omni": "*",
+    "coc-syntax": "*",
+    "coc-gocode": "*",
+    "coc-lists": "*",
+
+    "coc-snippets": "*"
   }
 }

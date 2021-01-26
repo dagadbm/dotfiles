@@ -1,3 +1,8 @@
+# coc
+cd ~/.config/coc/extensions
+yarn install --frozen-lockfile
+cd -
+
 # nvim
 nvim +PlugClean +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +qall
 
@@ -13,4 +18,5 @@ nvim +PlugClean +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild 
 asdf plugin update --all
 
 # brew
+brew bundle --no-lock --file macos/Brewfile
 brew cleanup && brew update && brew upgrade
