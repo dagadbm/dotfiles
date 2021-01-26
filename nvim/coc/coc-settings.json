@@ -20,10 +20,10 @@
     // prettier support
     "prettier.eslintIntegration": true,
     "prettier.tslintIntegration": true,
-    "prettier.stylelintIntegration": true,
+    "prettier.stylelintIntegration": false,
     "prettier.disableLanguages": ["vue"],
     "prettier.disableSuccessMessage": false,
-    "prettier.requireConfig": true,
+    "prettier.requireConfig": false,
     "prettier.onlyUseLocalVersion": false,
 
     // emmet

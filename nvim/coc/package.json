@@ -27,7 +27,6 @@
     "coc-stylelintplus": ">=1.2.1",
     "coc-svg": ">=0.0.13",
     "coc-syntax": ">=1.2.4",
-    "coc-tabnine": ">=1.2.2",
     "coc-tag": ">=1.2.4",
     "coc-tslint": ">=1.0.17",
     "coc-tsserver": ">=1.6.6",

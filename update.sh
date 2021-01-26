@@ -1,5 +1,3 @@
-./submodules.sh
-
 # nvim
 nvim +PlugClean +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +qall
 
