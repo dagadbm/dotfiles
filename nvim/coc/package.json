@@ -6,14 +6,16 @@
     "coc-tslint-plugin": "*",
     "coc-vetur": "*",
 
-    "coc-html": "*",
-    "coc-svg": "*",
+    "coc-prettier": "*",
 
     "coc-css": "*",
     "coc-cssmodules": "*",
     "coc-eslint": "*",
-    "coc-prettier": "*",
     "coc-stylelint": "*",
+    "coc-stylelintplus": "*",
+
+    "coc-html": "*",
+    "coc-svg": "*",
 
     "coc-go": "*",
 

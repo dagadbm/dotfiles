@@ -17,10 +17,13 @@
 
     "list.source.files.defaultOptions": ["--number-select"],
 
+    // tslint
+    "tslint.jsEnable": true,
+
     // prettier support
     "prettier.eslintIntegration": true,
     "prettier.tslintIntegration": true,
-    "prettier.stylelintIntegration": false,
+    "prettier.stylelintIntegration": true,
     "prettier.disableLanguages": ["vue"],
     "prettier.disableSuccessMessage": false,
     "prettier.requireConfig": false,
