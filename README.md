@@ -20,8 +20,6 @@ If you have any questions please feel free to open an Issue
 
 # Helpers
 ## Git Submodules
-### Update
-./update-submodules.sh
 ### Add
 git submodule add https://github.com/user_name/repo_name.git submodules/repo_name
 ### Delete

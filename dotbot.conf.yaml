@@ -8,9 +8,11 @@
 - clean:
     - "~"
 - create:
-    # extra folders for vim related features like undo, sessions, etc
-    - ~/.vim/undos
-    - ~/.vim/sessions
+    # extra folders cache related actions
+    - ~/.cache/vim/undos
+    - ~/.cache/vim/sessions
+    - ~/.cache/vim/gutentags
+    - ~/.cache/direnv
 - link:
     # shells
     ~/.zshrc: zsh/zshrc.zsh
