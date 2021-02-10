@@ -5,7 +5,7 @@
     // diagnostiscs and floating windows
     "suggest.enablePreview": true,
     "suggest.floatEnable": true,
-    "suggest.autoTrigger": "always",
+    "suggest.autoTrigger": "trigger",
     "suggest.echodocSupport": true,
     "suggest.maxCompleteItemCount": 20,
     "diagnostic.enable": true,

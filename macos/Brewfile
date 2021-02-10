@@ -23,7 +23,6 @@ brew "tree"
 brew "htop"
 brew "jq"
 brew "curl"
-brew "ranger"
 
 # term
 brew "tmux"
@@ -36,12 +35,9 @@ cask "visual-studio-code"
 cask "rectangle"
 cask "bitwarden"
 cask "brave-browser"
-cask "firefox-developer-edition"
-cask "slack"
 cask "discord"
 cask "whatsapp"
 cask "docker"
-cask "notion"
 
 # fonts
 cask "font-jetbrains-mono-nerd-font"

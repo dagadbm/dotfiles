@@ -83,6 +83,7 @@ Plug 'unblevable/quick-scope'
 " Fzf
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 
 " ==> Key Bindings
 Plug 'tpope/vim-unimpaired'
@@ -181,7 +182,7 @@ set colorcolumn=80
 
 " Maintain undo history between sessions
 set undofile
-set undodir=~/.vim/undos
+set undodir=~/.cache/vim/undos
 
 " Always show current position
 set ruler
@@ -588,8 +589,8 @@ let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8, 'xoffset': 0.5, 'y
 " ==> Gutentags
 let g:gutentags_add_default_project_roots = 0
 let g:gutentags_project_root  = ['package.json', '.git', '.hg', '.svn']
-let g:gutentags_cache_dir = expand('~/.gutentags_cache')
-let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git', 'term', 'fzf']
+let g:gutentags_cache_dir = expand('~/.cache/vim/gutentags')
+let g:gutentags_exclude_filetypes = ['vim', 'gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git', 'term', 'fzf']
 let g:gutentags_generate_on_new = 1
 let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_write = 1
@@ -600,6 +601,8 @@ let g:gutentags_ctags_exclude = [
 \  'cache', 'build', 'dist', 'bin', 'node_modules', 'bower_components',
 \  '*-lock.json',  '*.lock',
 \  '*.min.*',
+\  '*.sh',
+\  '*.vim',
 \  '*.bak',
 \  '*.zip',
 \  '*.pyc',
@@ -630,7 +633,7 @@ let g:bufferline_echo=0
 let g:BufKillCreateMappings = 0
 
 " Session Management
-let g:prosession_dir = '~/.vim/sessions/'
+let g:prosession_dir = '~/.cache/vim/sessions'
 let g:prosession_on_startup = 1
 let g:prosession_per_branch = 1
 

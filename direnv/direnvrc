@@ -5,8 +5,13 @@ use_nvim_python_provider() {
 	pip show pynvim &> /dev/null || pip install pynvim &> /dev/null
 }
 
+# store all dir env layouts outside each project to avoid git/docker ignore issues
+# adapted from https://github.com/direnv/direnv/pull/290#issuecomment-724588782
 direnv_layout_dir() {
-	echo "~/.direnv"
+	pwd_hash="layout__$(basename $PWD)__$(echo -n $PWD | shasum | cut -d ' ' -f 1)"
+	echo "$HOME/.cache/direnv/$pwd_hash"
+	mkdir -p "$HOME/.cache/direnv/$pwd_hash"
+	echo "$HOME/.cache/direnv/$pwd_hash"
 }
 
 # basic usage {{{

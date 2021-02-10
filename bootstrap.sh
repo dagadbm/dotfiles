@@ -14,7 +14,9 @@ brew bundle --no-lock --file macos/Brewfile
 # setup dotfiles
 git submodule update --recursive --init
 ./dotbot.sh
-./submodules.sh
+
+# setup submodules
+git submodule update --recursive --remote
 
 # include common gitconfig file on dotfiles repo
 git config --global include.path .gitconfig_global
@@ -63,17 +65,17 @@ sudo chsh -s $(which zsh)
 
 # neovim checkhealth fixes
 ## nvr
-# pip install neovim-remote
+pip install neovim-remote
 
 ## nodejs provider
-# npm install -g neovim
+npm install -g neovim
 
-## ruby provider (dont use this)
+## ruby provider
 # gem install neovim
 
 ## python provider
-# python3 -m pip install --user --upgrade pynvim
-# python2 -m pip install --user --upgrade pynvim
+python3 -m pip install --user --upgrade pynvim
+python2 -m pip install --user --upgrade pynvim
 
 ## perl provider
 # brew install perl cpanminus
