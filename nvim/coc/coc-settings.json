@@ -3,9 +3,9 @@
     "snippets.userSnippetsDirectory": "~/.config/coc/snippets",
 
     // diagnostiscs and floating windows
-    "suggest.enablePreview": true,
-    "suggest.floatEnable": true,
-    "suggest.autoTrigger": "trigger",
+    "suggest.enablePreview": false,
+    "suggest.floatEnable": false,
+    "suggest.autoTrigger": "always",
     "suggest.echodocSupport": true,
     "suggest.maxCompleteItemCount": 20,
     "diagnostic.enable": true,
@@ -13,7 +13,7 @@
     "diagnostic.enableMessage": "always",
     "suggest.numberSelect": false,
     "diagnostic.virtualText": false,
-    "coc.preferences.previewAutoClose": true,
+    "coc.preferences.previewAutoClose": false,
 
     "list.source.files.defaultOptions": ["--number-select"],
 
