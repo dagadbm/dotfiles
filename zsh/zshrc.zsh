@@ -19,8 +19,6 @@ fpath=(${ASDF_DIR}/completions $fpath)
 # Hook direnv into your shell.
 eval "$(asdf exec direnv hook zsh)"
 export DIRENV_LOG_FORMAT=
-# set global node version for coc to be the node LTS
-export NVIM_COC_NODE_VERSION=12.18.3
 # }}}
 # Oh-My-Zsh Setup {{{
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.

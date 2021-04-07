@@ -23,6 +23,7 @@ brew "tree"
 brew "htop"
 brew "jq"
 brew "curl"
+brew "wget"
 
 # term
 brew "tmux"

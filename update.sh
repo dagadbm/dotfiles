@@ -3,13 +3,9 @@ git submodule foreach --recursive git reset --hard
 git submodule update --recursive --remote
 git submodule foreach --recursive git reset --hard
 
-# coc
-cd ~/.config/coc/extensions
-yarn install --frozen-lockfile
-cd -
-
 # nvim
-nvim +PlugClean +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +qall
+brew upgrade neovim --fetch-HEAD
+nvim +PackerSync +LspSync +qall
 
 # tmux
 ~/.tmux/plugins/tpm/bin/clean_plugins
