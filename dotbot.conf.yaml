@@ -38,13 +38,7 @@
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
 
     # editors
-    ~/.config/nvim/init.vim: nvim/init.vim
-    ~/.local/share/nvim/site/autoload/plug.vim: submodules/vim-plug/plug.vim
-    ~/.config/nvim/coc-settings.json: nvim/coc/coc-settings.json
-    ~/.config/coc/extensions/package.json: nvim/coc/package.json
-    ~/.config/coc/snippets:
-      glob: true
-      path: nvim/coc/snippets/*
+    ~/.config/nvim: nvim
 
     # terminals
     ~/.config/kitty: kitty

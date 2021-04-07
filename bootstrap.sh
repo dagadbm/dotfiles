@@ -31,10 +31,6 @@ git config --global include.path .gitconfig_global
 brew install coreutils gpg
 asdf plugin add nodejs
 /bin/bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
-### install LTS for coc
-NVIM_COC_NODE_VERSION=12.18.3
-asdf install nodejs $NVIM_COC_NODE_VERSION
-asdf global nodejs $NVIM_COC_NODE_VERSION
 
 ## yarn
 asdf plugin add yarn
