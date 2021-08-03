@@ -224,6 +224,7 @@ export PATH=~/.local/bin:$PATH
 # Aliases {{{
 # git
 alias t='tig status'
+alias lg='lazygit'
 alias g='git'
 alias gs='git status'
 alias gap='git add --patch'

@@ -78,12 +78,8 @@ python2 -m pip install --user --upgrade pynvim
 # cpanm Neovim::Ext
 # cpanm Neovim::Ext --force # Just in case it fails the first time
 
-## install coc-extensions
-cd ~/.config/coc/extensions
-yarn install --frozen-lockfile
-
 ## install plugins on neovim
-nvim +PlugInstall +PlugUpdate +CocInstall +CocUpdateSync +CocRebuild +qall
+nvim +PackerSync +LspBootstrap +qall
 
 # reshim asdf just in case
 asdf reshim
