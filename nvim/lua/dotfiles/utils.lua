@@ -1,14 +1,14 @@
-utils = {}
+local M = {}
 
 --[[
   Vimscript automatically escapes termcodes like \<C-n>
   This does the same thing
 ]]
-function utils.t(str)
+function M.t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-function utils.map(mode, key, binding, opts)
+function M.map(mode, key, binding, opts)
   local options = {
     silent = true,
     noremap = true,
@@ -19,4 +19,4 @@ function utils.map(mode, key, binding, opts)
   vim.api.nvim_set_keymap(mode, key, binding, options)
 end
 
-return utils
+return M
