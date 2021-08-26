@@ -327,6 +327,7 @@ require('packer').startup { function(use)
       }
     end
   }
+  use 'kdheepak/lazygit.nvim'
 
   -- Tmux
   use 'christoomey/vim-tmux-navigator'
