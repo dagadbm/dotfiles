@@ -27,13 +27,13 @@ map('n', '<Leader>S', '<Cmd>wa<CR>')
 map('n', '<CR>', 'o<Esc>k')
 map('n', '<S-Enter>', 'O<Esc>j')
 -- jk to quit to normal mode
-map('t', 'jk', [[<C-\><C-n>]])
 map('i', 'jk', '<Esc>')
 -- Traverse only display lines (like normal text editors)
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 
 -- [[ Git mappings ]]
+map('n', '<Leader>gg', '<Cmd>LazyGit<CR>')
 -- Mnemonics for merging conflicts (Use :Gdiffsplit on conflicting file)
 -- H is left side, L is right side (similar to vim hjkl motions)
 -- left side is the target branch (where HEAD points to), the active branch you are merging into
