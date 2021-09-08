@@ -9,6 +9,7 @@ tap "homebrew/cask-fonts"
 brew "git"
 brew "diff-so-fancy"
 brew "tig"
+brew "lazygit"
 
 # vim
 brew "neovim", args: ["HEAD"]
