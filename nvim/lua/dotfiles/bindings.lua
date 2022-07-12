@@ -1,6 +1,13 @@
 -- Keybindings {{{
 local map = require('dotfiles.utils').map
 
+
+-- [[ Broken keyboard mappings ]]
+map('n', 'mm', 'n')
+map('n', 'MM', 'N')
+map('i', 'mm', 'n')
+map('i', 'MM', 'N')
+
 -- [[ Terminal mappings ]]
 -- Allow hitting <Esc> to switch to normal mode
 map('t', '<Esc>', [[<C-\><C-n>]])

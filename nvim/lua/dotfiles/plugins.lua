@@ -23,14 +23,9 @@ require('packer').startup { function(use)
   -- icons
   use 'kyazdani42/nvim-web-devicons'
   -- Buffer line
-  use { 'akinsho/nvim-bufferline.lua',
-    config = function()
-      require('bufferline').setup {
-        diagnostics = 'nvim_lsp',
-        always_show_bufferline = false,
-        show_buffer_close_icons = false,
-        show_close_icon = false
-      }
+  use { 'akinsho/bufferline.nvim',
+    config = function ()
+      require("bufferline").setup { }
     end
   }
   -- Light as air status-bar
@@ -44,9 +39,9 @@ require('packer').startup { function(use)
         sections = {
           lualine_a = {'mode'},
           lualine_b = {'branch'},
-          lualine_c = {{'filename', full_path = true, shorten = true}},
+          lualine_c = {{'filename', path = 2 }},
           lualine_x = {'encoding', 'fileformat', 'filetype'},
-          lualine_y = { {'diagnostics', sources = { 'nvim_lsp' }} },
+          lualine_y = { {'diagnostics', sources = { 'nvim_diagnostic' }} },
           lualine_z = {'location', 'progress'},
         },
         inactive_sections = {
@@ -70,7 +65,12 @@ require('packer').startup { function(use)
   -- Allow the dot command to work on plugin actions for surround
   use 'tpope/vim-repeat'
   -- Add commentary with gcc for line.
-  use 'tpope/vim-commentary'
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end
+  }
   -- Add additional text objects to vim
   -- indentation as an object (i)
   use 'michaeljsmith/vim-indent-object'
@@ -91,7 +91,7 @@ require('packer').startup { function(use)
 
   -- [[ LSP ]]
   use 'neovim/nvim-lspconfig'
-  use 'kabouzeid/nvim-lspinstall'
+  use 'williamboman/nvim-lsp-installer'
   -- add lsp hightlight support for every colorscheme
   use 'folke/lsp-colors.nvim'
   use {
@@ -112,8 +112,6 @@ require('packer').startup { function(use)
       }
     end
   }
-  -- show lightbulb when action is available
-  use 'kosayoda/nvim-lightbulb'
   -- better UI for lsp
   -- use { 'glepnir/lspsaga.nvim', config = function() require('lspsaga').init_lsp_saga() end }
   use { 'RishabhRD/nvim-lsputils',
@@ -174,8 +172,9 @@ require('packer').startup { function(use)
     run = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
-        ensure_installed = 'maintained',
+        ensure_installed = 'all',
         highlight = { enable = true },
+        ignore_install = { 'phpdoc' },
         -- treesitter indentation is not stable at all
         indent = { enable = false },
         -- vim-matchup supports treesitter
@@ -315,8 +314,7 @@ require('packer').startup { function(use)
     end
   }
   -- sources
-  use 'andersevenrud/compe-tmux'
-
+  use { 'andersevenrud/cmp-tmux', branch = 'compe' }
   -- [[ External Integrations ]]
   -- Git
   use 'tpope/vim-fugitive'
@@ -369,92 +367,82 @@ end, config = {
     enable = true,
     threshold = 1
   }
-}}
+}} -- require('packer').startup
 
 -- LSP
+local lsp_installer = require("nvim-lsp-installer")
 -- server list to be used
 local lsp_servers = {
   -- front-end
   'html',
-  'css',
-  'typescript',
-  'vue',
+  'cssls',
+  'tsserver',
+  'volar',
+  'vuels',
   'graphql',
   -- back-end
-  'python',
-  'go',
-  'rust',
+  'pyright',
+  'jedi_language_server',
+  --'gopls',
   -- markup
-  'yaml',
-  'json',
+  'yamlls',
+  'jsonls',
   -- vim
-  'vim',
-  'lua',
+  'vimls',
+  'sumneko_lua',
 }
-local installed_servers = require'lspinstall'.installed_servers()
-function _G.lsp_install_servers()
-  for _, server in pairs(lsp_servers) do
-    if not vim.tbl_contains(installed_servers, server) then
-      require'lspinstall'.install_server(server)
-    end
-  end
-end
-function _G.lsp_sync_servers()
-  for _, server in pairs(lsp_servers) do
-    if vim.tbl_contains(installed_servers, server) then
-      require'lspinstall'.install_server(server)
-    else
-      require'lspinstall'.uninstall_server(server)
-    end
-  end
-end
-vim.cmd 'command! -nargs=0 LspBootstrap call v:lua.lsp_install_servers()'
-vim.cmd 'command! -nargs=0 LspSync call v:lua.lsp_sync_servers()'
-
+-- server config (has to match above name)
 -- lsp setup configuration
-local nvim_lua_settings = {
-  Lua = {
-    runtime = {
-      -- LuaJIT in the case of Neovim
-      version = 'LuaJIT',
-      path = vim.split(package.path, ';'),
-    },
-    diagnostics = {
-      -- Get the language server to recognize the `vim` global
-      globals = {'vim'},
-    },
-    workspace = {
-      -- Make the server aware of Neovim runtime files
-      library = {
-        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+local lsp_config = {
+  sumneko_lua = function ()
+    local runtime_path = vim.split(package.path, ';')
+    table.insert(runtime_path, "lua/?.lua")
+    table.insert(runtime_path, "lua/?/init.lua")
+    return {
+      settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT',
+            -- Setup your lua path
+            path = runtime_path,
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {'vim'},
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false,
+          },
+        },
       },
-    },
-  }
+    }
+  end
 }
-local function lsp_setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  -- this is required to use nvim-compe together with LSP snippets
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  for _, server in pairs(servers) do
-    -- nvim settings for lua
-    if server == 'lua' then
-      require'lspconfig'[server].setup({
-          capabilities = capabilities,
-          settings = nvim_lua_settings,
-        })
-    else
-      require'lspconfig'[server].setup({
-          capabilities = capabilities
-        })
+
+-- auto install lsps
+for _, name in pairs(lsp_servers) do
+  local server_is_found, server = lsp_installer.get_server(name)
+  if server_is_found then
+    if not server:is_installed() then
+      print("Installing " .. name)
+      server:install()
     end
   end
 end
-lsp_setup_servers()
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  lsp_setup_servers() -- reload installed servers
-  vim.cmd('bufdo e') -- this triggers the FileType autocmd that starts the server
-end
+
+-- setup lsp config
+lsp_installer.on_server_ready(function(server)
+  local opts = {}
+
+  if lsp_config[server.name] ~= nil then
+      opts = lsp_config[server.name]()
+   end
+
+  server:setup(opts)
+end)

@@ -39,7 +39,6 @@ cask "bitwarden"
 cask "brave-browser"
 cask "discord"
 cask "whatsapp"
-cask "docker"
 
 # fonts
 cask "font-jetbrains-mono-nerd-font"
