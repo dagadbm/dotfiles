@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -x
+
 # reference
 # http://mths.be/macos
 # https://github.com/kevinSuttle/macOS-Defaults/blob/master/REFERENCE.md
