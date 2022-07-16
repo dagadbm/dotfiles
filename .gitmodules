@@ -49,3 +49,9 @@
 [submodule "submodules/fzf"]
 	path = submodules/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "submodules/zsh-vi-mode"]
+	path = submodules/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode.git
+	branch = master
+	ignore = dirty
+	shallow = true
