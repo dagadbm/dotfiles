@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -x
+
 # tmux
 ~/.tmux/plugins/tpm/bin/clean_plugins
 ~/.tmux/plugins/tpm/bin/install_plugins

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 
 # Ask for the administrator password upfront
 sudo -v
@@ -13,8 +14,9 @@ xcode-select --install
 ./macos/defaults.sh
 
 # setup dotfiles
-git submodule update --init --recursive
 ./submodules.sh
+git -C submodules/dotbot submodule sync --quiet --recursive
+git submodule update --init --recursive submodules/dotbot
 ./dotbot.sh
 
 # setup submodules
@@ -98,7 +100,7 @@ python2 -m pip install --user --upgrade pynvim
 gem install neovim
 
 ## perl provider
-cpanm Neovim::Ext
+cpanm Neovim::Ext --force
 
 # reshim asdf just in case
 asdf reshim
