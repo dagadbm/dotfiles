@@ -82,11 +82,6 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 20 # normal minimum is 15 (2
 # Enable lid wakeup
 sudo pmset -a lidwake 1
 
-
-# Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
-
-
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
