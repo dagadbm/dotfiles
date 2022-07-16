@@ -99,6 +99,4 @@ vim.api.nvim_exec([[
   autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
   augroup END
 ]], false)
--- show lightbulb when actions are available
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
 -- }}}

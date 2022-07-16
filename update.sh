@@ -1,7 +1,3 @@
-# nvim
-brew upgrade neovim --fetch-HEAD
-nvim +PackerSync +LspSync +qall
-
 # tmux
 ~/.tmux/plugins/tpm/bin/clean_plugins
 ~/.tmux/plugins/tpm/bin/install_plugins
@@ -16,3 +12,7 @@ asdf plugin update --all
 # brew
 brew bundle --no-lock --file macos/Brewfile
 brew cleanup && brew update && brew upgrade
+
+# nvim
+brew upgrade neovim --fetch-HEAD
+nvim +PackerSync
