@@ -7,13 +7,11 @@ tap "homebrew/cask-fonts"
 
 # git
 brew "git"
-brew "diff-so-fancy"
-brew "tig"
 brew "lazygit"
 
-# vim
+# nvim
 brew "neovim", args: ["HEAD"]
-brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
+brew "universal-ctags", args: ["HEAD"]
 
 # shell
 brew "zsh"

@@ -28,12 +28,6 @@
 	branch = master
 	ignore = dirty
 	shallow = true
-[submodule "submodules/vim-plug"]
-	path = submodules/vim-plug
-	url = https://github.com/junegunn/vim-plug.git
-	branch = master
-	ignore = dirty
-	shallow = true
 [submodule "submodules/z"]
 	path = submodules/z
 	url = https://github.com/rupa/z
