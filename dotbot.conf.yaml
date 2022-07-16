@@ -40,7 +40,8 @@
     ~/Library/Application Support/Alfred/Alfred.alfredpreferences: macos/Alfred.alfredpreferences
 
     # editors
-    ~/.config/nvim: nvim
+    ~/.config/nvim/init.lua: nvim/init.lua
+    ~/.config/nvim/lua/dotfiles: nvim/dotfiles
 
     # terminals
     ~/.config/kitty: kitty
