@@ -79,6 +79,7 @@ asdf global perl $(asdf latest perl)
 asdf plugin add direnv
 asdf install direnv latest
 asdf global direnv $(asdf latest direnv)
+asdf direnv setup --shell bash --version $(asdf latest direnv)
 
 # set homebrew's zsh as the default shell for everyone
 sudo sh -c "echo $(which zsh) >> /etc/shells"
@@ -101,6 +102,9 @@ gem install neovim
 
 ## perl provider
 cpanm Neovim::Ext --force
+
+# neovim lsp specific installs
+npm install -g eslint_d @fsouza/prettierd
 
 # reshim asdf just in case
 asdf reshim

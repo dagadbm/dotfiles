@@ -12,15 +12,18 @@ vim.cmd 'filetype plugin indent on'
 vim.cmd 'syntax enable'
 
 -- set foldmethod to markers
-vim.wo.foldmethod = 'marker'
+-- vim.wo.foldmethod = 'marker'
+-- using nvim_treesitter
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 -- Allows to hide buffers instead of closing them when files are not saved
 vim.o.hidden = true
 
 -- Turn swap files off
 vim.o.swapfile = false
 
--- Mandatory for nvim-compe to work correctly
-vim.o.completeopt = 'menuone,noselect'
+-- Setup colorscheme
+vim.cmd 'colorscheme onedark'
 
 -- Show tabs and space
 vim.wo.list = true
@@ -29,7 +32,7 @@ vim.cmd [[set listchars=tab:→\ ,nbsp:␣,extends:»,precedes:«,trail:•]]
 
 -- updatetime for cursor events and time to wait until next key press
 vim.o.updatetime = 2000
-vim.o.timeoutlen = 1000
+vim.o.timeoutlen = 500
 
 -- Better display for messages
 vim.o.cmdheight = 2
@@ -50,8 +53,8 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Make ripgrep be the default vimgrep
-vim.bo.grepprg='rg --vimgrep --no-heading --smart-case'
-vim.o.grepprg='rg --vimgrep --no-heading --smart-case'
+vim.bo.grepprg = 'rg --vimgrep --no-heading --smart-case'
+vim.o.grepprg = 'rg --vimgrep --no-heading --smart-case'
 
 -- buffer title
 vim.o.title = true
@@ -87,16 +90,6 @@ vim.cmd ':command! -nargs=0 Tabs2Spaces :set et|retab'
 vim.cmd ':command! -nargs=0 Spaces2Tabs :set noet|retab!'
 -- }}}
 -- Auto Commands {{{
--- run Packer when changing config
-vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 -- Automatically check and refresh when a file is changed from the outside
-vim.cmd 'autocmd FocusGained,BufEnter * :checktime'
--- Lsp related auto commands
-vim.api.nvim_exec([[
-  augroup lsp_document_highlight
-  autocmd! * <buffer>
-  autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-  autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  augroup END
-]], false)
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, { command = [[:checktime]] })
 -- }}}
