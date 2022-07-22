@@ -1,4 +1,5 @@
-source "$(asdf direnv hook asdf)"
+# remove logs when switching folders
+export DIRENV_LOG_FORMAT=
 
 # Fetch the nvim python provider if needed
 use_nvim_python_provider() {
@@ -7,12 +8,12 @@ use_nvim_python_provider() {
 
 # store all dir env layouts outside each project to avoid git/docker ignore issues
 # adapted from https://github.com/direnv/direnv/pull/290#issuecomment-724588782
-direnv_layout_dir() {
-	pwd_hash="layout__$(basename $PWD)__$(echo -n $PWD | shasum | cut -d ' ' -f 1)"
-	echo "$HOME/.cache/direnv/$pwd_hash"
-	mkdir -p "$HOME/.cache/direnv/$pwd_hash"
-	echo "$HOME/.cache/direnv/$pwd_hash"
-}
+# direnv_layout_dir() {
+# 	pwd_hash="layout__$(basename $PWD)__$(echo -n $PWD | shasum | cut -d ' ' -f 1)"
+# 	echo "$HOME/.cache/direnv/$pwd_hash"
+# 	mkdir -p "$HOME/.cache/direnv/$pwd_hash"
+# 	echo "$HOME/.cache/direnv/$pwd_hash"
+# }
 
 # basic usage {{{
 

@@ -8,17 +8,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Brew shell completion for zsh. Must be set before sourcing oh-my-zsh
+# completions
+## brew
 if [ -x "$(command -v brew)" ]; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
-# asdf must be sourced before compinit
-. $HOME/.asdf/asdf.sh
+## asdf
 fpath=(${ASDF_DIR}/completions $fpath)
-# Hook direnv into your shell.
-eval "$(asdf exec direnv hook zsh)"
-export DIRENV_LOG_FORMAT=
+
 # }}}
 # Oh-My-Zsh Setup {{{
 # Path to your oh-my-zsh installation.
@@ -38,7 +36,7 @@ HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -58,7 +56,6 @@ HIST_STAMPS="yyyy/mm/dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  zsh-vi-mode
   zsh-completions
   zsh-autosuggestions
   # https://github.com/zsh-users/zsh-syntax-highlighting#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
@@ -94,6 +91,12 @@ bindkey '^e' autosuggest-execute
 # z
 export _Z_DATA=~/.z.datafile
 . ~/.z/z.sh
+
+# bat
+command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# kubectl
+command -v kubectl > /dev/null && source <(kubectl completion zsh)
 
 # fzf
 source ~/.fzf.zsh
@@ -206,13 +209,6 @@ bind-git-helper() {
 bind-git-helper f b t r g
 unset -f bind-git-helper
 
-# bat
-command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# kubectl
-command -v kubectl > /dev/null && source <(kubectl completion zsh)
-
-export PATH=~/.local/bin:$PATH
 # Aliases {{{
 # git
 alias lg='lazygit'
@@ -222,14 +218,14 @@ alias gs='git status'
 # misc
 alias l='ls -hal'
 
-alias vi=vim
 alias v=vim
+alias vi=vim
 # use neovim as vim
 if [ -x "$(command -v nvim)" ]; then
   alias vim=nvim
-  alias ovim=vim # to use vim type ovim
   export EDITOR=nvim
   export GIT_EDITOR=nvim
+  alias ovim=vim # to use vim type ovim
 fi
 
 # k8s
@@ -237,6 +233,18 @@ alias k=kubectl
 
 # restores tmux without creating an empty session on startup
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
+
+# env variables
+
+## asdf
+# https://github.com/asdf-community/asdf-direnv#pro-tips
+# . $HOME/.asdf/asdf.sh
+export PATH="$PATH:~/.asdf/bin"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+## nvim related
+export ESLINT_D_LOCAL_ESLINT_ONLY=true
+export PRETTIERD_LOCAL_PRETTIER_ONLY=true
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
