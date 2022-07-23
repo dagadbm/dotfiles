@@ -4,14 +4,14 @@ local map = vim.keymap.set
 -- [[ Update dotfiles ]]
 local function update_dotfiles(sync)
     vim.cmd('write')
-    vim.cmd('luafile %')
+    vim.cmd([[lua require('dotfiles')]])
     vim.cmd('luafile $MYVIMRC')
     if sync then
         vim.cmd('PackerSync')
     end
 end
-map('n', '<Leader>wv', function () update_dotfiles(false) end)
-map('n', '<Leader>wV', function () update_dotfiles(true) end)
+map('n', '<Leader>ww', function () update_dotfiles(false) end)
+map('n', '<Leader>wW', function () update_dotfiles(true) end)
 
 -- [[ Terminal mappings ]]
 -- Allow hitting <Esc> [or to switch to normal mode
@@ -22,11 +22,12 @@ map('t', '<C-h>', [[<C-\><C-n><C-w>h]])
 map('t', '<C-j>', [[<C-\><C-n><C-w>j]])
 map('t', '<C-k>', [[<C-\><C-n><C-w>k]])
 map('t', '<C-l>', [[<C-\><C-n><C-w>l]])
--- Open lazygit using terminal
+-- Terminal usage
 map({ 'n', 't' }, '<Leader>to', [[<Cmd>ToggleTerm direction=float<CR>]])
 map({ 'n', 't' }, '<Leader>tv', [[<Cmd>ToggleTerm direction=vertical<CR>]])
 map({ 'n', 't' }, '<Leader>ts', [[<Cmd>ToggleTerm direction=horizontal<CR>]])
 map({ 'n', 't' }, '<Leader>tt', [[<Cmd>ToggleTermToggleAll<CR>]])
+map('v', '<Leader>tl', [[<Cmd>ToggleTermSendVisualSelection<CR>]])
 -- floatterm support if needed
 -- map({ 'n', 't' }, '<Leader>to', [[<Cmd>FloattermNew<CR>]])
 -- map({ 'n', 't' }, '<Leader>tt', [[<Cmd>FloatermToggle<CR>]])

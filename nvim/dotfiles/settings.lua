@@ -12,10 +12,10 @@ vim.cmd 'filetype plugin indent on'
 vim.cmd 'syntax enable'
 
 -- set foldmethod to markers
--- vim.wo.foldmethod = 'marker'
+vim.wo.foldmethod = 'marker'
 -- using nvim_treesitter
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.wo.foldmethod = "expr"
+-- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 -- Allows to hide buffers instead of closing them when files are not saved
 vim.o.hidden = true
 
