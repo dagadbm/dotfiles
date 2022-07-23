@@ -23,7 +23,6 @@
     ~/.oh-my-zsh/custom/plugins/zsh-completions: submodules/zsh-completions
     ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions: submodules/zsh-autosuggestions
     ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting: submodules/zsh-syntax-highlighting
-    ~/.oh-my-zsh/custom/plugins/zsh-vi-mode: submodules/zsh-vi-mode
     ~/.oh-my-zsh/custom/themes/powerlevel10k: submodules/powerlevel10k
 
     # tools
