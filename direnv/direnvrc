@@ -1,6 +1,3 @@
-# remove logs when switching folders
-export DIRENV_LOG_FORMAT=
-
 # Fetch the nvim python provider if needed
 use_nvim_python_provider() {
 	pip show pynvim &> /dev/null || pip install pynvim &> /dev/null

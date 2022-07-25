@@ -8,15 +8,23 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# completions
-## brew
+# brew
 if [ -x "$(command -v brew)" ]; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
-## asdf
+# asdf
+. $HOME/.asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)
+# Hook direnv into your shell.
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
+# direnv
+export DIRENV_LOG_FORMAT=
+
+## nvim related
+export ESLINT_D_LOCAL_ESLINT_ONLY=true
+export PRETTIERD_LOCAL_PRETTIER_ONLY=true
 # }}}
 # Oh-My-Zsh Setup {{{
 # Path to your oh-my-zsh installation.
@@ -233,18 +241,6 @@ alias k=kubectl
 
 # restores tmux without creating an empty session on startup
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
-
-# env variables
-
-## asdf
-# https://github.com/asdf-community/asdf-direnv#pro-tips
-# . $HOME/.asdf/asdf.sh
-export PATH="$PATH:~/.asdf/bin"
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-
-## nvim related
-export ESLINT_D_LOCAL_ESLINT_ONLY=true
-export PRETTIERD_LOCAL_PRETTIER_ONLY=true
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
