@@ -135,6 +135,13 @@ require('packer').startup { function(use)
       vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
     end
   }
+  -- show diagnostics in virtual text
+  use {
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      config = function()
+        require("lsp_lines").setup { }
+      end,
+    }
 
   -- [[ Undo history ]]
   use 'mbbill/undotree'
