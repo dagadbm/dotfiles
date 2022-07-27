@@ -96,7 +96,21 @@ require('packer').startup { function(use)
 
   -- [[ LSP ]]
   use 'neovim/nvim-lspconfig'
-  use 'williamboman/nvim-lsp-installer'
+  use {
+    'williamboman/mason.nvim',
+    requires = {
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim',
+        config = function()
+          require('mason-tool-installer').setup { }
+        end
+      },
+      'williamboman/mason-lspconfig.nvim',
+    },
+    config = function()
+      require('mason').setup { }
+    end
+  }
+
   use 'folke/lua-dev.nvim'
   use 'jose-elias-alvarez/typescript.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
@@ -139,7 +153,11 @@ require('packer').startup { function(use)
   use {
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
       config = function()
-        require("lsp_lines").setup { }
+        require("lsp_lines").setup()
+        vim.diagnostic.config({
+          virtual_text = false,
+          virtual_lines = true,
+        })
       end,
     }
 
@@ -377,6 +395,17 @@ require('packer').startup { function(use)
   }
 
   -- [[ Completion ]]
+  -- copilot
+  -- use 'github/copilot.vim'
+  use {
+    'zbirenbaum/copilot.lua',
+    event = 'InsertEnter',
+    config = function()
+        require('copilot').setup()
+    end
+  }
+  use 'zbirenbaum/copilot-cmp'
+
   -- engine
   use { 'hrsh7th/nvim-cmp',
     requires = {
@@ -413,6 +442,8 @@ require('packer').startup { function(use)
           end,
         },
         sources = cmp.config.sources({
+          -- from zbirenbaum/copilot-cmp
+          { name = 'copilot' },
           { name = 'nvim_lsp' },
           { name = 'nvim_lsp_signature_help' },
           { name = 'nvim_lsp_document_symbol' },
@@ -489,7 +520,7 @@ require('packer').startup { function(use)
     config = function ()
       require('toggleterm').setup {
         insert_mappings = false,
-        terminal_mappings = false
+        terminal_mappings = false,
       }
     end
   }
@@ -514,7 +545,7 @@ require('packer').startup { function(use)
 
 end, config = {
   profile = {
-    enable = true,
+    enable = false,
     threshold = 1
   }
 } } -- require('packer').startup
