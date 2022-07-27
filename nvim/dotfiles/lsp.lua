@@ -1,4 +1,4 @@
-require('nvim-lsp-installer').setup {
+require('mason-lspconfig').setup {
   -- automatically detect which servers to install
   -- (based on which servers are set up via lspconfig)
   automatic_installation = true
@@ -7,7 +7,7 @@ require('nvim-lsp-installer').setup {
 -- this sets up tsserver under the hood
 require('typescript').setup()
 
-local servers = {
+local lsp_servers = {
   -- front-end
   html = {},
   cssls = {},
@@ -31,7 +31,7 @@ local servers = {
 }
 
 -- call lspconfig for above servers
-for server_name, config in pairs(servers) do
+for server_name, config in pairs(lsp_servers) do
   -- capabilities
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   config.capabilities = require('cmp_nvim_lsp').update_capabilities(

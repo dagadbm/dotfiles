@@ -1,32 +1,20 @@
 -- Keybindings {{{
 local map = vim.keymap.set
 
--- [[ Update dotfiles ]]
-local function update_dotfiles(sync)
-    vim.cmd('write')
-    vim.cmd([[lua require('dotfiles')]])
-    vim.cmd('luafile $MYVIMRC')
-    if sync then
-        vim.cmd('PackerSync')
-    end
-end
-map('n', '<Leader>ww', function () update_dotfiles(false) end)
-map('n', '<Leader>wW', function () update_dotfiles(true) end)
-
 -- [[ Terminal mappings ]]
 -- Allow hitting <Esc> [or to switch to normal mode
 map('t', '<Esc>', [[<C-\><C-n>]])
-map('t', '<Ctrl-[>', [[<C-\><C-n>]])
+map('t', '<C-[>', [[<C-\><C-n>]])
 -- Ctrl+[hjkl] to navigate through windows in insert mode
 map('t', '<C-h>', [[<C-\><C-n><C-w>h]])
 map('t', '<C-j>', [[<C-\><C-n><C-w>j]])
 map('t', '<C-k>', [[<C-\><C-n><C-w>k]])
 map('t', '<C-l>', [[<C-\><C-n><C-w>l]])
 -- Terminal usage
-map({ 'n', 't' }, '<Leader>to', [[<Cmd>ToggleTerm direction=float<CR>]])
-map({ 'n', 't' }, '<Leader>tv', [[<Cmd>ToggleTerm direction=vertical<CR>]])
-map({ 'n', 't' }, '<Leader>ts', [[<Cmd>ToggleTerm direction=horizontal<CR>]])
-map({ 'n', 't' }, '<Leader>tt', [[<Cmd>ToggleTermToggleAll<CR>]])
+map({ 'n', 't' }, [[<C-\><C-o>]], [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]])
+map({ 'n', 't' }, [[<C-\><C-v>]], [[<Cmd>execute v:count . "ToggleTerm direction=vertical size=70"<CR>]])
+map({ 'n', 't' }, [[<C-\><C-s>]], [[<Cmd>execute v:count . "ToggleTerm direction=horizontal size=20"<CR>]])
+map({ 'n', 't' }, [[<C-\><C-\>]], [[<Cmd>ToggleTermToggleAll<CR>]])
 map('v', '<Leader>tl', [[<Cmd>ToggleTermSendVisualSelection<CR>]])
 -- floatterm support if needed
 -- map({ 'n', 't' }, '<Leader>to', [[<Cmd>FloattermNew<CR>]])
@@ -36,7 +24,11 @@ map('v', '<Leader>tl', [[<Cmd>ToggleTermSendVisualSelection<CR>]])
 -- map({ 'n', 't' }, '<Leader>tk', [[<Cmd>FloatermKill<CR>]])
 -- map({ 'n', 't' }, '<Leader>tK', [[<Cmd>FloatermKill!<CR>]])
 
-map('n', '<Leader>gg', '<Cmd>LazyGit<CR>')
+local lazygit = require('toggleterm.terminal').Terminal:new({ cmd = "lazygit", direction = 'float', hidden = true })
+function _G.lazygit_toggle()
+  lazygit:toggle()
+end
+map({ 'n', 't' }, '<Leader>gg', '<cmd>lua lazygit_toggle()<CR>')
 
 -- [[ Testing mappings ]]
 map('n', '<Leader>Tt', '<Cmd>TestNearest<CR>')
@@ -139,6 +131,9 @@ function M.lsp_mappings(bufnr)
     map('n', '<Leader>ldp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     map('n', '<Leader>ldn', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     map('n', '<Leader>ldq', '<Cmd>lua vim.lsp.buf.set_loclist()<CR>', opts)
+    -- Virtual Lines
+    map('n', '<Leader>lvt', '<Cmd>lua vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })<CR>', opts)
+    map('n', '<Leader>lvl', '<Cmd>lua vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })<CR>', opts)
 end
 
 return M
