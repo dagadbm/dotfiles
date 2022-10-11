@@ -2,9 +2,9 @@
 local map = vim.keymap.set
 
 -- [[ Terminal mappings ]]
--- Allow hitting <Esc> [or to switch to normal mode
-map('t', '<Esc>', [[<C-\><C-n>]])
-map('t', '<C-[>', [[<C-\><C-n>]])
+-- Allow hitting Ctrl-\<Esc> or [ to switch to normal mode
+map('t', [[<C-\><Esc>]], [[<C-\><C-n>]])
+map('t', [[<C-\><C-[>]], [[<C-\><C-n>]])
 -- Ctrl+[hjkl] to navigate through windows in insert mode
 map('t', '<C-h>', [[<C-\><C-n><C-w>h]])
 map('t', '<C-j>', [[<C-\><C-n><C-w>j]])
@@ -131,9 +131,8 @@ function M.lsp_mappings(bufnr)
     map('n', '<Leader>ldp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     map('n', '<Leader>ldn', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     map('n', '<Leader>ldq', '<Cmd>lua vim.lsp.buf.set_loclist()<CR>', opts)
-    -- Virtual Lines
-    map('n', '<Leader>lvt', '<Cmd>lua vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })<CR>', opts)
-    map('n', '<Leader>lvl', '<Cmd>lua vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })<CR>', opts)
+    -- Virtual Text/Lines
+    map('n', '<Leader>lv', '<Cmd>lua vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text, virtual_lines = not vim.diagnostic.config().virtual_lines })<CR>', opts)
 end
 
 return M

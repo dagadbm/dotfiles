@@ -5,6 +5,9 @@ set -x
 ~/.tmux/plugins/tpm/bin/clean_plugins
 ~/.tmux/plugins/tpm/bin/install_plugins
 ~/.tmux/plugins/tpm/bin/update_plugins all
+pushd ~/.tmux/plugins/tmux-thumbs
+./tmux-thumbs-install.sh update
+popd
 
 # fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
@@ -38,4 +41,4 @@ npm update -g neovim@latest
 ## neovim lsp specific installs
 npm update -g eslint_d@latest @fsouza/prettierd@latest
 
-nvim +PackerSync
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
