@@ -1,11 +1,18 @@
-local packer_install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(packer_install_path)) > 0 then
-  vim.cmd('!git clone https://github.com/wbthomason/packer.nvim ' .. packer_install_path)
-  vim.cmd 'packadd packer.nvim'
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd [[packadd packer.nvim]]
 end
 
 require('packer').startup { function(use)
   use 'wbthomason/packer.nvim'
+
+  -- make nvim setup faster in a zero effort way
+  use { 'lewis6991/impatient.nvim',
+    config = function()
+      require('impatient')
+    end
+  }
 
   -- basically everyone is using this package as a dependency
   use 'nvim-lua/plenary.nvim'
@@ -126,7 +133,7 @@ require('packer').startup { function(use)
     config = function ()
       require('nvim-lightbulb').setup {
         autocmd = {
-          enable = true
+          enabled = true
         }
       }
     end
@@ -155,7 +162,7 @@ require('packer').startup { function(use)
       config = function()
         require("lsp_lines").setup()
         vim.diagnostic.config({
-          virtual_text = false,
+          virtual_text = true,
           virtual_lines = true,
         })
       end,
@@ -441,6 +448,9 @@ require('packer').startup { function(use)
             require('luasnip').lsp_expand(args.body)
           end,
         },
+        completion = {
+          completeopt = 'menu,menuone,noinsert'
+        },
         sources = cmp.config.sources({
           -- from zbirenbaum/copilot-cmp
           { name = 'copilot' },
@@ -464,7 +474,7 @@ require('packer').startup { function(use)
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.abort(),
           ['<Esc>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<CR>'] = cmp.mapping.confirm({ select = false }),
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -543,6 +553,10 @@ require('packer').startup { function(use)
     end
   }
 
+  -- https://github.com/wbthomason/packer.nvim#bootstrapping
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end, config = {
   profile = {
     enable = false,

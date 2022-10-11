@@ -5,7 +5,7 @@ require('mason-lspconfig').setup {
 }
 
 -- this sets up tsserver under the hood
-require('typescript').setup()
+require('typescript').setup({})
 
 local lsp_servers = {
   -- front-end

@@ -24,6 +24,9 @@ git config --global include.path .gitconfig_global
 ~/.tmux/plugins/tpm/bin/clean_plugins
 ~/.tmux/plugins/tpm/bin/install_plugins
 ~/.tmux/plugins/tpm/bin/update_plugins all
+pushd ~/.tmux/plugins/tmux-thumbs
+./tmux-thumbs-install.sh update
+popd
 
 # setup brew
 brew bundle --no-lock --file macos/Brewfile
@@ -73,4 +76,4 @@ npm install -g eslint_d@latest @fsouza/prettierd@latest
 asdf reshim
 
 ## install plugins on neovim
-nvim +PackerInstall +PackerCompile +PackerSync
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
