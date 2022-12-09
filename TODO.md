@@ -1,8 +1,14 @@
 # Dotfiles
 Remove emacs once and for all accept the vim master race
 # MacOS
-## tiling window manager holy shit!
+## tiling window managers
 https://github.com/koekeishiya/yabai
+## shift it et al.
+https://github.com/fikovnik/ShiftIt
+https://github.com/fikovnik/ShiftIt/wiki/The-Hammerspoon-Alternative
+http://www.hammerspoon.org/
+https://github.com/peterklijn/hammerspoon-shiftit
+https://deniz.co/penc/
 
 # Vim 
 ## Tutorials
