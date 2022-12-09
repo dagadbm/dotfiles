@@ -38,6 +38,13 @@ cask "brave-browser"
 cask "discord"
 cask "whatsapp"
 
+# tentative
+## https://www.raycast.com/
+cask "raycast"
+## https://www.warp.dev/
+cask "warp"
+## https://fig.io/
+cask "fig"
+
 # fonts
 cask "font-jetbrains-mono-nerd-font"
-
