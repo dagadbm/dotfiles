@@ -38,6 +38,9 @@ cask "brave-browser"
 cask "discord"
 cask "whatsapp"
 
+# fonts
+cask "font-jetbrains-mono-nerd-font"
+
 # tentative
 ## https://www.raycast.com/
 cask "raycast"
@@ -45,6 +48,5 @@ cask "raycast"
 cask "warp"
 ## https://fig.io/
 cask "fig"
-
-# fonts
-cask "font-jetbrains-mono-nerd-font"
+## https://deniz.co/penc/
+cask "penc"
