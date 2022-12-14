@@ -18,7 +18,7 @@ asdf direnv setup --shell zsh --version $(asdf latest direnv)
 
 # brew
 brew bundle --no-lock --file macos/Brewfile
-brew cleanup && brew update && brew upgrade
+brew cleanup && brew update && brew upgrade && brew cleanup && brew doctor
 
 # submodules
 ./submodules.sh
@@ -41,4 +41,4 @@ npm update -g neovim@latest
 ## neovim lsp specific installs
 npm update -g eslint_d@latest @fsouza/prettierd@latest
 
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'

@@ -6,6 +6,8 @@ require('mason-lspconfig').setup {
 
 -- this sets up tsserver under the hood
 require('typescript').setup({})
+-- this sets up neovim lua development under the hood
+require('neodev').setup({})
 
 local lsp_servers = {
   -- front-end
@@ -27,16 +29,14 @@ local lsp_servers = {
   jsonls = {},
   -- misc
   bashls = {},
-  sumneko_lua = require('lua-dev').setup()
+  -- setup by neodev.nvim
+  -- sumneko_lua = {}
 }
 
 -- call lspconfig for above servers
 for server_name, config in pairs(lsp_servers) do
   -- capabilities
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  config.capabilities = require('cmp_nvim_lsp').update_capabilities(
-    capabilities
-  )
+  config.capabilities = require('cmp_nvim_lsp').default_capabilities()
 
   -- on_attach
   local on_attach = config.on_attach
