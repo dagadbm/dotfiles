@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
-set -x
 
 # Ask for the administrator password upfront
 sudo -v
 
-# mandatory install for mac
-xcode-select --install
-
 # setup brew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+# brew automatically install and updated xcode
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# print commands
+# do this after setup brew else brew will print the shell script
+set -x
 
 # setup macos defaults
 ./macos/defaults.sh
@@ -20,18 +21,17 @@ xcode-select --install
 # include common gitconfig file on dotfiles repo
 git config --global include.path .gitconfig_global
 
-# setup tmux
-~/.tmux/plugins/tpm/bin/clean_plugins
-~/.tmux/plugins/tpm/bin/install_plugins
-~/.tmux/plugins/tpm/bin/update_plugins all
-pushd ~/.tmux/plugins/tmux-thumbs
-./tmux-thumbs-install.sh update
-popd
-
-# setup brew
-brew bundle --no-lock --file macos/Brewfile
-
 # setup asdf
+## go
+asdf plugin add golang
+asdf install golang latest
+asdf global golang $(asdf latest golang)
+
+## rust
+asdf plugin add rust
+asdf install rust latest
+asdf global rust $(asdf latest rust)
+
 ## nodejs
 brew install coreutils gpg
 asdf plugin add nodejs
@@ -57,6 +57,9 @@ sudo sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
 sudo chsh -s $(which zsh)
 
+# setup brew
+brew bundle --no-lock --file macos/Brewfile
+
 # neovim
 ## nvr
 pip install --upgrade neovim-remote
@@ -75,5 +78,16 @@ npm install -g eslint_d@latest @fsouza/prettierd@latest
 # reshim asdf just in case
 asdf reshim
 
+# setup tmux
+~/.tmux/plugins/tpm/bin/clean_plugins
+~/.tmux/plugins/tpm/bin/install_plugins
+~/.tmux/plugins/tpm/bin/update_plugins all
+pushd ~/.tmux/plugins/tmux-thumbs
+./tmux-thumbs-install.sh
+popd
+
+# setup fzf
+~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+
 ## install plugins on neovim
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'

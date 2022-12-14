@@ -118,7 +118,7 @@ require('packer').startup { function(use)
     end
   }
 
-  use 'folke/lua-dev.nvim'
+  use 'folke/neodev.nvim'
   use 'jose-elias-alvarez/typescript.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
   -- ui related
@@ -284,11 +284,7 @@ require('packer').startup { function(use)
 
         require('nvim-treesitter.configs').setup {
           -- instalation related config
-          ensure_installed = 'all',
-          sync_install = true,
           auto_install = true,
-          -- https://github.com/claytonrcarter/tree-sitter-phpdoc/issues/15
-          ignore_install = { 'phpdoc' },
 
           -- modules
           highlight = { enable = true },
@@ -561,5 +557,9 @@ end, config = {
   profile = {
     enable = false,
     threshold = 1
-  }
+  },
+  -- number of maximum simulatenous updates when using PackerSync
+  -- Needs to be set else PackerSync hangs
+  -- https://github.com/wbthomason/packer.nvim/issues/756
+  max_jobs = 10
 } } -- require('packer').startup
