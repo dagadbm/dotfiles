@@ -18,7 +18,7 @@ asdf direnv setup --shell zsh --version $(asdf latest direnv)
 
 # brew
 brew bundle --no-lock --file macos/Brewfile
-brew cleanup && brew update && brew upgrade && brew cleanup && brew doctor
+brew update && brew upgrade && brew cleanup && brew doctor
 
 # submodules
 ./submodules.sh
