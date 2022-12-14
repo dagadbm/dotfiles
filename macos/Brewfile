@@ -5,16 +5,18 @@ tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/cask-fonts"
 
-# git
-brew "git"
-brew "lazygit"
-
 # nvim
 brew "neovim", args: ["HEAD"]
-brew "universal-ctags", args: ["HEAD"]
+brew "universal-ctags"
 
 # shell
 brew "zsh"
+brew "tmux"
+brew "reattach-to-user-namespace"
+## git
+brew "git"
+brew "lazygit"
+## utils
 brew "ripgrep"
 brew "fd"
 brew "bat"
@@ -24,15 +26,18 @@ brew "jq"
 brew "curl"
 brew "wget"
 
-# term
-brew "tmux"
-brew "reattach-to-user-namespace"
+# terminal
 cask "kitty"
+cask "warp"
+cask "hyper"
+cask "alacritty"
+cask "fig"
 
 # apps
 cask "alfred"
+cask "raycast"
+cask "penc"
 cask "visual-studio-code"
-cask "rectangle"
 cask "bitwarden"
 cask "brave-browser"
 cask "discord"
@@ -40,13 +45,3 @@ cask "whatsapp"
 
 # fonts
 cask "font-jetbrains-mono-nerd-font"
-
-# tentative
-## https://www.raycast.com/
-cask "raycast"
-## https://www.warp.dev/
-cask "warp"
-## https://fig.io/
-cask "fig"
-## https://deniz.co/penc/
-cask "penc"
