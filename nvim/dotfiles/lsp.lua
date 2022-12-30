@@ -1,7 +1,15 @@
 require('mason-lspconfig').setup {
   -- automatically detect which servers to install
   -- (based on which servers are set up via lspconfig)
-  automatic_installation = true
+  automatic_installation = true,
+}
+
+require("mason-null-ls").setup {
+  -- automatically detect which servers to install
+  -- (based on which servers are set up via null-ls)
+  ensure_installed = nil,
+  automatic_installation = true,
+  automatic_setup = false,
 }
 
 -- this sets up tsserver under the hood

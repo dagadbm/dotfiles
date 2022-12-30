@@ -27,7 +27,6 @@ brew update && brew upgrade && brew cleanup && brew doctor
 brew upgrade neovim --fetch-HEAD
 
 ## nvr
-pip2 install --upgrade neovim-remote
 pip3 install --upgrade neovim-remote
 
 ## python provider
@@ -38,7 +37,6 @@ pip3 install --upgrade pynvim
 npm update -g neovim@latest
 npm update -g neovim@latest
 
-## neovim lsp specific installs
-npm update -g eslint_d@latest @fsouza/prettierd@latest
-
-nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+## install plugins on neovim
+nvim -c 'autocmd User MasonUpdateAllComplete quitall' -c 'autocmd User PackerComplete MasonUpdateAll' -c 'PackerSync'
+nvim --headless -E +'TSUpdateSync' +'quit'
