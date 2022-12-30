@@ -112,6 +112,13 @@ require('packer').startup { function(use)
         end
       },
       'williamboman/mason-lspconfig.nvim',
+      'jayp0521/mason-null-ls.nvim',
+      'jayp0521/mason-nvim-dap.nvim',
+      { 'RubixDev/mason-update-all',
+        config = function()
+          require('mason-update-all').setup { }
+        end
+      },
     },
     config = function()
       require('mason').setup { }
@@ -121,6 +128,25 @@ require('packer').startup { function(use)
   use 'folke/neodev.nvim'
   use 'jose-elias-alvarez/typescript.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
+
+  -- [[ DAP ]]
+  use {
+    'mfussenegger/nvim-dap',
+    requires = {
+      { 'theHamsta/nvim-dap-virtual-text',
+        config = function()
+          require('nvim-dap-virtual-text').setup { }
+        end
+      },
+      { 'rcarriga/nvim-dap-ui',
+        config = function()
+          require('dapui').setup { }
+        end
+      },
+       'mxsdev/nvim-dap-vscode-js'
+    }
+  }
+
   -- ui related
   use {
     'j-hui/fidget.nvim',
@@ -191,7 +217,7 @@ require('packer').startup { function(use)
       { 'RRethy/nvim-treesitter-textsubjects' },
       { 'windwp/nvim-ts-autotag' },
     },
-    run = ':TSUpdate',
+    run = ':TSUpdateSync',
     config = function()
       -- module configs
       local refactor = {
@@ -283,7 +309,7 @@ require('packer').startup { function(use)
         }
 
         require('nvim-treesitter.configs').setup {
-          -- instalation related config
+          -- install missing treesitter automatically per buffer
           auto_install = true,
 
           -- modules
@@ -319,6 +345,7 @@ require('packer').startup { function(use)
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
       { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
+      { 'nvim-telescope/telescope-dap.nvim' },
     },
     config = function()
       local telescope = require('telescope')
@@ -366,6 +393,8 @@ require('packer').startup { function(use)
       telescope.load_extension('ui-select')
       -- pass arguments to rg similar to vim.agriculture
       telescope.load_extension('live_grep_args')
+      -- dap support
+      telescope.load_extension('dap')
     end
   }
 

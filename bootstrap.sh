@@ -62,18 +62,14 @@ brew bundle --no-lock --file macos/Brewfile
 
 # neovim
 ## nvr
-pip install --upgrade neovim-remote
-pip install --upgrade neovim-remote
+pip3 install --upgrade neovim-remote
 
 ## python provider
-pip install --upgrade pynvim
-pip install --upgrade pynvim
+pip2 install --upgrade pynvim
+pip3 install --upgrade pynvim
 
 ## nodejs provider
 npm install -g neovim@latest
-
-## neovim lsp specific installs
-npm install -g eslint_d@latest @fsouza/prettierd@latest
 
 # reshim asdf just in case
 asdf reshim
@@ -90,4 +86,5 @@ popd
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 
 ## install plugins on neovim
-nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'autocmd User PackerComplete MasonUpdateAll' -c 'PackerSync'
+nvim --headless -E +'TSUpdateSync' +'quitall'

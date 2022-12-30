@@ -43,12 +43,18 @@ map('n', '<Leader>Tg', '<Cmd>TestVisit<CR>')
 -- Does not pollute the jump list
 map('n', 'c*', '*<C-o>cgn')
 map('n', 'c#', '#<C-o>cgn')
+-- When using J on normal mode, make the cursor move to the beginning
+map('n', 'J', 'mzJ`z')
 -- Use J and K on visual mode to move the selection up or down
-map('v', 'J', '<Cmd>m \'>+1<CR>gv=gv')
-map('v', 'K', '<Cmd>m \'<-2<CR>gv=gv')
+map('v', 'J', ":m '>+1<CR>gv=gv")
+map('v', 'K', ":m '<-2<CR>gv=gv")
 -- User leader s/S to save save all buffers
 map('n', '<Leader>s', '<Cmd>w<CR>')
 map('n', '<Leader>S', '<Cmd>wa<CR>')
+-- make Leader y/Y use system clipboard for easier yanking into clipbord
+map('n', '<leader>y', '"+y')
+map('v', '<leader>y', '"+y')
+map('n', '<leader>Y', '"+Y')
 -- Make Enter and Shift-Enter insert lines below and above
 -- without entering insert mode
 map('n', '<CR>', 'o<Esc>k')
@@ -58,6 +64,11 @@ map('i', 'jk', '<Esc>')
 -- Traverse only display lines (like normal text editors)
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
+-- make navigation related actions to stay in the middle
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
+map('n', 'n', 'nzzzv')
+map('n', 'N', 'Nzzzv')
 
 -- [[ Git mappings ]]
 -- Mnemonics for merging conflicts (Use :Gdiffsplit on conflicting file)
@@ -103,6 +114,12 @@ map('n', '<Leader>ls', [[<Cmd>lua require('telescope.builtin').lsp_document_symb
 map('n', '<Leader>lS', [[<Cmd>lua require('telescope.builtin').lsp_workspace_symbol()<CR>]])
 map('n', '<Leader>ld', [[<Cmd>lua require('telescope.builtin').diagnostics({ bufnr = 0 })<CR>]])
 map('n', '<Leader>lD', [[<Cmd>lua require('telescope.builtin').diagnostics()<CR>]])
+-- dap related searches
+map('n', '<Leader>dd', [[<Cmd>lua require('telescope').extensions.dap.commands()<CR>]])
+map('n', '<Leader>dc', [[<Cmd>lua require('telescope').extensions.dap.configurations()<CR>]])
+map('n', '<Leader>db', [[<Cmd>lua require('telescope').extensions.dap.list_breakpoints()<CR>]])
+map('n', '<Leader>dv', [[<Cmd>lua require('telescope').extensions.dap.variables()<CR>]])
+map('n', '<Leader>df', [[<Cmd>lua require('telescope').extensions.dap.frames()<CR>]])
 
 -- [[ LSP Buffer mappings ]]
 local M = {}
