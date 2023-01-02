@@ -1,4 +1,3 @@
--- Keybindings {{{
 local map = vim.keymap.set
 
 -- [[ Terminal mappings ]]
@@ -24,9 +23,12 @@ map('v', '<Leader>tl', [[<Cmd>ToggleTermSendVisualSelection<CR>]])
 -- map({ 'n', 't' }, '<Leader>tk', [[<Cmd>FloatermKill<CR>]])
 -- map({ 'n', 't' }, '<Leader>tK', [[<Cmd>FloatermKill!<CR>]])
 
-local lazygit = require('toggleterm.terminal').Terminal:new({ cmd = "lazygit", direction = 'float', hidden = true })
+local lazygit = nil
 function _G.lazygit_toggle()
-  lazygit:toggle()
+    if not lazygit then
+        lazygit = require('toggleterm.terminal').Terminal:new({ cmd = "lazygit", direction = 'float', hidden = true })
+    end
+    lazygit:toggle()
 end
 map({ 'n', 't' }, '<Leader>gg', '<cmd>lua lazygit_toggle()<CR>')
 
@@ -55,6 +57,8 @@ map('n', '<Leader>S', '<Cmd>wa<CR>')
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
 map('n', '<leader>Y', '"+Y')
+-- User leader u to open UndoTree
+map('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
 -- Make Enter and Shift-Enter insert lines below and above
 -- without entering insert mode
 map('n', '<CR>', 'o<Esc>k')
@@ -93,7 +97,7 @@ map('n', '<Leader>*', [[<Cmd>lua require('telescope.builtin').grep_string({ sear
 map('n', '<Leader>p', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
 -- Type <Leader>P to search for files with the content of the word under cursor
 map('n', '<Leader>P',
-  [[<Cmd>lua require('telescope.builtin').find_files({ find_command = {'fd', vim.fn.expand('<cword>')} })<CR>]])
+    [[<Cmd>lua require('telescope.builtin').find_files({ find_command = {'fd', vim.fn.expand('<cword>')} })<CR>]])
 -- global search
 map('n', '<Leader>f', [[<Cmd>lua require('telescope.builtin').grep_string({ search = '' })<CR>]])
 -- Type <Leader>F to pass args to rp
@@ -152,5 +156,4 @@ function M.lsp_mappings(bufnr)
     map('n', '<Leader>lv', '<Cmd>lua vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text, virtual_lines = not vim.diagnostic.config().virtual_lines })<CR>', opts)
 end
 
-return M
--- }}}
+return M    

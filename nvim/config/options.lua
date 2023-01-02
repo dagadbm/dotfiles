@@ -1,4 +1,3 @@
--- Settings {{{
 -- <Leader> key avoids default vim key collision
 vim.g.mapleader = ' '
 
@@ -64,8 +63,10 @@ vim.o.titlestring = '%f'
 vim.wo.colorcolumn = '80'
 
 -- Maintain undo history between sessions
-vim.bo.undofile = true
-vim.o.undodir = vim.fn.expand('~/.cache/vim/undos')
+vim.o.undodir = vim.fn.expand('~/.cache/nvim/undos')
+vim.o.undofile = true
+vim.o.undolevels = 100000
+vim.o.undoreload = 100000
 
 -- Ignore case when searching
 vim.o.ignorecase = true
@@ -84,12 +85,3 @@ vim.o.laststatus = 2
 
 -- Dont show mode (handled by status line)
 vim.o.showmode = false
--- }}}
--- Custom Commands {{{
-vim.cmd ':command! -nargs=0 Tabs2Spaces :set et|retab'
-vim.cmd ':command! -nargs=0 Spaces2Tabs :set noet|retab!'
--- }}}
--- Auto Commands {{{
--- Automatically check and refresh when a file is changed from the outside
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, { command = [[:checktime]] })
--- }}}

@@ -38,5 +38,4 @@ npm update -g neovim@latest
 npm update -g neovim@latest
 
 ## install plugins on neovim
-nvim -c 'autocmd User MasonUpdateAllComplete quitall' -c 'autocmd User PackerComplete MasonUpdateAll' -c 'PackerSync'
-nvim --headless -E +'TSUpdateSync' +'quit'
+nvim -c 'autocmd User LazySync TSUpdateSync | qall' -c "autocmd User VeryLazy Lazy sync"

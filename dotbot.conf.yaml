@@ -9,9 +9,8 @@
     - "~"
 - create:
     # extra folders cache related actions
-    - ~/.cache/vim/undos
-    - ~/.cache/vim/sessions
-    - ~/.cache/vim/gutentags
+    - ~/.cache/nvim/undos
+    - ~/.cache/nvim/sessions
     - ~/.cache/direnv
 - link:
     # shells
@@ -38,9 +37,12 @@
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
     ~/Library/Application Support/Alfred/Alfred.alfredpreferences: macos/Alfred.alfredpreferences
 
-    # editors
+    # nvim
     ~/.config/nvim/init.lua: nvim/init.lua
-    ~/.config/nvim/lua/dotfiles: nvim/dotfiles
+    ## modules must be inside /lua folder
+    ~/.config/nvim/lua/config: nvim/config
+    ~/.config/nvim/lua/lazy: nvim/lazy
+    ~/.config/nvim/lua/plugins: nvim/plugins
 
     # terminals
     ~/.config/kitty: kitty
