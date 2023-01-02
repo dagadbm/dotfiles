@@ -86,5 +86,5 @@ popd
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 
 ## install plugins on neovim
-nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'autocmd User PackerComplete MasonUpdateAll' -c 'PackerSync'
-nvim --headless -E +'TSUpdateSync' +'quitall'
+nvim --headless "+Lazy! restore" +qa
+nvim -c 'autocmd User LazySync Copilot auth' -c 'autocmd User LazySync TSUpdate' -c "autocmd User VeryLazy Lazy sync"
