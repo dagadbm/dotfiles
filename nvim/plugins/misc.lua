@@ -1,6 +1,7 @@
 return {
   -- [[ Color Schemes ]]
-  { 'navarasu/onedark.nvim',
+  {
+    'navarasu/onedark.nvim',
     lazy = false,
     priority = 1000,
     config = function()
@@ -49,7 +50,8 @@ return {
   -- icons
   'kyazdani42/nvim-web-devicons',
   -- Buffer line
-  { 'akinsho/bufferline.nvim',
+  {
+    'akinsho/bufferline.nvim',
     event = 'VeryLazy',
     config = function()
       require('bufferline').setup {
@@ -60,7 +62,8 @@ return {
     end
   },
   -- Light as air status-bar
-  { 'hoob3rt/lualine.nvim',
+  {
+    'hoob3rt/lualine.nvim',
     event = 'VeryLazy',
     config = function()
       require('lualine').setup {
@@ -161,7 +164,8 @@ return {
     event = 'VeryLazy',
   },
   -- better UI for lsp
-  { 'RishabhRD/nvim-lsputils',
+  {
+    'RishabhRD/nvim-lsputils',
     event = 'VeryLazy',
     dependencies = {
       { 'RishabhRD/popfix' },
@@ -185,7 +189,8 @@ return {
   },
 
   -- [[ Session Management ]]
-  { 'dhruvasagar/vim-prosession',
+  {
+    'dhruvasagar/vim-prosession',
     -- this loads faster if its not lazy
     lazy = false,
     event = 'VimEnter',
@@ -208,7 +213,8 @@ return {
     keys = '%',
   },
   -- Fuzzy finder
-  { 'nvim-telescope/telescope.nvim',
+  {
+    'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     dependencies = {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
@@ -273,7 +279,8 @@ return {
     keys = { '[', ']'},
   },
 
-  { 'folke/which-key.nvim',
+  {
+    'folke/which-key.nvim',
     lazy = false,
     config = function()
       require('which-key').setup {
@@ -288,7 +295,8 @@ return {
     'tpope/vim-fugitive',
     event = 'VeryLazy',
   },
-  { 'lewis6991/gitsigns.nvim',
+  {
+    'lewis6991/gitsigns.nvim',
     event = 'VeryLazy',
     config = function()
       require('gitsigns').setup {
@@ -298,12 +306,11 @@ return {
   },
 
   -- Tmux
-  { 'christoomey/vim-tmux-navigator',
+  {
+    'christoomey/vim-tmux-navigator',
     event = 'VeryLazy',
     dependencies = {
-    'roxma/vim-tmux-clipboard',
-    -- Make vim color scheme integrate automatically with tmux
-    'edkolev/tmuxline.vim',
+      'roxma/vim-tmux-clipboard',
     },
   },
 
@@ -321,7 +328,8 @@ return {
   },
 
   -- Testing
-  { 'vim-test/vim-test',
+  {
+    'vim-test/vim-test',
     cmd = { 'TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit', },
     config = function()
       -- https://github.com/vim-test/vim-test#strategies
