@@ -1,5 +1,6 @@
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+
 # https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
 
 # Oh-My-Zsh Pre-Setup {{{
@@ -98,9 +99,8 @@ bindkey '^ ' autosuggest-accept
 # execute suggestion (ctrl+e)
 bindkey '^e' autosuggest-execute
 
-# z
-export _Z_DATA=~/.z.datafile
-. ~/.z/z.sh
+# zoxide
+eval "$(zoxide init zsh)"
 
 # bat
 command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -226,17 +226,21 @@ alias g='git'
 alias gs='git status'
 
 # misc
-alias l='ls -hal'
+alias l='exa -hal'
 
+# alternatives
+alias ls='exa'
+alias cat='bat'
+alias top='btm'
+alias htop='zenith'
+
+# vim
 alias v=vim
 alias vi=vim
-# use neovim as vim
-if [ -x "$(command -v nvim)" ]; then
-  alias vim=nvim
-  export EDITOR=nvim
-  export GIT_EDITOR=nvim
-  alias ovim=vim # to use vim type ovim
-fi
+# use neovim as vim everywhere
+alias vim=nvim
+export EDITOR=nvim
+export GIT_EDITOR=nvim
 
 # k8s
 alias k=kubectl

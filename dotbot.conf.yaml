@@ -25,7 +25,6 @@
     ~/.oh-my-zsh/custom/themes/powerlevel10k: submodules/powerlevel10k
 
     # tools
-    ~/.z: submodules/z
     ~/.fzf: submodules/fzf
     ~/.asdf: submodules/asdf
     ~/.config/direnv/direnvrc: direnv/direnvrc

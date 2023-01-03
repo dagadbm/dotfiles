@@ -22,7 +22,7 @@ set -x
 git config --global include.path .gitconfig_global
 
 # setup brew
-brew bundle --no-lock --file macos/Brewfile
+brew bundle --file macos/Brewfile
 
 # set homebrew's zsh as the default shell for everyone
 sh -c "echo $(which zsh) >> /etc/shells"
