@@ -24,7 +24,7 @@ brew update && brew upgrade && brew cleanup && brew doctor
 ./submodules.sh
 
 # nvim
-brew upgrade neovim --fetch-HEAD
+brew reinstall neovim
 
 ## nvr
 pip3 install --upgrade neovim-remote
@@ -35,7 +35,7 @@ pip3 install --upgrade pynvim
 
 ## node provider
 npm update -g neovim@latest
-npm update -g neovim@latest
+npm update -g neovim
 
 ## install plugins on neovim
 nvim -c 'autocmd User LazySync TSUpdateSync | qall' -c "autocmd User VeryLazy Lazy sync"

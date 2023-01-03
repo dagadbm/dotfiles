@@ -21,9 +21,6 @@ vim.o.hidden = true
 -- Turn swap files off
 vim.o.swapfile = false
 
--- Setup colorscheme
-vim.cmd 'colorscheme onedark'
-
 -- Show tabs and space
 vim.wo.list = true
 vim.bo.tabstop = 4

@@ -152,8 +152,6 @@ function M.lsp_mappings(bufnr)
     map('n', '<Leader>ldp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     map('n', '<Leader>ldn', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     map('n', '<Leader>ldq', '<Cmd>lua vim.lsp.buf.set_loclist()<CR>', opts)
-    -- Virtual Text/Lines
-    map('n', '<Leader>lv', '<Cmd>lua vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text, virtual_lines = not vim.diagnostic.config().virtual_lines })<CR>', opts)
 end
 
-return M    
+return M
