@@ -1,7 +1,8 @@
 return {
   -- [[ Snippets ]]
   -- engine
-  { 'L3MON4D3/LuaSnip',
+  {
+    'L3MON4D3/LuaSnip',
     event = 'InsertEnter',
     dependencies = {
       -- snippets
@@ -36,7 +37,8 @@ return {
   },
 
   -- engine
-  { 'hrsh7th/nvim-cmp',
+  {
+    'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
       { 'saadparwaiz1/cmp_luasnip' },
