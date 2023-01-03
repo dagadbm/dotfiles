@@ -21,6 +21,13 @@ set -x
 # include common gitconfig file on dotfiles repo
 git config --global include.path .gitconfig_global
 
+# setup brew
+brew bundle --no-lock --file macos/Brewfile
+
+# set homebrew's zsh as the default shell for everyone
+sh -c "echo $(which zsh) >> /etc/shells"
+chsh -s $(which zsh)
+
 # setup asdf
 ## go
 asdf plugin add golang
@@ -51,14 +58,6 @@ asdf plugin add direnv
 asdf install direnv latest
 asdf global direnv $(asdf latest direnv)
 asdf direnv setup --shell zsh --version $(asdf latest direnv)
-
-# set homebrew's zsh as the default shell for everyone
-sudo sh -c "echo $(which zsh) >> /etc/shells"
-chsh -s $(which zsh)
-sudo chsh -s $(which zsh)
-
-# setup brew
-brew bundle --no-lock --file macos/Brewfile
 
 # neovim
 ## nvr

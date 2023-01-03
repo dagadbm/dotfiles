@@ -8,6 +8,7 @@ return {
         style = 'dark',
         toggle_style_key = '<NOP>'
       }
+      vim.cmd 'colorscheme onedark'
     end
   },
 
@@ -176,18 +177,6 @@ return {
       vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
     end
   },
-  -- show diagnostics in virtual text
-  {
-    url = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('lsp_lines').setup {}
-      vim.diagnostic.config({
-        virtual_text = true,
-        virtual_lines = true,
-      })
-    end,
-  },
 
   -- [[ Undo history ]]
   {
@@ -208,7 +197,7 @@ return {
       vim.g.prosession_on_startup = 1
       vim.g.prosession_per_branch = 1
       vim.g.prosession_per_branch = 1
-      vim.g.prosession_default_session = 1
+      vim.g.prosession_default_session = 0
     end,
   },
 

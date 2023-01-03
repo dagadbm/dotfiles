@@ -5,12 +5,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- reference: https://github.com/folke/lazy.nvim#%EF%B8%8F-configuration
 require('lazy').setup('plugins', {
-  -- reference: https://github.com/folke/lazy.nvim#%EF%B8%8F-configuration
   defaults = { lazy = true, version = '*' },
   lockfile = vim.fn.expand('~/.config/nvim/lua/lazy/lazy-lock.json'),
   concurrency = nil,
-  install = { missing = true, colorscheme = { 'onedark' } },
+  install = { missing = true },
   checker = { enabled = false },
   diff = {
     cmd = 'terminal_git',
