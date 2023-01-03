@@ -46,3 +46,4 @@
 
     # terminals
     ~/.config/kitty: kitty
+    ~/.config/wezterm: wezterm
