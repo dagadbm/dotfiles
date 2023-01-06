@@ -31,7 +31,7 @@ vim.o.updatetime = 2000
 vim.o.timeoutlen = 500
 
 -- Better display for messages
-vim.o.cmdheight = 2
+vim.o.cmdheight = 1
 
 -- always show signcolumns
 vim.wo.signcolumn = 'yes'

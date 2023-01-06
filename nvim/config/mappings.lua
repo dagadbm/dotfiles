@@ -22,6 +22,10 @@ map('v', '<Leader>tl', [[<Cmd>ToggleTermSendVisualSelection<CR>]])
 -- map({ 'n', 't' }, '<Leader>tp', [[<Cmd>FloatermPrev<CR>]])
 -- map({ 'n', 't' }, '<Leader>tk', [[<Cmd>FloatermKill<CR>]])
 -- map({ 'n', 't' }, '<Leader>tK', [[<Cmd>FloatermKill!<CR>]])
+--
+-- [[ File tree mappings ]]
+-- use '-' for dirbuf
+map('n', '<Leader>e', '<Cmd>NvimTreeToggle<CR>')
 
 local lazygit = nil
 function _G.lazygit_toggle()
@@ -145,7 +149,7 @@ function M.lsp_mappings(bufnr)
     map('n', '<Leader>lr', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
     map('n', '<Leader>la', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     map('v', '<Leader>la', '<Cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
-    map('n', '<Leader>lt', '<Cmd>lua vim.lsp.buf.format()<CR>', opts)
+    map('n', '<Leader>lt', '<Cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts)
     map('v', '<Leader>lt', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
     -- Diagnostics
     map('n', '<Leader>ldi', '<Cmd>lua vim.lsp.buf.show_line_diagnostics()<CR>', opts)

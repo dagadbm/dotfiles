@@ -1,6 +1,6 @@
 local M = {
   'nvim-treesitter/nvim-treesitter',
-  event = 'VeryLazy',
+  event = 'BufReadPre',
   dependencies = {
     { 'nvim-treesitter/nvim-treesitter-refactor' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
@@ -98,7 +98,7 @@ function M.config()
 
   -- from andymass/vim-matchup plugin
   local matchup = {
-    enable = true
+    enable = true,
   }
 
   require('nvim-treesitter.configs').setup {

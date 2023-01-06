@@ -230,9 +230,17 @@ alias l='exa -hal'
 
 # alternatives
 alias ls='exa'
+alias du='dust'
 alias cat='bat'
+alias time='hyperfine'
+alias cloc='tokei'
 alias top='btm'
 alias htop='zenith'
+## Other scripts might use this
+# alias find='fd'
+# alias sed='sd'
+# alias grep='rg'
+# alias ps='procs'
 
 # vim
 alias v=vim
@@ -243,7 +251,7 @@ export EDITOR=nvim
 export GIT_EDITOR=nvim
 
 # k8s
-alias k=kubectl
+command -v kubectl > /dev/null && alias k=kubectl
 
 # restores tmux without creating an empty session on startup
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
