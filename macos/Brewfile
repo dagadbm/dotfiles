@@ -19,6 +19,7 @@ brew "reattach-to-user-namespace"
 brew "git"
 brew "lazygit"
 ## utils
+brew "grep"
 brew "ripgrep"
 brew "fd"
 brew "bat"
@@ -39,11 +40,7 @@ brew "dust"
 brew "hyperfine"
 
 # terminal
-cask "kitty"
-cask "warp"
-cask "hyper"
-cask "alacritty"
-cask "wez/wezterm/wezterm"
+cask "wez/wezterm/wezterm-nightly"
 
 # apps
 cask "alfred"
@@ -56,6 +53,7 @@ cask "brave-browser"
 cask "discord"
 cask "whatsapp"
 cask "slack"
+cask "spotify"
 
 # fonts
 cask "font-jetbrains-mono-nerd-font"

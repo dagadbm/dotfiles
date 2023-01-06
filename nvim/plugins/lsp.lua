@@ -1,16 +1,8 @@
 local M = {
   'williamboman/mason.nvim',
-  event = 'VeryLazy',
+  event = 'BufReadPre',
   dependencies = {
-    {
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-      config = function()
-        require('mason-tool-installer').setup {
-          auto_update = true,
-          run_on_start = true,
-        }
-      end,
-    },
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
     'williamboman/mason-lspconfig.nvim',
     'jayp0521/mason-null-ls.nvim',
     'jayp0521/mason-nvim-dap.nvim',
@@ -18,23 +10,23 @@ local M = {
     'folke/neodev.nvim',
     'jose-elias-alvarez/typescript.nvim',
     'jose-elias-alvarez/null-ls.nvim',
+    -- plugins that need direct hook into lsp_config
+    'SmiteshP/nvim-navic',
   },
 }
 
 function M.config()
   require('mason').setup {}
+  require('mason-tool-installer').setup {
+    auto_update = true,
+    run_on_start = true,
+  }
+
+  -- [[ LSP CONFIG ]]
   require('mason-lspconfig').setup {
     -- automatically detect which servers to install
     -- (based on which servers are set up via lspconfig)
     automatic_installation = true,
-  }
-
-  require('mason-null-ls').setup {
-    -- automatically detect which servers to install
-    -- (based on which servers are set up via null-ls)
-    ensure_installed = nil,
-    automatic_installation = true,
-    automatic_setup = false,
   }
 
   -- this sets up tsserver under the hood
@@ -66,6 +58,7 @@ function M.config()
   }
 
   -- call lspconfig for above servers
+  local navic = require('nvim-navic')
   for server_name, config in pairs(lsp_servers) do
     -- capabilities
     config.capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -76,12 +69,17 @@ function M.config()
       require('config.mappings').lsp_mappings(bufnr)
       if on_attach then
         on_attach(client, bufnr)
+        -- navic specific config
+        if client.server_capabilities.documentSymbolProvider then
+          navic.attach(client, bufnr)
+        end
       end
     end
 
     require('lspconfig')[server_name].setup(config)
   end
 
+  -- [[ NULL LS ]]
   -- setup formatters / linters
   local null_ls = require('null-ls')
   null_ls.setup {
@@ -101,6 +99,16 @@ function M.config()
       null_ls.builtins.code_actions.eslint_d
     }
   }
+
+  -- this must be called *after* null_ls.setup
+  require('mason-null-ls').setup {
+    -- automatically detect which servers to install
+    -- (based on which servers are set up via null-ls)
+    ensure_installed = nil,
+    automatic_installation = true,
+    automatic_setup = false,
+  }
+
 end
 
 return M

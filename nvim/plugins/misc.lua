@@ -7,7 +7,7 @@ return {
     config = function()
       require('onedark').setup {
         style = 'dark',
-        toggle_style_key = '<NOP>'
+        toggle_style_key = nil,
       }
       vim.cmd 'colorscheme onedark'
     end
@@ -15,6 +15,9 @@ return {
 
   -- basically everyone is using this package as a dependency
   'nvim-lua/plenary.nvim',
+
+  -- icons everyone is using
+  'kyazdani42/nvim-web-devicons',
 
   -- [[ Vim Config Debugging ]]
   -- https://vimways.org/2018/debugging-your-vim-config/
@@ -27,16 +30,13 @@ return {
   {
     'elihunter173/dirbuf.nvim',
     keys = '-',
+    cmd = { 'Dirbuf' },
   },
-  -- show registers automatically when using " or <Ctrl-R>
   {
-    'tversteeg/registers.nvim',
-    keys = {
-      [["]],
-      { [[<C-R>]], mode = 'i' },
-    },
+    'nvim-tree/nvim-tree.lua',
+    cmd = { 'NvimTreeToggle' },
     config = function()
-      require('registers').setup {}
+      require('nvim-tree').setup {}
     end
   },
   -- show line preview when using :<Number>
@@ -47,8 +47,6 @@ return {
       require('numb').setup {}
     end
   },
-  -- icons
-  'kyazdani42/nvim-web-devicons',
   -- Buffer line
   {
     'akinsho/bufferline.nvim',
@@ -56,7 +54,13 @@ return {
     config = function()
       require('bufferline').setup {
         options = {
+          numbers = 'buffer_id',
           diagnostics = 'nvim_lsp',
+          diagnostics_update_in_insert = true,
+          tab_size = 16,
+          show_buffer_close_icons = false,
+          show_close_icon = false,
+          separator_style = 'thin',
         }
       }
     end
@@ -66,6 +70,7 @@ return {
     'hoob3rt/lualine.nvim',
     event = 'VeryLazy',
     config = function()
+      local navic = require('nvim-navic')
       require('lualine').setup {
         options = {
           theme = 'onedark',
@@ -74,19 +79,43 @@ return {
         sections = {
           lualine_a = { 'mode' },
           lualine_b = { 'branch' },
-          lualine_c = { { 'filename', path = 2 } },
+          lualine_c = { { navic.get_location, cond = navic.is_available } },
           lualine_x = { 'encoding', 'fileformat', 'filetype' },
           lualine_y = { { 'diagnostics', sources = { 'nvim_diagnostic' } } },
           lualine_z = { 'location', 'progress' },
         },
         inactive_sections = {
+          lualine_a = { 'mode' },
+          lualine_b = { 'branch' },
+          lualine_c = { { navic.get_location, cond = navic.is_available } },
+          lualine_x = { 'encoding', 'fileformat', 'filetype' },
+          lualine_y = { { 'diagnostics', sources = { 'nvim_diagnostic' } } },
+          lualine_z = {},
+        },
+        winbar = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = { { 'filename', full_path = true, shorten = true } },
-          lualine_x = { 'location' },
+          lualine_c = { { 'filename', path = 3 } },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        inactive_winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { { 'filename', path = 3 } },
+          lualine_x = {},
           lualine_y = {},
           lualine_z = {}
         },
+        -- tabline = {
+        --   lualine_a = {'buffers'},
+        --   lualine_b = {},
+        --   lualine_c = {},
+        --   lualine_x = {'tabs'},
+        --   lualine_y = {},
+        --   lualine_z = {},
+        -- },
         extensions = { 'fugitive' }
       }
     end
@@ -117,7 +146,7 @@ return {
   -- Add commentary key-bindings
   {
     'tpope/vim-commentary',
-    keys = 'gc',
+    event = 'BufReadPost',
   },
   -- Add additional text objects to vim
   -- indentation as an object (i)
@@ -171,14 +200,44 @@ return {
       { 'RishabhRD/popfix' },
     },
     config = function()
-      vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
-      vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
-      vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
-      vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
-      vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
-      vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
-      vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-      vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+      local lspHandlers = vim.lsp.handlers
+      local bufnr = vim.api.nvim_buf_get_number(0)
+
+      local codeAction = require('lsputil.codeAction')
+      local locations = require('lsputil.locations')
+      local symbols = require('lsputil.symbols')
+
+      lspHandlers['textDocument/codeAction'] = function(_, _, actions)
+        codeAction.code_action_handler(nil, actions, nil, nil, nil)
+      end
+
+      lspHandlers['textDocument/references'] = function(_, _, result)
+        locations.references_handler(nil, result, { bufnr = bufnr }, nil)
+      end
+
+      lspHandlers['textDocument/definition'] = function(_, method, result)
+        locations.definition_handler(nil, result, { bufnr = bufnr, method = method }, nil)
+      end
+
+      lspHandlers['textDocument/declaration'] = function(_, method, result)
+        locations.declaration_handler(nil, result, { bufnr = bufnr, method = method }, nil)
+      end
+
+      lspHandlers['textDocument/typeDefinition'] = function(_, method, result)
+        locations.typeDefinition_handler(nil, result, { bufnr = bufnr, method = method }, nil)
+      end
+
+      lspHandlers['textDocument/implementation'] = function(_, method, result)
+        locations.implementation_handler(nil, result, { bufnr = bufnr, method = method }, nil)
+      end
+
+      lspHandlers['textDocument/documentSymbol'] = function(_, _, result, _, bufn)
+        symbols.document_handler(nil, result, { bufnr = bufn }, nil)
+      end
+
+      lspHandlers['textDocument/symbol'] = function(_, _, result, _, bufn)
+        symbols.workspace_handler(nil, result, { bufnr = bufn }, nil)
+      end
     end
   },
 
@@ -210,7 +269,8 @@ return {
   -- Vim matchit plugin (makes % match with other tags)
   {
     'andymass/vim-matchup',
-    keys = '%',
+    -- this is currently not working and I dont know why
+    enabled = false,
   },
   -- Fuzzy finder
   {
@@ -252,6 +312,16 @@ return {
           },
           sorting_strategy = 'ascending',
         },
+        pickers = {
+          buffers = {
+            sort_mru = true,
+            mappings = {
+              i = {
+                ['<C-d>'] = actions.delete_buffer,
+              },
+            },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown()
@@ -283,9 +353,9 @@ return {
     'folke/which-key.nvim',
     lazy = false,
     config = function()
-      require('which-key').setup {
-        registers = false,
-      }
+      local wk = require('which-key')
+      wk.setup {}
+      wk.register({}, {})
     end
   },
 

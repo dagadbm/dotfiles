@@ -24,7 +24,10 @@ brew update && brew upgrade && brew cleanup && brew doctor
 ./submodules.sh
 
 # nvim
-brew reinstall neovim
+brew upgrade neovim --no-quarantine --greedy-latest
+
+# wezterm
+brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest
 
 ## nvr
 pip3 install --upgrade neovim-remote
@@ -34,7 +37,6 @@ pip2 install --upgrade pynvim
 pip3 install --upgrade pynvim
 
 ## node provider
-npm update -g neovim@latest
 npm update -g neovim
 
 ## install plugins on neovim
