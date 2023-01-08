@@ -11,6 +11,7 @@
     # extra folders cache related actions
     - ~/.cache/nvim/undos
     - ~/.cache/nvim/sessions
+    - ~/.cache/nvim/gutentags
     - ~/.cache/direnv
 - link:
     # shells
@@ -39,9 +40,9 @@
     # nvim
     ~/.config/nvim/init.lua: nvim/init.lua
     ## modules must be inside /lua folder
-    ~/.config/nvim/lua/config: nvim/config
-    ~/.config/nvim/lua/lazy: nvim/lazy
-    ~/.config/nvim/lua/plugins: nvim/plugins
+    ~/.config/nvim/lua/config: nvim/lua/config
+    ~/.config/nvim/lua/lazy: nvim/lua/lazy
+    ~/.config/nvim/lua/plugins: nvim/lua/plugins
 
     # terminals
     ~/.config/kitty: kitty
