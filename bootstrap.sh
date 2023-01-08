@@ -3,6 +3,11 @@
 # Ask for the administrator password upfront
 sudo -v
 
+# To change computer name settings on a mac
+# sudo scutil --set ComputerName computername
+# sudo scutil --set HostName hostname
+# sudo scutil --set LocalHostName localhostname
+
 # setup brew
 # brew automatically install and updated xcode
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

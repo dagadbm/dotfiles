@@ -108,14 +108,6 @@ return {
           lualine_y = {},
           lualine_z = {}
         },
-        -- tabline = {
-        --   lualine_a = {'buffers'},
-        --   lualine_b = {},
-        --   lualine_c = {},
-        --   lualine_x = {'tabs'},
-        --   lualine_y = {},
-        --   lualine_z = {},
-        -- },
         extensions = { 'fugitive' }
       }
     end
