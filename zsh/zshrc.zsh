@@ -24,10 +24,6 @@ source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
 # direnv
 export DIRENV_LOG_FORMAT=
-
-## nvim related
-export ESLINT_D_LOCAL_ESLINT_ONLY=true
-export PRETTIERD_LOCAL_PRETTIER_ONLY=true
 # }}}
 # Oh-My-Zsh Setup {{{
 # Path to your oh-my-zsh installation.
