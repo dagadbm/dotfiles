@@ -16,6 +16,11 @@ local M = {
 }
 
 function M.config()
+  -- this sets up tsserver under the hood
+  require('typescript').setup {}
+  -- this sets up neovim lua development under the hood
+  require('neodev').setup {}
+
   require('mason').setup {}
   require('mason-tool-installer').setup {
     auto_update = true,
@@ -29,10 +34,6 @@ function M.config()
     automatic_installation = true,
   }
 
-  -- this sets up tsserver under the hood
-  require('typescript').setup {}
-  -- this sets up neovim lua development under the hood
-  require('neodev').setup {}
 
   local lsp_servers = {
     -- front-end
