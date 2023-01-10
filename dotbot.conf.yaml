@@ -30,7 +30,10 @@
     ~/.asdf: submodules/asdf
     ~/.config/direnv/direnvrc: direnv/direnvrc
     ~/.tmux.conf: tmux/tmux.conf
-    ~/.gitconfig_global: git/gitconfig
+    ~/.gitconfig: git/gitconfig
+    ~/.gitconfig_global: git/gitconfig_global
+    ~/.gitconfig_personal: git/gitconfig_personal
+    ~/.gitconfig_work: git/gitconfig_work
     ~/.config/git/ignore: git/gitignore
 
     # macos apps

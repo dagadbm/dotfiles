@@ -1,40 +1,6 @@
-[core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
-[credential]
-	helper = osxkeychain
-[alias]
-	lg = !git log --stat --diff-algorithm=minimal --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
-[rerere]
-	enabled = false
-[push]
-	autoSetupRemote = true
-[pull]
-	rebase = false
-[diff]
-	algorithm = histogram
-	tool = nvimdiff
-[difftool "nvimdiff"]
-	prompt = false
-	cmd = nvim -d $LOCAL $REMOTE
-[merge]
-	tool = nvim-fugitive-merge
-[mergetool]
-	keepBackup = false
-[mergetool "nvim-fugitive-merge"]
-	prompt = false
-	keepBackup = false
-	cmd = nvim -c "Gvdiffsplit!" -- "$MERGED"
-[color]
-	ui = true
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-[color "diff"]
-	meta = 11
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+[includeIf "gitdir:~/dotfiles/"]
+	path = ~/.gitconfig_personal
+[includeIf "gitdir:~/code/"]
+	path = ~/.gitconfig_personal
+[includeIf "gitdir:~/work/"]
+	path = ~/.gitconfig_work
