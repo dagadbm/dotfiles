@@ -48,5 +48,5 @@
     ~/.config/nvim/lua/plugins: nvim/lua/plugins
 
     # terminals
-    ~/.config/kitty: kitty
+    # ~/.config/kitty: kitty
     ~/.config/wezterm: wezterm
