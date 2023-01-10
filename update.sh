@@ -24,7 +24,7 @@ brew update && brew upgrade && brew cleanup && brew doctor
 ./submodules.sh
 
 # nvim
-brew upgrade neovim --no-quarantine --greedy-latest
+brew upgrade neovim --no-quarantine --greedy-latest --fetch-HEAD
 
 # wezterm
 brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest

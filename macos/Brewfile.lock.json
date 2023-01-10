@@ -2,19 +2,19 @@
   "entries": {
     "tap": {
       "homebrew/core": {
-        "revision": "f6d271ed93be49334b11cee3bf56fcbd1fa1cb26"
+        "revision": "3ec56639519622adfa6a3de83ba0dd64753cb99f"
       },
       "homebrew/bundle": {
-        "revision": "3bafe4edff4f53d895babe1bef0102d635c86a24"
+        "revision": "cc9747cd3b28628b6d70789c7c6a97d675dd1ff1"
       },
       "homebrew/cask": {
-        "revision": "2c9fdb41a67727fff1dfc20d7fc669aa5fb4d6e5"
+        "revision": "cb34178a29e6d6d9c54254c6570c25f711963e7e"
       },
       "homebrew/cask-versions": {
-        "revision": "3cc1642d62793c6e80b48a659cae0ab869fb3993"
+        "revision": "154f6a121eeeec4069dff4c1723b717ee7d39752"
       },
       "homebrew/cask-fonts": {
-        "revision": "92ff1e6b90c611c8ff0f827202e0b4b640f76905"
+        "revision": "ea84fe986f222730527278fb6afa84c4809be411"
       },
       "wez/wezterm": {
         "revision": "1bf23475a3e16ec99a8ec8d75f9f4148130601c0"
@@ -22,7 +22,7 @@
     },
     "brew": {
       "neovim": {
-        "version": "HEAD-5e9508c",
+        "version": "HEAD-438b436",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -1269,6 +1269,20 @@
             }
           }
         }
+      },
+      "diff-so-fancy": {
+        "version": "1.4.3",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "all": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/diff-so-fancy/blobs/sha256:f92baad816aa7902f5fc7e4166f6234b37f8cf800d58546b79a070d5134e857c",
+              "sha256": "f92baad816aa7902f5fc7e4166f6234b37f8cf800d58546b79a070d5134e857c"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -1309,7 +1323,7 @@
         }
       },
       "raycast": {
-        "version": "1.45.2",
+        "version": "1.45.3",
         "options": {
           "full_name": "raycast"
         }
@@ -1321,7 +1335,7 @@
         }
       },
       "fig": {
-        "version": "2.10.1",
+        "version": "2.11.0",
         "options": {
           "full_name": "fig"
         }
@@ -1379,15 +1393,27 @@
         "options": {
           "full_name": "spotify"
         }
+      },
+      "hiddenbar": {
+        "version": "1.9",
+        "options": {
+          "full_name": "hiddenbar"
+        }
+      },
+      "monitorcontrol": {
+        "version": "4.1.0",
+        "options": {
+          "full_name": "monitorcontrol"
+        }
       }
     }
   },
   "system": {
     "macos": {
       "ventura": {
-        "HOMEBREW_VERSION": "3.6.17",
+        "HOMEBREW_VERSION": "3.6.18",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "f6d271ed93be49334b11cee3bf56fcbd1fa1cb26",
+        "Homebrew/homebrew-core": "3ec56639519622adfa6a3de83ba0dd64753cb99f",
         "CLT": "14.2.0.0.1.1668646533",
         "Xcode": "14.1",
         "macOS": "13.1"
