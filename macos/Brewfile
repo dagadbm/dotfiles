@@ -18,6 +18,7 @@ brew "reattach-to-user-namespace"
 ## git
 brew "git"
 brew "lazygit"
+brew "diff-so-fancy"
 ## utils
 brew "grep"
 brew "ripgrep"
@@ -54,6 +55,7 @@ cask "discord"
 cask "whatsapp"
 cask "slack"
 cask "spotify"
+cask "hiddenbar"
 
 # fonts
 cask "font-jetbrains-mono-nerd-font"

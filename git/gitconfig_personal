@@ -1,0 +1,7 @@
+[user]
+	email = dagadbm@gmail.com
+	signingkey = 37C1D31477AFA237
+ [commit]
+ 	gpgsign = true
+ [core]
+	 sshCommand = ssh -i ~/.ssh/github_personal -F /dev/null
