@@ -22,12 +22,6 @@
 	branch = master
 	ignore = dirty
 	shallow = true
-[submodule "submodules/zsh-syntax-highlighting"]
-	path = submodules/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-	branch = master
-	ignore = dirty
-	shallow = true
 [submodule "submodules/asdf"]
 	path = submodules/asdf
 	url = https://github.com/asdf-vm/asdf.git
@@ -43,3 +37,15 @@
 [submodule "submodules/fzf"]
 	path = submodules/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "submodules/fzf-tab"]
+	path = submodules/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git
+[submodule "submodules/forgit"]
+	path = submodules/forgit
+	url = https://github.com/wfxr/forgit.git
+[submodule "submodules/fast-syntax-highlighting"]
+	path = submodules/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
+[submodule "submodules/zsh-vi-mode"]
+	path = submodules/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode

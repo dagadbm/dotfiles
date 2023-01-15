@@ -1,5 +1,16 @@
 [core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
+	editor = nvim
+[interactive]
+	diffFilter = delta --color-only
+# reference: https://github.com/dandavison/delta
+[delta]
+	navigate = true
+	light = false
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default
 [credential]
 	helper = osxkeychain
 [alias]
@@ -24,17 +35,4 @@
 	prompt = false
 	keepBackup = false
 	cmd = nvim -c "Gvdiffsplit!" -- "$MERGED"
-[color]
-	ui = true
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-[color "diff"]
-	meta = 11
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+# vim: set ft=gitconfig:

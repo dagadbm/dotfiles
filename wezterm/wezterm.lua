@@ -27,4 +27,17 @@ return {
     top = 0,
     bottom = 0,
   },
+  keys = {
+    -- https://wezfurlong.org/wezterm/config/lua/keyassignment/CloseCurrentTab.html
+    {
+      key = 'w',
+      mods = 'CMD',
+      action = wezterm.action.CloseCurrentTab { confirm = false },
+    },
+    -- paste from the clipboard
+    { key = 'V',
+      mods = 'CMD',
+      action = wezterm.action.PasteFrom 'Clipboard',
+    },
+  },
 }
