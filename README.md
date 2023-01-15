@@ -21,6 +21,6 @@ If you have any questions please feel free to open an Issue
 # Helpers
 ## Git Submodules
 ### Add
-git submodule add https://github.com/user_name/repo_name.git submodules/repo_name
+git submodule add https://github.com/wfxr/forgit.git submodules/forgit
 ### Delete
 export MODULE=submodules/repo_name && git submodule deinit -f $MODULE && rm -rf .git/modules/$MODULE && git rm -f $MODULE

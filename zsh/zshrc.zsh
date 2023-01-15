@@ -1,6 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
-
 # https://blog.askesis.pl/post/2017/04/how-to-debug-zsh-startup-time.html
 
 # Oh-My-Zsh Pre-Setup {{{
@@ -12,6 +9,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # brew
+# references: https://docs.brew.sh/Shell-Completion
 if [ -x "$(command -v brew)" ]; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
@@ -63,10 +61,12 @@ HIST_STAMPS="yyyy/mm/dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  fzf-tab
   zsh-completions
   zsh-autosuggestions
-  # https://github.com/zsh-users/zsh-syntax-highlighting#why-must-zsh-syntax-highlightingzsh-be-sourced-at-the-end-of-the-zshrc-file
-  zsh-syntax-highlighting
+  forgit
+  fast-syntax-highlighting
+  zsh-vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -84,10 +84,13 @@ unsetopt BEEP
 # lang
 export LANG=en_US.UTF-8
 
+# fzf
+source ~/fzf.config.zsh
+
 # zsh-autosuggestions
 # colors https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 # bindkey variables https://unix.stackexchange.com/a/117162
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 # accept suggestion word by word (ctrl+w)
 bindkey '^w' forward-word
 # accept all suggestions (ctrl+space)
@@ -95,134 +98,73 @@ bindkey '^ ' autosuggest-accept
 # execute suggestion (ctrl+e)
 bindkey '^e' autosuggest-execute
 
+# fzf-tab
+# reference: https://github.com/Aloxaf/fzf-tab/wiki/Configuration
+# this is needed since fzf overrides ^I
+bindkey '^I' fzf-tab-complete
+# re-use fzf theme (FZF_THEME defined on fzf.config.zsh)
+zstyle ':fzf-tab:*' fzf-flags $(echo "$FZF_THEME")
+# pop up setting
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' popup-min-size 60 0
+# execute suggestion (ctrl+e)
+zstyle ':fzf-tab:*' fzf-bindings 'ctrl-e:accept' 'ctrl-w:accept' ',:toggle-preview'
+zstyle ':fzf-tab:*' accept-line ctrl-e
+# continuous suggestion (ctrl+w)
+zstyle ':fzf-tab:*' continuous-trigger ctrl-w
+# groups setup
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':fzf-tab:*' show-group full
+zstyle ':fzf-tab:*' single-group none
+# remove prefix else its added because of groups
+zstyle ':fzf-tab:*' prefix ''
+# use ctrl-h to go back and ctrl-l to go forward
+zstyle ':fzf-tab:*' switch-group ctrl-h ctrl-l
+# previews
+zstyle ':fzf-tab:complete:*:*' fzf-preview '
+  if [[ -d $realpath ]]; then
+    tre -l 2 --color=always $realpath
+  elif [[ -f $realpath ]]; then
+      bat --style=plain,numbers --color=always $realpath
+  fi'
+
+# zsh-vi-mode
+# Always starting with insert mode for each command line
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+
 # zoxide
 eval "$(zoxide init zsh)"
 
 # bat
 command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# kubectl
-command -v kubectl > /dev/null && source <(kubectl completion zsh)
-
-# fzf
-source ~/.fzf.zsh
-
-FZF_COMMON_OPTIONS="
-  --bind=',:toggle-preview'
-  --bind='ctrl-p:half-page-up'
-  --bind='ctrl-n:half-page-down'
-  --bind='ctrl-u:preview-page-up'
-  --bind='ctrl-d:preview-page-down'
-  --preview-window 'right:60%:hidden:wrap'
-  --preview '([[ -d {} ]] && tree -C {}) || ([[ -f {} ]] && bat --style=full --color=always {}) || echo {}'"
-
-command -v rg > /dev/null && export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
-command -v bat > /dev/null && command -v tree > /dev/null && export FZF_DEFAULT_OPTS="$FZF_COMMON_OPTIONS"
-command -v fd > /dev/null && export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
-command -v fd > /dev/null && export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
-
-# Use Ctrl-Z to cd to a different directory using fzf! (similar to using z)
-bindkey '^z' fzf-cd-widget
-# Use Ctrl-F to print files using fzf (same as Ctrl-T)
-bindkey '^f' fzf-file-widget
-
-# Options to fzf command
-export FZF_COMPLETION_OPTS='+c -x'
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-
-# fzf git integration from https://junegunn.kr/2016/07/fzf-git/
-# CTRL-G CTRL-F for files
-# CTRL-G CTRL-B for branches
-# CTRL-G CTRL-T for tags
-# CTRL-G CTRL-R for remotes
-# CTRL-G CTRL-G for commit hashes
-is_in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
-}
-
-fzf-down() {
-  fzf --height 40% "$@"
-}
-
-fzf-gf() {
-  is_in_git_repo || return
-  git -c color.status=always status --short |
-  fzf-down -m --ansi --nth 2..,.. \
-    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
-  cut -c4- | sed 's/.* -> //'
-}
-
-fzf-gb() {
-  is_in_git_repo || return
-  git branch --sort committerdate -a --color=always | grep -v '/HEAD\s' |
-  fzf-down --ansi --multi --tac --preview-window right:70% \
-    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
-  sed 's/^..//' | cut -d' ' -f1 |
-  sed 's#^remotes/origin/##'
-}
-
-fzf-gt() {
-  is_in_git_repo || return
-  git tag --sort -version:refname |
-  fzf-down --multi --preview-window right:70% \
-    --preview 'git show --color=always {} | head -'$LINES
-}
-
-# for commit hashes
-fzf-gg() {
-  is_in_git_repo || return
-  git log --reflog --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
-    --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
-  grep -o "[a-f0-9]\{7,\}"
-}
-
-fzf-gr() {
-  is_in_git_repo || return
-  git remote -v | awk '{print $1 "\t" $2}' | uniq |
-  fzf-down --tac \
-    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
-  cut -d$'\t' -f1
-}
-
-join-lines() {
-  local item
-  while read item; do
-    echo -n "${(q)item} "
-  done
-}
-
-bind-git-helper() {
-  local c
-  for c in $@; do
-    eval "fzf-g$c-widget() { local result=\$(fzf-g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
-    eval "zle -N fzf-g$c-widget"
-    eval "bindkey '^g^$c' fzf-g$c-widget"
-  done
-}
-
-bind-git-helper f b t r g
-unset -f bind-git-helper
-
 # Aliases {{{
 # git
 alias lg='lazygit'
 alias g='git'
-alias gs='git status'
+# forgit aliases (set by default)
+# forgit_log=glo
+# forgit_diff=gd
+# forgit_add=ga
+# forgit_reset_head=grh
+# forgit_ignore=gi
+# forgit_checkout_file=gcf
+# forgit_checkout_branch=gcb
+# forgit_branch_delete=gbd
+# forgit_checkout_tag=gct
+# forgit_checkout_commit=gco
+# forgit_revert_commit=grc
+# forgit_clean=gclean
+# forgit_stash_show=gss
+# forgit_stash_push=gsp
+# forgit_cherry_pick=gcp
+# forgit_rebase=grb
+# forgit_blame=gbl
+# forgit_fixup=gfu
 
-# misc
+# utils
 alias l='exa -hal'
+# restores tmux without creating an empty session on startup
+alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
 
 # alternatives
 alias ls='exa'
@@ -232,10 +174,11 @@ alias time='hyperfine'
 alias cloc='tokei'
 alias top='btm'
 alias htop='zenith'
+alias tldr='tealdeer'
+alias tree='tre'
 ## Other scripts might use this
 # alias find='fd'
 # alias sed='sd'
-# alias grep='rg'
 # alias ps='procs'
 
 # vim
@@ -246,15 +189,6 @@ alias vim=nvim
 export EDITOR=nvim
 export GIT_EDITOR=nvim
 
-# k8s
-command -v kubectl > /dev/null && alias k=kubectl
-
-# restores tmux without creating an empty session on startup
-alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # }}}}}}
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

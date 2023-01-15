@@ -1,24 +1,45 @@
-# Fetch the nvim python provider if needed
-use_nvim_python_provider() {
-	pip show pynvim &> /dev/null || pip install pynvim &> /dev/null
+# Install all nvim providers
+layout_neovim() {
+	pip3 install --upgrade neovim-remote
+	pip2 install --upgrade pynvim
+	pip3 install --upgrade pynvim
+	npm install -g neovim@latest
 }
 
+# references: https://github.com/direnv/direnv/wiki/Python#poetry
+# TODO: remove this once this PR gets merged https://github.com/direnv/direnv/pull/995
+layout_poetry() {
+	PYPROJECT_TOML="${PYPROJECT_TOML:-pyproject.toml}"
+	if [[ ! -f "$PYPROJECT_TOML" ]]; then
+		log_status "No pyproject.toml found. Executing \`poetry init\` to create a \`$PYPROJECT_TOML\` first."
+		poetry init
+	fi
 
-# store all dir env layouts outside each project to avoid git/docker ignore issues
-# adapted from https://github.com/direnv/direnv/pull/290#issuecomment-724588782
-# direnv_layout_dir() {
-# 	pwd_hash="layout__$(basename $PWD)__$(echo -n $PWD | shasum | cut -d ' ' -f 1)"
-# 	echo "$HOME/.cache/direnv/$pwd_hash"
-# 	mkdir -p "$HOME/.cache/direnv/$pwd_hash"
-# 	echo "$HOME/.cache/direnv/$pwd_hash"
-# }
-# for more functions check https://github.com/direnv/direnv/blob/master/stdlib.sh
+	if [[ -d ".venv" ]]; then
+		VIRTUAL_ENV="$(pwd)/.venv"
+	else
+		VIRTUAL_ENV=$(poetry env info --path 2>/dev/null ; true)
+	fi
+
+	if [[ -z $VIRTUAL_ENV || ! -d $VIRTUAL_ENV ]]; then
+		log_status "No virtual environment exists. Executing \`poetry install\` to create one."
+		poetry install
+		VIRTUAL_ENV=$(poetry env info --path)
+	fi
+
+	PATH_add "$VIRTUAL_ENV/bin"
+	export POETRY_ACTIVE=1
+	export VIRTUAL_ENV
+}
 
 # basic usage {{{
-
 # .envrc
 # use asdf
+# layout neovim
+# for regular python:
 # layout python python3
+# for poetry python:
+# layout poetry
 # for more commands check https://direnv.net/man/direnv-stdlib.1.html
 
 # .tool-versions

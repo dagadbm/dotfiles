@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -x
 
+# submodules
+./submodules.sh
+
+# brew
+brew bundle --file macos/Brewfile
+brew update && brew upgrade && brew cleanup && brew doctor
+
 # tmux
 ~/.tmux/plugins/tpm/bin/clean_plugins
 ~/.tmux/plugins/tpm/bin/install_plugins
@@ -16,16 +23,6 @@ popd
 asdf plugin update --all
 asdf direnv setup --shell zsh --version $(asdf latest direnv)
 
-# brew
-brew bundle --file macos/Brewfile
-brew update && brew upgrade && brew cleanup && brew doctor
-
-# submodules
-./submodules.sh
-
-# nvim
-brew upgrade neovim --no-quarantine --greedy-latest --fetch-HEAD
-
 # wezterm
 brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest
 
@@ -39,5 +36,8 @@ pip3 install --upgrade pynvim
 ## node provider
 npm update -g neovim
 
+# nvim
+brew upgrade neovim --fetch-HEAD
+
 ## install plugins on neovim
-nvim -c 'autocmd User LazySync TSUpdateSync | qall' -c "autocmd User VeryLazy Lazy sync"
+nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' -c 'autocmd User LazySync MasonUpdateAll' -c 'autocmd User VeryLazy Lazy sync'

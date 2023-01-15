@@ -1,4 +1,11 @@
 return {
+  -- [[ UI ]]
+  -- pictograms for completion items (check nvim-cmp for integration)
+  {
+    'onsails/lspkind-nvim',
+    event = 'VeryLazy',
+  },
+
   -- [[ Snippets ]]
   -- engine
   {

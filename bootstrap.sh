@@ -91,4 +91,4 @@ popd
 
 ## install plugins on neovim
 nvim --headless "+Lazy! restore" +qa
-nvim -c 'autocmd User LazySync Copilot auth' -c 'autocmd User LazySync TSUpdate' -c "autocmd User VeryLazy Lazy sync"
+nvim -c 'autocmd User LazySync Copilot auth' -c "autocmd User VeryLazy Lazy sync"
