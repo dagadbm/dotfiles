@@ -1,5 +1,5 @@
 # fzf
-source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Use Ctrl-Z to cd to a different directory using fzf! (similar to using z)
 bindkey '^Z' fzf-cd-widget
@@ -58,8 +58,8 @@ export FZF_DEFAULT_OPTS="$FZF_THEME \
   --bind='ctrl-n:half-page-down' \
   --bind='ctrl-u:preview-page-up' \
   --bind='ctrl-d:preview-page-down' \
-  --preview-window 'right:60%:wrap' \
-  --preview '([[ -d {} ]] && tre -l 2 --color=always {}) || ([[ -f {} ]] && bat --style=plain,numbers --color=always {}) || echo {}'"
+  --preview-window='right,60%,wrap' \
+  --preview='([[ -d {} ]] && tre -l 2 --color=always {}) || ([[ -f {} ]] && bat --style=plain,numbers --color=always {}) || echo {}'"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
