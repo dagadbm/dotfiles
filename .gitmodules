@@ -46,6 +46,3 @@
 [submodule "submodules/fast-syntax-highlighting"]
 	path = submodules/fast-syntax-highlighting
 	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
-[submodule "submodules/zsh-vi-mode"]
-	path = submodules/zsh-vi-mode
-	url = https://github.com/jeffreytse/zsh-vi-mode

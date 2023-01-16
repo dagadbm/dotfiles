@@ -66,7 +66,8 @@ plugins=(
   zsh-autosuggestions
   forgit
   fast-syntax-highlighting
-  zsh-vi-mode
+  # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/vi-mode/README.md
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -83,6 +84,10 @@ unsetopt BEEP
 
 # lang
 export LANG=en_US.UTF-8
+
+# vi-mode
+VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+VI_MODE_SET_CURSOR=true
 
 # fzf
 source ~/fzf.config.zsh
@@ -103,10 +108,15 @@ bindkey '^e' autosuggest-execute
 # this is needed since fzf overrides ^I
 bindkey '^I' fzf-tab-complete
 # re-use fzf theme (FZF_THEME defined on fzf.config.zsh)
-zstyle ':fzf-tab:*' fzf-flags $(echo "$FZF_THEME")
+FZF_TAB_OPTS="$FZF_THEME \
+  --layout=reverse \
+  --border=none
+  --preview-window=hidden"
+zstyle ':fzf-tab:*' fzf-flags $(echo "$FZF_TAB_OPTS")
 # pop up setting
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' popup-min-size 60 0
+zstyle ':fzf-tab:*' popup-smart-tab false
 # execute suggestion (ctrl+e)
 zstyle ':fzf-tab:*' fzf-bindings 'ctrl-e:accept' 'ctrl-w:accept' ',:toggle-preview'
 zstyle ':fzf-tab:*' accept-line ctrl-e
@@ -115,7 +125,7 @@ zstyle ':fzf-tab:*' continuous-trigger ctrl-w
 # groups setup
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:*' show-group full
-zstyle ':fzf-tab:*' single-group none
+zstyle ':fzf-tab:*' single-group header
 # remove prefix else its added because of groups
 zstyle ':fzf-tab:*' prefix ''
 # use ctrl-h to go back and ctrl-l to go forward
@@ -127,10 +137,6 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '
   elif [[ -f $realpath ]]; then
       bat --style=plain,numbers --color=always $realpath
   fi'
-
-# zsh-vi-mode
-# Always starting with insert mode for each command line
-ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
 # zoxide
 eval "$(zoxide init zsh)"

@@ -27,7 +27,6 @@
     ~/.oh-my-zsh/custom/plugins/zsh-completions: submodules/zsh-completions
     ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions: submodules/zsh-autosuggestions
     ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting: submodules/fast-syntax-highlighting
-    ~/.oh-my-zsh/custom/plugins/zsh-vi-mode: submodules/zsh-vi-mode
     ~/.oh-my-zsh/custom/plugins/fzf-tab: submodules/fzf-tab
     ~/.oh-my-zsh/custom/plugins/forgit: submodules/forgit
 
