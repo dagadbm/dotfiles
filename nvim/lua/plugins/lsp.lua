@@ -6,8 +6,8 @@ return {
     dependencies = {
       'RubixDev/mason-update-all',
       'williamboman/mason-lspconfig.nvim',
-      'jayp0521/mason-null-ls.nvim',
-      'jayp0521/mason-nvim-dap.nvim',
+      'jay-babu/mason-null-ls.nvim',
+      'jay-babu/mason-nvim-dap.nvim',
       'neovim/nvim-lspconfig',
       'folke/neodev.nvim',
       'jose-elias-alvarez/typescript.nvim',
@@ -45,8 +45,8 @@ return {
         -- back-end
         gopls = {},
         pyright = {},
-        pylsp = {},
-        jedi_language_server = {},
+        -- pylsp = {},
+        -- jedi_language_server = {},
         -- markup
         yamlls = {},
         jsonls = {},

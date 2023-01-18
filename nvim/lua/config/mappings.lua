@@ -103,7 +103,7 @@ map('n', '<Leader>p', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]]
 map('n', '<Leader>P',
     [[<Cmd>lua require('telescope.builtin').find_files({ find_command = {'fd', vim.fn.expand('<cword>')} })<CR>]])
 -- global search
-map('n', '<Leader>f', [[<Cmd>lua require('telescope.builtin').grep_string({ search = '' })<CR>]])
+map('n', '<Leader>f', [[<Cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Search For > ") })<CR>]])
 -- Type <Leader>F to pass args to rp
 map('n', '<Leader>F', [[<Cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>]])
 

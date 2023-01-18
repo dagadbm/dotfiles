@@ -23,9 +23,6 @@ set -x
 ./submodules.sh
 ./dotbot.sh
 
-# include common gitconfig file on dotfiles repo
-git config --global include.path .gitconfig_global
-
 # setup brew
 brew bundle --file macos/Brewfile
 

@@ -194,6 +194,8 @@ return {
   -- Fuzzy finder
   {
     'nvim-telescope/telescope.nvim',
+    -- remove this after https://github.com/nvim-telescope/telescope.nvim/issues/2192 is closed
+    version = '0.1.x',
     cmd = 'Telescope',
     dependencies = {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },

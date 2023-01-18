@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x
 
 # submodules
 ./submodules.sh
@@ -23,9 +22,6 @@ popd
 asdf plugin update --all
 asdf direnv setup --shell zsh --version $(asdf latest direnv)
 
-# wezterm
-brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest
-
 ## nvr
 pip3 install --upgrade neovim-remote
 
@@ -36,8 +32,22 @@ pip3 install --upgrade pynvim
 ## node provider
 npm update -g neovim
 
+# wezterm
+echo "Update wezterm nightly?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest; break;;
+        No ) break;;
+    esac
+done
 # nvim
-brew upgrade neovim --fetch-HEAD
+echo "Update nvim nightly?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) brew upgrade neovim --fetch-HEAD; break;;
+        No ) break;;
+    esac
+done
 
-## install plugins on neovim
-nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' -c 'autocmd User LazySync MasonUpdateAll' -c 'autocmd User VeryLazy Lazy sync'
+## update plugins on neovim
+nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' -c 'autocmd User LazySync MasonUpdateAll' -c 'autocmd User VeryLazy Lazy sync' >
