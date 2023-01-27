@@ -18,9 +18,6 @@ vim.wo.foldmethod = 'marker'
 -- Allows to hide buffers instead of closing them when files are not saved
 vim.o.hidden = true
 
--- Turn swap files off
-vim.o.swapfile = false
-
 -- Show tabs and space
 vim.wo.list = true
 vim.bo.tabstop = 4
@@ -59,11 +56,20 @@ vim.o.titlestring = '%f'
 -- Add vertical bar when reaching 80 chars
 vim.wo.colorcolumn = '80'
 
+-- [[ Backups ]]
 -- Maintain undo history between sessions
-vim.o.undodir = vim.fn.expand('~/.cache/nvim/undos')
+vim.o.undodir = vim.fn.expand('~/.cache/nvim/undos//')
 vim.o.undofile = true
 vim.o.undolevels = 100000
 vim.o.undoreload = 100000
+-- Backup everything to prevent code loss catastrophes
+vim.o.backup = true
+vim.o.writebackup = true
+vim.o.backupdir = 'yes'
+vim.o.backupdir = vim.fn.expand('~/.cache/nvim/backups//')
+-- Swap files
+vim.o.swapfile = true
+vim.o.directory = vim.fn.expand('~/.cache/nvim/swaps//')
 
 -- Ignore case when searching
 vim.o.ignorecase = true

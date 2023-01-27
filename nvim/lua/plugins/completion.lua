@@ -1,11 +1,4 @@
 return {
-  -- [[ UI ]]
-  -- pictograms for completion items (check nvim-cmp for integration)
-  {
-    'onsails/lspkind-nvim',
-    event = 'VeryLazy',
-  },
-
   -- [[ Snippets ]]
   -- engine
   {
@@ -17,7 +10,7 @@ return {
       'rafamadriz/friendly-snippets',
       'sdras/vue-vscode-snippets',
     },
-    config = function ()
+    config = function()
       require('luasnip.loaders.from_vscode').lazy_load()
       require('luasnip.loaders.from_snipmate').lazy_load()
       require('luasnip.loaders.from_lua').lazy_load()
@@ -46,19 +39,20 @@ return {
   -- engine
   {
     'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lua' },
-      { 'hrsh7th/cmp-path' },
-      { 'hrsh7th/cmp-cmdline' },
-      { 'andersevenrud/cmp-tmux' },
-      { 'hrsh7th/cmp-calc' },
-      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-      { 'hrsh7th/cmp-omni' },
-      { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+      -- pictograms for completion items (check nvim-cmp for integration)
+      'onsails/lspkind-nvim',
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'andersevenrud/cmp-tmux',
+      'hrsh7th/cmp-calc',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-nvim-lsp-document-symbol',
     },
     config = function()
       local cmp = require('cmp')
@@ -80,23 +74,21 @@ return {
             require('luasnip').lsp_expand(args.body)
           end,
         },
-        completion = {
-          completeopt = 'menu,menuone,noinsert'
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
         },
         sources = cmp.config.sources({
-          -- from zbirenbaum/copilot-cmp
-          { name = 'copilot' },
           { name = 'nvim_lsp' },
           { name = 'nvim_lsp_signature_help' },
           { name = 'nvim_lsp_document_symbol' },
           { name = 'calc' },
-          { name = 'nvim_lua', keyword_length = 3 },
-          { name = 'luasnip', keyword_length = 3 },
-          { name = 'buffer', keyword_length = 3, max_item_count = 5 },
-          { name = 'tmux', keyword_length = 3, max_item_count = 5 },
-          { name = 'path', keyword_length = 3, max_item_count = 5 },
-          { name = 'cmdline', keyword_length = 3, max_item_count = 5 },
-          { name = 'omni', keyword_length = 3 },
+          { name = 'nvim_lua' },
+          { name = 'luasnip' },
+          { name = 'buffer' },
+          { name = 'tmux' },
+          { name = 'path' },
+          { name = 'copilot' },
         }),
         mapping = cmp.mapping.preset.insert({
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
@@ -118,15 +110,15 @@ return {
               fallback()
             end
           end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { 'i', 's' }),
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
         }),
         formatting = {
           format = lspkind.cmp_format({
@@ -135,6 +127,35 @@ return {
           })
         }
       }
+
+      -- Use buffer source for `/` and `?`
+      cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+      cmp.setup.cmdline('?', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      -- `:` cmdline setup.
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          {
+            name = 'cmdline',
+            option = {
+              ignore_cmds = { 'Man', '!' }
+            }
+          }
+        })
+      })
     end
   },
 }
