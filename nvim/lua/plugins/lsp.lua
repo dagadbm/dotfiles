@@ -26,12 +26,6 @@ return {
       require('mason-update-all').setup {}
 
       -- [[ LSP CONFIG ]]
-      require('mason-lspconfig').setup {
-        -- automatically detect which servers to install
-        -- (based on which servers are set up via lspconfig)
-        automatic_installation = true,
-      }
-
       local lsp_servers = {
         -- front-end
         html = {},
@@ -77,6 +71,12 @@ return {
         require('lspconfig')[server_name].setup(config)
       end
 
+      require('mason-lspconfig').setup {
+        -- automatically detect which servers to install
+        -- (based on which servers are set up via lspconfig)
+        automatic_installation = true,
+      }
+
       -- [[ NULL LS ]]
       -- setup formatters / linters
       local null_ls = require('null-ls')
@@ -107,7 +107,8 @@ return {
               ESLINT_D_LOCAL_ESLINT_ONLY = true,
             },
           }),
-        }
+          require('typescript.extensions.null-ls.code-actions'),
+        },
       }
 
       -- this must be called *after* null_ls.setup

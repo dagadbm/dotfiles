@@ -34,7 +34,7 @@ return {
 
       vim.g.gutentags_add_default_project_roots = false
       vim.g.gutentags_project_root = {
-        'package.json', '.git', '.hg', '.svn'
+        '.git', '.hg', '.svn'
       }
       vim.g.gutentags_cache_dir = vim.fn.expand('~/.cache/nvim/gutentags')
       vim.g.gutentags_generate_on_new = true

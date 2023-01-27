@@ -7,11 +7,11 @@
 	<key>previousPathHotkey</key>
 	<dict>
 		<key>key</key>
-		<integer>14</integer>
+		<integer>-1</integer>
 		<key>mod</key>
-		<integer>1048576</integer>
+		<integer>-1</integer>
 		<key>string</key>
-		<string>E</string>
+		<string></string>
 	</dict>
 	<key>returnToOpenFolders</key>
 	<true/>

@@ -152,10 +152,12 @@ return {
   },
   {
     'kevinhwang91/nvim-bqf',
-    ft = 'qf',
+    event = 'VeryLazy',
     config = function()
       require('bqf').setup {
-        auto_resize_height = true
+        auto_resize_height = true,
+        show_title = true,
+        wrap = true,
       }
     end
   },
@@ -164,6 +166,9 @@ return {
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
+    config = function()
+      vim.g.undotree_WindowLayout = 2
+    end,
   },
 
   -- [[ Session Management ]]
@@ -185,6 +190,7 @@ return {
   },
 
   -- [[ Code Navigation ]]
+  'ThePrimeagen/harpoon',
   -- Vim matchit plugin (makes % match with other tags)
   {
     'andymass/vim-matchup',
@@ -209,13 +215,15 @@ return {
 
       telescope.setup {
         defaults = {
+          path_display = { truncate = 5, },
+          dynamic_preview_title = true,
           mappings = {
             i = {
               ['<Esc>'] = actions.close,
               -- replace current quick fix list with selected item
               ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
               -- add to existing quick fix list with selected item
-              ['<C-a>'] = actions.smart_add_to_qflist + actions.open_qflist,
+              ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
               -- next prev mappings (like fzf)
               ['<C-j>'] = actions.move_selection_next,
               ['<C-k>'] = actions.move_selection_previous,

@@ -108,14 +108,14 @@ map('n', '<Leader>f', [[<Cmd>lua require('telescope.builtin').grep_string({ sear
 map('n', '<Leader>F', [[<Cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>]])
 
 -- vim related searches
-map('n', '<Leader>c', [[<Cmd>lua require('telescope.builtin').commands()<CR>]])
-map('n', '<Leader>C', [[<Cmd>lua require('telescope.builtin').command_history()<CR>]])
+map('n', '<Leader>:', [[<Cmd>lua require('telescope.builtin').commands()<CR>]])
+map('n', '<Leader>;', [[<Cmd>lua require('telescope.builtin').command_history()<CR>]])
 map('n', '<Leader>h', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]])
 map('n', '<Leader>o', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 map('n', '<Leader>m', [[<Cmd>lua require('telescope.builtin').keymaps()<CR>]])
 map('n', '<Leader>b', [[<Cmd>lua require('telescope.builtin').buffers()<CR>]])
 -- git related searches
-map('n', '<Leader>gf', [[<Cmd>lua require('telescope.builtin').git_files()<CR>]])
+map('n', '<Leader>gf', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
 -- lsp related searches
 map('n', '<Leader>lf', [[<Cmd>lua require('telescope.builtin').lsp_references()<CR>]])
 map('n', '<Leader>ls', [[<Cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
@@ -128,6 +128,10 @@ map('n', '<Leader>dc', [[<Cmd>lua require('telescope').extensions.dap.configurat
 map('n', '<Leader>db', [[<Cmd>lua require('telescope').extensions.dap.list_breakpoints()<CR>]])
 map('n', '<Leader>dv', [[<Cmd>lua require('telescope').extensions.dap.variables()<CR>]])
 map('n', '<Leader>df', [[<Cmd>lua require('telescope').extensions.dap.frames()<CR>]])
+-- mru related mapping (using harpoon)
+map('n', '<Leader>ra', [[<Cmd>lua require('harpoon.mark').add_file()<CR>]])
+map('n', '<Leader>rr', [[<Cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>]])
+
 
 -- [[ LSP Buffer mappings ]]
 local M = {}
@@ -148,14 +152,13 @@ function M.lsp_mappings(bufnr)
     -- Actions
     map('n', '<Leader>lr', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
     map('n', '<Leader>la', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    map('v', '<Leader>la', '<Cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
     map('n', '<Leader>lt', '<Cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts)
-    map('v', '<Leader>lt', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
     -- Diagnostics
-    map('n', '<Leader>ldi', '<Cmd>lua vim.lsp.buf.show_line_diagnostics()<CR>', opts)
+    map('n', '<Leader>ldi', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
     map('n', '<Leader>ldp', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     map('n', '<Leader>ldn', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    map('n', '<Leader>ldq', '<Cmd>lua vim.lsp.buf.set_loclist()<CR>', opts)
+    map('n', '<Leader>ldl', '<Cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+    map('n', '<Leader>ldq', '<Cmd>lua vim.diagnostic.setqflist()<CR>', opts)
 end
 
 return M

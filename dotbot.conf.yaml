@@ -10,6 +10,8 @@
 - create:
     # extra folders cache related actions
     - ~/.cache/nvim/undos
+    - ~/.cache/nvim/backups
+    - ~/.cache/nvim/swaps
     - ~/.cache/nvim/sessions
     - ~/.cache/nvim/gutentags
     - ~/.cache/direnv
