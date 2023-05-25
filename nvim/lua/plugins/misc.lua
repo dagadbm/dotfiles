@@ -289,9 +289,18 @@ return {
   },
 
   -- [[ External Integrations ]]
+  -- File Actions
+  {
+    'tpope/vim-eunuch',
+    event = 'VeryLazy',
+  },
   -- Git
   {
     'tpope/vim-fugitive',
+    event = 'VeryLazy',
+  },
+  {
+    'tpope/vim-rhubarb',
     event = 'VeryLazy',
   },
   {
