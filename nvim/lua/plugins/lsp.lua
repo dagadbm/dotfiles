@@ -31,6 +31,7 @@ return {
         html = {},
         cssls = {},
         volar = {},
+        vuels = {},
         eslint = {},
         stylelint_lsp = {},
         -- setup by typescript.nvim

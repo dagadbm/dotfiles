@@ -7,10 +7,10 @@ vim.opt.rtp:prepend(lazypath)
 
 -- reference: https://github.com/folke/lazy.nvim#%EF%B8%8F-configuration
 require('lazy').setup('plugins', {
-  defaults = { lazy = true, version = '*' },
+  defaults = { lazy = true, version = '*',  },
   lockfile = vim.fn.expand('~/.config/nvim/lua/lazy/lazy-lock.json'),
   concurrency = nil,
-  install = { missing = true },
+  install = { missing = true, colorscheme = { 'onedark' } },
   checker = { enabled = false },
   diff = {
     cmd = 'terminal_git',

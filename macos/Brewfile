@@ -5,8 +5,6 @@ tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/cask-fonts"
 
-tap "wez/wezterm"
-
 # nvim
 brew "neovim", args: ["HEAD"]
 brew "universal-ctags"
@@ -43,7 +41,7 @@ brew "dust"
 brew "hyperfine"
 
 # terminal
-cask "wez/wezterm/wezterm-nightly"
+cask "wezterm"
 
 # apps
 cask "alfred"
