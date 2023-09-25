@@ -101,6 +101,7 @@ return {
               PRETTIERD_LOCAL_PRETTIER_ONLY = true,
             },
           }),
+          null_ls.builtins.formatting.ruff,
 
           -- code_actions
           null_ls.builtins.code_actions.eslint_d.with({

@@ -1,7 +1,6 @@
 # Install all nvim providers
 layout_neovim() {
 	pip3 install --upgrade neovim-remote
-	pip2 install --upgrade pynvim
 	pip3 install --upgrade pynvim
 	npm install -g neovim@latest
 }
