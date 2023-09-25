@@ -146,6 +146,7 @@ return {
   -- show lsp status updates on the bottom right corner
   {
     'j-hui/fidget.nvim',
+    tag = 'legacy',
     event = 'VeryLazy',
     config = function()
       require('fidget').setup {}
