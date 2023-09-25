@@ -31,14 +31,6 @@ pip3 install --upgrade pynvim
 ## node provider
 npm update -g neovim
 
-# wezterm
-echo "Update wezterm nightly?"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest; break;;
-        No ) break;;
-    esac
-done
 # nvim
 echo "Update nvim nightly?"
 select yn in "Yes" "No"; do
