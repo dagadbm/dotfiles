@@ -26,7 +26,6 @@ asdf direnv setup --shell zsh --version $(asdf latest direnv)
 pip3 install --upgrade neovim-remote
 
 ## python provider
-pip2 install --upgrade pynvim
 pip3 install --upgrade pynvim
 
 ## node provider

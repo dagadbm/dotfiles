@@ -147,8 +147,6 @@ command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # git
 alias lg='lazygit'
 alias g='git'
-# git delete merged branches
-alias gdm='git branch --merged | grep -i -v -E "master|main"| xargs git branch -d'
 # forgit aliases (set by default)
 # forgit_log=glo
 # forgit_diff=gd
