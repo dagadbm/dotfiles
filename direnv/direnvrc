@@ -1,8 +1,13 @@
 # Install all nvim providers
-layout_neovim() {
+layout_neovim_providers() {
 	pip3 install --upgrade neovim-remote
 	pip3 install --upgrade pynvim
 	npm install -g neovim@latest
+}
+
+layout_neovim_python() {
+	# to help debug python with nvim-dap-pyton
+	pip install debugpy
 }
 
 # references: https://github.com/direnv/direnv/wiki/Python#poetry
@@ -34,9 +39,10 @@ layout_poetry() {
 # basic usage {{{
 # .envrc
 # use asdf
-# layout neovim
+# layout neovim_providers
 # for regular python:
 # layout python python3
+# layout neovim_python
 # for poetry python:
 # layout poetry
 # for more commands check https://direnv.net/man/direnv-stdlib.1.html

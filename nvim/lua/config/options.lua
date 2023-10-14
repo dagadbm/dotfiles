@@ -1,3 +1,7 @@
+-- Enable local per project config files (.nvim.lua in root of project)
+vim.o.exrc = true
+vim.o.secure = true
+
 -- <Leader> key avoids default vim key collision
 vim.g.mapleader = ' '
 

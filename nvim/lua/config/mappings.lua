@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local M = {}
 
 -- [[ Terminal mappings ]]
 -- Allow hitting Ctrl-\<Esc> or [ to switch to normal mode
@@ -126,19 +127,33 @@ map('n', '<Leader>lS', [[<Cmd>lua require('telescope.builtin').lsp_workspace_sym
 map('n', '<Leader>ld', [[<Cmd>lua require('telescope.builtin').diagnostics({ bufnr = 0 })<CR>]])
 map('n', '<Leader>lD', [[<Cmd>lua require('telescope.builtin').diagnostics()<CR>]])
 -- dap related searches
-map('n', '<Leader>dd', [[<Cmd>lua require('telescope').extensions.dap.commands()<CR>]])
-map('n', '<Leader>dc', [[<Cmd>lua require('telescope').extensions.dap.configurations()<CR>]])
-map('n', '<Leader>db', [[<Cmd>lua require('telescope').extensions.dap.list_breakpoints()<CR>]])
-map('n', '<Leader>dv', [[<Cmd>lua require('telescope').extensions.dap.variables()<CR>]])
-map('n', '<Leader>df', [[<Cmd>lua require('telescope').extensions.dap.frames()<CR>]])
+-- map('n', '<Leader>dd', [[<Cmd>lua require('telescope').extensions.dap.commands()<CR>]])
+-- map('n', '<Leader>dc', [[<Cmd>lua require('telescope').extensions.dap.configurations()<CR>]])
+-- map('n', '<Leader>db', [[<Cmd>lua require('telescope').extensions.dap.list_breakpoints()<CR>]])
+-- map('n', '<Leader>dv', [[<Cmd>lua require('telescope').extensions.dap.variables()<CR>]])
+-- map('n', '<Leader>df', [[<Cmd>lua require('telescope').extensions.dap.frames()<CR>]])
 -- mru related mapping (using harpoon)
 map('n', '<Leader>ra', [[<Cmd>lua require('harpoon.mark').add_file()<CR>]])
 map('n', '<Leader>rr', [[<Cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>]])
 
+-- [[ DAP mappings ]]
+map('n', '<Leader>dd', [[<Cmd>lua require('dapui').toggle()<CR>]])
+map('n', '<Leader>dsc', [[<Cmd>lua require('dap').step_over()<CR>]])
+map('n', '<Leader>dsi', [[<Cmd>lua require('dap').step_into()<CR>]])
+map('n', '<Leader>dso', [[<Cmd>lua require('dap').step_out()<CR>]])
+map('n', '<Leader>dS', [[<Cmd>lua require('dap').continue()<CR>]])
+
+map('n', '<Leader>dh', [[<Cmd>lua require('dap.ui.widgets').hover()<CR>]])
+map('v', '<Leader>dH', [[<Cmd>lua require('dap.ui.widgets').visual_hover()<CR>]])
+
+map('n', '<Leader>dr', [[<Cmd>lua require('dap').repl.toggle()<CR>]])
+
+map('n', '<Leader>dbb', [[<Cmd>lua require('dap').toggle_breakpoint()<CR>]])
+map('n', '<Leader>dbc', [[<Cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition; '))<CR>]])
+map('n', '<Leader>dbl', [[<Cmd>lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') })<CR>]])
+map('n', '<Leader>dbK', [[<Cmd>lua require('dap').clear_breakpoints()<CR>]])
 
 -- [[ LSP Buffer mappings ]]
-local M = {}
-
 function M.lsp_mappings(bufnr)
     local opts = { noremap=true, silent=true, buffer=bufnr }
 

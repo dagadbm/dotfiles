@@ -207,7 +207,6 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
-      { 'nvim-telescope/telescope-dap.nvim' },
     },
     config = function()
       local telescope = require('telescope')
@@ -267,8 +266,6 @@ return {
       telescope.load_extension('ui-select')
       -- pass arguments to rg similar to vim.agriculture
       telescope.load_extension('live_grep_args')
-      -- dap support
-      telescope.load_extension('dap')
     end
   },
 

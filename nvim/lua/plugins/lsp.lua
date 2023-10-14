@@ -11,7 +11,7 @@ return {
       'neovim/nvim-lspconfig',
       'folke/neodev.nvim',
       'jose-elias-alvarez/typescript.nvim',
-      'jose-elias-alvarez/null-ls.nvim',
+      'nvimtools/none-ls.nvim',
       -- plugins that need direct hook into lsp_config
       'SmiteshP/nvim-navic',
     },

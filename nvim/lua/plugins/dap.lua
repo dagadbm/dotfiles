@@ -15,7 +15,8 @@ local M = {
       end
     },
     'mxsdev/nvim-dap-vscode-js',
-  }
+    'mfussenegger/nvim-dap-python',
+  },
 }
 
 function M.config()
