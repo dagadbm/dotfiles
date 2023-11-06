@@ -2,7 +2,7 @@
 	email = david@datafold.com
 	signingkey = CC3BBF86EAF2F434
 [commit]
-	gpgsign = true
+	; gpgsign = true
 [core]
 	sshCommand = ssh -i ~/.ssh/github_datafold -F /dev/null
 # vim: set ft=gitconfig:
