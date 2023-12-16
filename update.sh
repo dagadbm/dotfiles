@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 # submodules
-./submodules.sh
+git submodule foreach --recursive git reset --hard
+git submodule update --init --recursive --remote
+git submodule foreach --recursive git reset --hard
 
 # brew
 brew bundle --file macos/Brewfile

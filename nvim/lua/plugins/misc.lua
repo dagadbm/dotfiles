@@ -262,7 +262,7 @@ return {
       -- native lua implementation of fzf
       telescope.load_extension('fzf')
       -- set vim.ui.select to telescope
-      telescope.load_extension('ui-select')
+      -- telescope.load_extension('ui-select')
       -- pass arguments to rg similar to vim.agriculture
       telescope.load_extension('live_grep_args')
     end

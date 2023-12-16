@@ -146,22 +146,9 @@ return {
   -- show lsp status updates on the bottom right corner
   {
     'j-hui/fidget.nvim',
-    tag = 'legacy',
     event = 'VeryLazy',
     config = function()
       require('fidget').setup {}
-    end
-  },
-  -- show light bulb on status column if action exists
-  {
-    'kosayoda/nvim-lightbulb',
-    event = 'VeryLazy',
-    config = function()
-      require('nvim-lightbulb').setup {
-        autocmd = {
-          enabled = true
-        }
-      }
     end
   },
 }

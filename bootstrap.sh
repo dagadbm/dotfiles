@@ -19,8 +19,12 @@ set -x
 # setup macos defaults
 ./macos/defaults.sh
 
+# submodules
+git submodule foreach --recursive git reset --hard
+git submodule update --init --recursive --remote
+git submodule foreach --recursive git reset --hard
+
 # setup dotfiles
-./submodules.sh
 ./dotbot.sh
 
 # setup brew
