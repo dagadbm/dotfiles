@@ -47,7 +47,7 @@ return {
         jsonls = {},
         -- misc
         bashls = {},
-        sumneko_lua = {},
+        lua_ls = {},
       }
 
       -- call lspconfig for above servers
