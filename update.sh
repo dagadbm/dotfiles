@@ -24,6 +24,9 @@ popd
 asdf plugin update --all
 asdf direnv setup --shell zsh --version $(asdf latest direnv)
 
+# macos
+softwareupdate --install --all
+
 ## nvr
 pip3 install --upgrade neovim-remote
 
