@@ -22,7 +22,7 @@
     },
     "brew": {
       "neovim": {
-        "version": "HEAD-896b400",
+        "version": "HEAD-84f6216",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -1674,8 +1674,8 @@
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.1.0.0.1.1700200546",
-        "Xcode": "15.0.1",
-        "macOS": "14.2"
+        "Xcode": "15.1",
+        "macOS": "14.2.1"
       }
     }
   }
