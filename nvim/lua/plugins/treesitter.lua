@@ -78,10 +78,6 @@ function M.config()
     }
   }
 
-  local context_commentstring = {
-    enable = true
-  }
-
   local textsubjects = {
     enable = true,
     prev_selection = ',', -- (Optional) keymap to select the previous selection
@@ -119,7 +115,6 @@ function M.config()
     },
 
     -- external modules
-    context_commentstring = context_commentstring,
     refactor = refactor,
     textobjects = textobjects,
     textsubjects = textsubjects,
