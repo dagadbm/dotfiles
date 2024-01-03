@@ -11,10 +11,10 @@
         "revision": "0b34e4c39cbbeb6e61e1b4718e8f4e6b3680ab5c"
       },
       "homebrew/cask-versions": {
-        "revision": "df12df05e6f68f6e686bb0e68468ce883701c360"
+        "revision": "9a746a59b62ace3bc1bfb73e6b3fc9f3a9832246"
       },
       "homebrew/cask-fonts": {
-        "revision": "2ea8de2634c1f0d059de9d057da846cc26acd68d"
+        "revision": "cc54a5c9f085c402d479431a26f86eb3f09c1e64"
       },
       "wez/wezterm": {
         "revision": "1bf23475a3e16ec99a8ec8d75f9f4148130601c0"
@@ -22,7 +22,7 @@
     },
     "brew": {
       "neovim": {
-        "version": "HEAD-84f6216",
+        "version": "HEAD-ab2aad5",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -1670,7 +1670,7 @@
         "macOS": "13.5.1"
       },
       "sonoma": {
-        "HOMEBREW_VERSION": "4.2.0-66-g6a92925",
+        "HOMEBREW_VERSION": "4.2.1-14-g719c892",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.1.0.0.1.1700200546",
