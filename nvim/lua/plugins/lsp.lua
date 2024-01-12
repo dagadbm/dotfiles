@@ -92,8 +92,15 @@ return {
             },
           }),
 
-          null_ls.builtins.diagnostics.flake8,
-          null_ls.builtins.diagnostics.pylint,
+          null_ls.builtins.diagnostics.flake8.with({
+            prefer_local = ".venv/bin",
+          }),
+          null_ls.builtins.diagnostics.mypy.with({
+            prefer_local = ".venv/bin",
+          }),
+          null_ls.builtins.diagnostics.pylint.with({
+            prefer_local = ".venv/bin",
+          }),
 
           -- formatting
           null_ls.builtins.formatting.prettierd.with({

@@ -3,4 +3,5 @@
 .tool-versions
 .envrc
 .direnv/
+.venv/
 .nvim.lua
