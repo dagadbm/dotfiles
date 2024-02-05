@@ -2,8 +2,7 @@ alias gpt1='CURRENT_BRANCH=$(git symbolic-ref --short HEAD); git checkout testin
 alias gpt2='CURRENT_BRANCH=$(git symbolic-ref --short HEAD); git checkout testing2 && git reset origin/master --hard && git rebase $CURRENT_BRANCH && git push -f && git checkout - && unset CURRENT_BRANCH'
 alias gpt3='CURRENT_BRANCH=$(git symbolic-ref --short HEAD); git checkout testing3 && git reset origin/master --hard && git rebase $CURRENT_BRANCH && git push -f && git checkout - && unset CURRENT_BRANCH'
 alias k='kubectl'
-alias kubectx='kubie ctx'
-alias kubens='kubie ns'
+alias ks='switch'
 
 alias ssh-cloud="python ~/work/ssh-datafold-cloud.py"
 # https://www.notion.so/datafold/9314fc6a1eec4a8294468f6ee4eba553?v=f5e562e4e36341d9a3a26fe1deb367ac&pvs=4
@@ -32,3 +31,16 @@ aws_mfa() {
   aws configure set --profile default aws_secret_access_key $(echo $RESPONSE | jq -r .Credentials.SecretAccessKey)
   aws configure set --profile default aws_session_token $(echo $RESPONSE | jq -r .Credentials.SessionToken)
 }
+
+# kubeswitch
+echo 'source <(switcher init zsh)' >> ~/.zshrc
+echo 'source <(compdef _switcher switch)' >> ~/.zshrc
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/dagadbm/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dagadbm/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/dagadbm/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dagadbm/google-cloud-sdk/completion.zsh.inc'; fi
+source <(switcher init zsh)
+
+source <(compdef _switcher switch)
