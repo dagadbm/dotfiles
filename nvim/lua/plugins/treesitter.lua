@@ -3,7 +3,6 @@ local M = {
   event = 'BufReadPre',
   dependencies = {
     { 'nvim-treesitter/nvim-treesitter-refactor' },
-    { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'JoosepAlviste/nvim-ts-context-commentstring' },
     { 'RRethy/nvim-treesitter-textsubjects' },
     { 'windwp/nvim-ts-autotag' },
@@ -35,59 +34,6 @@ function M.config()
     }
   }
 
-  local textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ab'] = '@block.outer',
-        ['ib'] = '@block.inner',
-        ['al'] = '@loop.outer',
-        ['il'] = '@loop.inner',
-        ['is'] = '@statement.inner',
-        ['as'] = '@statement.outer',
-        ['am'] = '@call.outer',
-      }
-    },
-    swap = {
-      enable = true,
-      swap_next = { ['gs'] = '@parameter.inner' },
-      swap_previous = { ['gS'] = '@parameter.inner' }
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    }
-  }
-
-  local textsubjects = {
-    enable = true,
-    prev_selection = ',', -- (Optional) keymap to select the previous selection
-    keymaps = {
-      ['.'] = 'textsubjects-smart',
-      ['a;'] = 'textsubjects-container-outer',
-      ['i;'] = 'textsubjects-container-inner',
-    }
-  }
-
   local autotag = {
     enable = true,
   }
@@ -116,7 +62,6 @@ function M.config()
 
     -- external modules
     refactor = refactor,
-    textobjects = textobjects,
     textsubjects = textsubjects,
     autotag = autotag,
     matchup = matchup,

@@ -43,7 +43,7 @@ select yn in "Yes" "No"; do
 done
 
 ## update plugins on neovim
-nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' -c 'autocmd User LazySync MasonUpdateAll' -c 'autocmd User VeryLazy Lazy sync'
+nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' -c 'autocmd User LazySync MasonUpdateAll' -c 'autocmd User VeryLazy Lazy sync' "$(realpath $0)"
 
 # macos
 softwareupdate --install --all
