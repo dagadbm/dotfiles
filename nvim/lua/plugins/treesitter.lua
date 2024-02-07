@@ -62,7 +62,6 @@ function M.config()
 
     -- external modules
     refactor = refactor,
-    textsubjects = textsubjects,
     autotag = autotag,
     matchup = matchup,
   }
