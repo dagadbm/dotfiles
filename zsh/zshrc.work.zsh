@@ -41,6 +41,6 @@ if [ -f '/Users/dagadbm/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dagadbm
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/dagadbm/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dagadbm/google-cloud-sdk/completion.zsh.inc'; fi
-source <(switcher init zsh)
 
+source <(switcher init zsh)
 source <(compdef _switcher switch)
