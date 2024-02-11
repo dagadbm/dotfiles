@@ -32,13 +32,6 @@ return {
     keys = '-',
     cmd = { 'Dirbuf' },
   },
-  {
-    'nvim-tree/nvim-tree.lua',
-    cmd = { 'NvimTreeToggle' },
-    config = function()
-      require('nvim-tree').setup {}
-    end
-  },
   -- show line preview when using :<Number>
   {
     'nacro90/numb.nvim',
@@ -189,6 +182,18 @@ return {
     end,
   },
 
+  -- [[ Project Management ]]
+  {
+    'ahmedkhalf/project.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('project_nvim').setup {
+        manual_mode = false,
+        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", ".tool-versions", ".envrc", ".direnv", ".venv", ".nvim.lua" },
+      }
+    end,
+  },
+
   -- [[ Code Navigation ]]
   'ThePrimeagen/harpoon',
   -- Vim matchit plugin (makes % match with other tags)
@@ -255,7 +260,7 @@ return {
           },
           live_grep_args = {
             auto_quoting = false,
-          }
+          },
         }
       }
 
