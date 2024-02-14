@@ -35,4 +35,6 @@
 	prompt = false
 	keepBackup = false
 	cmd = nvim -c "Gvdiffsplit!" -- "$MERGED"
+[column]
+	ui = auto
 # vim: set ft=gitconfig:

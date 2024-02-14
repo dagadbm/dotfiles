@@ -147,6 +147,16 @@ command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # git
 alias lg='lazygit'
 alias g='git'
+#
+# real git blame ignoring moves and refactors
+# git blame -w -C -C -C -L 1,100 /path/to/file
+#
+# find in git log commits/code that contain pattern
+# git log -S pattern -p
+#
+# makes git faster
+# git maintenance start
+#
 # forgit aliases (set by default)
 # forgit_log=glo
 # forgit_diff=gd
