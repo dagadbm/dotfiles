@@ -23,6 +23,7 @@ return {
   -- copilot
   {
     'zbirenbaum/copilot.lua',
+    cond = false,
     event = 'VeryLazy',
     dependencies = {
       { 'zbirenbaum/copilot-cmp',

@@ -12,11 +12,11 @@ return {
       'folke/neodev.nvim',
       'jose-elias-alvarez/typescript.nvim',
       'nvimtools/none-ls.nvim',
+      'nvimtools/none-ls-extras.nvim',
       -- plugins that need direct hook into lsp_config
       'SmiteshP/nvim-navic',
     },
     config = function()
-
       -- this sets up tsserver under the hood
       require('typescript').setup {}
       -- this sets up neovim lua development under the hood
@@ -86,13 +86,13 @@ return {
           -- diagnostics
           null_ls.builtins.diagnostics.stylelint,
 
-          null_ls.builtins.diagnostics.eslint_d.with({
+          require('none-ls.diagnostics.eslint_d').with({
             env = {
               ESLINT_D_LOCAL_ESLINT_ONLY = true,
             },
           }),
 
-          null_ls.builtins.diagnostics.flake8.with({
+          require('none-ls.diagnostics.flake8').with({
             prefer_local = ".venv/bin",
           }),
           null_ls.builtins.diagnostics.mypy.with({
@@ -108,10 +108,10 @@ return {
               PRETTIERD_LOCAL_PRETTIER_ONLY = true,
             },
           }),
-          null_ls.builtins.formatting.ruff,
+          require('none-ls.formatting.ruff'),
 
           -- code_actions
-          null_ls.builtins.code_actions.eslint_d.with({
+          require('none-ls.code_actions.eslint_d').with({
             env = {
               ESLINT_D_LOCAL_ESLINT_ONLY = true,
             },
