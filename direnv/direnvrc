@@ -37,14 +37,19 @@ layout_poetry() {
 }
 
 # basic usage {{{
+
 # .envrc
 # use asdf
 # layout neovim_providers
+#
 # for regular python:
 # layout python python3
 # layout neovim_python
+#
 # for poetry python:
+# # create a .venv folder and run poetry install manually
 # layout poetry
+#
 # for more commands check https://direnv.net/man/direnv-stdlib.1.html
 
 # .tool-versions
