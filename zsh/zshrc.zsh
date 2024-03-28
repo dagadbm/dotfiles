@@ -209,3 +209,6 @@ export GIT_EDITOR=nvim
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # }}}}}}
 source ~/zshrc.work.zsh
+# dont know what this is probably orbstack
+source <(switcher init zsh)
+source <(compdef _switcher switch)
