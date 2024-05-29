@@ -74,8 +74,9 @@ map('i', 'jk', '<Esc>')
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 -- make navigation related actions to stay in the middle
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-u>', '<C-u>zz')
+-- for some weird reason this stopped working properly
+map('n', '<C-d>', '<C-d>M')
+map('n', '<C-u>', '<C-u>M')
 map('n', 'n', 'nzzzv')
 map('n', 'N', 'Nzzzv')
 
@@ -116,7 +117,7 @@ map('n', '<Leader>:', [[<Cmd>lua require('telescope.builtin').commands()<CR>]])
 map('n', '<Leader>;', [[<Cmd>lua require('telescope.builtin').command_history()<CR>]])
 map('n', '<Leader>h', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]])
 map('n', '<Leader>o', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
-map('n', '<Leader>m', [[<Cmd>lua require('telescope.builtin').keymaps()<CR>]])
+map('n', '<Leader>k', [[<Cmd>lua require('telescope.builtin').keymaps()<CR>]])
 map('n', '<Leader>b', [[<Cmd>lua require('telescope.builtin').buffers()<CR>]])
 -- git related searches
 map('n', '<Leader>gf', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
@@ -132,9 +133,11 @@ map('n', '<Leader>lD', [[<Cmd>lua require('telescope.builtin').diagnostics()<CR>
 -- map('n', '<Leader>db', [[<Cmd>lua require('telescope').extensions.dap.list_breakpoints()<CR>]])
 -- map('n', '<Leader>dv', [[<Cmd>lua require('telescope').extensions.dap.variables()<CR>]])
 -- map('n', '<Leader>df', [[<Cmd>lua require('telescope').extensions.dap.frames()<CR>]])
--- mru related mapping (using harpoon)
-map('n', '<Leader>ra', [[<Cmd>lua require('harpoon.mark').add_file()<CR>]])
-map('n', '<Leader>rr', [[<Cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>]])
+-- mru related mapping (using harpoon) m for marks
+map('n', '<Leader>ma', [[<Cmd>lua require('harpoon.mark').add_file()<CR>]])
+map('n', '<Leader>mn', [[<Cmd>lua require('harpoon.ui').nav_next()<CR>]])
+map('n', '<Leader>mp', [[<Cmd>lua require('harpoon.ui').nav_prev()<CR>]])
+map('n', '<Leader>mm', [[<Cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>]])
 
 -- [[ DAP mappings ]]
 map('n', '<Leader>dd', [[<Cmd>lua require('dapui').toggle()<CR>]])
