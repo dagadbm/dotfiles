@@ -34,8 +34,8 @@ aws_mfa() {
 }
 
 # kubeswitch
-echo 'source <(switcher init zsh)' >> ~/.zshrc
-echo 'source <(compdef _switcher switch)' >> ~/.zshrc
+source <(switcher init zsh)
+source <(switch completion zsh)
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/dagadbm/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dagadbm/google-cloud-sdk/path.zsh.inc'; fi
