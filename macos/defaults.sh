@@ -82,6 +82,9 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 20 # normal minimum is 15 (2
 # Enable lid wakeup
 sudo pmset -a lidwake 1
 
+# Remove mac charging sound and kill the PowerChime app that causes the sound
+defaults write com.apple.PowerChime ChimeOnNoHardware -bool true;killall PowerChime
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################

@@ -20,7 +20,9 @@
 [push]
 	autoSetupRemote = true
 [pull]
-	rebase = false
+	rebase = true
+[rebase]
+	updateRefs = true
 [diff]
 	algorithm = histogram
 	tool = nvimdiff
