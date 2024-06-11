@@ -39,6 +39,7 @@ brew "hyperfine"
 
 # terminal
 cask "wezterm"
+cask "oversight"
 
 # apps
 cask "alfred"

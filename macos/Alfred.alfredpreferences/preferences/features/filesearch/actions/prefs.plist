@@ -2,7 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>showWithRightArrow</key>
+	<key>finderSelectionHotkey</key>
+	<dict>
+		<key>key</key>
+		<integer>44</integer>
+		<key>mod</key>
+		<integer>1048576</integer>
+		<key>string</key>
+		<string>/</string>
+	</dict>
+	<key>showWithFn</key>
 	<false/>
 </dict>
 </plist>

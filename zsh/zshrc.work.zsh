@@ -34,6 +34,7 @@ aws_mfa() {
 }
 
 # aws ssm to connect to k8s
+# used once to setup ssh keys in the k8s-proxy server
 aws_ssm_session () {
   INSTANCE_TAG=${1:-"k8s-proxy"}
   PROFILE=${2:-default}
@@ -41,7 +42,7 @@ aws_ssm_session () {
   echo $INSTANCE_ID
   aws ssm start-session --target "$INSTANCE_ID" --profile "$PROFILE"
 }
-alias k8s-proxy="ssh -D 1080 -q -N i-0b5d4d660262bead6"
+alias k8s-proxy="ssh -D 1080 -q i-0b5d4d660262bead6"
 
 # kubeswitch
 source <(switcher init zsh)
