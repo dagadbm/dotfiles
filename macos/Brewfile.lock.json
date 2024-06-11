@@ -1600,7 +1600,7 @@
         "macOS": "13.5.1"
       },
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.5-4-ga5ce9e9",
+        "HOMEBREW_VERSION": "4.3.5-6-g7b604c9",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",
