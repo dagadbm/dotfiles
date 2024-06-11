@@ -178,12 +178,12 @@ alias g='git'
 # forgit_fixup=gfu
 
 # utils
-alias l='exa -hal'
+alias l='lsd -hal'
 # restores tmux without creating an empty session on startup
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
 
 # alternatives
-alias ls='exa'
+alias ls='lsd'
 alias du='dust'
 alias cat='bat'
 alias time='hyperfine'
