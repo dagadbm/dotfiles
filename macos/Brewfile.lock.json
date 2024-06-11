@@ -22,7 +22,7 @@
     },
     "brew": {
       "neovim": {
-        "version": "HEAD-d8e384b",
+        "version": "HEAD-c06f3db",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -1635,6 +1635,12 @@
         "version": "2.3.0",
         "options": {
           "full_name": "oversight"
+        }
+      },
+      "obsidian": {
+        "version": "1.6.3",
+        "options": {
+          "full_name": "obsidian"
         }
       }
     }
