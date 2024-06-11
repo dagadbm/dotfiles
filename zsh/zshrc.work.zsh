@@ -33,6 +33,16 @@ aws_mfa() {
   aws configure set --profile default aws_session_token $(echo $RESPONSE | jq -r .Credentials.SessionToken)
 }
 
+# aws ssm to connect to k8s
+aws_ssm_session () {
+  INSTANCE_TAG=${1:-"k8s-proxy"}
+  PROFILE=${2:-default}
+  INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values='$INSTANCE_TAG'" --profile "$PROFILE" --output json | jq -r '.[][].Instances[].InstanceId')
+  echo $INSTANCE_ID
+  aws ssm start-session --target "$INSTANCE_ID" --profile "$PROFILE"
+}
+alias k8s-proxy="ssh -D 1080 -q -N i-0b5d4d660262bead6"
+
 # kubeswitch
 source <(switcher init zsh)
 source <(switch completion zsh)
