@@ -42,7 +42,7 @@ aws_ssm_session () {
   echo $INSTANCE_ID
   aws ssm start-session --target "$INSTANCE_ID" --profile "$PROFILE"
 }
-alias k8s-proxy="ssh -D 1080 -q i-0b5d4d660262bead6"
+alias k8s-proxy="ssh -D 1080 -q i-06f1d7d6f04c9b45b"
 
 # kubeswitch
 source <(switcher init zsh)

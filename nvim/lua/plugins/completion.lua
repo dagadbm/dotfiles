@@ -55,6 +55,8 @@ return {
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-nvim-lsp-document-symbol',
     },
+    -- https://github.com/hrsh7th/nvim-cmp/issues/1877
+    commit = 'b356f2c',
     config = function()
       local cmp = require('cmp')
       local lspkind = require('lspkind')
