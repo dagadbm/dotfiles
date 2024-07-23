@@ -49,7 +49,6 @@ return {
         options = {
           numbers = 'buffer_id',
           diagnostics = 'nvim_lsp',
-          diagnostics_update_in_insert = true,
           tab_size = 16,
           show_buffer_close_icons = false,
           show_close_icon = false,
@@ -281,12 +280,7 @@ return {
 
   {
     'folke/which-key.nvim',
-    lazy = false,
-    config = function()
-      local wk = require('which-key')
-      wk.setup {}
-      wk.register({}, {})
-    end
+    event = 'VeryLazy',
   },
 
   -- [[ External Integrations ]]
