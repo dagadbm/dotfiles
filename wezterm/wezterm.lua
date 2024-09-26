@@ -42,4 +42,5 @@ return {
       action = act.PasteFrom 'Clipboard',
     },
   },
+  term = 'xterm-256color'
 }
