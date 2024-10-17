@@ -57,6 +57,6 @@ if [ -f '/Users/dagadbm/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/d
 # this is for the datafold repo to work correctly
 export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig"
 
-portal-deploy () {
-  export PORTAL_USER=$(op item get 'Portal Credentials' --fields username) && export PORTAL_PASS=$(op item get 'Portal Credentials' --fields password --reveal) && export DD_API_KEY=$(op item get 'DD_API_KEY' --fields password --reveal) && export DD_APP_KEY=$(op item get 'DD_APP_KEY' --fields password --reveal) && j portal deploy --version ${1}
+portal-setup () {
+  export PORTAL_USER=$(op item get 'Portal Credentials' --fields username) && export PORTAL_PASS=$(op item get 'Portal Credentials' --fields password --reveal) && export DD_API_KEY=$(op item get 'DD_API_KEY' --fields password --reveal) && export DD_APP_KEY=$(op item get 'DD_APP_KEY' --fields password --reveal)
 }
