@@ -5,11 +5,11 @@
 	<key>hotkey</key>
 	<dict>
 		<key>key</key>
-		<integer>6</integer>
+		<integer>7</integer>
 		<key>mod</key>
 		<integer>1179648</integer>
 		<key>string</key>
-		<string>Z</string>
+		<string>X</string>
 	</dict>
 	<key>ignoreRemoteClipboard</key>
 	<true/>
