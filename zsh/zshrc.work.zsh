@@ -8,6 +8,7 @@ alias ssh-cloud="python ~/work/ssh-datafold-cloud.py"
 # https://www.notion.so/datafold/9314fc6a1eec4a8294468f6ee4eba553?v=f5e562e4e36341d9a3a26fe1deb367ac&pvs=4
 # alias pf='ssh -C -R 5027:127.0.0.1:5000 st'
 alias pf='ssh -C -R 5027:127.0.0.1:5000 st'
+alias phoenix='kubectl --context saas port-forward phoenix-0 -n phoenix 6006:6006'
 
 # using phone
 # aws_mfa () {
