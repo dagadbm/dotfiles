@@ -25,33 +25,5 @@ brew update && brew upgrade && brew cleanup && brew doctor
 asdf plugin update --all
 asdf direnv setup --shell zsh --version $(asdf latest direnv)
 
-## nvr
-pip3 install --upgrade neovim-remote
-
-## python provider
-pip3 install --upgrade pynvim
-
-## node provider
-npm update -g neovim
-
-# nvim
-echo "Update nvim nightly?"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes )
-            brew upgrade tree-sitter --fetch-HEAD
-            brew upgrade neovim --fetch-HEAD
-            nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' \
-                 -c 'autocmd User LazySync MasonUpdateAll' \
-                 -c 'autocmd User VeryLazy Lazy sync' \
-                 "$(realpath $0)"
-            break
-            ;;
-        No )
-            break
-            ;;
-    esac
-done
-
 # macos
 softwareupdate --download --install --all
