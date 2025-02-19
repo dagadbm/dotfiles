@@ -1,8 +1,15 @@
 # Dotfiles
 Remove emacs once and for all accept the vim master race
 # MacOS
+# Alfred alternatives
+https://www.raycast.com/
 ## tiling window managers
 https://github.com/koekeishiya/yabai
+https://www.raycast.com/core-features/window-management
+https://rectangleapp.com/
+https://github.com/nikitabobko/AeroSpace
+https://github.com/MrKai77/Loop
+https://github.com/ianyh/Amethyst
 ## shift it et al.
 https://github.com/fikovnik/ShiftIt
 https://github.com/fikovnik/ShiftIt/wiki/The-Hammerspoon-Alternative
