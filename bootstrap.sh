@@ -67,30 +67,7 @@ asdf global direnv $(asdf latest direnv)
 asdf direnv setup --shell zsh --version $(asdf latest direnv)
 
 # neovim
-## nvr
-pip3 install --upgrade neovim-remote
+./update-nvim.sh
 
-## python provider
-pip2 install --upgrade pynvim
-pip3 install --upgrade pynvim
-
-## nodejs provider
-npm install -g neovim@latest
-
-# reshim asdf just in case
-asdf reshim
-
-# setup tmux
-~/.tmux/plugins/tpm/bin/clean_plugins
-~/.tmux/plugins/tpm/bin/install_plugins
-~/.tmux/plugins/tpm/bin/update_plugins all
-pushd ~/.tmux/plugins/tmux-thumbs
-./tmux-thumbs-install.sh
-popd
-
-# setup fzf
-~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
-
-## install plugins on neovim
-nvim --headless "+Lazy! restore" +qa
-nvim -c 'autocmd User LazySync Copilot auth' -c "autocmd User VeryLazy Lazy sync"
+# update
+./update.sh
