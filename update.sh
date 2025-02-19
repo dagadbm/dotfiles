@@ -37,13 +37,20 @@ npm update -g neovim
 echo "Update nvim nightly?"
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) brew upgrade neovim --fetch-HEAD; break;;
-        No ) break;;
+        Yes )
+            brew upgrade tree-sitter --fetch-HEAD
+            brew upgrade neovim --fetch-HEAD
+            nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' \
+                 -c 'autocmd User LazySync MasonUpdateAll' \
+                 -c 'autocmd User VeryLazy Lazy sync' \
+                 "$(realpath $0)"
+            break
+            ;;
+        No )
+            break
+            ;;
     esac
 done
-
-## update plugins on neovim
-nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' -c 'autocmd User LazySync MasonUpdateAll' -c 'autocmd User VeryLazy Lazy sync' "$(realpath $0)"
 
 # macos
 softwareupdate --install --all

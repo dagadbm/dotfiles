@@ -10,7 +10,7 @@ return {
       'jay-babu/mason-nvim-dap.nvim',
       'neovim/nvim-lspconfig',
       'folke/neodev.nvim',
-      'jose-elias-alvarez/typescript.nvim',
+      'pmizio/typescript-tools.nvim',
       'nvimtools/none-ls.nvim',
       'nvimtools/none-ls-extras.nvim',
       -- plugins that need direct hook into lsp_config
@@ -18,7 +18,7 @@ return {
     },
     config = function()
       -- this sets up tsserver under the hood
-      require('typescript').setup {}
+      require('typescript-tools').setup {}
       -- this sets up neovim lua development under the hood
       require('neodev').setup {}
 
@@ -34,8 +34,8 @@ return {
         vuels = {},
         eslint = {},
         stylelint_lsp = {},
-        -- setup by typescript.nvim
-        -- tsserver = {},
+        -- setup done by pmizio/typescript-tools.nvim
+        -- ts_ls = {},
         tailwindcss = {},
         -- back-end
         gopls = {},
@@ -116,7 +116,6 @@ return {
               ESLINT_D_LOCAL_ESLINT_ONLY = true,
             },
           }),
-          require('typescript.extensions.null-ls.code-actions'),
         },
       }
 
