@@ -3,7 +3,7 @@ Remove emacs once and for all accept the vim master race
 # MacOS
 investigate this: https://github.com/agenttank/dotfiles_macos
 # Alfred alternatives
-https://www.raycast.com/
+https://www.raycast.com/ a LOT of stuff here: https://www.raycast.com/store
 ## tiling window managers
 https://github.com/koekeishiya/yabai
 https://www.raycast.com/core-features/window-management
