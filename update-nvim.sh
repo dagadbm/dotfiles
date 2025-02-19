@@ -7,7 +7,7 @@ pip3 install --upgrade neovim-remote
 pip3 install --upgrade pynvim
 
 ## node provider
-npm update -g neovim
+npm install -g neovim@latest
 
 brew upgrade tree-sitter --fetch-HEAD
 brew upgrade neovim --fetch-HEAD
