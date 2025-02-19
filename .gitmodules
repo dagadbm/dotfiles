@@ -25,7 +25,9 @@
 [submodule "submodules/asdf"]
 	path = submodules/asdf
 	url = https://github.com/asdf-vm/asdf.git
-	branch = master
+	# we need to force asdf version to 0.15 until everything is ready 
+	# to upgrade
+	tag = v0.15.0
 	ignore = dirty
 	shallow = true
 [submodule "submodules/powerlevel10k"]
