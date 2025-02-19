@@ -3,6 +3,7 @@ tap "homebrew/cask-versions"
 tap "homebrew/cask-fonts"
 
 # nvim
+brew "tree-sitter", args: ["HEAD"]
 brew "neovim", args: ["HEAD"]
 brew "universal-ctags"
 
