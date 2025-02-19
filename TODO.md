@@ -1,6 +1,7 @@
 # Dotfiles
 Remove emacs once and for all accept the vim master race
 # MacOS
+investigate this: https://github.com/agenttank/dotfiles_macos
 # Alfred alternatives
 https://www.raycast.com/
 ## tiling window managers
