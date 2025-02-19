@@ -9,6 +9,7 @@ pushd ~/.tmux/plugins/tmux-thumbs
 popd
 
 # submodules
+git submodule foreach git remote prune origin
 git submodule foreach --recursive git reset --hard
 git submodule update --init --recursive --remote
 git submodule foreach --recursive git reset --hard
@@ -53,4 +54,4 @@ select yn in "Yes" "No"; do
 done
 
 # macos
-softwareupdate --install --all
+softwareupdate --download --install --all

@@ -25,9 +25,10 @@
 [submodule "submodules/asdf"]
 	path = submodules/asdf
 	url = https://github.com/asdf-vm/asdf.git
-	# we need to force asdf version to 0.15 until everything is ready 
-	# to upgrade
-	tag = v0.15.0
+	# we need to force asdf version to 0.15 until everything is ready to upgrade
+	# branch = master
+	tag = v0.15.0 # delete me when ready
+	update = none # delete me when ready
 	ignore = dirty
 	shallow = true
 [submodule "submodules/powerlevel10k"]
@@ -39,12 +40,24 @@
 [submodule "submodules/fzf"]
 	path = submodules/fzf
 	url = https://github.com/junegunn/fzf.git
+	branch = master
+	ignore = dirty
+	shallow = true
 [submodule "submodules/fzf-tab"]
 	path = submodules/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab.git
+	branch = master
+	ignore = dirty
+	shallow = true
 [submodule "submodules/forgit"]
 	path = submodules/forgit
 	url = https://github.com/wfxr/forgit.git
+	branch = main
+	ignore = dirty
+	shallow = true
 [submodule "submodules/fast-syntax-highlighting"]
 	path = submodules/fast-syntax-highlighting
 	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
+	branch = master
+	ignore = dirty
+	shallow = true
