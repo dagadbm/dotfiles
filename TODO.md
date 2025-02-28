@@ -20,6 +20,8 @@ https://github.com/peterklijn/hammerspoon-shiftit
 https://deniz.co/penc/
 
 # Vim 
+## AI
+https://www.reddit.com/r/neovim/comments/1j022b1/best_plugin_for_ai_autocomplete/
 ## Tutorials
 https://github.com/mhinz/vim-galore -> seems like a really in depth tutorial of vim
 ## Find and Replace
