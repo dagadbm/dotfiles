@@ -49,11 +49,11 @@
     ~/Library/Application Support/Alfred/Alfred.alfredpreferences: macos/Alfred.alfredpreferences
 
     # nvim
-    ~/.config/nvim/init.lua: nvim/init.lua
+    ~/.config/nvim/init.lua: neovim/init.lua
     ## modules must be inside /lua folder
-    ~/.config/nvim/lua/config: nvim/lua/config
-    ~/.config/nvim/lua/lazy: nvim/lua/lazy
-    ~/.config/nvim/lua/plugins: nvim/lua/plugins
+    ~/.config/nvim/lua/config: neovim/lua/config
+    ~/.config/nvim/lua/lazy: neovim/lua/lazy
+    ~/.config/nvim/lua/plugins: neovim/lua/plugins
 
     # terminals
     # ~/.config/kitty: kitty
