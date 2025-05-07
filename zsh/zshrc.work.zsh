@@ -58,6 +58,9 @@ if [ -f '/Users/dagadbm/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/d
 # this is for the datafold repo to work correctly
 export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig"
 
-portal-setup () {
-  export PORTAL_USER=$(op item get 'Portal Credentials' --fields username) && export PORTAL_PASS=$(op item get 'Portal Credentials' --fields password --reveal) && export DD_API_KEY=$(op item get 'DD_API_KEY' --fields password --reveal) && export DD_APP_KEY=$(op item get 'DD_APP_KEY' --fields password --reveal)
+argocd () {
+  k config use-context testing3
+  k port-forward svc/argocd-server -n argocd 8999:443
 }
+
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
