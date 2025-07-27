@@ -1,0 +1,340 @@
+[
+    // [[ Terminal mappings ]]
+    {
+        "key": "cmd+e",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+j",
+        "command": "workbench.action.splitEditorDown"
+    },
+    {
+        "key": "cmd+h",
+        "command": "workbench.action.splitEditorLeft"
+    },
+    {
+        "key": "cmd+l",
+        "command": "workbench.action.splitEditorRight"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.focusLeftGroup",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.focusBelowGroup",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.focusAboveGroup",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.focusRightGroup",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+w v",
+        "command": "workbench.action.splitEditorRight",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "list.collapse",
+        "when": "explorerViewletVisible && !editorTextFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "list.expand",
+        "when": "explorerViewletVisible && !editorTextFocus"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "list.collapse",
+        "when": "searchViewletVisible && !editorTextFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "list.expand",
+        "when": "searchViewletVisible && !editorTextFocus"
+    },
+    {
+        "key": "ctrl+w shift+h",
+        "command": "workbench.action.increaseViewWidth",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+w shift+l",
+        "command": "workbench.action.decreaseViewWidth",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+w o",
+        "command": "workbench.action.joinAllGroups",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+w c",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+w shift+c",
+        "command": "workbench.action.closeAllEditors",
+        "when": "editorTextFocus"
+    },
+
+    // [[ File tree mappings ]]
+    {
+        "key": "space e",
+        "command": "workbench.view.explorer",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space v f",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+
+    // [[ Editing mappings ]]
+    {
+        "key": "cmd+y",
+        "command": "editor.action.clipboardCopyAction"
+    },
+    {
+        "key": "cmd+shift+y",
+        "command": "editor.action.clipboardCopyAction",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+shift+enter",
+        "command": "editor.action.insertLineAfter"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "editor.action.insertLineBefore"
+    },
+    {
+        "key": "space y",
+        "command": "editor.action.clipboardCopyAction",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+
+    // [[ Git mappings ]]
+    {
+        "key": "space g g",
+        "command": "workbench.view.scm",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space g f",
+        "command": "workbench.view.scm",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "[ g",
+        "command": "gitlens.navigateToPreviousHunk",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "] g",
+        "command": "gitlens.navigateToNextHunk",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space g w",
+        "command": "gitlens.staging.stageHunk",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space g u",
+        "command": "gitlens.staging.unstageHunk",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space g i",
+        "command": "gitlens.showQuickCommitFileDetails",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space g b",
+        "command": "gitlens.toggleFileBlame",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+
+    // [[ Fuzzy search mappings ]]
+    {
+        "key": "cmd+p",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "cmd+shift+p",
+        "command": "workbench.action.showCommands"
+    },
+    {
+        "key": "space /",
+        "command": "workbench.action.findInFiles",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space p",
+        "command": "workbench.action.quickOpen",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space f",
+        "command": "workbench.action.findInFiles",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space shift+8",
+        "command": "multiCommand.searchWordUnderCursor",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "search.action.focusPreviousSearchResult",
+        "when": "searchViewletVisible"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "search.action.focusNextSearchResult",
+        "when": "searchViewletVisible"
+    },
+    {
+        "key": "space h",
+        "command": "workbench.action.showCommands",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space o",
+        "command": "workbench.action.quickOpenRecent",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space b",
+        "command": "workbench.action.quickOpen",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+
+    // [[ Navigation mappings ]]
+    {
+        "key": "ctrl+o",
+        "command": "workbench.action.navigateBack",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "workbench.action.navigateForward",
+        "when": "editorTextFocus"
+    },
+
+    // [[ LSP related mappings ]]
+    {
+        "key": "space l f",
+        "command": "editor.action.referenceSearch.trigger",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space l s",
+        "command": "workbench.action.gotoSymbol",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space l d",
+        "command": "workbench.actions.view.problems",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space l t",
+        "command": "editor.action.formatDocument",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space l r",
+        "command": "editor.action.rename",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space q",
+        "command": "workbench.actions.view.problems",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "shift+k",
+        "command": "editor.action.showHover",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space l g d",
+        "command": "editor.action.revealDefinition",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "enter",
+        "command": "multiCommand.gotoReferenceAndClose",
+        "when": "referenceSearchVisible && listFocus"
+    },
+    {
+        "key": "ctrl+shift+h",
+        "command": "workbench.action.focusSideBar"
+    },
+    {
+        "key": "ctrl+shift+j",
+        "command": "workbench.action.focusPanel"
+    },
+    {
+        "key": "escape",
+        "command": "workbench.actions.view.problems",
+        "when": "problemsViewVisible"
+    },
+    {
+        "key": "escape",
+        "command": "workbench.action.closePanel",
+        "when": "panelVisible"
+    },
+    {
+        "key": "escape",
+        "command": "cursor.chat.close",
+        "when": "cursor.chat.focused"
+    },
+    {
+        "key": "escape",
+        "command": "workbench.action.closeSidebar",
+        "when": "sideBarVisible && sideBarFocus"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "search.action.focusNextSearchResult",
+        "when": "searchViewletVisible && !editorTextFocus && !panelFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "search.action.focusPreviousSearchResult",
+        "when": "searchViewletVisible && !editorTextFocus && !panelFocus"
+    },
+    {
+        "key": "space l a",
+        "command": "editor.action.codeAction",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "ctrl+v",
+        "command": "workbench.action.quickOpen.split",
+        "args": {
+            "direction": "right"
+        },
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.quickOpenSelectNext",
+        "args": {
+            "openToSide": false
+        },
+        "when": "inQuickOpen"
+    }
+] 

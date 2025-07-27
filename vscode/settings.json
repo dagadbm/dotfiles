@@ -1,0 +1,197 @@
+{
+    "vim.leader": "<space>",
+    "vim.useCtrlKeys": true,
+    "vim.handleKeys": {
+        "<C-a>": true,
+        "<C-b>": true,
+        "<C-c>": true,
+        "<C-d>": true,
+        "<C-e>": true,
+        "<C-f>": true,
+        "<C-g>": true,
+        "<C-h>": true,
+        "<C-i>": true,
+        "<C-j>": true,
+        "<C-k>": true,
+        "<C-l>": true,
+        "<C-n>": true,
+        "<C-o>": true,
+        "<C-p>": true,
+        "<C-q>": true,
+        "<C-r>": true,
+        "<C-s>": true,
+        "<C-t>": true,
+        "<C-u>": true,
+        "<C-v>": true,
+        "<C-w>": true,
+        "<C-x>": true,
+        "<C-y>": true,
+        "<C-z>": true
+    },
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "e"
+            ],
+            "commands": [
+                "workbench.view.explorer"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "g"
+            ],
+            "commands": [
+                "workbench.view.scm"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "h"
+            ],
+            "commands": [
+                "workbench.action.focusLeftGroup"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "j"
+            ],
+            "commands": [
+                "workbench.action.focusBelowGroup"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "k"
+            ],
+            "commands": [
+                "workbench.action.focusAboveGroup"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "l"
+            ],
+            "commands": [
+                "workbench.action.focusRightGroup"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.splitEditorDown"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "v"
+            ],
+            "commands": [
+                "workbench.action.splitEditorRight"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "c"
+            ],
+            "commands": [
+                "workbench.action.closeActiveEditor"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "o"
+            ],
+            "commands": [
+                "workbench.action.closeOtherEditors"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "="
+            ],
+            "commands": [
+                "workbench.action.evenEditorWidths"
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "y"
+            ],
+            "commands": [
+                "editor.action.clipboardCopyAction"
+            ]
+        }
+    ],
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.hlsearch": true,
+    "vim.ignorecase": true,
+    "vim.smartcase": true,
+    "terminal.integrated.env.osx": {
+        "FIG_NEW_SESSION": "1"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.panel.showLabels": false,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "multiCommand.commands": [
+        {
+            "command": "multiCommand.searchWordUnderCursor",
+            "sequence": [
+                "editor.action.addSelectionToNextFindMatch",
+                "editor.action.clipboardCopyAction",
+                "workbench.action.findInFiles",
+                { "command": "editor.action.clipboardPasteAction" },
+                "search.action.focusSearchList"
+            ]
+        },
+        {
+            "command": "multiCommand.gotoReferenceAndClose",
+            "sequence": [
+                "list.select",
+                "closeReferenceSearch"
+            ]
+        }
+    ],
+    "[less]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always"
+}
