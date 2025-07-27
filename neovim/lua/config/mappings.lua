@@ -26,6 +26,7 @@ map('v', '<Leader>tl', [[<Cmd>ToggleTermSendVisualSelection<CR>]])
 --
 -- [[ File tree mappings ]]
 -- use '-' for dirbuf
+-- map('n', '-', '<CMD>Oil<CR>')
 map('n', '<Leader>e', '<Cmd>NvimTreeToggle<CR>')
 
 local lazygit = nil
@@ -101,16 +102,16 @@ map('n', '<Leader>gb', [[<Cmd>lua require('gitsigns').blame_line()<CR>]])
 -- search current buffer
 map('n', '<Leader>/', [[<Cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
 -- Type <Leader>* to search everywhere for the selected word on normal and visual mode
-map('n', '<Leader>*', [[<Cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.expand('<cword>')})<CR>]])
+map('n', '<Leader>*', [[<Cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.expand('<cword>'), cwd = cwd })<CR>]])
 -- file search
-map('n', '<Leader>p', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
+map('n', '<Leader>p', [[<Cmd>lua require('telescope.builtin').find_files({ cwd = cwd })<CR>]])
 -- Type <Leader>P to search for files with the content of the word under cursor
 map('n', '<Leader>P',
     [[<Cmd>lua require('telescope.builtin').find_files({ find_command = {'fd', vim.fn.expand('<cword>')} })<CR>]])
 -- global search
-map('n', '<Leader>f', [[<Cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Search For > ") })<CR>]])
+map('n', '<Leader>f', [[<Cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Search For > "), cwd = cwd })<CR>]])
 -- Type <Leader>F to pass args to rp
-map('n', '<Leader>F', [[<Cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>]])
+map('n', '<Leader>F', [[<Cmd>lua require('telescope.builtin').live_grep({ cwd = cwd })<CR>]])
 
 -- vim related searches
 map('n', '<Leader>:', [[<Cmd>lua require('telescope.builtin').commands()<CR>]])

@@ -5,3 +5,5 @@
 .direnv/
 .venv/
 .nvim.lua
+**/.claude/
+CLAUDE.md
