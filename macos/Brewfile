@@ -1,5 +1,3 @@
-tap "homebrew/bundle"
-
 # nvim
 brew "tree-sitter", args: ["HEAD"]
 brew "neovim"
