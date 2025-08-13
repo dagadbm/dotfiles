@@ -73,7 +73,7 @@
     },
     {
         "key": "ctrl+w o",
-        "command": "workbench.action.joinAllGroups",
+        "command": "multiCommand.joinAndCloseOthers",
         "when": "editorTextFocus"
     },
     {
@@ -336,5 +336,9 @@
             "openToSide": false
         },
         "when": "inQuickOpen"
+    },
+    {
+        "key": "cmd+e",
+        "command": "composerMode.background"
     }
 ] 
