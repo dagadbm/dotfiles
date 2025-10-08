@@ -34,7 +34,6 @@
 
     # tools
     ~/.fzf: submodules/fzf
-    ~/.asdf: submodules/asdf
     ~/.config/mise/config.toml: mise/config.toml
     ~/.tmux.conf: tmux/tmux.conf
     ~/.config/lazygit/config.yml: lazygit/config.yml
