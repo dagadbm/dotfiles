@@ -22,14 +22,6 @@
 	branch = master
 	ignore = dirty
 	shallow = true
-[submodule "submodules/asdf"]
-	path = submodules/asdf
-	url = https://github.com/asdf-vm/asdf.git
-	# we need to force asdf version to 0.15 until everything is ready to upgrade
-	# branch = master
-	tag = v0.15.0 # delete me when ready
-	ignore = dirty
-	shallow = true
 [submodule "submodules/powerlevel10k"]
 	path = submodules/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git

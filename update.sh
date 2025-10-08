@@ -22,8 +22,8 @@ brew update && brew upgrade && brew cleanup && brew doctor
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 
 # asdf
-asdf plugin update --all
-asdf direnv setup --shell zsh --version $(asdf latest direnv)
+# asdf plugin update --all
+# asdf direnv setup --shell zsh --version $(asdf latest direnv)
 
 # macos
 softwareupdate --download --install --all
