@@ -15,10 +15,13 @@ if [ -x "$(command -v brew)" ]; then
 fi
 
 # asdf
-. $HOME/.asdf/asdf.sh
-fpath=(${ASDF_DIR}/completions $fpath)
+# . $HOME/.asdf/asdf.sh
+# fpath=(${ASDF_DIR}/completions $fpath)
 # Hook direnv into your shell.
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+# source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+# mise
+eval "$(mise activate zsh)"
 
 # direnv
 export DIRENV_LOG_FORMAT=

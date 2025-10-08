@@ -33,6 +33,7 @@ brew "zenith"
 brew "sd"
 brew "dust"
 brew "hyperfine"
+brew "mise"
 
 # terminal
 cask "wezterm"
