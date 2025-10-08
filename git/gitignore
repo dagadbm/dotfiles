@@ -1,5 +1,6 @@
 # global git ignore
 
+.mise.local.toml
 .tool-versions
 .envrc
 .direnv/

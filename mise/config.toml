@@ -1,0 +1,10 @@
+[tasks.neovim-providers]
+description = "Install neovim providers"
+run = [
+  "pip3 install --upgrade neovim-remote",
+  "pip3 install --upgrade pynvim",
+  "npm install -g neovim@latest",
+]
+[settings]
+activate_aggressive = true
+disable_backends = []

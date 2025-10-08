@@ -14,7 +14,6 @@
     - ~/.cache/nvim/swaps
     - ~/.cache/nvim/sessions
     - ~/.cache/nvim/gutentags
-    - ~/.cache/direnv
 - link:
     # shells
     ~/.zshrc: zsh/zshrc.zsh
@@ -36,7 +35,7 @@
     # tools
     ~/.fzf: submodules/fzf
     ~/.asdf: submodules/asdf
-    ~/.config/direnv/direnvrc: direnv/direnvrc
+    ~/.config/mise/config.toml: mise/config.toml
     ~/.tmux.conf: tmux/tmux.conf
     ~/.config/lazygit/config.yml: lazygit/config.yml
     ~/Library/Application Support/lazygit/config.yml: lazygit/config.yml
