@@ -28,7 +28,6 @@
 	# we need to force asdf version to 0.15 until everything is ready to upgrade
 	# branch = master
 	tag = v0.15.0 # delete me when ready
-	update = none # delete me when ready
 	ignore = dirty
 	shallow = true
 [submodule "submodules/powerlevel10k"]
