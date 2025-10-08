@@ -336,9 +336,5 @@
             "openToSide": false
         },
         "when": "inQuickOpen"
-    },
-    {
-        "key": "cmd+e",
-        "command": "composerMode.background"
     }
 ] 
