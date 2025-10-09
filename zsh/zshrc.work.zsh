@@ -50,13 +50,10 @@ source <(switcher init zsh)
 source <(switch completion zsh)
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/dagadbm/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dagadbm/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc' ]; then . '$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/dagadbm/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dagadbm/google-cloud-sdk/completion.zsh.inc'; fi
-
-# this is for the datafold repo to work correctly
-export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig"
+if [ -f '$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc' ]; then . '$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc'; fi
 
 argocd () {
   k config use-context testing3
