@@ -15,6 +15,9 @@ popd
 brew bundle --file macos/Brewfile
 brew update && brew upgrade && brew cleanup && brew doctor
 
+# mise
+mise plugins update
+
 # fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 
