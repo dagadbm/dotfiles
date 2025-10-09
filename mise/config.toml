@@ -14,11 +14,6 @@ rust = "latest"
 python = ["latest", "2.7.18"]
 uv = "latest"
 
-[hooks]
-# https://mise.jdx.dev/tips-and-tricks.html#auto-install-when-entering-a-project
-# this is currently not working who knows when they fix it
-enter = "mise i -q"
-
 [settings]
 experimental = true
 activate_aggressive = true
@@ -38,4 +33,8 @@ python.uv_venv_create_args = ["--seed"]
 # _.file = '.env'
 # # to automatically create a virtual env.
 # _.python.venv = { path = ".venv", create = true }
+
+# [hooks]
+# # https://mise.jdx.dev/tips-and-tricks.html#auto-install-when-entering-a-project
+# enter = "mise i -q"
 # }}}
