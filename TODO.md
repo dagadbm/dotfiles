@@ -68,14 +68,6 @@ https://www.reddit.com/r/neovim/comments/aex45u/integrating_nvr_and_tmux_to_use_
 ## Tmux alternatives
 http://www.brain-dump.org/projects/abduco/ for session storage
 http://www.brain-dump.org/projects/dvtm/ for tiling window
-# icons!  https://coreyja.com/vim-fzf-with-devicons/ # asdf
-Configure asdf for python and node!
 
 # Related
 https://gist.github.com/romainl/4b9f139d2a8694612b924322de1025ce
-
-# ASDF
-
-we cannot upgrade to v0.16.0 yet a couple of things must happen in terms of issues and compat with asdf-direnv and other things.
-I am forcing the version on the git submodule for now.
-When this is all ready and fun we can start using asdf on brew

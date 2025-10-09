@@ -1,10 +1,41 @@
 [tasks.neovim-providers]
 description = "Install neovim providers"
 run = [
-  "pip3 install --upgrade neovim-remote",
-  "pip3 install --upgrade pynvim",
+  "pip install --upgrade neovim-remote",
+  "pip install --upgrade pynvim",
+  "pip install --upgrade debugpy",
   "npm install -g neovim@latest",
 ]
+
+[tools]
+golang = "latest"
+node = "lts"
+rust = "latest"
+python = ["latest", "2.7.18"]
+uv = "latest"
+
+[hooks]
+# https://mise.jdx.dev/tips-and-tricks.html#auto-install-when-entering-a-project
+# this is currently not working who knows when they fix it
+enter = "mise i -q"
+
 [settings]
+experimental = true
 activate_aggressive = true
-disable_backends = []
+disable_backends = ["asdf", "vfox"]
+# https://mise.jdx.dev/lang/python.html#mise-uv
+python.uv_venv_create_args = ["--seed"]
+
+# mise.local.toml example {{{
+# [tools]
+# "pipx:poetry" = "latest"
+# python = "3.12.3"
+# node = "22.13.0"
+# rust = "1.80.1"
+
+# [env]
+# # https://mise.jdx.dev/environments/#env-directives
+# _.file = '.env'
+# # to automatically create a virtual env.
+# _.python.venv = { path = ".venv", create = true }
+# }}}
