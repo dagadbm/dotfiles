@@ -20,6 +20,7 @@
     ~/zshrc.work.zsh: zsh/zshrc.work.zsh
     ~/.zprofile: zsh/zprofile.zsh
     ~/.p10k.zsh: zsh/p10k.zsh
+    ~/.config/shell/p10k.mise.zsh: zsh/p10k.mise.zsh
     ~/fzf.config.zsh: zsh/fzf.config.zsh
     # oh-my-zsh
     ~/.oh-my-zsh: submodules/oh-my-zsh
