@@ -14,17 +14,9 @@ if [ -x "$(command -v brew)" ]; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
-# asdf
-# . $HOME/.asdf/asdf.sh
-# fpath=(${ASDF_DIR}/completions $fpath)
-# Hook direnv into your shell.
-# source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-
 # mise
 eval "$(mise activate zsh)"
 
-# direnv
-export DIRENV_LOG_FORMAT=
 # }}}
 # Oh-My-Zsh Setup {{{
 # Path to your oh-my-zsh installation.

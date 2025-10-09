@@ -1,10 +1,6 @@
 # global git ignore
 
-.mise.local.toml
-.tool-versions
-.envrc
-.direnv/
+mise.local.toml
 .venv/
 .nvim.lua
 **/.claude/
-CLAUDE.md
