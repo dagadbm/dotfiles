@@ -1,4 +1,4 @@
-# https://github.com/2KAbhishek/dots2k/blob/main/config/zsh/prompt/p10k.mise.zsh
+# reference: https://github.com/2KAbhishek/dots2k/blob/main/config/zsh/prompt/p10k.mise.zsh
 # Powerlevel10k prompt segments for mise
 # [Feature request: add segment for mise](https://github.com/romkatv/powerlevel10k/issues/2212)
 # Usage in ~/.zshrc:
