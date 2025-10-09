@@ -1,9 +1,4 @@
-# reference: https://github.com/2KAbhishek/dots2k/blob/main/config/zsh/prompt/p10k.mise.zsh
-# Powerlevel10k prompt segments for mise
-# [Feature request: add segment for mise](https://github.com/romkatv/powerlevel10k/issues/2212)
-# Usage in ~/.zshrc:
-#   [[ -f ~/.config/shell/p10k.mise.zsh ]] && source ~/.config/shell/p10k.mise.zsh
-
+# reference: https://github.com/romkatv/powerlevel10k/issues/2212
 () {
     function prompt_mise() {
         local plugins=("${(@f)$(mise ls --local 2>/dev/null | awk '!/\(symlink\)/ && $3!="~/.tool-versions" && $3!="~/.config/mise/config.toml" {print $1, $2}')}")
