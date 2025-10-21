@@ -13,11 +13,12 @@ node = "lts"
 rust = "latest"
 python = ["latest", "2.7.18"]
 uv = "latest"
+# needed for lazyvim
+lua = "5.1"
 
 [settings]
 experimental = true
 activate_aggressive = true
-disable_backends = ["asdf", "vfox"]
 # https://mise.jdx.dev/lang/python.html#mise-uv
 python.uv_venv_create_args = ["--seed"]
 
