@@ -2,159 +2,161 @@ return {
   -- [[ LSP Setup ]]
   {
     'williamboman/mason.nvim',
-    event = 'BufReadPre',
     dependencies = {
       'RubixDev/mason-update-all',
       'williamboman/mason-lspconfig.nvim',
-      'jay-babu/mason-null-ls.nvim',
       'jay-babu/mason-nvim-dap.nvim',
       'neovim/nvim-lspconfig',
-      'folke/neodev.nvim',
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {
+          library = {
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          },
+        },
+      },
       'pmizio/typescript-tools.nvim',
-      'nvimtools/none-ls.nvim',
-      'nvimtools/none-ls-extras.nvim',
-      -- plugins that need direct hook into lsp_config
-      'SmiteshP/nvim-navic',
+      {
+        'stevearc/conform.nvim',
+        event = { 'BufWritePre' },
+        cmd = { 'ConformInfo' },
+        init = function()
+          vim.o.formatexpr = "v:lua.require('conform').formatexpr()"
+        end,
+      },
+      'zapling/mason-conform.nvim',
+      {
+        'mfussenegger/nvim-lint',
+        event = { 'BufWritePre' },
+      },
+      'rshkarin/mason-nvim-lint',
     },
     config = function()
       -- this sets up tsserver under the hood
       require('typescript-tools').setup {}
-      -- this sets up neovim lua development under the hood
-      require('neodev').setup {}
 
       require('mason').setup {}
       require('mason-update-all').setup {}
 
       -- [[ LSP CONFIG ]]
+      -- Configure individual LSP servers
       local lsp_servers = {
         -- front-end
-        html = {},
-        cssls = {},
-        volar = {},
-        vuels = {},
-        eslint = {},
-        stylelint_lsp = {},
+        'html',
+        'cssls',
+        'vue_ls',
+        'eslint',
+        'stylelint_lsp',
         -- setup done by pmizio/typescript-tools.nvim
-        -- ts_ls = {},
-        tailwindcss = {},
+        -- 'ts_ls',
+        'tailwindcss',
         -- back-end
-        gopls = {},
-        pyright = {},
-        -- pylsp = {},
-        -- jedi_language_server = {},
+        'gopls',
+        'pyright',
         -- markup
-        yamlls = {},
-        jsonls = {},
+        'yamlls',
+        'jsonls',
         -- misc
-        bashls = {},
-        lua_ls = {},
+        'bashls',
+        'lua_ls',
       }
 
-      -- call lspconfig for above servers
-      local navic = require('nvim-navic')
-      for server_name, config in pairs(lsp_servers) do
-        -- capabilities
-        config.capabilities = require('cmp_nvim_lsp').default_capabilities()
+      -- Enable all configured servers
+      vim.lsp.enable(lsp_servers)
 
-        -- on_attach
-        local on_attach = config.on_attach
-        config.on_attach = function(client, bufnr)
-          require('config.mappings').lsp_mappings(bufnr)
-          if on_attach then
-            on_attach(client, bufnr)
-            -- navic specific config
-            if client.server_capabilities.documentSymbolProvider then
-              navic.attach(client, bufnr)
-            end
-          end
-        end
-
-        require('lspconfig')[server_name].setup(config)
-      end
+      -- LspAttach autocmd for setting up custom LSP keymaps
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
+        callback = function(args)
+          require('config.mappings').lsp_mappings(args.buf)
+        end,
+      })
 
       require('mason-lspconfig').setup {
-        -- automatically detect which servers to install
-        -- (based on which servers are set up via lspconfig)
         automatic_installation = true,
       }
 
-      -- [[ NULL LS ]]
-      -- setup formatters / linters
-      local null_ls = require('null-ls')
-      null_ls.setup {
-        sources = {
-          -- diagnostics
-          null_ls.builtins.diagnostics.stylelint,
+      -- [[ FORMATTERS ]]
+      require('conform').setup {
+        format_on_save = nil,
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          sh = { 'shfmt' },
+          python = { 'isort', 'black' },
 
-          require('none-ls.diagnostics.eslint_d').with({
+          -- prettier
+          css = { 'prettierd' },
+          graphql = { 'prettierd' },
+          handlebars = { 'prettierd' },
+          html = { 'prettierd' },
+          javascript = { 'prettierd' },
+          javascriptreact = { 'prettierd' },
+          json = { 'prettierd' },
+          jsonc = { 'prettierd' },
+          less = { 'prettierd' },
+          markdown = { 'prettierd' },
+          ['markdown.mdx'] = { 'prettierd' },
+          scss = { 'prettierd' },
+          typescript = { 'prettierd' },
+          typescriptreact = { 'prettierd' },
+          vue = { 'prettierd' },
+          yaml = { 'prettierd' },
+
+          ['*'] = { 'codespell' },
+          ['_'] = { 'trim_whitespace' },
+        },
+        formatters = {
+          prettierd = {
             env = {
-              ESLINT_D_LOCAL_ESLINT_ONLY = true,
+              PRETTIERD_LOCAL_PRETTIER_ONLY = 'true',
             },
-          }),
-
-          require('none-ls.diagnostics.flake8').with({
-            prefer_local = ".venv/bin",
-          }),
-          null_ls.builtins.diagnostics.mypy.with({
-            prefer_local = ".venv/bin",
-          }),
-          null_ls.builtins.diagnostics.pylint.with({
-            prefer_local = ".venv/bin",
-          }),
-
-          -- formatting
-          null_ls.builtins.formatting.prettierd.with({
-            env = {
-              PRETTIERD_LOCAL_PRETTIER_ONLY = true,
-            },
-          }),
-          require('none-ls.formatting.ruff'),
-
-          -- code_actions
-          require('none-ls.code_actions.eslint_d').with({
-            env = {
-              ESLINT_D_LOCAL_ESLINT_ONLY = true,
-            },
-          }),
+          },
         },
       }
 
-      -- this must be called *after* null_ls.setup
-      require('mason-null-ls').setup {
-        -- automatically detect which servers to install
-        -- (based on which servers are set up via null-ls)
-        ensure_installed = nil,
+      require('mason-conform').setup {
         automatic_installation = true,
-        automatic_setup = false,
+      }
+
+      -- [[ LINTERS ]]
+      require('lint').setup = {
+        linters_by_ft = {
+          javascript = { 'eslint_d' },
+          typescript = { 'eslint_d' },
+          javascriptreact = { 'eslint_d' },
+          typescriptreact = { 'eslint_d' },
+          vue = { 'eslint_d' },
+          css = { 'stylelint' },
+          scss = { 'stylelint' },
+          python = { 'flake8', 'mypy', 'pylint' },
+        },
+        linters = {
+          eslint_d = {
+            env = {
+              ESLINT_D_LOCAL_ESLINT_ONLY = 'true',
+            },
+          },
+        }
+      }
+
+      require('mason-nvim-lint').setup {
+        automatic_installation = true,
       }
     end
   },
 
   -- [[ UI ]]
-  -- better UI for lsp
+  -- IDE-like breadcrumbs with interactive drop-down menus
   {
-    'RishabhRD/nvim-lsputils',
-    event = 'VeryLazy',
-    dependencies = {
-      { 'RishabhRD/popfix' },
-    },
-    config = function()
-      vim.lsp.handlers['textDocument/codeAction'] = require('lsputil.codeAction').code_action_handler
-      vim.lsp.handlers['textDocument/references'] = require('lsputil.locations').references_handler
-      vim.lsp.handlers['textDocument/definition'] = require('lsputil.locations').definition_handler
-      vim.lsp.handlers['textDocument/declaration'] = require('lsputil.locations').declaration_handler
-      vim.lsp.handlers['textDocument/typeDefinition'] = require('lsputil.locations').typeDefinition_handler
-      vim.lsp.handlers['textDocument/implementation'] = require('lsputil.locations').implementation_handler
-      vim.lsp.handlers['textDocument/documentSymbol'] = require('lsputil.symbols').document_handler
-      vim.lsp.handlers['workspace/symbol'] = require('lsputil.symbols').workspace_handler
-    end
+    'Bekaboo/dropbar.nvim',
+    event = 'LspAttach',
+    opts = {},
   },
   -- show lsp status updates on the bottom right corner
   {
     'j-hui/fidget.nvim',
     event = 'VeryLazy',
-    config = function()
-      require('fidget').setup {}
-    end
+    opts = {},
   },
 }

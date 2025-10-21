@@ -1,7 +1,8 @@
 # nvim
 brew "tree-sitter", args: ["HEAD"]
-brew "neovim"
+brew "neovim", args: ["HEAD"]
 brew "universal-ctags"
+brew "tree-sitter-cli"
 
 # shell
 brew "zsh"
@@ -34,6 +35,7 @@ brew "sd"
 brew "dust"
 brew "hyperfine"
 brew "mise"
+brew "luarocks"
 
 # terminal
 cask "wezterm"

@@ -1,13 +1,28 @@
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', lazypath })
-  vim.fn.system({ 'git', '-C', lazypath, 'checkout', 'tags/stable' }) -- last stable release
+-- https://lazy.folke.io/configuration
+
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
--- reference: https://github.com/folke/lazy.nvim#%EF%B8%8F-configuration
-require('lazy').setup('plugins', {
-  defaults = { lazy = true, version = '*',  },
+-- Setup lazy.nvim
+require('lazy').setup({
+  spec = {
+    { import = "plugins" },
+  },
+  defaults = { lazy = true, version = '*' },
   lockfile = vim.fn.expand('~/.config/nvim/lua/lazy/lazy-lock.json'),
   concurrency = nil,
   install = { missing = true, colorscheme = { 'onedark' } },
@@ -20,15 +35,12 @@ require('lazy').setup('plugins', {
     notify = false,
   },
   performance = {
-    cache = {
-      enabled = true,
-    },
     rtp = {
       disabled_plugins = {
         'gzip',
-        -- 'matchit',
-        -- 'matchparen',
-        -- 'netrwPlugin',
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
         'tarPlugin',
         'tohtml',
         'tutor',
@@ -36,4 +48,8 @@ require('lazy').setup('plugins', {
       },
     },
   },
+  profiling = {
+    loader = true,
+    require = true,
+  }
 })

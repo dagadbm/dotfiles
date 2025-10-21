@@ -1,4 +1,11 @@
 return {
+  -- [[ Dependencies  ]]
+  -- basically everyone is using this package as a dependency
+  'nvim-lua/plenary.nvim',
+
+  -- icons everyone is using
+  'nvim-tree/nvim-web-devicons',
+
   -- [[ Color Schemes ]]
   {
     'navarasu/onedark.nvim',
@@ -9,15 +16,9 @@ return {
         style = 'dark',
         toggle_style_key = nil,
       }
-      vim.cmd 'colorscheme onedark'
+      require('onedark').load()
     end
   },
-
-  -- basically everyone is using this package as a dependency
-  'nvim-lua/plenary.nvim',
-
-  -- icons everyone is using
-  'kyazdani42/nvim-web-devicons',
 
   -- [[ Vim Config Debugging ]]
   -- https://vimways.org/2018/debugging-your-vim-config/
@@ -36,73 +37,76 @@ return {
   {
     'nacro90/numb.nvim',
     event = 'CmdlineEnter',
-    config = function()
-      require('numb').setup {}
-    end
+    opts = {},
   },
   -- Buffer line
   {
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
-    config = function()
-      require('bufferline').setup {
-        options = {
-          numbers = 'buffer_id',
-          diagnostics = 'nvim_lsp',
-          tab_size = 16,
-          show_buffer_close_icons = false,
-          show_close_icon = false,
-          separator_style = 'thin',
-        }
+    opts = {
+      options = {
+        numbers = 'buffer_id',
+        diagnostics = 'nvim_lsp',
+        tab_size = 16,
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        separator_style = 'thin',
       }
-    end
+    }
   },
   -- Light as air status-bar
   {
     'hoob3rt/lualine.nvim',
     event = 'VeryLazy',
-    config = function()
-      local navic = require('nvim-navic')
-      require('lualine').setup {
-        options = {
-          theme = 'onedark',
-          icons_enabled = true,
-        },
-        sections = {
-          lualine_a = { 'mode' },
-          lualine_b = { 'branch' },
-          lualine_c = { { navic.get_location, cond = navic.is_available } },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
-          lualine_y = { { 'diagnostics', sources = { 'nvim_diagnostic' } } },
-          lualine_z = { 'location', 'progress' },
-        },
-        inactive_sections = {
-          lualine_a = { 'mode' },
-          lualine_b = { 'branch' },
-          lualine_c = { { navic.get_location, cond = navic.is_available } },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
-          lualine_y = { { 'diagnostics', sources = { 'nvim_diagnostic' } } },
-          lualine_z = {},
-        },
-        winbar = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = { { 'filename', path = 3 } },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
-        },
-        inactive_winbar = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = { { 'filename', path = 3 } },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {}
-        },
-        extensions = { 'fugitive' }
-      }
-    end
+    opts = {
+      options = {
+        theme = 'onedark',
+        icons_enabled = true,
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { { 'diagnostics', sources = { 'nvim_diagnostic' } } },
+        lualine_z = { 'location', 'progress' },
+      },
+      inactive_sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { { 'diagnostics', sources = { 'nvim_diagnostic' } } },
+        lualine_z = {},
+      },
+      winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { { 'filename', path = 3 } },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
+      },
+      inactive_winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { { 'filename', path = 3 } },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {}
+      },
+      extensions = { 'fugitive' }
+    }
+  },
+  -- improved quick fix list
+  {
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf',
+    opts = {
+      auto_resize_height = true,
+      show_title = true,
+      wrap = true,
+    }
   },
 
   -- [[ Editting ]]
@@ -129,29 +133,13 @@ return {
   },
   -- Add commentary key-bindings
   {
-    'tpope/vim-commentary',
+    'numToStr/Comment.nvim',
     event = 'BufReadPost',
   },
-  -- Add additional text objects to vim
-  -- indentation as an object (i)
   {
-    'michaeljsmith/vim-indent-object',
-    event = 'InsertEnter',
-  },
-  {
-    'wellle/targets.vim',
-    event = 'InsertEnter',
-  },
-  {
-    'kevinhwang91/nvim-bqf',
-    event = 'VeryLazy',
-    config = function()
-      require('bqf').setup {
-        auto_resize_height = true,
-        show_title = true,
-        wrap = true,
-      }
-    end
+    'nvim-mini/mini.ai',
+    version = '*',
+    opts = {},
   },
 
   -- [[ Undo history ]]
@@ -165,46 +153,24 @@ return {
 
   -- [[ Session Management ]]
   {
-    'dhruvasagar/vim-prosession',
-    -- this loads faster if its not lazy
+    'rmagatti/auto-session',
     lazy = false,
-    event = 'VimEnter',
-    dependencies = {
-      'tpope/vim-obsession',
+    opts = {
+      git_use_branch_name = true,
+      git_auto_restore_on_branch_change = true,
+      root_dir = vim.fn.expand('~/.cache/nvim/sessions/'),
+      session_control = {
+        control_dir = vim.fn.expand('~/.cache/nvim/sessions/'),
+        control_filename = "session_control.json",
+      },
     },
-    config = function()
-      vim.g.prosession_dir = vim.fn.expand('~/.cache/nvim/sessions')
-      vim.g.prosession_on_startup = 1
-      vim.g.prosession_per_branch = 1
-      vim.g.prosession_per_branch = 1
-      vim.g.prosession_default_session = 0
-    end,
-  },
-
-  -- [[ Project Management ]]
-  {
-    'ahmedkhalf/project.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('project_nvim').setup {
-        manual_mode = false,
-        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", ".tool-versions", ".envrc", ".direnv", ".venv", ".nvim.lua" },
-      }
-    end,
   },
 
   -- [[ Code Navigation ]]
-  'ThePrimeagen/harpoon',
-  -- Vim matchit plugin (makes % match with other tags)
-  {
-    'andymass/vim-matchup',
-    -- this is currently not working and I dont know why
-    enabled = false,
-  },
   -- Fuzzy finder
   {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    branch = 'master',
     cmd = 'Telescope',
     dependencies = {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
@@ -266,7 +232,7 @@ return {
       -- native lua implementation of fzf
       telescope.load_extension('fzf')
       -- set vim.ui.select to telescope
-      -- telescope.load_extension('ui-select')
+      telescope.load_extension('ui-select')
       -- pass arguments to rg similar to vim.agriculture
       telescope.load_extension('live_grep_args')
     end
@@ -275,7 +241,7 @@ return {
   -- [[ Key Bindings ]]
   {
     'tpope/vim-unimpaired',
-    keys = { '[', ']'},
+    keys = { '[', ']' },
   },
 
   {
@@ -301,11 +267,9 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = 'VeryLazy',
-    config = function()
-      require('gitsigns').setup {
-        keymaps = nil,
-      }
-    end
+    opts = {
+      keymaps = nil,
+    }
   },
 
   -- Tmux
@@ -322,12 +286,10 @@ return {
   {
     'akinsho/toggleterm.nvim',
     cmd = { 'ToggleTerm', 'ToggleTermToggleAll', 'ToggleTermSendVisualSelection', },
-    config = function ()
-      require('toggleterm').setup {
-        insert_mappings = false,
-        terminal_mappings = false,
-      }
-    end,
+    opts = {
+      insert_mappings = false,
+      terminal_mappings = false,
+    }
   },
 
   -- Testing
