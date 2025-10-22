@@ -38,7 +38,10 @@ return {
         ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
         ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
         ['<Esc>'] = { 'hide', 'fallback' },
+        ['<Enter>'] = { 'select_and_accept', 'fallback' },
         ['K'] = { 'show_signature', 'hide_signature', 'fallback' },
+        ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+        ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
       },
 
       snippets = {
@@ -73,9 +76,7 @@ return {
         },
         list = {
           selection = {
-            preselect = function()
-              return not require('blink.cmp').snippet_active({ direction = 1 })
-            end
+            selection = 'auto_insert',
           },
         },
         ghost_text = {
@@ -85,6 +86,39 @@ return {
         menu = {
           auto_show = true,
           border = 'rounded',
+          draw = {
+            -- https://cmp.saghen.dev/recipes.html#nvim-web-devicons-lspkind
+            columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+            components = {
+               kind_icon = {
+                 text = function(ctx)
+                   local icon = ctx.kind_icon
+                   if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                     local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                     if dev_icon then
+                       icon = dev_icon
+                     end
+                   else
+                     icon = require("lspkind").symbolic(ctx.kind, {
+                         mode = "symbol",
+                       })
+                   end
+
+                   return icon .. ctx.icon_gap
+                 end,
+                 highlight = function(ctx)
+                   local hl = ctx.kind_hl
+                   if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                     local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                     if dev_icon then
+                       hl = dev_hl
+                     end
+                   end
+                   return hl
+                 end,
+               },
+            },
+          },
         },
       },
     },

@@ -81,7 +81,6 @@ return {
       require('conform').setup {
         format_on_save = nil,
         formatters_by_ft = {
-          lua = { 'stylua' },
           sh = { 'shfmt' },
           python = { 'isort', 'black' },
 
@@ -147,12 +146,6 @@ return {
   },
 
   -- [[ UI ]]
-  -- IDE-like breadcrumbs with interactive drop-down menus
-  {
-    'Bekaboo/dropbar.nvim',
-    event = 'LspAttach',
-    opts = {},
-  },
   -- show lsp status updates on the bottom right corner
   {
     'j-hui/fidget.nvim',

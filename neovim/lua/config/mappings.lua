@@ -70,7 +70,10 @@ map('n', [[<Leader>u]], [[<Cmd>UndotreeToggle<CR>]], { desc = 'Toggle undo tree'
 map('n', [[<CR>]], [[o<Esc>k]], { desc = 'Insert line below' })
 map('n', [[<S-Enter>]], [[O<Esc>j]], { desc = 'Insert line above' })
 -- jk to quit to normal mode
-map('i', [[jk]], [[<Esc>]], { desc = 'Exit insert mode' })
+map('i', [[jk]], function()
+    vim.cmd('stopinsert')
+    vim.api.nvim_input([[<Esc>]])
+end, { desc = 'Exit insert mode' })
 -- Traverse only display lines (like normal text editors)
 map('n', [[j]], [[gj]], { desc = 'Move down (display line)' })
 map('n', [[k]], [[gk]], { desc = 'Move up (display line)' })

@@ -39,21 +39,6 @@ return {
     event = 'CmdlineEnter',
     opts = {},
   },
-  -- Buffer line
-  {
-    'akinsho/bufferline.nvim',
-    event = 'VeryLazy',
-    opts = {
-      options = {
-        numbers = 'buffer_id',
-        diagnostics = 'nvim_lsp',
-        tab_size = 16,
-        show_buffer_close_icons = false,
-        show_close_icon = false,
-        separator_style = 'thin',
-      }
-    }
-  },
   -- Light as air status-bar
   {
     'hoob3rt/lualine.nvim',
@@ -79,6 +64,14 @@ return {
         lualine_y = { { 'diagnostics', sources = { 'nvim_diagnostic' } } },
         lualine_z = {},
       },
+      tabline = {
+        lualine_a = {'buffers'},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {'tabs'}
+      },
       winbar = {
         lualine_a = {},
         lualine_b = {},
@@ -101,6 +94,7 @@ return {
   -- improved quick fix list
   {
     'kevinhwang91/nvim-bqf',
+    branch = 'main',
     ft = 'qf',
     opts = {
       auto_resize_height = true,
@@ -111,6 +105,10 @@ return {
 
   -- [[ Editting ]]
   -- best way to have indentation kind of working everywhere
+  {
+    'tpope/vim-unimpaired',
+    keys = { '[', ']'},
+  },
   {
     'sheerun/vim-polyglot',
     -- it is faster to run vim-polyglot on start
@@ -250,11 +248,6 @@ return {
   },
 
   -- [[ External Integrations ]]
-  -- File Actions
-  {
-    'tpope/vim-eunuch',
-    event = 'VeryLazy',
-  },
   -- Git
   {
     'tpope/vim-fugitive',
