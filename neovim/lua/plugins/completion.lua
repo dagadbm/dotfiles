@@ -39,7 +39,6 @@ return {
         ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
         ['<Esc>'] = { 'hide', 'fallback' },
         ['<Enter>'] = { 'select_and_accept', 'fallback' },
-        ['K'] = { 'show_signature', 'hide_signature', 'fallback' },
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
         ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
       },

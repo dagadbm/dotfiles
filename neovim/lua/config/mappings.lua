@@ -70,10 +70,7 @@ map('n', [[<Leader>u]], [[<Cmd>UndotreeToggle<CR>]], { desc = 'Toggle undo tree'
 map('n', [[<CR>]], [[o<Esc>k]], { desc = 'Insert line below' })
 map('n', [[<S-Enter>]], [[O<Esc>j]], { desc = 'Insert line above' })
 -- jk to quit to normal mode
-map('i', [[jk]], function()
-    vim.cmd('stopinsert')
-    vim.api.nvim_input([[<Esc>]])
-end, { desc = 'Exit insert mode' })
+map('i', [[jk]], [[<Esc>]], { desc = 'Exit insert mode' })
 -- Traverse only display lines (like normal text editors)
 map('n', [[j]], [[gj]], { desc = 'Move down (display line)' })
 map('n', [[k]], [[gk]], { desc = 'Move up (display line)' })
@@ -173,7 +170,7 @@ function M.lsp_mappings(bufnr)
     -- Actions
     map('n', [[<Leader>lr]], vim.lsp.buf.rename, opts { desc = 'Rename symbol' })
     map('n', [[<Leader>la]], vim.lsp.buf.code_action, opts { desc = 'Code action' })
-    map('n', [[<Leader>lt]], function() require('conform').format({ async = true, lsp_format = 'fallback' }) end, opts { desc = 'Format buffer' })
+    map('n', [[<Leader>lt]], function() require('conform').format({ lsp_format = 'fallback' }) end, opts { desc = 'Format buffer' })
     -- Diagnostics
     map('n', [[<Leader>ldi]], vim.diagnostic.open_float, opts { desc = 'Show diagnostic' })
     map('n', [[<Leader>ldp]], vim.diagnostic.goto_prev, opts { desc = 'Previous diagnostic' })

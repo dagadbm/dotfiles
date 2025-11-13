@@ -81,6 +81,7 @@ return {
       require('conform').setup {
         format_on_save = nil,
         formatters_by_ft = {
+          lua = { 'stylua' },
           sh = { 'shfmt' },
           python = { 'isort', 'black' },
 
@@ -106,6 +107,9 @@ return {
           ['_'] = { 'trim_whitespace' },
         },
         formatters = {
+          stylua = {
+            indent_type = 'Spaces'
+          },
           prettierd = {
             env = {
               PRETTIERD_LOCAL_PRETTIER_ONLY = 'true',
