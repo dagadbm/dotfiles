@@ -48,8 +48,14 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'tmux', 'cmdline', 'omni' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'minuet', 'tmux', 'cmdline', 'omni' },
         providers = {
+          minuet = {
+            name = 'minuet',
+            module = 'minuet.blink',
+            score_offset = 8,  -- Slightly prioritize AI completions
+            async = true,
+          },
           tmux = {
             module = 'blink-cmp-tmux',
           },

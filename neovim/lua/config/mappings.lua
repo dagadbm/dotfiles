@@ -151,6 +151,30 @@ map('n', [[<Leader>dbc]], function() require('dap').set_breakpoint(vim.fn.input(
 map('n', [[<Leader>dbl]], function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, { desc = 'Log point breakpoint' })
 map('n', [[<Leader>dbK]], function() require('dap').clear_breakpoints() end, { desc = 'Clear all breakpoints' })
 
+-- [[ AI mappings ]]
+-- codecompanion.nvim chat and inline commands
+map('n', [[<Leader>ic]], [[<Cmd>CodeCompanionChat Toggle<CR>]], { desc = 'Toggle AI chat' })
+map('n', [[<Leader>iC]], [[<Cmd>CodeCompanionChat Add<CR>]], { desc = 'Add to AI chat' })
+
+-- Inline AI assistant with prompt
+map('n', [[<Leader>ia]], [[<Cmd>CodeCompanion<CR>]], { desc = 'AI inline assistant' })
+map('v', [[<Leader>ia]], [[:CodeCompanion<CR>]], { desc = 'AI inline assistant (visual)' })
+
+-- Quick actions (visual mode)
+map('v', [[<Leader>ie]], [[:CodeCompanionChat explain<CR>]], { desc = 'Explain code' })
+map('v', [[<Leader>if]], [[:CodeCompanionChat fix<CR>]], { desc = 'Fix code' })
+map('v', [[<Leader>it]], [[:CodeCompanionChat tests<CR>]], { desc = 'Generate tests' })
+map('v', [[<Leader>io]], [[:CodeCompanionChat optimize<CR>]], { desc = 'Optimize code' })
+map('v', [[<Leader>id]], [[:CodeCompanionChat docs<CR>]], { desc = 'Add documentation' })
+
+-- Quick actions (normal mode - will use current buffer)
+map('n', [[<Leader>ie]], [[<Cmd>CodeCompanionChat explain<CR>]], { desc = 'Explain code' })
+map('n', [[<Leader>if]], [[<Cmd>CodeCompanionChat fix<CR>]], { desc = 'Fix diagnostics' })
+map('n', [[<Leader>it]], [[<Cmd>CodeCompanionChat tests<CR>]], { desc = 'Generate tests' })
+
+-- Toggle actions menu
+map({ 'n', 'v' }, [[<Leader>im]], [[<Cmd>CodeCompanionActions<CR>]], { desc = 'AI actions menu' })
+
 -- [[ LSP Buffer mappings ]]
 function M.lsp_mappings(bufnr)
     local opts = function(tbl)
