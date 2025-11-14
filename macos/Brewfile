@@ -35,22 +35,37 @@ brew "mise"
 brew "luarocks"
 
 # terminal
+cask "kitty"
 cask "wezterm"
 
 # apps
-cask "alfred"
-cask "raycast"
+## productivity
 cask "penc"
-cask "visual-studio-code"
+cask "alfred"
+cask "hiddenbar"
+cask "the-unarchiver"
+cask "vlc"
+## password
 cask "bitwarden"
+## notes
+cask "microsoft-onenote"
+## code
+cask "visual-studio-code"
+## browsers
 cask "brave-browser"
 cask "zen"
+cask "arc"
+cask "thebrowsercompany-dia"
+## social
 cask "discord"
 cask "whatsapp"
 cask "slack"
+cask "microsoft-teams"
+## music
 cask "spotify"
-cask "hiddenbar"
-cask "monitorcontrol"
+## ai
+cask "claude"
+cask "chatgpt"
 
 # fonts
 cask "font-jetbrains-mono-nerd-font"
