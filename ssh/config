@@ -1,0 +1,3 @@
+Include ~/.ssh/personal
+Include ~/.ssh/work
+# vim: set ft=sshconfig:

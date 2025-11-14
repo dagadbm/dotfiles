@@ -1,3 +1,0 @@
-### Changelog
-- **fix**: copied wikilinks being encoded & undefined headings (#177)
-- **build**: switch to `just` as task runner

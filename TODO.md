@@ -1,10 +1,3 @@
-# Dotfiles
-Remove emacs once and for all accept the vim master race
-# MacOS
-investigate this: https://github.com/agenttank/dotfiles_macos
-# Alfred alternatives
-https://www.raycast.com/ a LOT of stuff here: https://www.raycast.com/store
-https://www.raycast.com/core-features/focus => this can also be used instead of Opal
 ## tiling window managers
 https://github.com/koekeishiya/yabai
 https://www.raycast.com/core-features/window-management
@@ -31,43 +24,8 @@ https://github.com/mhinz/vim-grepper -> together with the above might be a nice 
 https://github.com/dyng/ctrlsf.vim#quick-start -> this is a all in one plugin for searching and replacing
 https://github.com/brooth/far.vim -> same as above
 https://github.com/nickjj/dotfiles/blob/master/.vimrc -> this guy uses vim-grepper and some other crazy key bindings (maybe could be made easier if he used quickfix-reflector
-## Git integration
-https://github.com/lambdalisue/gina.vim  -> new stuff!! seems promising
-https://github.com/jreybert/vimagit
-https://github.com/airblade/vim-gitgutter
-https://github.com/mhinz/vim-signify
-https://github.com/neoclide/coc-git -> maybe delete this dependency as well and let COC just handle LSP stuff and not really git stuff
-Start adding shortcuts to <Leader>g (g for git)
-https://github.com/sindrets/diffview.nvim
-## Floating windows
-https://github.com/liuchengxu/vim-clap -> maybe this can be used to replace fzf window code on my vimrc?
 ## Testing!
 https://github.com/janko/vim-test -> This sounds AMAZING
-## MRU
-https://github.com/ctrlpvim/ctrlp.vim -> maybe just user ctrlP for this and let fzf do everything else
-## Start up screen
-https://github.com/mhinz/vim-startify
-## More tmux goodness
-https://github.com/benmills/vimux -> not sure if this will be what i want but its nice that it can also run tests. maybe good together with vim-test ?
-## fzf/coc love
-https://github.com/dominickng/fzf-session.vim
-https://github.com/antoinemadec/coc-fzf/
-https://github.com/iamcco/coc-actions
-## Ranger
-https://tzutalin.blogspot.com/2019/04/install-rangervim-based-file-manager-on.html
-## Which key
-https://github.com/liuchengxu/vim-which-key
-
-## Interesting dotfiles to learn from
-https://github.com/ChristianChiarulli/nvim
-https://www.chrisatmachine.com/neovim
-
-
-# Tmux
-https://www.reddit.com/r/neovim/comments/aex45u/integrating_nvr_and_tmux_to_use_a_single_tmux_per/
 ## Tmux alternatives
 http://www.brain-dump.org/projects/abduco/ for session storage
 http://www.brain-dump.org/projects/dvtm/ for tiling window
-
-# Related
-https://gist.github.com/romainl/4b9f139d2a8694612b924322de1025ce

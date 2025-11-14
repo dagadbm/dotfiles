@@ -2,21 +2,16 @@
 
 Welcome to my humble dotfiles repo.
 
-This was done with a lot of love and I occasionally update it.
-
 # Install
 
 First run install script `./bootstrap.sh` to download and setup everything
 
-# Features
+# Updates
 
-This uses the amazing dotbot to handle all the symlinking.
-These dotfiles are mainly for zsh, vim, and macos apps
-
-# Support
-
-For now this works on mac os only
-If you have any questions please feel free to open an Issue
+Run `./update-nvim.sh` to update nvim
+Run `./update-submodules.sh` to update submodules
+Run `./update.sh` to update everything
+Run `./dotbot.sh` to re-run dotbot
 
 # Helpers
 ## Git Submodules
