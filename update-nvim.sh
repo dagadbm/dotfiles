@@ -11,7 +11,7 @@ npm install -g neovim@latest
 
 brew upgrade tree-sitter --fetch-HEAD
 brew upgrade neovim --fetch-HEAD
-nvim -c 'autocmd User MasonUpdateAllComplete TSUpdateSync | qall' \
+nvim -c 'autocmd User MasonUpdateAllComplete TSUpdate | qall' \
      -c 'autocmd User LazySync MasonUpdateAll' \
      -c 'autocmd User VeryLazy Lazy sync' \
      "$(realpath $0)"
