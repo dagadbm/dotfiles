@@ -42,7 +42,6 @@ cask "wezterm"
 ## productivity
 cask "penc"
 cask "alfred"
-cask "hiddenbar"
 cask "the-unarchiver"
 cask "vlc"
 ## password
@@ -52,10 +51,9 @@ cask "microsoft-onenote"
 ## code
 cask "visual-studio-code"
 ## browsers
-cask "brave-browser"
-cask "zen"
 cask "arc"
-cask "thebrowsercompany-dia"
+cask "brave-browser"
+cask "firefox"
 ## social
 cask "discord"
 cask "whatsapp"
