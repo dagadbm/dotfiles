@@ -64,6 +64,9 @@ cask "spotify"
 ## ai
 cask "claude"
 cask "chatgpt"
+# clipboard
+cask "maccy"
+
 
 # fonts
 cask "font-jetbrains-mono-nerd-font"
