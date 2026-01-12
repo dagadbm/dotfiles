@@ -48,7 +48,7 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'tmux', 'cmdline', 'omni' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'tmux', 'cmdline', },
         providers = {
           tmux = {
             module = 'blink-cmp-tmux',
