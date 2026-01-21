@@ -3,4 +3,3 @@
 mise.local.toml
 .venv/
 .nvim.lua
-**/.claude/

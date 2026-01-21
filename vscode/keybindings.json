@@ -336,5 +336,9 @@
             "openToSide": false
         },
         "when": "inQuickOpen"
+    },
+    {
+        "key": "cmd+i",
+        "command": "composerMode.agent"
     }
 ] 

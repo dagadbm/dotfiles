@@ -200,8 +200,18 @@ alias vim=nvim
 export EDITOR=nvim
 export GIT_EDITOR=nvim
 
+# ai tools
+alias clauded="claude --dangerously-skip-permissions"
+alias geminid="gemini --yolo"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [[ -f ~/.config/shell/p10k.mise.zsh ]] && source ~/.config/shell/p10k.mise.zsh
 # }}}}}}
 source ~/zshrc.work.zsh
+
+# opencode
+export PATH=/Users/dagadbm/.opencode/bin:$PATH
+
+# Amp CLI
+export PATH="/Users/dagadbm/.amp/bin:$PATH"

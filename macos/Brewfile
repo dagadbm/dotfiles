@@ -33,6 +33,11 @@ brew "sd"
 brew "dust"
 brew "mise"
 brew "luarocks"
+brew "terminal-notifier"
+## ai
+brew "claude-code"
+brew "gemini-cli"
+brew "opencode"
 
 # terminal
 cask "kitty"
@@ -42,6 +47,7 @@ cask "wezterm"
 ## productivity
 cask "penc"
 cask "alfred"
+cask "raycast"
 cask "the-unarchiver"
 cask "vlc"
 ## password
@@ -61,12 +67,11 @@ cask "slack"
 cask "microsoft-teams"
 ## music
 cask "spotify"
+## clipboard
+cask "maccy"
 ## ai
 cask "claude"
 cask "chatgpt"
-# clipboard
-cask "maccy"
-
 
 # fonts
 cask "font-jetbrains-mono-nerd-font"
