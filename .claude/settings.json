@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(command -v:*)",
+      "Bash(terminal-notifier:*)",
+      "WebSearch",
+      "Bash(readlink:*)",
+      "Bash(test:*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:github.blog)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

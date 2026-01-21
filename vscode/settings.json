@@ -220,5 +220,18 @@
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
-    }
+    },
+    "python.defaultInterpreterPath": "/Users/dagadbm/.local/share/mise/installs/python/3.14.0/bin/python",
+    "window.commandCenter": true,
+    "amp.url": "https://ampcode.com/",
+    "editor.wordBasedSuggestions": "off",
+    "amp.tab.enabled": true,
+    "kilo-code.allowedCommands": [
+        "git log",
+        "git diff",
+        "git show",
+        "npm",
+        "mkdir"
+    ],
+    "kilo-code.deniedCommands": []
 }

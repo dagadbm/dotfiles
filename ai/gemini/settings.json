@@ -1,0 +1,19 @@
+{
+  "experimental.hooks": {
+    "enabled": true,
+    "hooks": [
+      {
+        "name": "Gemini Notification",
+        "events": [
+          "AfterTool"
+        ],
+        "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini is waiting for your input'"
+      }
+    ]
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  }
+}

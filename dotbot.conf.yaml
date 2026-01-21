@@ -70,3 +70,8 @@
     ~/Library/Application Support/Code/User/keybindings.json: vscode/keybindings.json
     ~/Library/Application Support/Cursor/User/settings.json: vscode/settings.json
     ~/Library/Application Support/Cursor/User/keybindings.json: vscode/keybindings.json
+
+    # ai tools
+    ~/.claude/settings.json: ai/claude/settings.json
+    ~/.gemini/settings.json: ai/gemini/settings.json
+    ~/.ai/scripts/notify-hook.sh: ai/scripts/notify-hook.sh
