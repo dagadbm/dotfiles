@@ -1,13 +1,56 @@
 {
-  "experimental.hooks": {
-    "enabled": true,
-    "hooks": [
+  "hooksConfig": {
+    "enabled": true
+  },
+  "hooks": {
+    "AfterTool": [
       {
-        "name": "Gemini Notification",
-        "events": [
-          "AfterTool"
-        ],
-        "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini is waiting for your input'"
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "Gemini Notification",
+            "type": "command",
+            "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini CLI is idle'",
+            "description": "Sends a desktop notification after a tool is executed."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "Gemini Stop Notification",
+            "type": "command",
+            "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini CLI has stopped'",
+            "description": "Sends a desktop notification when Gemini CLI stops."
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "name": "Gemini Permission Prompt Notification",
+            "type": "command",
+            "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini CLI needs permissions'",
+            "description": "Sends a desktop notification when Gemini CLI needs permissions."
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "name": "Gemini Idle Prompt Notification",
+            "type": "command",
+            "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini CLI is idle'",
+            "description": "Sends a desktop notification when Gemini CLI is idle."
+          }
+        ]
       }
     ]
   },

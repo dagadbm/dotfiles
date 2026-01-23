@@ -43,7 +43,7 @@ if [[ -n "$pane_info" ]]; then
   session=$(echo "$pane_info" | cut -d'|' -f2)
 
   terminal-notifier \
-    -title "$cli_name 📁 $project 📺 $session" \
+    -title "📁 $project 📺 $session" \
     -message "$message" \
     -group "$group_name-$project" \
     -activate com.github.wez.wezterm

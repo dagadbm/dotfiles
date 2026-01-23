@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "DISABLE_TELEMETRY": "1",
     "DISABLE_ERROR_REPORTING": "1",
     "DISABLE_BUG_COMMAND": "1",
@@ -9,6 +10,10 @@
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
   },
+  "promptSuggestionEnabled": false,
+  "spinnerTipsEnabled": false,
+  "alwaysThinkingEnabled": true,
+  "includeCoAuthoredBy": false,
   "hooks": {
     "Stop": [
       {
@@ -16,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude has stopped'"
+            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude Code has stopped'"
           }
         ]
       }
@@ -27,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude needs your permission'"
+            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude Code needs permissions'"
           }
         ]
       },
@@ -36,12 +41,45 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude is waiting for your input'"
+            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude Code is idle'"
           }
         ]
       }
     ]
   },
-  "promptSuggestionEnabled": false,
-  "model": "haiku"
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(date:*)",
+      "Bash(echo:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(sort:*)",
+      "Bash(grep:*)",
+      "Bash(tr:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(sed:*)",
+      "Bash(source:*)",
+      "Bash(tree:*)",
+      "Bash(tail:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git tag:*)",
+      "WebSearch",
+      "WebFetch(domain:openai.com)",
+      "WebFetch(domain:anthropic.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
 }
