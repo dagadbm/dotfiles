@@ -54,6 +54,7 @@ cask "vlc"
 cask "bitwarden"
 ## notes
 cask "microsoft-onenote"
+cask "obsidian"
 ## code
 cask "visual-studio-code"
 ## browsers
