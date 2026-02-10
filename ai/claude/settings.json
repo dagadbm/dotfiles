@@ -10,10 +10,89 @@
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
   },
-  "promptSuggestionEnabled": false,
-  "spinnerTipsEnabled": false,
-  "alwaysThinkingEnabled": true,
   "includeCoAuthoredBy": false,
+  "spinnerTipsEnabled": false,
+  "promptSuggestionEnabled": false,
+  "alwaysThinkingEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "node \"/Users/dagadbm/.claude/hooks/gsd-statusline.js\""
+  },
+  "enabledPlugins": {
+    "agent-browse@browserbase": false,
+    "compound-engineering@every-marketplace": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(date:*)",
+      "Bash(echo:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(sort:*)",
+      "Bash(grep:*)",
+      "Bash(tr:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(sed:*)",
+      "Bash(source:*)",
+      "Bash(tree:*)",
+      "Bash(tail:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git tag:*)",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/.ssh/id_*)",
+      "Read(**/id_rsa)",
+      "Read(**/id_ed25519)",
+      "Read(**/*.pem)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/*.ppk)",
+      "Read(**/*.gpg)",
+      "Read(**/*.pgp)",
+      "Read(**/*.asc)",
+      "Read(**/.aws/credentials)",
+      "Read(**/.azure/**)",
+      "Read(**/.config/gcloud/**)",
+      "Read(**/.kube/config)",
+      "Read(**/*vault_pass*)",
+      "Read(**/secrets.yml)",
+      "Read(**/secrets.yaml)",
+      "Read(**/secrets.json)",
+      "Read(**/credentials.json)",
+      "Read(**/.htpasswd)",
+      "Read(**/.netrc)",
+      "Read(**/.npmrc)",
+      "Read(**/.pypirc)",
+      "Read(**/application.properties)",
+      "Read(**/appsettings.json)",
+      "Read(**/*.tfstate)",
+      "Read(**/.git/config)",
+      "Read(**/.git-credentials)",
+      "Read(**/.bash_history)",
+      "Read(**/.zsh_history)",
+      "Read(**/.pgpass)",
+      "Read(**/.my.cnf)",
+      "Read(**/.docker/config.json)",
+      "Read(**/*.jks)",
+      "Read(**/*.keystore)"
+    ]
+  },
   "hooks": {
     "Stop": [
       {
@@ -45,41 +124,27 @@
           }
         ]
       }
-    ]
-  },
-  "permissions": {
-    "allow": [
-      "Bash(find:*)",
-      "Bash(date:*)",
-      "Bash(echo:*)",
-      "Bash(cat:*)",
-      "Bash(ls:*)",
-      "Bash(mkdir:*)",
-      "Bash(wc:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
-      "Bash(sort:*)",
-      "Bash(grep:*)",
-      "Bash(tr:*)",
-      "Bash(rg:*)",
-      "Bash(grep:*)",
-      "Bash(ls:*)",
-      "Bash(cat:*)",
-      "Bash(sed:*)",
-      "Bash(source:*)",
-      "Bash(tree:*)",
-      "Bash(tail:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git status:*)",
-      "Bash(git log:*)",
-      "Bash(git diff:*)",
-      "Bash(git tag:*)",
-      "WebSearch",
-      "WebFetch(domain:openai.com)",
-      "WebFetch(domain:anthropic.com)",
-      "WebFetch(domain:docs.anthropic.com)",
-      "WebFetch(domain:github.com)"
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.ai/scripts/security-validator-hook.py"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/dagadbm/.claude/hooks/gsd-check-update.js\""
+          }
+        ]
+      }
     ]
   }
 }

@@ -39,6 +39,8 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.config/lazygit/config.yml: lazygit/config.yml
     ~/Library/Application Support/lazygit/config.yml: lazygit/config.yml
+    ~/.config/gh/config.yml: gh/config.yml
+    ~/.config/gh/hosts.yml: gh/hosts.yml
     ~/.gitconfig: git/gitconfig
     ~/.gitconfig_global: git/gitconfig_global
     ~/.gitconfig_personal: git/gitconfig_personal
@@ -75,3 +77,4 @@
     ~/.claude/settings.json: ai/claude/settings.json
     ~/.gemini/settings.json: ai/gemini/settings.json
     ~/.ai/scripts/notify-hook.sh: ai/scripts/notify-hook.sh
+    ~/.ai/scripts/security-validator-hook.py: ai/scripts/security-validator-hook.py
