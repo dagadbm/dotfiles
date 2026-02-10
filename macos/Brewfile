@@ -10,6 +10,7 @@ brew "tmux"
 brew "reattach-to-user-namespace"
 ## git
 brew "git"
+brew "gh"
 brew "lazygit"
 brew "git-delta"
 ## utils
@@ -34,6 +35,7 @@ brew "dust"
 brew "mise"
 brew "luarocks"
 brew "terminal-notifier"
+brew "glow"
 ## ai
 brew "claude-code"
 brew "gemini-cli"
