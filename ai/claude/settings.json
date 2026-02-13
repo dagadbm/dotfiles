@@ -11,17 +11,6 @@
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
   },
   "includeCoAuthoredBy": false,
-  "spinnerTipsEnabled": false,
-  "promptSuggestionEnabled": false,
-  "alwaysThinkingEnabled": true,
-  "statusLine": {
-    "type": "command",
-    "command": "node \"/Users/dagadbm/.claude/hooks/gsd-statusline.js\""
-  },
-  "enabledPlugins": {
-    "agent-browse@browserbase": false,
-    "compound-engineering@every-marketplace": true
-  },
   "permissions": {
     "allow": [
       "Bash(find:*)",
@@ -45,6 +34,8 @@
       "Bash(tree:*)",
       "Bash(tail:*)",
       "Bash(git:*)",
+      "Bash(curl:*)",
+      "Bash(gt:*)",
       "WebSearch",
       "WebFetch"
     ],
@@ -98,6 +89,14 @@
             "command": "~/.ai/scripts/notify-hook.sh claude 'Claude Code has stopped'"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-idle.sh"
+          }
+        ]
       }
     ],
     "Notification": [
@@ -129,6 +128,69 @@
             "command": "python3 ~/.ai/scripts/security-validator-hook.py"
           }
         ]
+      },
+      {
+        "matcher": "Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-subagent-spawn.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-awaiting-input.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-permission-request.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-bash-command.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-file-access.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-file-access.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-file-access.sh"
+          }
+        ]
       }
     ],
     "SessionStart": [
@@ -139,7 +201,67 @@
             "command": "node \"/Users/dagadbm/.claude/hooks/gsd-check-update.js\""
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-spawn.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-active.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-input-received.sh"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-subagent-complete.sh"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-permission-request.sh"
+          }
+        ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node \"/Users/dagadbm/.claude/hooks/gsd-statusline.js\""
+  },
+  "enabledPlugins": {
+    "agent-browse@browserbase": false,
+    "compound-engineering@every-marketplace": false
+  },
+  "spinnerTipsEnabled": false,
+  "alwaysThinkingEnabled": false,
+  "promptSuggestionEnabled": false
 }
