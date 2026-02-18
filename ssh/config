@@ -4,6 +4,6 @@
 Include ~/.orbstack/ssh/config
 
 Include ~/.ssh/personal
-Include ~/.ssh/local
 Include ~/.ssh/work
+Include ~/.ssh/local
 # vim: set ft=sshconfig:

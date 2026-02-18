@@ -5,7 +5,6 @@ Host github-personal github.com
 
 Host vps-personal
     User root
-    Port 22
     IdentityFile ~/.ssh/vps_personal
     ServerAliveInterval 60
     ServerAliveCountMax 10
