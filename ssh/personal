@@ -1,5 +1,12 @@
-Host personal github.com
+Host github-personal github.com
     HostName github.com
     User git
     IdentityFile ~/.ssh/github_personal
+
+Host vps-personal
+    User root
+    Port 22
+    IdentityFile ~/.ssh/vps_personal
+    ServerAliveInterval 60
+    ServerAliveCountMax 10
 # vim: set ft=sshconfig:
