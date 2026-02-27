@@ -201,20 +201,22 @@ export EDITOR=nvim
 export GIT_EDITOR=nvim
 
 # bun
-[ -s "/Users/dagadbm/.bun/_bun" ] && source "/Users/dagadbm/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # ai tools
 ## claude
-alias clauded="claude --dangerously-skip-permissions"
+alias claude="claude --dangerously-skip-permissions"
 export PATH="$HOME/.local/bin:$PATH"
 ## gemini
-alias geminid="gemini --yolo"
+alias gemini="gemini --yolo"
+## codex
+alias codex="codex --full-auto"
 ## opencode
-export PATH=/Users/dagadbm/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 ## amp
-export PATH="/Users/dagadbm/.amp/bin:$PATH"
+export PATH="$HOME/.amp/bin:$PATH"
 ## claude code
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

@@ -11,6 +11,14 @@
           }
         ],
         "matcher": "*"
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.superset/hooks/gemini-hook.sh"
+          }
+        ]
       }
     ],
     "Notification": [
@@ -70,6 +78,26 @@
           }
         ],
         "matcher": "*"
+      }
+    ],
+    "BeforeAgent": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.superset/hooks/gemini-hook.sh"
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.superset/hooks/gemini-hook.sh"
+          }
+        ]
       }
     ]
   },
