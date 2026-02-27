@@ -3,10 +3,17 @@ Host github-personal github.com
     User git
     IdentityFile ~/.ssh/github_personal
 
-Host vps-personal
+Host vps-root
     User root
     Port 2222
-    IdentityFile ~/.ssh/vps_personal
+    IdentityFile ~/.ssh/vps_root
+    ServerAliveInterval 60
+    ServerAliveCountMax 10
+
+Host vps-openclaw
+    User openclaw
+    Port 2222
+    IdentityFile ~/.ssh/vps_openclaw
     ServerAliveInterval 60
     ServerAliveCountMax 10
 # vim: set ft=sshconfig:
