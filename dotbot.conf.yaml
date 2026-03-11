@@ -77,4 +77,4 @@
     ~/.claude/settings.json: ai/claude/settings.json
     ~/.gemini/settings.json: ai/gemini/settings.json
     ~/.ai/scripts/notify-hook.sh: ai/scripts/notify-hook.sh
-    ~/.ai/scripts/security-validator-hook.py: ai/scripts/security-validator-hook.py
+    ~/.ai/scripts/bash-validator-hook.py: ai/scripts/bash-validator-hook.py
