@@ -16,6 +16,10 @@ def check_bash_command(command: str) -> tuple[bool, str]:
     Returns: (is_allowed, error_message)
     """
 
+    # Block git push
+    if re.search(r'\bgit\s+push\b', command):
+        return False, "git push is blocked. Do not do it under any circumstances."
+
     # Block rm -rf / rm -r -f patterns
     if re.search(r'\brm\s+(-[a-zA-Z]*r[a-zA-Z]*f|-[a-zA-Z]*f[a-zA-Z]*r)\b', command):
         return False, "rm -rf is blocked. Use explicit rm commands with specific file paths."
