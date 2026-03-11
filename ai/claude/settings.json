@@ -79,6 +79,7 @@
       "Read(**/*.keystore)"
     ]
   },
+  "model": "haiku",
   "hooks": {
     "Notification": [
       {
@@ -211,14 +212,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/dagadbm/.claude/hooks/gsd-check-update.js\""
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
             "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-spawn.sh"
           }
         ]
@@ -273,17 +266,14 @@
       }
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "node \"/Users/dagadbm/.claude/hooks/gsd-statusline.js\""
-  },
   "enabledPlugins": {
     "agent-browse@browserbase": false,
-    "compound-engineering@every-marketplace": false
+    "superpowers@superpowers-marketplace": true,
+    "coding-tutor@compound-engineering-plugin": true,
+    "compound-engineering@compound-engineering-plugin": true
   },
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": false,
   "promptSuggestionEnabled": false,
-  "skipDangerousModePermissionPrompt": true,
-  "model": "opus"
+  "skipDangerousModePermissionPrompt": true
 }

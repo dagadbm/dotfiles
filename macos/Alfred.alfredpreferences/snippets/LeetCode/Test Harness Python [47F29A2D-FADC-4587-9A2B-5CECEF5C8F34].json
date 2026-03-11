@@ -1,0 +1,8 @@
+{
+  "alfredsnippet" : {
+    "snippet" : "run_all = False\ntests = [\n    {\n        \"input\": [],\n        \"expected\": [],\n        \"run\": False,\n    },\n    {\n        \"input\": [],\n        \"expected\": [],\n        \"run\": False,\n    },\n    {\n        \"input\": [],\n        \"expected\": [],\n        \"run\": False,\n    },\n]\n\nfor test in tests:\n    run = test[\"run\"]\n    input_data = test[\"input\"]\n    expected = test[\"expected\"]\n\n    if not run_all and not run:\n        continue\n\n    print({\n        \"input\": str(input_data),\n    })\n\n    output = problem(input_data)\n\n    print({\n        \"input\": str(input_data),\n        \"expected\": str(expected),\n        \"output\": str(output),\n    })",
+    "uid" : "47F29A2D-FADC-4587-9A2B-5CECEF5C8F34",
+    "name" : "Test Harness Python",
+    "keyword" : "testpython"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "alfredsnippet" : {
+    "snippet" : "const runAll = false;\nconst tests = [\n  {\n    input: [],\n    expected: [],\n    run: false,\n  },\n  {\n    input: [],\n    expected: [],\n    run: false,\n  },\n  {\n    input: [],\n    expected: [],\n    run: false,\n  },\n];\n\ntests.forEach(({ run, input, expected }) => {\n  if (!runAll && !run) {\n    return;\n  }\n\n  console.log({\n    input: JSON.stringify(input),\n  })\n  const output = problem(input)\n  console.log({\n    input: JSON.stringify(input),\n    expected: JSON.stringify(expected),\n    output: JSON.stringify(output),\n  })\n})",
+    "uid" : "2BE9A4AB-6429-42EF-9481-A8EEF5ED68F6",
+    "name" : "Test Harness JS",
+    "keyword" : "testjs"
+  }
+}
