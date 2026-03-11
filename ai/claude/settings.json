@@ -139,7 +139,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ~/.ai/scripts/security-validator-hook.py"
+            "command": "python3 ~/.ai/scripts/bash-validator-hook.py"
           }
         ]
       },
