@@ -2,10 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
-    "DISABLE_TELEMETRY": "1",
     "DISABLE_ERROR_REPORTING": "1",
     "DISABLE_BUG_COMMAND": "1",
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
@@ -79,7 +77,6 @@
       "Read(**/*.keystore)"
     ]
   },
-  "model": "haiku",
   "hooks": {
     "Notification": [
       {
@@ -109,6 +106,15 @@
             "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-permission-request.sh"
           }
         ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -118,6 +124,15 @@
           {
             "type": "command",
             "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-input-received.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
           }
         ]
       }
@@ -243,6 +258,14 @@
             "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-idle.sh"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
+          }
+        ]
       }
     ],
     "SubagentStop": [
@@ -261,6 +284,25 @@
           {
             "type": "command",
             "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-active.sh"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
           }
         ]
       }

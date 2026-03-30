@@ -4,8 +4,8 @@
 	path = ~/.gitconfig_personal
 [includeIf "gitdir:~/code/"]
 	path = ~/.gitconfig_personal
-[includeIf "gitdir:~/work/"]
-	path = ~/.gitconfig_work
+[includeIf "gitdir:~/work/anansi/"]
+	path = ~/.gitconfig_work_anansi
 
 # references:
 # https://www.edwardthomson.com/blog/git_conditional_includes.html

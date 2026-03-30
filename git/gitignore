@@ -9,6 +9,3 @@ mise.local.toml
 specs-local/
 ## gsd
 .planning
-## claude code
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
-**/.claude/settings.local.json
