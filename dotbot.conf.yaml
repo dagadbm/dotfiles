@@ -78,5 +78,11 @@
     # ai tools
     ~/.claude/settings.json: ai/claude/settings.json
     ~/.gemini/settings.json: ai/gemini/settings.json
-    ~/.agents/scripts: ai/scripts
-    ~/.agents/skills: ai/skills
+    ## scripts
+    ~/.agents/scripts/bash-validator-hook.py: ai/scripts/bash-validator-hook.py
+    ~/.agents/scripts/notify-hook.sh: ai/scripts/notify-hook.sh
+    ## skills
+    ### work
+    ~/.agents/skills/work/anansi/.claude/skills/fix-commit-message: ai/skills/work/anansi/fix-commit-message
+    ~/.agents/skills/work/anansi/.claude/skills/gitlab-manager: ai/skills/work/anansi/gitlab-manager
+    ~/.agents/skills/work/anansi/.claude/skills/jira-manager: ai/skills/work/anansi/jira-manager
