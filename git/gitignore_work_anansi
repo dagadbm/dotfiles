@@ -1,0 +1,5 @@
+.superset/
+.agents/
+.claude
+skills-lock.json
+mise.local.toml

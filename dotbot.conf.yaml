@@ -45,6 +45,8 @@
     ~/.gitconfig_global: git/gitconfig_global
     ~/.gitconfig_personal: git/gitconfig_personal
     ~/.gitconfig_work: git/gitconfig_work
+    ~/.gitconfig_work_anansi: git/gitconfig_work_anansi
+    ~/.gitignore_work_anansi: git/gitignore_work_anansi
     ~/.config/git/ignore: git/gitignore
 
     # ssh

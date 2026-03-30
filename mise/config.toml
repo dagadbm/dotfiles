@@ -25,6 +25,7 @@ python.uv_venv_create_args = ["--seed"]
 # mise.local.toml example {{{
 # [tools]
 # "pipx:poetry" = "latest"
+# uv = "latest"
 # python = "3.12.3"
 # node = "22.13.0"
 # rust = "1.80.1"
@@ -38,4 +39,8 @@ python.uv_venv_create_args = ["--seed"]
 # [hooks]
 # # https://mise.jdx.dev/tips-and-tricks.html#auto-install-when-entering-a-project
 # enter = "mise i -q"
+
+# [shell_alias]
+# claude = "claude --dangerously-skip-permissions --add-dir ~/dotfiles/ai/skills/work/company"
+# 
 # }}}

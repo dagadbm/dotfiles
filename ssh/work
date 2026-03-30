@@ -1,5 +1,10 @@
 Host github-work github.com
     HostName github.com
     User git
-    IdentityFile ~/.ssh/github-work
+    IdentityFile ~/.ssh/github_work
+
+Host gitlab-work gitlab.com
+    HostName gitlab.com
+    User git
+    IdentityFile ~/.ssh/gitlab_work
 # vim: set ft=sshconfig:

@@ -1,0 +1,6 @@
+[user]
+	email = david@withanansi.com
+[core]
+	sshCommand = ssh -i ~/.ssh/gitlab_work -F /dev/null
+	excludesFile = ~/.gitignore_work_anansi
+# vim: set ft=gitconfig:

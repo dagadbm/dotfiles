@@ -99,7 +99,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "vscode.typescript-language-features",
   },
   "workbench.panel.showLabels": false,
   "[json]": {
@@ -177,4 +177,7 @@
   "gitlens.ai.model": "vscode",
   "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "kilo-code.debug": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "go.toolsManagement.autoUpdate": true,
 }
