@@ -41,6 +41,5 @@ python.uv_venv_create_args = ["--seed"]
 # enter = "mise i -q"
 
 # [shell_alias]
-# claude = "claude --dangerously-skip-permissions --add-dir ~/dotfiles/ai/skills/work/company"
-# 
+# claude = "claude --dangerously-skip-permissions --add-dir ~/.agents/skills/work/company"
 # }}}

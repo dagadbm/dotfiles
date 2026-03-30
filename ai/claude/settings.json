@@ -84,7 +84,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude Code needs permissions'"
+            "command": "~/.agents/scripts/notify-hook.sh claude 'Claude Code needs permissions'"
           }
         ]
       },
@@ -93,7 +93,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude Code is idle'"
+            "command": "~/.agents/scripts/notify-hook.sh claude 'Claude Code is idle'"
           }
         ]
       }
@@ -154,7 +154,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ~/.ai/scripts/bash-validator-hook.py"
+            "command": "python3 ~/.agents/scripts/bash-validator-hook.py"
           }
         ]
       },
@@ -247,7 +247,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.ai/scripts/notify-hook.sh claude 'Claude Code has stopped'"
+            "command": "~/.agents/scripts/notify-hook.sh claude 'Claude Code has stopped'"
           }
         ]
       },
