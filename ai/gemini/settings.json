@@ -4,7 +4,7 @@
       {
         "hooks": [
           {
-            "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini CLI is idle'",
+            "command": "sh ~/.agents/scripts/notify-hook.sh gemini 'Gemini CLI is idle'",
             "description": "Sends a desktop notification after a tool is executed.",
             "name": "Gemini Notification",
             "type": "command"
@@ -25,7 +25,7 @@
       {
         "hooks": [
           {
-            "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini CLI needs permissions'",
+            "command": "sh ~/.agents/scripts/notify-hook.sh gemini 'Gemini CLI needs permissions'",
             "description": "Sends a desktop notification when Gemini CLI needs permissions.",
             "name": "Gemini Permission Prompt Notification",
             "type": "command"
@@ -36,7 +36,7 @@
       {
         "hooks": [
           {
-            "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini CLI is idle'",
+            "command": "sh ~/.agents/scripts/notify-hook.sh gemini 'Gemini CLI is idle'",
             "description": "Sends a desktop notification when Gemini CLI is idle.",
             "name": "Gemini Idle Prompt Notification",
             "type": "command"
@@ -71,7 +71,7 @@
       {
         "hooks": [
           {
-            "command": "sh ~/.ai/scripts/notify-hook.sh gemini 'Gemini CLI has stopped'",
+            "command": "sh ~/.agents/scripts/notify-hook.sh gemini 'Gemini CLI has stopped'",
             "description": "Sends a desktop notification when Gemini CLI stops.",
             "name": "Gemini Stop Notification",
             "type": "command"
