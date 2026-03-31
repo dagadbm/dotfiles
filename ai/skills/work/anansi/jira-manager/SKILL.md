@@ -2,6 +2,7 @@
 name: jira-manager
 description: Manage Jira tickets for the ANANSI project. Use when the user wants to create tickets, move ticket state, open tickets in browser, or create git branches from ticket names. Triggers on "create a ticket", "move ticket to", "open ANANSI-123", "create branch for ticket", "transition ticket", or any Jira-related workflow request.
 allowed-tools: Bash(acli *), Read, Write, Edit
+disable-model-invocation: true
 ---
 
 # Jira Manager for ANANSI

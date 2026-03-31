@@ -2,6 +2,7 @@
 name: gitlab-manager
 description: Manage GitLab merge requests, issues, and repository tasks for the ISS project. Use when the user wants to create MRs, view MRs, list MRs, open MRs in browser, create branches, view issues, or any GitLab-related workflow request. Triggers on "create a MR", "open MR", "list my MRs", "view issue", "create branch", or any GitLab workflow request.
 allowed-tools: Bash(glab *), Read, Write, Edit
+disable-model-invocation: true
 ---
 
 # GitLab Manager for ISS
