@@ -2,7 +2,7 @@
 name: fix-commit-message
 description: Rewrites the last commit message to match the project commit message template. Invoke manually with /fix-commit-message.
 allowed-tools: "Bash, Read, Edit, Write"
-argument-hint: "[optional: ticket override, e.g. PROJ-1234]"
+disable-model-invocation: true
 ---
 
 # Fix Commit Message
