@@ -212,7 +212,7 @@ export PATH="$HOME/.local/bin:$PATH"
 ## gemini
 alias gemini="gemini --yolo"
 ## codex
-alias codex="codex --full-auto"
+alias codex="codex --sandbox workspace-write"
 ## opencode
 export PATH="$HOME/.opencode/bin:$PATH"
 ## amp

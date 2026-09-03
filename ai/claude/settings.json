@@ -77,6 +77,7 @@
       "Read(**/*.keystore)"
     ]
   },
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "Notification": [
       {
@@ -112,7 +113,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
+            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
           }
         ]
       }
@@ -132,7 +133,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
+            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
           }
         ]
       }
@@ -263,7 +264,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
+            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
           }
         ]
       }
@@ -291,7 +292,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
+            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
           }
         ]
       }
@@ -302,20 +303,39 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/dagadbm/.superset/hooks/notify.sh"
+            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
           }
         ]
       }
     ]
   },
   "enabledPlugins": {
-    "agent-browse@browserbase": false,
     "superpowers@superpowers-marketplace": true,
-    "coding-tutor@compound-engineering-plugin": true,
-    "compound-engineering@compound-engineering-plugin": true
+    "context-mode@context-mode": true
+  },
+  "extraKnownMarketplaces": {
+    "plannotator": {
+      "source": {
+        "source": "github",
+        "repo": "backnotprop/plannotator"
+      }
+    },
+    "context-mode": {
+      "source": {
+        "source": "github",
+        "repo": "mksglu/context-mode"
+      }
+    }
   },
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": false,
+  "effortLevel": "medium",
   "promptSuggestionEnabled": false,
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "editorMode": "vim",
+  "preferredNotifChannel": "kitty"
+  "statusLine": {
+    "type": "command",
+    "command": "context-mode statusline"
+  }
 }
