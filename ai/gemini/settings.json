@@ -99,6 +99,18 @@
           }
         ]
       }
+    ],
+    "BeforeTool": [
+      {
+        "matcher": "exit_plan_mode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "plannotator",
+            "timeout": 345600
+          }
+        ]
+      }
     ]
   },
   "hooksConfig": {
@@ -107,6 +119,13 @@
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
+    }
+  },
+  "general": {
+    "sessionRetention": {
+      "enabled": true,
+      "maxAge": "30d",
+      "warningAcknowledged": true
     }
   }
 }

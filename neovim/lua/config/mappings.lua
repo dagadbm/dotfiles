@@ -121,6 +121,27 @@ map('n', [[<Leader>m]], function() require('telescope.builtin').keymaps() end, {
 map('n', [[<Leader>b]], function() require('telescope.builtin').buffers() end, { desc = 'Search buffers' })
 -- git related searches
 map('n', [[<Leader>gf]], function() require('telescope.builtin').git_status() end, { desc = 'Git status' })
+map('n', [[<Leader>gF]], function()
+  local default = vim.fn.systemlist('git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null')[1] or ''
+  default = default:gsub('^refs/remotes/', '')
+  if default == '' then default = 'origin/main' end
+  local branch = vim.fn.input('Diff against branch: ', default)
+  if branch == '' then return end
+  local files = vim.fn.systemlist({ 'git', 'diff', '--name-only', branch .. '...HEAD' })
+  if vim.v.shell_error ~= 0 or #files == 0 then
+    vim.notify('No changed files vs ' .. branch, vim.log.levels.WARN)
+    return
+  end
+  local pickers = require('telescope.pickers')
+  local finders = require('telescope.finders')
+  local conf = require('telescope.config').values
+  pickers.new({}, {
+    prompt_title = 'Files changed vs ' .. branch,
+    finder = finders.new_table({ results = files }),
+    sorter = conf.generic_sorter({}),
+    previewer = conf.file_previewer({})
+  }):find()
+end, { desc = 'Files changed vs branch' })
 -- lsp related searches
 map('n', [[<Leader>lf]], function() require('telescope.builtin').lsp_references() end, { desc = 'LSP references' })
 map('n', [[<Leader>ls]], function() require('telescope.builtin').lsp_document_symbols() end, { desc = 'LSP document symbols' })

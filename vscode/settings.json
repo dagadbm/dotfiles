@@ -174,10 +174,14 @@
   "workbench.startupEditor": "none",
   "editor.minimap.enabled": false,
   "github.copilot.nextEditSuggestions.enabled": true,
-  "gitlens.ai.model": "vscode",
-  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "kilo-code.debug": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
   "go.toolsManagement.autoUpdate": true,
+  "workbench.colorTheme": "Dark Modern",
+  "editor.accessibilitySupport": "off",
+  "terminal.integrated.commandsToSkipShell": [
+    "kilo-code.new.agentManagerOpen",
+    "kilo-code.new.agentManager.showTerminal"
+  ],
 }

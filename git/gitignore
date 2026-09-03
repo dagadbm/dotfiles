@@ -4,8 +4,10 @@ mise.local.toml
 .venv/
 .nvim.lua
 
-# ai tools
-## me locally
-specs-local/
+# ai
 ## gsd
 .planning
+## superpowers
+docs/superpowers/
+## claude
+**/.claude/settings.local.json
