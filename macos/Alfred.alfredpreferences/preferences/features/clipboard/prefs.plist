@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>autoExpandMidString</key>
+	<true/>
+	<key>autoExpandRestoreClipboardAfter</key>
+	<real>9</real>
+	<key>autoExpandSimulatedKeyEventPadding</key>
+	<real>2</real>
 	<key>autoExpandSnippetPlaySound</key>
 	<false/>
 	<key>autoExpandSnippetTriggerPlaySound</key>

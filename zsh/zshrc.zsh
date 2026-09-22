@@ -225,3 +225,8 @@ export PATH="$HOME/.amp/bin:$PATH"
 # }}}}}}
 source ~/zshrc.work.zsh
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/dagadbm/.lmstudio/bin"
+# End of LM Studio CLI section
+

@@ -77,78 +77,9 @@
       "Read(**/*.keystore)"
     ]
   },
-  "model": "claude-fable-5[1m]",
+  "model": "sonnet",
+  "disableBundledSkills": true,
   "hooks": {
-    "Notification": [
-      {
-        "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.agents/scripts/notify-hook.sh claude 'Claude Code needs permissions'"
-          }
-        ]
-      },
-      {
-        "matcher": "idle_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.agents/scripts/notify-hook.sh claude 'Claude Code is idle'"
-          }
-        ]
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-permission-request.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "AskUserQuestion",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-input-received.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bd prime"
-          }
-        ]
-      }
-    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
@@ -158,172 +89,27 @@
             "command": "python3 ~/.agents/scripts/bash-validator-hook.py"
           }
         ]
-      },
-      {
-        "matcher": "Task",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-subagent-spawn.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "AskUserQuestion",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-awaiting-input.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "ExitPlanMode",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-permission-request.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-bash-command.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-file-access.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-file-access.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-file-access.sh"
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-spawn.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bd prime"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.agents/scripts/notify-hook.sh claude 'Claude Code has stopped'"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-idle.sh"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          }
-        ]
-      }
-    ],
-    "SubagentStop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-subagent-complete.sh"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /Users/dagadbm/.npm/_npx/6bf25bc83f26a9ed/node_modules/@idosal/agentcraft/plugin/hooks/agentcraft-hero-active.sh"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          }
-        ]
-      }
-    ],
-    "PostToolUseFailure": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -n \"$SUPERSET_HOME_DIR\" ] && [ -x \"$SUPERSET_HOME_DIR/hooks/notify.sh\" ] && \"$SUPERSET_HOME_DIR/hooks/notify.sh\" || true"
-          }
-        ]
       }
     ]
   },
+  "worktree": {
+    "baseRef": "fresh"
+  },
   "enabledPlugins": {
-    "superpowers@superpowers-marketplace": true,
-    "context-mode@context-mode": true
+    "caveman@caveman": true,
+    "mattpocock-skills@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
-    "plannotator": {
+    "claude-plugins-official": {
       "source": {
         "source": "github",
-        "repo": "backnotprop/plannotator"
+        "repo": "anthropics/claude-plugins-official"
       }
     },
-    "context-mode": {
+    "caveman": {
       "source": {
         "source": "github",
-        "repo": "mksglu/context-mode"
+        "repo": "JuliusBrussee/caveman"
       }
     }
   },
@@ -331,11 +117,10 @@
   "alwaysThinkingEnabled": false,
   "effortLevel": "medium",
   "promptSuggestionEnabled": false,
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
-  "preferredNotifChannel": "kitty"
-  "statusLine": {
-    "type": "command",
-    "command": "context-mode statusline"
-  }
+  "preferredNotifChannel": "auto",
+  "autoContinueAtUsageLimit": false,
+  "agentPushNotifEnabled": false
 }
