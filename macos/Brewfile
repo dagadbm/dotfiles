@@ -1,13 +1,16 @@
-# nvim
+# brew
+## nvim
 brew "tree-sitter", args: ["HEAD"]
 brew "neovim", args: ["HEAD"]
 brew "universal-ctags"
 brew "tree-sitter-cli"
-
-# shell
+## shell
 brew "zsh"
-brew "tmux"
 brew "reattach-to-user-namespace"
+## terminal
+brew "tmux"
+brew "zellij"
+brew "herdr"
 ## git
 brew "git"
 brew "gh"
@@ -36,16 +39,17 @@ brew "mise"
 brew "luarocks"
 brew "terminal-notifier"
 brew "glow"
+## editors
+brew "helix"
 ## ai
-brew "claude-code"
 brew "gemini-cli"
 brew "opencode"
 
-# terminal
+# cask
+## terminal
 cask "kitty"
 cask "wezterm"
-
-# apps
+cask "ghostty"
 ## productivity
 cask "penc"
 cask "alfred"
@@ -57,8 +61,9 @@ cask "bitwarden"
 ## notes
 cask "microsoft-onenote"
 cask "obsidian"
-## code
+## editors
 cask "visual-studio-code"
+cask "zed"
 ## browsers
 cask "arc"
 cask "brave-browser"
@@ -72,9 +77,9 @@ cask "microsoft-teams"
 cask "spotify"
 ## clipboard
 cask "maccy"
+## fonts
+cask "font-jetbrains-mono-nerd-font"
 ## ai
 cask "claude"
+cask "claude-code"
 cask "chatgpt"
-
-# fonts
-cask "font-jetbrains-mono-nerd-font"

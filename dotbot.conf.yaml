@@ -75,6 +75,12 @@
     ~/Library/Application Support/Cursor/User/settings.json: vscode/settings.json
     ~/Library/Application Support/Cursor/User/keybindings.json: vscode/keybindings.json
 
+    # helix
+    ~/.config/helix/config.toml: helix/config.toml
+
+    # herdr
+    ~/.config/herdr/config.toml: herdr/config.toml
+
     # ai tools
     ~/.claude/settings.json: ai/claude/settings.json
     ~/.gemini/settings.json: ai/gemini/settings.json
