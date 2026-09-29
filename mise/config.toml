@@ -4,12 +4,13 @@ run = [
   "pip install --upgrade neovim-remote",
   "pip install --upgrade pynvim",
   "pip install --upgrade debugpy",
-  "npm install -g neovim@latest",
+  "pnpm add -g neovim@latest",
 ]
 
 [tools]
 golang = "latest"
 node = "lts"
+pnpm = "latest"
 rust = "latest"
 python = ["latest", "2.7.18"]
 uv = "latest"
@@ -21,25 +22,3 @@ experimental = true
 activate_aggressive = true
 # https://mise.jdx.dev/lang/python.html#mise-uv
 python.uv_venv_create_args = ["--seed"]
-
-# mise.local.toml example {{{
-# [tools]
-# "pipx:poetry" = "latest"
-# uv = "latest"
-# python = "3.12.3"
-# node = "22.13.0"
-# rust = "1.80.1"
-
-# [env]
-# # https://mise.jdx.dev/environments/#env-directives
-# _.file = '.env'
-# # to automatically create a virtual env.
-# _.python.venv = { path = ".venv", create = true }
-
-# [hooks]
-# # https://mise.jdx.dev/tips-and-tricks.html#auto-install-when-entering-a-project
-# enter = "mise i -q"
-
-# [shell_alias]
-# claude = "claude --dangerously-skip-permissions --add-dir ~/.agents/skills/work/company"
-# }}}

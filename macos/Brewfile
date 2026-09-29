@@ -4,13 +4,19 @@ brew "tree-sitter", args: ["HEAD"]
 brew "neovim", args: ["HEAD"]
 brew "universal-ctags"
 brew "tree-sitter-cli"
+brew "luarocks"
 ## shell
+brew "bash"
 brew "zsh"
 brew "reattach-to-user-namespace"
-## terminal
+## multiplexers
 brew "tmux"
-brew "zellij"
+### herdr
 brew "herdr"
+brew "terminal-notifier"
+#### herdr plugin yankewei/herdr-focus-notify
+tap "vjeantet/tap", trusted: true
+brew "vjeantet/tap/alerter", trusted: true
 ## git
 brew "git"
 brew "gh"
@@ -35,51 +41,78 @@ brew "bottom"
 brew "zenith"
 brew "sd"
 brew "dust"
-brew "mise"
-brew "luarocks"
-brew "terminal-notifier"
 brew "glow"
+## development
+brew "mise"
+brew "k9s"
+brew "age"
+brew "sops"
+brew "sshpass"
+brew "git-lfs"
+brew "cmake"
 ## editors
 brew "helix"
 ## ai
-brew "gemini-cli"
-brew "opencode"
+brew "agent-browser"
 
 # cask
+cask_args appdir: "~/Applications"
+
 ## terminal
-cask "kitty"
 cask "wezterm"
 cask "ghostty"
 ## productivity
-cask "penc"
-cask "alfred"
-cask "raycast"
-cask "the-unarchiver"
-cask "vlc"
+cask "penc", args: { appdir: "/Applications" }
+cask "alfred", args: { appdir: "/Applications" }
+cask "raycast", args: { appdir: "/Applications" }
+cask "the-unarchiver", args: { appdir: "/Applications" }
+cask "vlc", args: { appdir: "/Applications" }
 ## password
-cask "bitwarden"
+cask "bitwarden", args: { appdir: "/Applications" }
+cask "1password", args: { appdir: "/Applications" }
 ## notes
-cask "microsoft-onenote"
-cask "obsidian"
+cask "obsidian", args: { appdir: "/Applications" }
+cask "microsoft-onenote", args: { appdir: "/Applications" }
 ## editors
-cask "visual-studio-code"
+cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "zed"
 ## browsers
-cask "arc"
+cask "arc", args: { appdir: "/Applications" }
+cask "google-chrome"
 cask "brave-browser"
 cask "firefox"
+cask "terminal-browser"
 ## social
-cask "discord"
-cask "whatsapp"
-cask "slack"
-cask "microsoft-teams"
+cask "discord", args: { appdir: "/Applications" }
+cask "whatsapp", args: { appdir: "/Applications" }
+cask "slack", args: { appdir: "/Applications" }
 ## music
-cask "spotify"
+cask "spotify", args: { appdir: "/Applications" }
 ## clipboard
-cask "maccy"
+cask "maccy", args: { appdir: "/Applications" }
 ## fonts
 cask "font-jetbrains-mono-nerd-font"
+## development
+cask "mockoon"
+cask "orbstack"
+cask "yaak"
+cask "ngrok"
+cask "dbeaver-community"
 ## ai
-cask "claude"
-cask "claude-code"
-cask "chatgpt"
+### chat
+cask "gemini", args: { appdir: "/Applications" }
+cask "manus", args: { appdir: "/Applications" }
+cask "claude", args: { appdir: "/Applications" }
+cask "chatgpt", args: { appdir: "/Applications" }
+## harness
+cask "claude-code@latest"
+cask "codex"
+### speech to text
+tap "anomalyco/tap", trusted: true
+cask "anomalyco/tap/hex", trusted: true
+### utils
+cask "agentsview"
+cask "codexbar"
+cask "conductor"
+### local
+cask "lm-studio"

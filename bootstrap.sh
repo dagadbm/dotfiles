@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")" || exit 1
 
 # Ask for the administrator password upfront
 sudo -v
@@ -20,7 +23,7 @@ set -x
 ./macos/defaults.sh
 
 # submodules
-./update-submodules.sh
+./submodules-update.sh
 
 # setup dotfiles
 ./dotbot.sh
@@ -30,13 +33,16 @@ brew bundle --file macos/Brewfile
 
 # set homebrew's zsh as the default shell for everyone
 sh -c "echo $(which zsh) >> /etc/shells"
-chsh -s $(which zsh)
+chsh -s "$(which zsh)"
 
 # setup mise
 mise install
 
+# herdr
+./herdr-update.sh
+
 # neovim
-./update-nvim.sh
+./nvim-update.sh
 
 # update
 ./update.sh

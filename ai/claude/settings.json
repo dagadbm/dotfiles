@@ -24,13 +24,9 @@
       "Bash(grep:*)",
       "Bash(tr:*)",
       "Bash(rg:*)",
-      "Bash(grep:*)",
-      "Bash(ls:*)",
-      "Bash(cat:*)",
       "Bash(sed:*)",
       "Bash(source:*)",
       "Bash(tree:*)",
-      "Bash(tail:*)",
       "Bash(git:*)",
       "Bash(curl:*)",
       "Bash(gt:*)",
@@ -77,7 +73,7 @@
       "Read(**/*.keystore)"
     ]
   },
-  "model": "sonnet",
+  "model": "opus",
   "disableBundledSkills": true,
   "hooks": {
     "PreToolUse": [
@@ -87,6 +83,18 @@
           {
             "type": "command",
             "command": "python3 ~/.agents/scripts/bash-validator-hook.py"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/dagadbm/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
           }
         ]
       }
@@ -122,5 +130,10 @@
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  }
 }

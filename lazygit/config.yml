@@ -18,3 +18,4 @@ gui:
   # If empty, do not show icons.
   nerdFontsVersion: "3"
 
+  # astrodark theme merged via LG_CONFIG_FILE (see zsh/zshrc.zsh)

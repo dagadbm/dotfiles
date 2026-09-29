@@ -7,6 +7,7 @@
 [delta]
 	navigate = true
 	light = false
+	line-numbers = true
 [merge]
 	conflictstyle = diff3
 [diff]
@@ -32,6 +33,7 @@
 [merge]
 	tool = nvim-fugitive-merge
 [mergetool]
+	prompt = false
 	keepBackup = false
 [mergetool "nvim-fugitive-merge"]
 	prompt = false
@@ -39,4 +41,7 @@
 	cmd = nvim -c "Gvdiffsplit!" -- "$MERGED"
 [column]
 	ui = auto
+# delta theme
+[include]
+	path = ~/.config/delta/astrodark.gitconfig
 # vim: set ft=gitconfig:

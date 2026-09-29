@@ -1,0 +1,26 @@
+# vim: ft=ini
+# https://ghostty.org/docs/config/reference
+
+language = en
+
+theme = astrodark
+term = xterm-256color
+
+font-family = JetBrainsMono Nerd Font Mono
+font-family-bold = JetBrainsMono NFM Bold
+font-family-italic = JetBrainsMono NFM Italic
+font-family-bold-italic = JetBrainsMono NFM Bold Italic
+
+maximize = true
+fullscreen = true
+confirm-close-surface = false
+macos-titlebar-style = transparent
+window-theme = auto
+
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+window-padding-color = background
+
+auto-update = "check"
+auto-update-channel = "stable"

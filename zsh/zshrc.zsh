@@ -84,13 +84,15 @@ export LANG=en_US.UTF-8
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 VI_MODE_SET_CURSOR=true
 
+
 # fzf
 source ~/fzf.config.zsh
 
 # zsh-autosuggestions
 # colors https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 # bindkey variables https://unix.stackexchange.com/a/117162
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
+# astrodark theme fish_color_autosuggestion #696C76 in ~/.local/share/nvim-astrovim/lazy/astrotheme/extras/fish/astrodark.fish
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#696C76'
 # accept suggestion word by word (ctrl+w)
 bindkey '^w' forward-word
 # accept all suggestions (ctrl+space)
@@ -138,6 +140,11 @@ eval "$(zoxide init zsh)"
 
 # bat
 command -v bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export BAT_THEME=astrodark
+
+# lazygit
+export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml,$HOME/.config/lazygit/themes/astrodark.yml"
+
 # Aliases {{{
 # git
 alias lg='lazygit'
@@ -176,6 +183,7 @@ alias g='git'
 alias l='lsd -hal'
 # restores tmux without creating an empty session on startup
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
+alias t="tmux-restore"
 
 # alternatives
 alias ls='lsd'
@@ -187,46 +195,128 @@ alias top='btm'
 alias htop='zenith'
 alias tldr='tealdeer'
 alias tree='tre'
-## Other scripts might use this
-# alias find='fd'
-# alias sed='sd'
-# alias ps='procs'
 
-# vim
-alias v=vim
-alias vi=vim
-# use neovim as vim everywhere
-alias vim=nvim
+# neovim
+alias avim='NVIM_APPNAME=nvim-astrovim command nvim'
+alias lvim='NVIM_APPNAME=nvim-lazyvim command nvim'
+alias dvim='NVIM_APPNAME=nvim-dagadbm command nvim'
+
+default_nvim="NVIM_APPNAME=nvim-astrovim command nvim"
+alias nvim="$default_nvim"
+alias vim="$default_nvim"
+alias vi="$default_nvim"
+alias v="$default_nvim"
+
 export EDITOR=nvim
 export GIT_EDITOR=nvim
+
+vims() {
+  local distros=(~/.config/nvim-*(N:t:s/nvim-//))
+
+  if [[ -z "$distros" ]]; then
+    command nvim "$@"
+    return
+  fi
+
+  local distro=$(print -l $distros | fzf --prompt='nvim distro> ' --height=~30% --no-preview)
+  if [[ -n "$distro" ]]; then
+    NVIM_APPNAME="nvim-$distro" command nvim "$@"
+  fi
+}
+
+alias h=herdr
 
 # bun
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
 # ai tools
-## claude
-alias claude="claude --dangerously-skip-permissions"
-export PATH="$HOME/.local/bin:$PATH"
-## gemini
-alias gemini="gemini --yolo"
-## codex
-alias codex="codex --sandbox workspace-write"
-## opencode
-export PATH="$HOME/.opencode/bin:$PATH"
-## amp
-export PATH="$HOME/.amp/bin:$PATH"
 ## claude code
+# models and efforts come from claude's newest model catalog cache
+# our flags go before "$@" so user args (incl. after --) stay last and untouched;
+# defaults are skipped when the user passes their own
+claudes() {
+  local -a opts
+  (( ${@[(I)--permission-mode|--permission-mode=*|--dangerously-skip-permissions|--allow-dangerously-skip-permissions]} )) \
+    || opts+=(--permission-mode auto)
+  # any argument skips the pickers
+  if (( $# )); then
+    command claude "${opts[@]}" "$@"
+    return
+  fi
+
+  local catalog=(~/.claude/cache/model-catalog/*.json(N.om[1]))
+  if [[ -z "$catalog" ]]; then
+    command claude "${opts[@]}" "$@"
+    return
+  fi
+
+  local model=$(jq -r '.catalog.config.models | .[] | "\(.id)\t\(.name)\t\(.description // "")"' $catalog \
+    | column -t -s $'\t' | fzf --prompt='claude model> ' --height=~40% --no-preview | awk '{print $1}')
+  [[ -z "$model" ]] && return
+
+  local efforts=$(jq -r --arg m "$model" '.catalog.config.models[] | select(.id == $m) | .thinking.effort_options[]?.id' $catalog)
+  if [[ -z "$efforts" ]]; then
+    command claude --model "$model" "${opts[@]}" "$@"
+    return
+  fi
+
+  local effort=$(print -l $efforts | fzf --prompt='claude effort> ' --height=~30% --no-preview)
+  [[ -z "$effort" ]] && return
+
+  command claude --model "$model" --effort "$effort" "${opts[@]}" "$@"
+}
+alias claude="claudes"
+alias c="claudes"
+
+## codex
+# models and efforts come from codex's model catalog cache
+# flags: -m/--model, -s/--sandbox (read-only|workspace-write|danger-full-access), -c key=value
+codexs() {
+  local -a opts
+  (( ${@[(I)-s|--sandbox|--sandbox=*|-a|--ask-for-approval|--ask-for-approval=*|--approve-for-me|--full-auto|--dangerously-bypass-approvals-and-sandbox]} )) \
+    || opts+=(--sandbox workspace-write)
+  # any argument skips the pickers
+  if (( $# )); then
+    command codex "${opts[@]}" "$@"
+    return
+  fi
+
+  local catalog=(~/.codex/models_cache.json(N))
+  if [[ -z "$catalog" ]]; then
+    command codex "${opts[@]}" "$@"
+    return
+  fi
+
+  local model=$(jq -r '.models | map(select(.visibility == "list")) | .[] | "\(.slug)\t\(.display_name)\t\(.description // "")"' $catalog \
+    | column -t -s $'\t' | fzf --prompt='codex model> ' --height=~40% --no-preview | awk '{print $1}')
+  [[ -z "$model" ]] && return
+
+  local efforts=$(jq -r --arg m "$model" '.models[] | select(.slug == $m) | .supported_reasoning_levels[]?.effort' $catalog)
+  if [[ -z "$efforts" ]]; then
+    command codex --model "$model" "${opts[@]}" "$@"
+    return
+  fi
+
+  local effort=$(print -l $efforts | fzf --prompt='codex effort> ' --height=~30% --no-preview)
+  [[ -z "$effort" ]] && return
+
+  command codex --model "$model" -c model_reasoning_effort="$effort" "${opts[@]}" "$@"
+}
+alias codex="codexs"
+alias cx="codexs"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [[ -f ~/.config/shell/p10k.mise.zsh ]] && source ~/.config/shell/p10k.mise.zsh
+[[ -f ~/.config/shell/p10k.astrodark.zsh ]] && source ~/.config/shell/p10k.astrodark.zsh
 # }}}}}}
 source ~/zshrc.work.zsh
-
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/dagadbm/.lmstudio/bin"
-# End of LM Studio CLI section
-

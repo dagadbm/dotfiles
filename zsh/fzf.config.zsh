@@ -8,46 +8,8 @@ bindkey '^F' fzf-file-widget
 # Use Ctrl-R for backward search with fzf
 bindkey '^R' fzf-history-widget
 
-# current theme: onedark
-# references: https://github.com/junegunn/fzf/blob/master/ADVANCED.md#generating-fzf-color-theme-from-vim-color-schemes
-# let g:fzf_colors = {
-#   'fg':         ['fg', 'Normal'],
-#   'fg+':        ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-#   'bg':         ['bg', 'Normal'],
-#   'bg+':        ['bg', 'CursorLine', 'CursorColumn'],
-#   'hl':         ['fg', 'Comment'],
-#   'hl+':        ['fg', 'Statement'],
-#   'info':       ['fg', 'PreProc'],
-#   'marker':     ['fg', 'Keyword'],
-#   'prompt':     ['fg', 'Conditional'],
-#   'spinner':    ['fg', 'Label'],
-#   'pointer':    ['fg', 'Exception'],
-#   'border':     ['fg', 'Ignore'],
-#   'header':     ['fg', 'Comment'] }
-#   'preview-bg': ['bg', 'NormalFloat'],
-# https://minsw.github.io/fzf-color-picker/
-fzf_fg='#abb2bf'
-fzf_fg_plus='#abb2bf'
-fzf_bg='#282c34'
-fzf_bg_plus='#31353f'
-fzf_hl='#5c6370'
-main_accent_color='#c678dd'; # purple
-# main_accent_color='#99c379' # green
-fzf_hl_plus=$main_accent_color
-fzf_info=$main_accent_color
-fzf_marker=$main_accent_color
-fzf_prompt=$main_accent_color
-fzf_spinner=$main_accent_color
-fzf_pointer=$main_accent_color
-fzf_header='#5c6370'
-# fzf_preview_bg='#31353f'
-fzf_preview_bg='-1'
-
-export FZF_THEME=" \
-  --color=fg:$fzf_fg,bg:$fzf_bg,hl:$fzf_hl \
-  --color=fg+:$fzf_fg_plus,bg+:$fzf_bg_plus,hl+:$fzf_hl_plus \
-  --color=info:$fzf_info,prompt:$fzf_prompt,pointer:$fzf_pointer \
-  --color=marker:$fzf_marker,spinner:$fzf_spinner,header:$fzf_header,preview-bg:$fzf_preview_bg"
+# theme 
+[ -f ~/.config/shell/fzf.astrodark.zsh ] && source ~/.config/shell/fzf.astrodark.zsh
 
 export FZF_DEFAULT_OPTS="$FZF_THEME \
   --layout=reverse \

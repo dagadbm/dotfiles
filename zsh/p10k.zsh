@@ -372,18 +372,20 @@
 
     if (( $1 )); then
       # Styling for up-to-date Git status.
-      local       meta='%f'     # default foreground
-      local      clean='%76F'   # green foreground
-      local   modified='%178F'  # yellow foreground
-      local  untracked='%39F'   # blue foreground
-      local conflicted='%196F'  # red foreground
+      # Colors can be overridden by a theme (e.g. p10k.astrodark.zsh).
+      local       meta="%F{${P10K_GIT_META_COLOR:-default}}"     # default foreground
+      local      clean="%F{${P10K_GIT_CLEAN_COLOR:-76}}"         # green foreground
+      local   modified="%F{${P10K_GIT_MODIFIED_COLOR:-178}}"     # yellow foreground
+      local  untracked="%F{${P10K_GIT_UNTRACKED_COLOR:-39}}"     # blue foreground
+      local conflicted="%F{${P10K_GIT_CONFLICTED_COLOR:-196}}"   # red foreground
     else
       # Styling for incomplete and stale Git status.
-      local       meta='%244F'  # grey foreground
-      local      clean='%244F'  # grey foreground
-      local   modified='%244F'  # grey foreground
-      local  untracked='%244F'  # grey foreground
-      local conflicted='%244F'  # grey foreground
+      local       grey="%F{${P10K_GIT_LOADING_COLOR:-244}}"      # grey foreground
+      local       meta=$grey
+      local      clean=$grey
+      local   modified=$grey
+      local  untracked=$grey
+      local conflicted=$grey
     fi
 
     local res
