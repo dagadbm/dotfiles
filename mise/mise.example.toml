@@ -1,0 +1,20 @@
+[tools]
+"pipx:poetry" = "latest"
+uv = "latest"
+python = "3.12.3"
+node = "22.13.0"
+pnpm = "latest"
+rust = "1.80.1"
+
+[env]
+# https://mise.jdx.dev/environments/#env-directives
+_.file = '.env'
+# to automatically create a virtual env.
+_.python.venv = { path = ".venv", create = true }
+
+[hooks]
+# https://mise.jdx.dev/tips-and-tricks.html#auto-install-when-entering-a-project
+enter = "mise i -q"
+
+[shell_alias]
+wclaude = "claude --dangerously-skip-permissions --add-dir ~/.agents/skills/work/company"

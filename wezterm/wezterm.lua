@@ -13,7 +13,7 @@ return {
   font = wezterm.font 'JetBrainsMono Nerd Font Mono',
   font_size = 13,
   line_height = 1.2,
-  color_scheme = 'OneDark (base16)',
+  color_scheme = 'astrodark',
   bypass_mouse_reporting_modifiers = 'CMD',
   enable_tab_bar = false,
   hide_tab_bar_if_only_one_tab = true,

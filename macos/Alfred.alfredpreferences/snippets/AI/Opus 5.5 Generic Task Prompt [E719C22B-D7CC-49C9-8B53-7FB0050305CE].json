@@ -1,0 +1,8 @@
+{
+  "alfredsnippet" : {
+    "snippet" : "I want you to:\n\nXXX\n\nDefinition of done is:\n\nXXX\n\nMain goal is:\n\nXXX\n\nMake sure you do:\n\nXXX\n\nNever, under any circumstances do:\n\nXXX\n\nKeep a checklist in TASKS.md. Tick each item when it’s done, and add anything new you find.\n\nWhen a step doesn't need my input, keep going. Put status notes in the same message as your next action.\n\nIf anything does not work as expected, the task needs more clarification\/information, or you get stuck, do not hesitate to ask me questions and interrupt your work so we can make sure you are doing the right thing and not going off track from the task at hand.\n\nRegardless, you must stop and ask me if:\n\nXXX",
+    "uid" : "E719C22B-D7CC-49C9-8B53-7FB0050305CE",
+    "name" : "Opus 5.5 Generic Task Prompt",
+    "keyword" : "opus55"
+  }
+}

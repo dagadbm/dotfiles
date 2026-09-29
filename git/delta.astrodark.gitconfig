@@ -1,0 +1,17 @@
+# colorscheme based on ~/.local/share/nvim-astrovim/lazy/astrotheme/extras/delta/astrodark.gitconfig
+# included from gitconfig_global
+# local fixes: upstream uses solid syntax.red/green as line BACKGROUND (unreadable) and "syntax.red"/"syntax.green"
+# (invalid in delta). Backgrounds are now blended over ui.base like astrotheme DiffAdd/DiffDelete/DiffText
+# (groups/base.lua): line = 25% colour, emph = 30% colour.
+[delta]
+  minus-style                   = syntax "#53373D"
+  minus-non-emph-style          = syntax "#53373D"
+  minus-emph-style              = syntax "#5F3C42"
+  minus-empty-line-marker-style = syntax "#53373D"
+  line-numbers-minus-style      = "#FF838B"
+  plus-style                    = syntax "#354632"
+  plus-non-emph-style           = syntax "#354632"
+  plus-emph-style               = syntax "#3B4E35"
+  plus-empty-line-marker-style  = syntax "#354632"
+  line-numbers-plus-style       = "#87C05F"
+  line-numbers-zero-style       = "#595C66"

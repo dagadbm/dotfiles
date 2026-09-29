@@ -1,22 +1,39 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")" || exit 1
 
 # tmux
 ~/.tmux/plugins/tpm/bin/clean_plugins
 ~/.tmux/plugins/tpm/bin/install_plugins
 ~/.tmux/plugins/tpm/bin/update_plugins all
-pushd ~/.tmux/plugins/tmux-thumbs
-./tmux-thumbs-install.sh update
-popd
+## tmux-thumbs
+if command -v cargo >/dev/null 2>&1; then
+  pushd ~/.tmux/plugins/tmux-thumbs || exit
+  cargo build --release --target-dir=target
+  popd || exit
+fi
 
 # submodules
-./update-submodules.sh
+./submodules-update.sh
 
 # brew
-brew bundle --file macos/Brewfile
-brew update && brew upgrade && brew cleanup && brew doctor
+./brew-update.sh
+
+# astrodark theme
+## bat
+bat cache --build
+## fast-syntax-highlighting
+zsh -c 'source ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh && fast-theme -q XDG:astrodark'
 
 # mise
-mise plugins update
+./mise-update.sh
+
+# herdr
+./herdr-update.sh
+
+# pnpm
+pnpm setup
 
 # fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish

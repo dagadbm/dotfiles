@@ -6,14 +6,16 @@
       force: true
       relink: true
 - clean:
-    - "~"
+    "~/":
+    "~/.config":
+      recursive: true
 - create:
     # extra folders cache related actions
-    - ~/.cache/nvim/undos
-    - ~/.cache/nvim/backups
-    - ~/.cache/nvim/swaps
-    - ~/.cache/nvim/sessions
-    - ~/.cache/nvim/gutentags
+    - ~/.cache/nvim-dagadbm/undos
+    - ~/.cache/nvim-dagadbm/backups
+    - ~/.cache/nvim-dagadbm/swaps
+    - ~/.cache/nvim-dagadbm/sessions
+    - ~/.cache/nvim-dagadbm/gutentags
 - link:
     # shells
     ~/.zshrc: zsh/zshrc.zsh
@@ -21,7 +23,10 @@
     ~/.zprofile: zsh/zprofile.zsh
     ~/.p10k.zsh: zsh/p10k.zsh
     ~/.config/shell/p10k.mise.zsh: zsh/p10k.mise.zsh
+    ~/.config/shell/p10k.astrodark.zsh: zsh/p10k.astrodark.zsh
     ~/fzf.config.zsh: zsh/fzf.config.zsh
+    ~/.config/shell/fzf.astrodark.zsh: zsh/fzf.astrodark.zsh
+    ~/.config/fsh/astrodark.ini: zsh/fsh.astrodark.ini
     # oh-my-zsh
     ~/.oh-my-zsh: submodules/oh-my-zsh
     ## oh-my-zsh themes
@@ -35,18 +40,18 @@
 
     # tools
     ~/.fzf: submodules/fzf
+    ~/.config/bat: bat
+    ~/.config/delta/astrodark.gitconfig: git/delta.astrodark.gitconfig
     ~/.config/mise/config.toml: mise/config.toml
     ~/.tmux.conf: tmux/tmux.conf
     ~/.config/lazygit/config.yml: lazygit/config.yml
-    ~/Library/Application Support/lazygit/config.yml: lazygit/config.yml
+    ~/.config/lazygit/themes: lazygit/themes
     ~/.config/gh/config.yml: gh/config.yml
     ~/.config/gh/hosts.yml: gh/hosts.yml
     ~/.gitconfig: git/gitconfig
     ~/.gitconfig_global: git/gitconfig_global
     ~/.gitconfig_personal: git/gitconfig_personal
     ~/.gitconfig_work: git/gitconfig_work
-    ~/.gitconfig_work_anansi: git/gitconfig_work_anansi
-    ~/.gitignore_work_anansi: git/gitignore_work_anansi
     ~/.config/git/ignore: git/gitignore
 
     # ssh
@@ -59,15 +64,15 @@
     ~/Library/Application Support/Alfred/Alfred.alfredpreferences: macos/Alfred.alfredpreferences
 
     # nvim
-    ~/.config/nvim/init.lua: neovim/init.lua
-    ## modules must be inside /lua folder
-    ~/.config/nvim/lua/config: neovim/lua/config
-    ~/.config/nvim/lua/lazy: neovim/lua/lazy
-    ~/.config/nvim/lua/plugins: neovim/lua/plugins
+    ## my config
+    ~/.config/nvim-dagadbm: neovim/dagadbm
+    ## distros
+    ~/.config/nvim-lazyvim: neovim/lazyvim
+    ~/.config/nvim-astrovim: neovim/astrovim
 
     # terminals
-    ~/.config/kitty: kitty
     ~/.config/wezterm: wezterm
+    ~/.config/ghostty: ghostty
 
     # vscode
     ~/Library/Application Support/Code/User/settings.json: vscode/settings.json
@@ -77,18 +82,13 @@
 
     # helix
     ~/.config/helix/config.toml: helix/config.toml
+    ~/.config/helix/themes: helix/themes
 
     # herdr
     ~/.config/herdr/config.toml: herdr/config.toml
 
     # ai tools
     ~/.claude/settings.json: ai/claude/settings.json
-    ~/.gemini/settings.json: ai/gemini/settings.json
     ## scripts
     ~/.agents/scripts/bash-validator-hook.py: ai/scripts/bash-validator-hook.py
     ~/.agents/scripts/notify-hook.sh: ai/scripts/notify-hook.sh
-    ## skills
-    ### work
-    ~/.agents/skills/work/anansi/.claude/skills/fix-commit-message: ai/skills/work/anansi/fix-commit-message
-    ~/.agents/skills/work/anansi/.claude/skills/gitlab-manager: ai/skills/work/anansi/gitlab-manager
-    ~/.agents/skills/work/anansi/.claude/skills/jira-manager: ai/skills/work/anansi/jira-manager
