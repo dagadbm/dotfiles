@@ -56,6 +56,9 @@ brew "helix"
 brew "agent-browser"
 
 # cask
+#
+# /Applications is for both work and life
+# ~/Applications is for work only
 cask_args appdir: "~/Applications"
 
 ## terminal
@@ -85,7 +88,7 @@ cask "terminal-browser"
 ## social
 cask "discord", args: { appdir: "/Applications" }
 cask "whatsapp", args: { appdir: "/Applications" }
-cask "slack", args: { appdir: "/Applications" }
+cask "slack"
 ## music
 cask "spotify", args: { appdir: "/Applications" }
 ## clipboard
