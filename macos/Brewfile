@@ -1,7 +1,7 @@
 # brew
 ## nvim
 brew "tree-sitter", args: ["HEAD"]
-brew "neovim", args: ["HEAD"]
+brew "bob"
 brew "universal-ctags"
 brew "tree-sitter-cli"
 brew "luarocks"

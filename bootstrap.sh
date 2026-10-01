@@ -38,10 +38,10 @@ chsh -s "$(which zsh)"
 # setup mise
 mise install
 
-# herdr
-./herdr-update.sh
-
 # neovim
+bob install latest
+bob install nightly
+bob use nightly
 ./nvim-update.sh
 
 # update
