@@ -12,8 +12,10 @@ sudo -v
 # sudo scutil --set LocalHostName localhostname
 
 # setup brew
-# brew automatically install and updated xcode
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# xcode
+xcode-select --install
 
 # print commands
 # do this after setup brew else brew will print the shell script

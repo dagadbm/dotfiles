@@ -33,7 +33,7 @@ zsh -c 'source ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-
 ./herdr-update.sh
 
 # pnpm
-pnpm setup
+pnpm setup || true
 
 # fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish

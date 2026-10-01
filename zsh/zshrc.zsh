@@ -200,15 +200,16 @@ alias tree='tre'
 alias avim='NVIM_APPNAME=nvim-astrovim command nvim'
 alias lvim='NVIM_APPNAME=nvim-lazyvim command nvim'
 alias dvim='NVIM_APPNAME=nvim-dagadbm command nvim'
+alias vvim='command nvim'
 
-default_nvim="NVIM_APPNAME=nvim-astrovim command nvim"
-alias nvim="$default_nvim"
-alias vim="$default_nvim"
-alias vi="$default_nvim"
-alias v="$default_nvim"
+current_nvim="NVIM_APPNAME=nvim-astrovim command nvim"
+alias nvim="$current_nvim"
+alias vim="$current_nvim"
+alias vi="$current_nvim"
+alias v="$current_nvim"
 
-export EDITOR=nvim
-export GIT_EDITOR=nvim
+export EDITOR="$current_nvim"
+export GIT_EDITOR="$current_nvim"
 
 vims() {
   local distros=(~/.config/nvim-*(N:t:s/nvim-//))
@@ -223,7 +224,10 @@ vims() {
     NVIM_APPNAME="nvim-$distro" command nvim "$@"
   fi
 }
+## bob
+export PATH="$HOME/Library/Application Support/bob/nvim-bin:$PATH"
 
+# herdr
 alias h=herdr
 
 # bun
@@ -237,6 +241,8 @@ case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
+# pnpm end
+
 
 # ai tools
 ## claude code
