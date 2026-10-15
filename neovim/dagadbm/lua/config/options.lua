@@ -61,18 +61,15 @@ vim.opt.colorcolumn = '80'
 
 -- [[ Backups ]]
 -- Maintain undo history between sessions
-vim.opt.undodir = vim.fn.expand('~/.cache/nvim-dagadbm/undos/')
+vim.opt.undodir = vim.fn.expand('~/.cache/nvim-dagadbm/undos//')
 vim.opt.undofile = true
 vim.opt.undolevels = 100000
 vim.opt.undoreload = 100000
 -- Backup everything to prevent code loss catastrophes
 vim.opt.backup = true
 vim.opt.writebackup = true
-vim.opt.backupdir = vim.fn.expand('~/.cache/nvim-dagadbm/backups/')
--- Swap files
-vim.opt.swapfile = true
-vim.opt.directory = vim.fn.expand('~/.cache/nvim-dagadbm/swaps/')
-
+vim.opt.backupdir = vim.fn.expand('~/.cache/nvim-dagadbm/backups//')
+vim.opt.swapfile = false
 -- [[ Sessions ]]
 -- recommended options from auto-session
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

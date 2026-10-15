@@ -6,13 +6,13 @@
 # Built-in themes: catppuccin, terminal, tokyo-night, dracula, nord,
 #                  gruvbox, one-dark, solarized, kanagawa, rose-pine,
 #                  vesper
-name = "one-dark"
+# name = "one-dark"
 
 # Follow host terminal light/dark appearance and switch Herdr UI themes.
 # Existing manual behavior is unchanged unless this is true.
 auto_switch = false
-# dark_name = "catppuccin"
-# light_name = "catppuccin-latte"
+# dark_name = "one-dark"
+# light_name = "one-dark"
 
 # Override individual color tokens on top of the base theme.
 # Accepts: hex (#rrggbb), named colors, rgb(r,g,b), or panel_bg = "reset"
@@ -285,7 +285,7 @@ status_indicators = "symbols"
 
 # Accent color for highlights, borders, and navigation UI.
 # Accepts: hex (#89b4fa), named colors (cyan, blue, magenta), or rgb(r,g,b)
-# accent = "cyan"
+accent = "#5EB7FF" # astrodark theme
 
 # Background notification popup delivery
 show_agent_labels_on_pane_borders = true
@@ -294,7 +294,7 @@ show_agent_labels_on_pane_borders = true
 # herdr = show in-app toasts
 # terminal = ask the outer terminal to show a desktop notification
 # system = ask the OS notification service directly
-delivery = "off" # done via herdr-focus-notify
+delivery = "off" # done via the dagadbm plugin (notify)
 delay_seconds = 3
 
 [ui.toast.herdr]
@@ -320,7 +320,7 @@ enabled = false
 [session]
 # Resume supported AI-agent panes into their native conversation sessions after
 # a Herdr server restart. Requires official integrations that report session refs.
-# resume_agents_on_restore = true
+resume_agents_on_restore = true
 
 [remote]
 # Whether herdr manages the ssh config used for `herdr --remote`.
@@ -340,7 +340,7 @@ allow_nested = false
 # Requires a Kitty graphics-compatible outer terminal.
 kitty_graphics = false
 # Save recent pane screen history across full server restarts.
-pane_history = true
+pane_history = false
 # While prefix mode is active, temporarily switch the host input source to
 # an ASCII-capable mode so prefix commands register even when an IME is
 # active, then restore the previous input source when prefix mode exits. On

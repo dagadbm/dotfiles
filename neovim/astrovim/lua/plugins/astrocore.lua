@@ -65,6 +65,16 @@ return {
           spell = false, -- sets vim.opt.spell
           signcolumn = "yes", -- sets vim.opt.signcolumn to yes
           wrap = false, -- sets vim.opt.wrap
+          swapfile = false, -- no swap files
+          backup = true, -- keep backup after write
+          writebackup = true, -- backup before overwriting
+          ignorecase = true, -- ignore case when searching
+          smartcase = true,
+          backupdir = vim.fn.expand('~/.cache/nvim-astrovim/backups//'),
+          undodir = vim.fn.expand('~/.cache/nvim-astrovim/undos//'),
+          undofile = true,
+          undolevels = 100000,
+          undoreload = 100000,
         },
         g = { -- vim.g.<key>
           -- configure global vim variables (vim.g)
@@ -97,6 +107,15 @@ return {
         },
       },
       autocmds = {
+        -- Change vim backupfile name: filename@2000-01-01_00:00
+        backup_extension = {
+          {
+            event = "BufWritePre",
+            pattern = "*",
+            desc = "Change vim backupfile name: filename@2000-01-01_00:00",
+            command = [[let &bex = '@' .. strftime("%F_%H:%M")]],
+          },
+        },
         -- https://docs.astronvim.com/recipes/sessions/#git-branch-specific-directory-sessions
         git_branch_sessions = {
           -- auto save directory sessions on leaving

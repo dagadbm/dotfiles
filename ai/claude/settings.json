@@ -73,7 +73,7 @@
       "Read(**/*.keystore)"
     ]
   },
-  "model": "opus",
+  "model": "sonnet",
   "disableBundledSkills": true,
   "hooks": {
     "PreToolUse": [
@@ -124,16 +124,19 @@
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": false,
   "effortLevel": "medium",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "low"
+    }
+  },
   "promptSuggestionEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false,
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "effortLevel": "high"
-    }
-  }
+  "agentPushNotifEnabled": false
 }

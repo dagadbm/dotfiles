@@ -6,3 +6,9 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+-- Change vim backupfile name: filename@2000-01-01_00:00
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  command = [[let &bex = '@' .. strftime("%F_%H:%M")]],
+})
