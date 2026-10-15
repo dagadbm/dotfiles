@@ -24,7 +24,7 @@ fi
 ## bat
 bat cache --build
 ## fast-syntax-highlighting
-zsh -c 'source ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh && fast-theme -q XDG:astrodark'
+zsh -c 'source ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh && fast-theme -q ~/.config/shell/fsh.astrodark.ini'
 
 # mise
 ./mise-update.sh

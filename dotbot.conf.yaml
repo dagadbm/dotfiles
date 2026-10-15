@@ -12,8 +12,11 @@
 - create:
     # extra folders cache related actions
     - ~/.cache/nvim-dagadbm/undos
+    - ~/.cache/nvim-astrovim/undos
+    - ~/.cache/nvim-lazyvim/undos
     - ~/.cache/nvim-dagadbm/backups
-    - ~/.cache/nvim-dagadbm/swaps
+    - ~/.cache/nvim-astrovim/backups
+    - ~/.cache/nvim-lazyvim/backups
     - ~/.cache/nvim-dagadbm/sessions
     - ~/.cache/nvim-dagadbm/gutentags
 - link:
@@ -26,7 +29,11 @@
     ~/.config/shell/p10k.astrodark.zsh: zsh/p10k.astrodark.zsh
     ~/fzf.config.zsh: zsh/fzf.config.zsh
     ~/.config/shell/fzf.astrodark.zsh: zsh/fzf.astrodark.zsh
-    ~/.config/fsh/astrodark.ini: zsh/fsh.astrodark.ini
+    ~/.config/shell/fsh.astrodark.ini: zsh/fsh.astrodark.ini
+    ~/.config/shell/ls-colors.astrodark.zsh: zsh/ls-colors.astrodark.zsh
+    ~/.config/lsd/config.yaml: zsh/lsd.config.yaml
+    ~/.config/lsd/colors.yaml: zsh/lsd.astrodark.yaml
+    ~/.config/broot/conf.toml: zsh/broot.conf.toml
     # oh-my-zsh
     ~/.oh-my-zsh: submodules/oh-my-zsh
     ## oh-my-zsh themes

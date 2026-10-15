@@ -100,6 +100,9 @@ bindkey '^ ' autosuggest-accept
 # execute suggestion (ctrl+e)
 bindkey '^e' autosuggest-execute
 
+# LS_COLORS
+source "$HOME/.config/shell/ls-colors.astrodark.zsh"
+
 # fzf-tab
 # reference: https://github.com/Aloxaf/fzf-tab/wiki/Configuration
 # this is needed since fzf overrides ^I
@@ -195,21 +198,21 @@ alias top='btm'
 alias htop='zenith'
 alias tldr='tealdeer'
 alias tree='tre'
+alias mkdn='glow'
 
 # neovim
 alias avim='NVIM_APPNAME=nvim-astrovim command nvim'
 alias lvim='NVIM_APPNAME=nvim-lazyvim command nvim'
 alias dvim='NVIM_APPNAME=nvim-dagadbm command nvim'
-alias vvim='command nvim'
+alias vvim='NVIM_APPNAME=nvim command nvim'
 
-current_nvim="NVIM_APPNAME=nvim-astrovim command nvim"
-alias nvim="$current_nvim"
-alias vim="$current_nvim"
-alias vi="$current_nvim"
-alias v="$current_nvim"
+export NVIM_APPNAME="nvim-astrovim"
+alias vim="nvim"
+alias vi="nvim"
+alias v="nvim"
 
-export EDITOR="$current_nvim"
-export GIT_EDITOR="$current_nvim"
+export EDITOR="nvim"
+export GIT_EDITOR="nvim"
 
 vims() {
   local distros=(~/.config/nvim-*(N:t:s/nvim-//))
@@ -226,6 +229,9 @@ vims() {
 }
 ## bob
 export PATH="$HOME/Library/Application Support/bob/nvim-bin:$PATH"
+
+# broot
+source "$HOME/.config/broot/launcher/zsh/br"
 
 # herdr
 alias h=herdr

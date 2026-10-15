@@ -17,6 +17,11 @@ brew "terminal-notifier"
 #### herdr plugin yankewei/herdr-focus-notify
 tap "vjeantet/tap", trusted: true
 brew "vjeantet/tap/alerter", trusted: true
+### terminal on mobile
+tap "rjyo/moshi", trusted: true
+brew "mosh"
+brew "moshi-hook"
+brew "tailscale"
 ## git
 brew "git"
 brew "gh"
@@ -27,7 +32,6 @@ brew "grep"
 brew "ripgrep"
 brew "fd"
 brew "bat"
-brew "ranger"
 brew "broot"
 brew "jq"
 brew "curl"
@@ -101,9 +105,12 @@ cask "orbstack"
 cask "yaak"
 cask "ngrok"
 cask "dbeaver-community"
+## meetings
+cask "zoom"
+cask "microsoft-teams"
 ## ai
 ### chat
-cask "gemini", args: { appdir: "/Applications" }
+cask "google-gemini", args: { appdir: "/Applications" }
 cask "manus", args: { appdir: "/Applications" }
 cask "claude", args: { appdir: "/Applications" }
 cask "chatgpt", args: { appdir: "/Applications" }
@@ -116,6 +123,5 @@ cask "anomalyco/tap/hex", trusted: true
 ### utils
 cask "agentsview"
 cask "codexbar"
-cask "conductor"
 ### local
 cask "lm-studio"
