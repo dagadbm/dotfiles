@@ -31,3 +31,11 @@ git submodule add https://github.com/wfxr/forgit.git submodules/forgit
 ```bash
 export MODULE=submodules/repo_name && git submodule deinit -f $MODULE && rm -rf .git/modules/$MODULE && git rm -f $MODULE
 ```
+
+### Tailscale
+
+```bash
+sudo scutil --set ComputerName dagadbm-personal-mac
+sudo scutil --set HostName dagadbm-personal-mac
+sudo scutil --set LocalHostName dagadbm-personal-mac
+```

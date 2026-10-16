@@ -6,11 +6,6 @@ cd "$(dirname "$0")" || exit 1
 # Ask for the administrator password upfront
 sudo -v
 
-# To change computer name settings on a mac
-# sudo scutil --set ComputerName computername
-# sudo scutil --set HostName hostname
-# sudo scutil --set LocalHostName localhostname
-
 # disable homebrew analytics and other telemetry
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSIGHTS=1
