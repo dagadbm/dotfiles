@@ -96,6 +96,7 @@
 
     # ai tools
     ~/.claude/settings.json: ai/claude/settings.json
+    ~/.config/ccstatusline/settings.json: ai/claude/ccstatusline.settings.json
     ## scripts
     ~/.agents/scripts/bash-validator-hook.py: ai/scripts/bash-validator-hook.py
     ~/.agents/scripts/notify-hook.sh: ai/scripts/notify-hook.sh

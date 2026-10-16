@@ -17,8 +17,18 @@ uv = "latest"
 # needed for lazyvim
 lua = "5.1"
 
+# needed for claude code lsp plugins
+"npm:pyright" = "latest"
+# claude code only supports typescript-language-server which needs ts6
+"npm:typescript" = "6"
+"npm:typescript-language-server" = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
+"aqua:LuaLS/lua-language-server" = "latest"
+
 [settings]
 experimental = true
 activate_aggressive = true
 # https://mise.jdx.dev/lang/python.html#mise-uv
 python.uv_venv_create_args = ["--seed"]
+# use pnpm instead of npm
+npm.package_manager = "pnpm"
