@@ -245,8 +245,12 @@ nightshift() {
   case $1 in
     on)
       [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
+      sudo brew services start tailscale && sudo tailscale up --ssh && \
       sudo pmset -a disablesleep 1 && pmset displaysleepnow ;;
-    off) sudo pmset -a disablesleep 0 ;;
+    off)
+      sudo pmset -a disablesleep 0
+      sudo tailscale logout
+      sudo brew services stop tailscale ;;
     status) pmset -g | grep -q 'SleepDisabled[[:space:]]*1' && print "nightshift: on" || print "nightshift: off" ;;
     *) print "usage: nightshift on|off|status" ;;
   esac
@@ -271,7 +275,7 @@ esac
 # models and efforts come from claude's newest model catalog cache
 # our flags go before "$@" so user args (incl. after --) stay last and untouched;
 # defaults are skipped when the user passes their own
-claudes() {
+c() {
   local -a opts
   (( ${@[(I)--permission-mode|--permission-mode=*|--dangerously-skip-permissions|--allow-dangerously-skip-permissions]} )) \
     || opts+=(--permission-mode auto)
@@ -302,13 +306,11 @@ claudes() {
 
   command claude --model "$model" --effort "$effort" "${opts[@]}" "$@"
 }
-alias claude="claudes"
-alias c="claudes"
 
 ## codex
 # models and efforts come from codex's model catalog cache
 # flags: -m/--model, -s/--sandbox (read-only|workspace-write|danger-full-access), -c key=value
-codexs() {
+cx() {
   local -a opts
   (( ${@[(I)-s|--sandbox|--sandbox=*|-a|--ask-for-approval|--ask-for-approval=*|--approve-for-me|--full-auto|--dangerously-bypass-approvals-and-sandbox]} )) \
     || opts+=(--sandbox workspace-write)
@@ -339,8 +341,6 @@ codexs() {
 
   command codex --model "$model" -c model_reasoning_effort="$effort" "${opts[@]}" "$@"
 }
-alias codex="codexs"
-alias cx="codexs"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

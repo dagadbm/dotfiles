@@ -57,7 +57,7 @@ return {
         },
         tools = {
           claude = {
-            cmd = { "zsh", "-ic", "claudes" },
+            cmd = { "zsh", "-ic", "c" },
             native_scroll = true,
           },
         },
