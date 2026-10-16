@@ -16,9 +16,7 @@ brew update
 brew upgrade
 
 # tailscale
-sudo brew services start tailscale
-sudo tailscale up --ssh
-mosh_server="$(realpath "$(brew --prefix)/bin/mosh-server")"
+mosh_server="$(command -v mosh-server)"
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "$mosh_server"
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp "$mosh_server"
 brew doctor || true
