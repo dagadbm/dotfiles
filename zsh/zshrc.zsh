@@ -186,6 +186,7 @@ alias g='git'
 # forgit_fixup=gfu
 
 # utils
+alias restart='exec zsh'
 alias l='lsd -hal'
 # restores tmux without creating an empty session on startup
 alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
@@ -238,6 +239,18 @@ source "$HOME/.config/broot/launcher/zsh/br"
 
 # herdr
 alias h=herdr
+
+# tailscale
+nightshift() {
+  case $1 in
+    on)
+      [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
+      sudo pmset -a disablesleep 1 && pmset displaysleepnow ;;
+    off) sudo pmset -a disablesleep 0 ;;
+    status) pmset -g | grep -q 'SleepDisabled[[:space:]]*1' && print "nightshift: on" || print "nightshift: off" ;;
+    *) print "usage: nightshift on|off|status" ;;
+  esac
+}
 
 # bun
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

@@ -24,7 +24,7 @@ brew analytics off
 set -x
 
 # xcode
-xcode-select --install
+xcode-select --install || true
 
 # setup macos defaults
 ./macos/defaults.sh
@@ -39,8 +39,8 @@ xcode-select --install
 brew bundle --file macos/Brewfile
 
 # set homebrew's zsh as the default shell for everyone
-sh -c "echo /opt/homebrew/bin/zsh >> /etc/shells"
-chsh -s "/opt/homebrew/bin/zsh"
+sudo sh -c "echo /opt/homebrew/bin/zsh >> /etc/shells"
+sudo chsh -s "/opt/homebrew/bin/zsh"
 
 # setup mise
 mise install
