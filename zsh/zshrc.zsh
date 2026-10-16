@@ -245,14 +245,15 @@ nightshift() {
   case $1 in
     on)
       [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
-      sudo brew services start tailscale && sudo tailscale up --ssh && \
       sudo pmset -a disablesleep 1 && pmset displaysleepnow ;;
-    off)
-      sudo pmset -a disablesleep 0
-      sudo tailscale logout
-      sudo brew services stop tailscale ;;
-    status) pmset -g | grep -q 'SleepDisabled[[:space:]]*1' && print "nightshift: on" || print "nightshift: off" ;;
-    *) print "usage: nightshift on|off|status" ;;
+    off) sudo pmset -a disablesleep 0 ;;
+    connect) sudo brew services start tailscale && sudo tailscale up --ssh ;;
+    disconnect) sudo tailscale logout; sudo brew services stop tailscale ;;
+    status)
+      pmset -g | grep -q 'SleepDisabled[[:space:]]*1' && print "nightshift: on" || print "nightshift: off"
+      local ts=$(tailscale status --json 2>/dev/null | jq -r .BackendState 2>/dev/null)
+      print "tailscale: ${ts:-service stopped}" ;;
+    *) print "usage: nightshift on|off|connect|disconnect|status" ;;
   esac
 }
 
