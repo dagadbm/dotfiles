@@ -47,3 +47,6 @@ for plugin in "${plugins[@]}"; do
   claude plugin install "$plugin"
   claude plugin update "$plugin"
 done
+
+## caveman
+ npx @caveman-ai/cli@latest

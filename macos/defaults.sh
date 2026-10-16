@@ -247,11 +247,25 @@ defaults write com.apple.lookup.shared LookupSuggestionsDisabled -bool true
 # Firewall                                                                    #
 ###############################################################################
 
-# Keep the application firewall off
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off
+# Turn the application firewall on (blocks incoming connections to apps,
+# e.g. dev servers bound to 0.0.0.0, on untrusted networks)
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
-# Keep stealth mode off (the Mac answers pings and port probes)
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode off
+# Let built-in Apple software receive incoming connections through the firewall
+# (keeps AirDrop and other system sharing services working)
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned on
+
+# Turn stealth mode on (the Mac ignores pings and port probes)
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+
+###############################################################################
+# Tailscale                                                                   #
+###############################################################################
+
+# Disable Remote Login (sshd): remote shells go through Tailscale SSH instead,
+# which listens only on the tailnet, so nothing answers SSH on the LAN
+# (needs Full Disk Access for the terminal running this script)
+sudo systemsetup -f -setremotelogin off
 
 ###############################################################################
 # Screen                                                                      #
