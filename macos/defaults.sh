@@ -65,8 +65,8 @@ defaults write NSGlobalDomain NSAutomaticInlinePredictionEnabled -bool false
 # Disable text completion suggestions
 defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool false
 
-# Reduce motion: turn off system animations
-defaults write com.apple.universalaccess reduceMotion -bool true
+# Keep Reduce motion off: on, Space swipes lose the slide and look jagged
+defaults write com.apple.universalaccess reduceMotion -bool false
 
 # Disable Siri
 defaults write com.apple.assistant.support "Assistant Enabled" -bool false
@@ -187,10 +187,6 @@ defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "<dic
 
 # Enable lid wakeup on battery and charger
 sudo pmset -a lidwake 1
-
-# Allow sleep, so closing the lid always sleeps on battery and charger
-# (1 would block all sleep, including lid close)
-sudo pmset -a disablesleep 0
 
 # Never put the system to sleep while on charger (closing the lid still sleeps)
 sudo pmset -c sleep 0
@@ -413,9 +409,6 @@ defaults write com.apple.dock static-only -bool true
 
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false
-
-# Speed up Mission Control animations
-defaults write com.apple.dock expose-animation-duration -float 0.1
 
 # Don’t group windows by application in Mission Control
 # (i.e. use the old Exposé behavior instead)

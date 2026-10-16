@@ -73,7 +73,7 @@
       "Read(**/*.keystore)"
     ]
   },
-  "model": "sonnet",
+  "model": "opus",
   "disableBundledSkills": true,
   "hooks": {
     "PreToolUse": [
@@ -103,9 +103,22 @@
   "worktree": {
     "baseRef": "fresh"
   },
+  "statusLine": {
+    "type": "command",
+    "command": "ccstatusline",
+    "padding": 0,
+    "refreshInterval": 10
+  },
   "enabledPlugins": {
     "caveman@caveman": true,
-    "mattpocock-skills@claude-plugins-official": true
+    "mattpocock-skills@claude-plugins-official": true,
+    "pstack@potetos-for-everyone": true,
+    "agent-skills@addy-agent-skills": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -118,6 +131,18 @@
       "source": {
         "source": "github",
         "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "potetos-for-everyone": {
+      "source": {
+        "source": "github",
+        "repo": "TheOnlyFusionCube/potetos-for-everyone"
+      }
+    },
+    "addy-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "addyosmani/agent-skills"
       }
     }
   },

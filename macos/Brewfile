@@ -18,9 +18,7 @@ brew "terminal-notifier"
 tap "vjeantet/tap", trusted: true
 brew "vjeantet/tap/alerter", trusted: true
 ### terminal on mobile
-tap "rjyo/moshi", trusted: true
 brew "mosh"
-brew "moshi-hook"
 brew "tailscale"
 ## git
 brew "git"
@@ -34,6 +32,8 @@ brew "fd"
 brew "bat"
 brew "broot"
 brew "jq"
+brew "yq"
+brew "taplo"
 brew "curl"
 brew "wget"
 brew "zoxide"
