@@ -9,7 +9,8 @@
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787/w/claude",
     "_CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL": "1",
-    "ENABLE_TOOL_SEARCH": "auto"
+    "ENABLE_TOOL_SEARCH": "auto",
+    "CAVEMAN_DEFAULT_MODE": "ultracave"
   },
   "includeCoAuthoredBy": false,
   "permissions": {
