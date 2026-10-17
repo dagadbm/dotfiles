@@ -96,6 +96,14 @@ return {
             function() require("resession").load(get_session_name(), { dir = "dirsession" }) end,
             desc = "Load current dirsession",
           },
+          ["<Leader>r"] = {
+            function() require("astrocore").rename_file() end,
+            desc = "Rename file",
+          },
+          ["<Leader>R"] = {
+            function() vim.cmd.restart() end,
+            desc = "Restart AstroNvim",
+          },
         },
       },
       -- Configuration table of session options for AstroNvim's session management powered by Resession

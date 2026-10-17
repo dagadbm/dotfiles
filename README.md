@@ -15,6 +15,7 @@ Run `./herdr-update.sh` to update herdr
 Run `./submodules-update.sh` to update submodules
 Run `./brew-update.sh` to update Homebrew
 Run `./mise-update.sh` to update mise
+Run `./ai-update.sh` to update ai tooling
 Run `./prune.sh` to prune everything (brew + mise)
 Run `./brew-prune.sh` to prune Homebrew to match Brewfile
 Run `./mise-prune.sh` to prune mise
