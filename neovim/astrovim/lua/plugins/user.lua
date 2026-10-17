@@ -23,8 +23,8 @@ return {
             if #state().get(vim.tbl_extend("force", filter, { attached = true })) > 0 then
               if args.action then sidekick_cli()[args.action] { filter = filter } end
             else
-              local state = vim.iter(state().get { name = "claude" }):find(function(s) return not s.external end)
-              if state then state().attach(state, { show = true, focus = args.focus }) end
+              local session = vim.iter(state().get { name = "claude" }):find(function(s) return not s.external end)
+              if session then state().attach(session, { show = true, focus = args.focus }) end
             end
             if args.msg then sidekick_cli().send { msg = args.msg, filter = filter } end
           end
