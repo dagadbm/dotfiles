@@ -14,34 +14,42 @@ return {
         "AstroNvim/astrocore",
         ---@param opts AstroCoreOpts
         opts = function(_, opts)
+          local sidekick_cli = function() return require("sidekick.cli") end
+
+          local function cli(args)
+            args = args or {}
+            local state = function() return require("sidekick.cli.state") end
+            local filter = { name = "claude", terminal = true }
+            if #state().get(vim.tbl_extend("force", filter, { attached = true })) > 0 then
+              if args.action then sidekick_cli()[args.action] { filter = filter } end
+            else
+              local state = vim.iter(state().get { name = "claude" }):find(function(s) return not s.external end)
+              if state then state().attach(state, { show = true, focus = args.focus }) end
+            end
+            if args.msg then sidekick_cli().send { msg = args.msg, filter = filter } end
+          end
+
           return require("astrocore").extend_tbl(opts, {
             mappings = {
               n = {
                 ["<Leader>a"] = { desc = require("astroui").get_icon("Sidekick", 1, true) .. "Sidekick" },
-                ["<Leader>aa"] = { function() require("sidekick.cli").toggle() end, desc = "Sidekick Toggle CLI" },
-                ["<Leader>as"] = { function() require("sidekick.cli").select() end, desc = "Select CLI" },
-                ["<Leader>ad"] = { function() require("sidekick.cli").close() end, desc = "Detach a CLI Session" },
-                ["<Leader>at"] = { function() require("sidekick.cli").send { msg = "{this}" } end, desc = "Send This" },
-                ["<Leader>af"] = { function() require("sidekick.cli").send { msg = "{file}" } end, desc = "Send File" },
-                ["<Leader>ap"] = { function() require("sidekick.cli").prompt() end, desc = "Select Prompt" },
-                ["<C-.>"] = { function() require("sidekick.cli").toggle {} end, desc = "Sidekick Toggle" },
+                ["<Leader>aa"] = { function() cli { action = "toggle", focus = true } end, desc = "Sidekick Toggle CLI" },
+                ["<Leader>as"] = { function() cli { action = "show", focus = true } end, desc = "Select CLI" },
+                ["<Leader>ac"] = { function() sidekick_cli().close { name = "claude" } end, desc = "Close a CLI Session" },
+                ["<Leader>at"] = { function() cli { msg = "{this}", focus = false } end, desc = "Send This" },
+                ["<Leader>af"] = { function() cli { msg = "{file}", focus = false } end, desc = "Send File" },
+                ["<Leader>ap"] = { function() sidekick_cli().prompt() end, desc = "Select Prompt" },
+                ["<C-.>"] = { function() cli { action = "toggle", focus = true } end, desc = "Sidekick Toggle" },
               },
               x = {
                 ["<Leader>a"] = { desc = require("astroui").get_icon("Sidekick", 1, true) .. "Sidekick" },
-                ["<Leader>at"] = { function() require("sidekick.cli").send { msg = "{this}" } end, desc = "Send This" },
-                ["<Leader>av"] = {
-                  function() require("sidekick.cli").send { msg = "{selection}" } end,
-                  desc = "Send Visual Selection",
-                },
-                ["<Leader>ap"] = { function() require("sidekick.cli").prompt {} end, desc = "Select Prompt" },
-                ["<C-.>"] = { function() require("sidekick.cli").toggle {} end, desc = "Sidekick Toggle" },
+                ["<Leader>at"] = { function() cli { msg = "{this}", focus = false } end, desc = "Send This" },
+                ["<Leader>av"] = { function() cli { msg = "{selection}", focus = false } end, desc = "Send Visual Selection" },
+                ["<Leader>ap"] = { function() sidekick_cli().prompt {} end, desc = "Select Prompt" },
+                ["<C-.>"] = { function() cli { action = "toggle", focus = true } end, desc = "Sidekick Toggle" },
               },
-              i = {
-                ["<C-.>"] = { function() require("sidekick.cli").toggle {} end, desc = "Sidekick Toggle" },
-              },
-              t = {
-                ["<C-.>"] = { function() require("sidekick.cli").toggle {} end, desc = "Sidekick Toggle" },
-              },
+              i = { ["<C-.>"] = { function() cli { action = "toggle", focus = true } end, desc = "Sidekick Toggle" } },
+              t = { ["<C-.>"] = { function() cli { action = "toggle", focus = true } end, desc = "Sidekick Toggle" } },
             },
           })
         end,
@@ -57,7 +65,7 @@ return {
         },
         tools = {
           claude = {
-            cmd = { "zsh", "-ic", "c" },
+            cmd = { "zsh", "-ic", "claude --model haiku --effort low" },
             native_scroll = true,
           },
         },

@@ -16,7 +16,7 @@ Personal macOS dev environment. Each tool owns a top-level directory; Dotbot sym
 ./update.sh                          # update everything (ask first)
 ./nvim-update.sh                     # update Neovim, LSP, plugins
 ./herdr-update.sh                    # update herdr
-./claude-update.sh                   # update Claude plugins, marketplaces, ccstatusline
+./ai-update.sh                       # update AI tooling
 ./submodules-update.sh               # update submodules (ask first)
 ./brew-update.sh                     # update Homebrew
 ./mise-update.sh                     # update mise

@@ -35,8 +35,8 @@ zsh -c 'source ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-
 # pnpm
 pnpm setup || true
 
-# claude
-./claude-update.sh
+# ai
+./ai-update.sh
 
 # fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish

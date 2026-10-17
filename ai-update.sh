@@ -3,10 +3,12 @@ set -euo pipefail
 
 cd "$(dirname "$0")" || exit 1
 
-# ccstatusline
+# claude
+
+## ccstatusline
 pnpm add -g ccstatusline@latest
 
-# language servers for the *-lsp plugins, each from its official install method
+## language servers for the *-lsp plugins, each from its official install method
 rustup component add rust-analyzer
 
 mise use -g \
@@ -14,12 +16,12 @@ mise use -g \
   go:golang.org/x/tools/gopls@latest \
   aqua:LuaLS/lua-language-server@latest
 
-# claude code only supports typescript-language-server which needs ts6
+## claude code only supports typescript-language-server which needs ts6
 mise use -g \
   npm:typescript@6 \
   npm:typescript-language-server@latest \
 
-# marketplaces
+## marketplaces
 marketplaces=(
   anthropics/claude-plugins-official
   JuliusBrussee/caveman
@@ -31,7 +33,7 @@ for marketplace in "${marketplaces[@]}"; do
 done
 claude plugin marketplace update
 
-# plugins
+## plugins
 plugins=(
   caveman@caveman
   mattpocock-skills@claude-plugins-official
@@ -48,7 +50,7 @@ for plugin in "${plugins[@]}"; do
   claude plugin update "$plugin"
 done
 
-## caveman
+### caveman
 npx @caveman-ai/cli@latest
 caveman telemetry off
 caveman off routing

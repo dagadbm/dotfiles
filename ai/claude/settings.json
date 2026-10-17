@@ -238,14 +238,14 @@
   },
   "enabledPlugins": {
     "caveman@caveman": true,
-    "mattpocock-skills@claude-plugins-official": true,
-    "pstack@potetos-for-everyone": true,
     "agent-skills@addy-agent-skills": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "mattpocock-skills@claude-plugins-official": false,
+    "pstack@potetos-for-everyone": false,
+    "rust-analyzer-lsp@claude-plugins-official": false,
+    "pyright-lsp@claude-plugins-official": false,
+    "typescript-lsp@claude-plugins-official": false,
+    "gopls-lsp@claude-plugins-official": false,
+    "lua-lsp@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -275,8 +275,23 @@
   },
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": false,
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "autoCompactWindow": 300000
+    },
+    "claude-opus-5-5": {
+      "autoCompactWindow": 300000
+    },
+    "claude-haiku-5-5": {
+      "autoCompactWindow": 300000
+    },
+    "claude-sonnet-5-5": {
+      "autoCompactWindow": 300000
+    }
+  },
   "promptSuggestionEnabled": false,
   "tui": "fullscreen",
+  "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
