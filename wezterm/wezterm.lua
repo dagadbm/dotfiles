@@ -49,45 +49,28 @@ return {
       format = 'mailto:$0',
     },
   },
-  -- (https://wezterm.org/config/mouse.html)
+  bypass_mouse_reporting_modifiers = 'CMD',
   mouse_bindings = {
-    -- Change the default click behavior so that it only selects
-    -- text and doesn't open hyperlinks
     {
       event = { Up = { streak = 1, button = 'Left' } },
       mods = 'NONE',
-      action = act.CompleteSelection 'ClipboardAndPrimarySelection',
+      action = act.CompleteSelectionOrOpenLinkAtMouseCursor 'ClipboardAndPrimarySelection',
     },
-    -- and make CMD-Click open hyperlinks
     {
       event = { Up = { streak = 1, button = 'Left' } },
       mods = 'CMD',
-      mouse_reporting = true,
-      action = act.OpenLinkAtMouseCursor,
-    },
-    -- https://wezterm.org/config/mouse.html#gotcha-on-binding-an-up-event-only
-    {
-      event = { Down = { streak = 1, button = 'Left' } },
-      mods = 'NONE',
-      action = act.Nop,
-    },
-    {
-      event = { Down = { streak = 1, button = 'Left' } },
-      mods = 'CMD',
-      mouse_reporting = true,
-      action = act.Nop,
+      action = act.CompleteSelectionOrOpenLinkAtMouseCursor 'ClipboardAndPrimarySelection',
     },
   },
   keys = {
     {
+      key = 'Escape',
+      action = act.Multiple { act.ClearSelection, act.SendKey { key = 'Escape' } },
+    },
+    {
       key = 'w',
       mods = 'CMD',
       action = act.CloseCurrentTab { confirm = false },
-    },
-    -- paste from the clipboard
-    { key = 'V',
-      mods = 'CMD',
-      action = act.PasteFrom 'Clipboard',
     },
   },
   term = 'xterm-256color'
