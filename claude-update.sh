@@ -49,4 +49,7 @@ for plugin in "${plugins[@]}"; do
 done
 
 ## caveman
- npx @caveman-ai/cli@latest
+npx @caveman-ai/cli@latest
+caveman telemetry off
+caveman off routing
+caveman providers cloud off

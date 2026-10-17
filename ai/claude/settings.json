@@ -89,6 +89,16 @@
         ]
       },
       {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.local/share/caveman-blocks/bin/caveman-blocks hook --harness claude",
+            "timeout": 5
+          }
+        ]
+      },
+      {
         "hooks": [
           {
             "type": "command",
@@ -105,28 +115,9 @@
             "timeout": 30
           }
         ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/dagadbm/.local/share/caveman-blocks/bin/caveman-blocks hook --harness claude",
-            "timeout": 5
-          }
-        ]
       }
     ],
     "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/24.13.0/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      },
       {
         "matcher": "^(startup|resume|clear|compact|fork)$",
         "hooks": [
@@ -134,6 +125,15 @@
             "type": "command",
             "command": "bash '/Users/dagadbm/.claude/hooks/herdr-agent-state.sh' session",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/24.13.0/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30
           }
         ]
       }
@@ -238,14 +238,14 @@
   },
   "enabledPlugins": {
     "caveman@caveman": true,
-    "mattpocock-skills@claude-plugins-official": true,
-    "pstack@potetos-for-everyone": true,
+    "mattpocock-skills@claude-plugins-official": false,
+    "pstack@potetos-for-everyone": false,
     "agent-skills@addy-agent-skills": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": false,
+    "pyright-lsp@claude-plugins-official": false,
+    "typescript-lsp@claude-plugins-official": false,
+    "gopls-lsp@claude-plugins-official": false,
+    "lua-lsp@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {

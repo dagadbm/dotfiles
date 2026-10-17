@@ -256,6 +256,7 @@ nightshift() {
     *) print "usage: nightshift on|off|connect|disconnect|status" ;;
   esac
 }
+alias n=nightshift
 
 # bun
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
