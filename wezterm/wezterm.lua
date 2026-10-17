@@ -14,6 +14,10 @@ wezterm.on('gui-startup', function(cmd)
   herdr_pane:send_text 'herdr\n'
 end)
 
+wezterm.on('format-window-title', function(tab)
+  return tab.tab_title ~= '' and tab.tab_title or 'wezterm'
+end)
+
 return {
   -- https://wezfurlong.org/wezterm/config/mouse.html
   font = wezterm.font 'JetBrainsMono Nerd Font Mono',
