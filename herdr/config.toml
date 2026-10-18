@@ -106,6 +106,7 @@ switch_workspace = "prefix+shift+1..9"   # optional indexed binding, e.g. "prefi
 # close_tab = "prefix+shift+x"
 # rename_pane = "prefix+shift+p"
 # edit_scrollback = "prefix+e"
+copy_mode = "prefix+enter"
 # focus_pane_left = "prefix+h"
 # focus_pane_down = "prefix+j"
 # focus_pane_up = "prefix+k"
