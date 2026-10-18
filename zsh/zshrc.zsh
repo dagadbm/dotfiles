@@ -166,24 +166,35 @@ alias g='git'
 # git maintenance start
 #
 # forgit aliases (set by default)
-# forgit_log=glo
-# forgit_diff=gd
 # forgit_add=ga
 # forgit_reset_head=grh
+# forgit_restore=grs
+# forgit_log=glo
+# forgit_reflog=grl
+# forgit_diff=gd
+# forgit_show=gso
 # forgit_ignore=gi
+# forgit_attributes=gat
 # forgit_checkout_file=gcf
+# forgit_checkout_file_from_commit=gcff
 # forgit_checkout_branch=gcb
-# forgit_branch_delete=gbd
-# forgit_checkout_tag=gct
+# forgit_switch_branch=gsw
 # forgit_checkout_commit=gco
+# forgit_checkout_tag=gct
+# forgit_branch_delete=gbd
 # forgit_revert_commit=grc
 # forgit_clean=gclean
 # forgit_stash_show=gss
 # forgit_stash_push=gsp
 # forgit_cherry_pick=gcp
 # forgit_rebase=grb
-# forgit_blame=gbl
 # forgit_fixup=gfu
+# forgit_squash=gsq
+# forgit_reword=grw
+# forgit_blame=gbl
+# forgit_worktree=gwt
+# forgit_worktree_add=gwa
+# forgit_worktree_delete=gwd
 
 # utils
 alias restart='exec zsh'
