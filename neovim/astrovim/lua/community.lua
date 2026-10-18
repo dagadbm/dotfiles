@@ -21,7 +21,7 @@ return {
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.sql" },
   { import = "astrocommunity.pack.terraform" },
-  { import = "astrocommunity.pack.typescript-all-in-one" },
+  { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.vue" },
   { import = "astrocommunity.pack.xml" },
   { import = "astrocommunity.pack.yaml" },
