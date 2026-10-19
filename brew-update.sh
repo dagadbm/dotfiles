@@ -15,9 +15,6 @@ brew bundle --file macos/Brewfile
 brew update
 brew upgrade
 
-# wezterm
-brew upgrade --cask wezterm@nightly --greedy-latest
-
 # tailscale
 mosh_server="$(command -v mosh-server)"
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "$mosh_server"
