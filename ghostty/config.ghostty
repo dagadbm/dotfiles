@@ -12,7 +12,6 @@ font-family = JetBrainsMono Nerd Font Mono
 font-size = 12
 
 maximize = true
-fullscreen = true
 confirm-close-surface = false
 macos-titlebar-style = transparent
 window-theme = auto

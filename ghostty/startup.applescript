@@ -21,5 +21,6 @@ tell application "Ghostty"
   perform action "set_tab_title:herdr" on focused terminal of herdrTab
 
   activate window startupWindow
+  perform action "toggle_fullscreen" on focused terminal of selected tab of startupWindow
   close window bootWindow
 end tell

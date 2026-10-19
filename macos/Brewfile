@@ -66,7 +66,7 @@ brew "agent-browser"
 cask_args appdir: "~/Applications"
 
 ## terminal
-cask "wezterm"
+cask "wezterm@nightly"
 cask "ghostty"
 ## productivity
 cask "penc", args: { appdir: "/Applications" }

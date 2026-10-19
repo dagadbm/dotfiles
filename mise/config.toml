@@ -8,8 +8,6 @@ run = [
 ]
 
 [tools]
-# pinned: tmux 3.8 garbles panes after a split (https://github.com/tmux/tmux/issues/5768)
-tmux = "3.7c"
 golang = "latest"
 node = "lts"
 pnpm = "latest"
