@@ -27,8 +27,6 @@ return {
   enable_tab_bar = true,
   hide_tab_bar_if_only_one_tab = true,
   max_fps = 60,
-  use_resize_increments = true,
-  window_content_alignment = { horizontal = 'Left', vertical = 'Bottom' },
   native_macos_fullscreen_mode = true,
   enable_kitty_keyboard = false,
   enable_scroll_bar = false,
