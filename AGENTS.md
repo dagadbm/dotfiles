@@ -20,9 +20,10 @@ Personal macOS dev environment. Each tool owns a top-level directory; Dotbot sym
 ./submodules-update.sh               # update submodules (ask first)
 ./brew-update.sh                     # update Homebrew
 ./mise-update.sh                     # update mise
-./prune.sh                           # prune everything (brew + mise)
+./prune.sh                           # prune everything (brew + mise + claude)
 ./brew-prune.sh                      # prune Homebrew to match Brewfile
 ./mise-prune.sh                      # prune mise
+./claude-prune.sh                    # prune claude to match claude-update.sh
 ./macos/defaults.sh                  # apply macOS preferences
 ```
 

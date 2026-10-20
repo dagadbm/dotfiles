@@ -8,3 +8,6 @@ cd "$(dirname "$0")" || exit 1
 
 # mise
 ./mise-prune.sh
+
+# claude
+./claude-prune.sh

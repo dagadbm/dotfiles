@@ -3,8 +3,6 @@ set -euo pipefail
 
 cd "$(dirname "$0")" || exit 1
 
-# claude
-
 ## ccstatusline
 pnpm add -g ccstatusline@latest
 
@@ -35,15 +33,11 @@ claude plugin marketplace update
 
 ## plugins
 plugins=(
-  caveman@caveman
   mattpocock-skills@claude-plugins-official
+  superpowers@claude-plugins-official
+  caveman@caveman
   agent-skills@addy-agent-skills
   pstack@potetos-for-everyone
-  rust-analyzer-lsp@claude-plugins-official
-  pyright-lsp@claude-plugins-official
-  typescript-lsp@claude-plugins-official
-  gopls-lsp@claude-plugins-official
-  lua-lsp@claude-plugins-official
 )
 for plugin in "${plugins[@]}"; do
   claude plugin install "$plugin"
