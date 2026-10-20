@@ -1,3 +1,5 @@
+[user]
+	name = David
 [core]
 	pager = delta
 	editor = nvim
