@@ -77,6 +77,7 @@
       "Read(**/*.keystore)"
     ]
   },
+  "model": "haiku",
   "disableBundledSkills": true,
   "hooks": {
     "PreToolUse": [
@@ -275,16 +276,20 @@
   "alwaysThinkingEnabled": false,
   "modelSettings": {
     "claude-fable-5-1": {
-      "autoCompactWindow": 300000
+      "autoCompactWindow": 500000,
+      "effortLevel": "low"
     },
     "claude-opus-5-5": {
-      "autoCompactWindow": 300000
+    "autoCompactWindow": 500000,
+      "effortLevel": "low"
     },
     "claude-haiku-5-5": {
-      "autoCompactWindow": 300000
+      "autoCompactWindow": 200000,
+      "effortLevel": "low"
     },
     "claude-sonnet-5-5": {
-      "autoCompactWindow": 300000
+      "autoCompactWindow": 250000,
+      "effortLevel": "low"
     }
   },
   "promptSuggestionEnabled": false,
