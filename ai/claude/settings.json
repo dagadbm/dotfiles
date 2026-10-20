@@ -242,11 +242,8 @@
     "agent-skills@addy-agent-skills": true,
     "mattpocock-skills@claude-plugins-official": false,
     "pstack@potetos-for-everyone": false,
-    "rust-analyzer-lsp@claude-plugins-official": false,
-    "pyright-lsp@claude-plugins-official": false,
-    "typescript-lsp@claude-plugins-official": false,
-    "gopls-lsp@claude-plugins-official": false,
-    "lua-lsp@claude-plugins-official": false
+    "superpowers@claude-plugins-official": false,
+    "cowork-plugin-management@synced": false
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
