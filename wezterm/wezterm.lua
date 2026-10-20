@@ -26,6 +26,7 @@ return {
   color_scheme = 'astrodark',
   enable_tab_bar = true,
   hide_tab_bar_if_only_one_tab = true,
+  show_new_tab_button_in_tab_bar = false,
   max_fps = 60,
   use_resize_increments = true,
   window_content_alignment = { horizontal = 'Left', vertical = 'Bottom' },
