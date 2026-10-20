@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")" || exit 1
+# shellcheck source=scripts/utils.sh
+source "$(dirname "$0")/utils.sh"
 
 ## ccstatusline
 pnpm add -g ccstatusline@latest
@@ -31,17 +32,25 @@ for marketplace in "${marketplaces[@]}"; do
 done
 claude plugin marketplace update
 
-## plugins
+## plugins: <plugin>:<enabled>, install re-enables so state is applied after
 plugins=(
-  mattpocock-skills@claude-plugins-official
-  superpowers@claude-plugins-official
-  caveman@caveman
-  agent-skills@addy-agent-skills
-  pstack@potetos-for-everyone
+  mattpocock-skills@claude-plugins-official:true
+  superpowers@claude-plugins-official:true
+  caveman@caveman:true
+  agent-skills@addy-agent-skills:true
+  pstack@potetos-for-everyone:true
 )
-for plugin in "${plugins[@]}"; do
+for entry in "${plugins[@]}"; do
+  plugin="${entry%:*}"
+  enabled="${entry##*:}"
   claude plugin install "$plugin"
   claude plugin update "$plugin"
+  # enable/disable fail when already in that state
+  if [[ "$enabled" == true ]]; then
+    claude plugin enable "$plugin" 2>/dev/null || true
+  else
+    claude plugin disable "$plugin" 2>/dev/null || true
+  fi
 done
 
 ### caveman

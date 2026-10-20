@@ -94,9 +94,10 @@
     # herdr
     ~/.config/herdr/config.toml: herdr/config.toml
 
-    # ai tools
-    ~/.claude/settings.json: ai/claude/settings.json
-    ~/.config/ccstatusline/settings.json: ai/claude/ccstatusline.settings.json
+    # agents
+    ## claude
+    ~/.claude/settings.json: agents/claude/settings.json
+    ~/.config/ccstatusline/settings.json: agents/claude/ccstatusline.settings.json
     ## scripts
-    ~/.agents/scripts/bash-validator-hook.py: ai/scripts/bash-validator-hook.py
-    ~/.agents/scripts/notify-hook.sh: ai/scripts/notify-hook.sh
+    ~/.agents/scripts/bash-validator-hook.py: agents/scripts/bash-validator-hook.py
+    ~/.agents/scripts/notify-hook.sh: agents/scripts/notify-hook.sh

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")" || exit 1
+# shellcheck source=scripts/utils.sh
+source "$(dirname "$0")/utils.sh"
 
 # integrations
 herdr integration uninstall claude
