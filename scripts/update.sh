@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")" || exit 1
+# shellcheck source=scripts/utils.sh
+source "$(dirname "$0")/utils.sh"
 
 # tmux
 ~/.tmux/plugins/tpm/bin/clean_plugins
@@ -15,10 +16,10 @@ if command -v cargo >/dev/null 2>&1; then
 fi
 
 # submodules
-./submodules-update.sh
+scripts/submodules-update.sh
 
 # brew
-./brew-update.sh
+scripts/brew-update.sh
 
 # astrodark theme
 ## bat
@@ -27,16 +28,16 @@ bat cache --build
 zsh -c 'source ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh && fast-theme -q ~/.config/shell/fsh.astrodark.ini'
 
 # mise
-./mise-update.sh
+scripts/mise-update.sh
 
 # herdr
-./herdr-update.sh
+scripts/herdr-update.sh
 
 # pnpm
 pnpm setup || true
 
 # claude
-./claude-update.sh
+scripts/claude-update.sh
 
 # fzf
 ~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish

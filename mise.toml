@@ -1,0 +1,58 @@
+# Repo tasks: `mise run <task>` (or `mise tasks` to list). Each runs a script in
+# scripts/, which can also be run directly.
+
+[tasks.bootstrap]
+description = "Download and set up everything on a new machine"
+file = "scripts/bootstrap.sh"
+
+[tasks.dotbot]
+description = "Relink after changing dotbot.conf.yaml"
+file = "scripts/dotbot.sh"
+
+[tasks.update]
+description = "Update everything"
+file = "scripts/update.sh"
+
+[tasks."update:brew"]
+description = "Update Homebrew"
+file = "scripts/brew-update.sh"
+
+[tasks."update:mise"]
+description = "Update mise"
+file = "scripts/mise-update.sh"
+
+[tasks."update:nvim"]
+description = "Update Neovim, LSP, plugins"
+file = "scripts/nvim-update.sh"
+
+[tasks."update:herdr"]
+description = "Update herdr"
+file = "scripts/herdr-update.sh"
+
+[tasks."update:claude"]
+description = "Update AI tooling"
+file = "scripts/claude-update.sh"
+
+[tasks."update:submodules"]
+description = "Update submodules"
+file = "scripts/submodules-update.sh"
+
+[tasks.prune]
+description = "Prune everything (brew + mise + claude)"
+file = "scripts/prune.sh"
+
+[tasks."prune:brew"]
+description = "Prune Homebrew to match Brewfile"
+file = "scripts/brew-prune.sh"
+
+[tasks."prune:mise"]
+description = "Prune mise"
+file = "scripts/mise-prune.sh"
+
+[tasks."prune:claude"]
+description = "Prune claude to match scripts/claude-update.sh"
+file = "scripts/claude-prune.sh"
+
+[tasks."macos:defaults"]
+description = "Apply macOS preferences"
+file = "macos/defaults.sh"

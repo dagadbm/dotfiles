@@ -557,3 +557,5 @@ defaults write com.apple.commerce AutoUpdate -bool true
 
 # Restart the apps that cache these settings so changes apply without a logout
 killall Dock Finder SystemUIServer cfprefsd PowerChime 2>/dev/null || true
+# `killall Dock` can leave it exited (clean exit, not respawned), so start it again
+launchctl kickstart "gui/$(id -u)/com.apple.Dock.agent"

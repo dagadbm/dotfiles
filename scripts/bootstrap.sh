@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")" || exit 1
+# shellcheck source=scripts/utils.sh
+source "$(dirname "$0")/utils.sh"
 
 # Ask for the administrator password upfront
 sudo -v
@@ -25,10 +26,10 @@ xcode-select --install || true
 ./macos/defaults.sh
 
 # submodules
-./submodules-update.sh
+scripts/submodules-update.sh
 
 # setup dotfiles
-./dotbot.sh
+scripts/dotbot.sh
 
 # setup brew
 brew bundle --file macos/Brewfile
@@ -38,13 +39,14 @@ sudo sh -c "echo /opt/homebrew/bin/zsh >> /etc/shells"
 sudo chsh -s "/opt/homebrew/bin/zsh"
 
 # setup mise
+mise trust mise.toml
 mise install
 
 # neovim
 bob install latest
 bob install nightly
 bob use nightly
-./nvim-update.sh
+scripts/nvim-update.sh
 
 # broot
 mkdir -p "$HOME/.config/broot/launcher/zsh"
@@ -52,4 +54,4 @@ broot --print-shell-function zsh > "$HOME/.config/broot/launcher/zsh/br"
 broot --set-install-state installed
 
 # update
-./update.sh
+scripts/update.sh

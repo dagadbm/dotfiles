@@ -4,23 +4,26 @@ Welcome to my humble dotfiles repo.
 
 # Install
 
-First run install script `./bootstrap.sh` to download and setup everything
+First run install script `./scripts/bootstrap.sh` to download and setup everything
 
 # Updates
 
-Run `./dotbot.sh` to relink after changing `dotbot.conf.yaml`
-Run `./update.sh` to update everything
-Run `./nvim-update.sh` to update Neovim, LSP, plugins
-Run `./herdr-update.sh` to update herdr
-Run `./submodules-update.sh` to update submodules
-Run `./brew-update.sh` to update Homebrew
-Run `./mise-update.sh` to update mise
-Run `./ai-update.sh` to update ai tooling
-Run `./prune.sh` to prune everything (brew + mise + claude)
-Run `./brew-prune.sh` to prune Homebrew to match Brewfile
-Run `./mise-prune.sh` to prune mise
-Run `./claude-prune.sh` to prune claude to match claude-update.sh
-Run `./macos/defaults.sh` to apply macOS preferences
+Scripts live in `scripts/` and run as mise tasks from `mise.toml` (`mise tasks` lists them):
+
+Run `mise run` to pick a task interactively
+Run `mise run dotbot` to relink after changing `dotbot.conf.yaml`
+Run `mise run update` to update everything
+Run `mise run update:nvim` to update Neovim, LSP, plugins
+Run `mise run update:herdr` to update herdr
+Run `mise run update:submodules` to update submodules
+Run `mise run update:brew` to update Homebrew
+Run `mise run update:mise` to update mise
+Run `mise run update:claude` to update agent tooling
+Run `mise run prune` to prune everything (brew + mise + claude)
+Run `mise run prune:brew` to prune Homebrew to match Brewfile
+Run `mise run prune:mise` to prune mise
+Run `mise run prune:claude` to prune claude to match scripts/claude-update.sh
+Run `mise run macos:defaults` to apply macOS preferences
 
 # Helpers
 

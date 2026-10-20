@@ -304,8 +304,8 @@ c() {
     return
   fi
 
-  local model=$(jq -r '.catalog.config.models | .[] | "\(.id)\t\(.name)\t\(.description // "")"' $catalog \
-    | column -t -s $'\t' | fzf --prompt='claude model> ' --height=~40% --no-preview | awk '{print $1}')
+  local model=$(jq -r '.catalog.config.models | .[] | "\(.id)\t\(.name)"' $catalog \
+    | fzf --prompt='claude model> ' --height=~40% --no-preview --with-nth '2..' | awk '{print $1}')
   [[ -z "$model" ]] && return
 
   local efforts=$(jq -r --arg m "$model" '.catalog.config.models[] | select(.id == $m) | .thinking.effort_options[]?.id' $catalog)
@@ -339,8 +339,8 @@ cx() {
     return
   fi
 
-  local model=$(jq -r '.models | map(select(.visibility == "list")) | .[] | "\(.slug)\t\(.display_name)\t\(.description // "")"' $catalog \
-    | column -t -s $'\t' | fzf --prompt='codex model> ' --height=~40% --no-preview | awk '{print $1}')
+  local model=$(jq -r '.models | map(select(.visibility == "list")) | .[] | "\(.slug)\t\(.display_name)"' $catalog \
+    | fzf --prompt='codex model> ' --height=~40% --no-preview --with-nth '2..' | awk '{print $1}')
   [[ -z "$model" ]] && return
 
   local efforts=$(jq -r --arg m "$model" '.models[] | select(.slug == $m) | .supported_reasoning_levels[]?.effort' $catalog)
