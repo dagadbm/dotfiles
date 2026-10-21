@@ -5,12 +5,12 @@ set -euo pipefail
 source "$(dirname "$0")/utils.sh"
 
 # tmux
-~/.tmux/plugins/tpm/bin/clean_plugins
-~/.tmux/plugins/tpm/bin/install_plugins
-~/.tmux/plugins/tpm/bin/update_plugins all
+"$HOME/.tmux/plugins/tpm/bin/clean_plugins"
+"$HOME/.tmux/plugins/tpm/bin/install_plugins"
+"$HOME/.tmux/plugins/tpm/bin/update_plugins" all
 ## tmux-thumbs
 if command -v cargo >/dev/null 2>&1; then
-  pushd ~/.tmux/plugins/tmux-thumbs || exit
+  pushd "$HOME/.tmux/plugins/tmux-thumbs" || exit
   cargo build --release --target-dir=target
   popd || exit
 fi
@@ -25,7 +25,7 @@ scripts/brew-update.sh
 ## bat
 bat cache --build
 ## fast-syntax-highlighting
-zsh -c 'source ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh && fast-theme -q ~/.config/shell/fsh.astrodark.ini'
+zsh -c 'source "$HOME/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" && fast-theme -q "$HOME/.config/shell/fsh.astrodark.ini"'
 
 # mise
 scripts/mise-update.sh
@@ -40,7 +40,7 @@ pnpm setup || true
 scripts/claude-update.sh
 
 # fzf
-~/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+"$HOME/.fzf/install" --key-bindings --completion --no-update-rc --no-bash --no-fish
 
 # macos
 softwareupdate --download --install --all

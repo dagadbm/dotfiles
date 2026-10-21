@@ -29,6 +29,8 @@
     ~/.config/shell/p10k.astrodark.zsh: zsh/p10k.astrodark.zsh
     ~/fzf.config.zsh: zsh/fzf.config.zsh
     ~/.config/shell/fzf.astrodark.zsh: zsh/fzf.astrodark.zsh
+    ~/.config/shell/claude-fzf.zsh: zsh/claude-fzf.zsh
+    ~/.config/shell/nightshift.zsh: zsh/nightshift.zsh
     ~/.config/shell/fsh.astrodark.ini: zsh/fsh.astrodark.ini
     ~/.config/shell/ls-colors.astrodark.zsh: zsh/ls-colors.astrodark.zsh
     ~/.config/lsd/config.yaml: zsh/lsd.config.yaml

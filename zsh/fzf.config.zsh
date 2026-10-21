@@ -1,5 +1,5 @@
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 
 # Use Ctrl-Z to cd to a different directory using fzf! (similar to using z)
 bindkey '^Z' fzf-cd-widget
@@ -9,7 +9,7 @@ bindkey '^F' fzf-file-widget
 bindkey '^R' fzf-history-widget
 
 # theme 
-[ -f ~/.config/shell/fzf.astrodark.zsh ] && source ~/.config/shell/fzf.astrodark.zsh
+[ -f "$HOME/.config/shell/fzf.astrodark.zsh" ] && source "$HOME/.config/shell/fzf.astrodark.zsh"
 
 export FZF_DEFAULT_OPTS="$FZF_THEME \
   --layout=reverse \
@@ -18,8 +18,8 @@ export FZF_DEFAULT_OPTS="$FZF_THEME \
   --bind=',:toggle-preview' \
   --bind='ctrl-p:half-page-up' \
   --bind='ctrl-n:half-page-down' \
-  --bind='ctrl-u:preview-page-up' \
-  --bind='ctrl-d:preview-page-down' \
+  --bind='ctrl-u:preview-half-page-up' \
+  --bind='ctrl-d:preview-half-page-down' \
   --preview-window='right,60%,wrap' \
   --preview='([[ -d {} ]] && tre -l 2 --color=always {}) || ([[ -f {} ]] && bat --style=plain,numbers --color=always {}) || echo {}'"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
