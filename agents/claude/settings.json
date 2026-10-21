@@ -276,20 +276,20 @@
   "alwaysThinkingEnabled": false,
   "modelSettings": {
     "claude-fable-5-1": {
-      "autoCompactWindow": 500000,
-      "effortLevel": "low"
+      "effortLevel": "low",
+      "autoCompactWindow": 500000
     },
     "claude-opus-5-5": {
-    "autoCompactWindow": 500000,
-      "effortLevel": "low"
+      "effortLevel": "low",
+      "autoCompactWindow": 500000
     },
     "claude-haiku-5-5": {
-      "autoCompactWindow": 200000,
-      "effortLevel": "medium"
+      "effortLevel": "medium",
+      "autoCompactWindow": 200000
     },
     "claude-sonnet-5-5": {
-      "autoCompactWindow": 250000,
-      "effortLevel": "low"
+      "effortLevel": "low",
+      "autoCompactWindow": 250000
     }
   },
   "promptSuggestionEnabled": false,
