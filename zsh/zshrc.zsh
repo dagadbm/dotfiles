@@ -23,7 +23,7 @@ eval "$(mise activate zsh)"
 # }}}
 # Oh-My-Zsh Setup {{{
 # Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -89,7 +89,7 @@ VI_MODE_SET_CURSOR=true
 
 
 # fzf
-source ~/fzf.config.zsh
+source "$HOME/fzf.config.zsh"
 
 # zsh-autosuggestions
 # colors https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
@@ -192,15 +192,15 @@ alias g='git'
 # forgit_squash=gsq
 # forgit_reword=grw
 # forgit_blame=gbl
-# forgit_worktree=gwt
-# forgit_worktree_add=gwa
-# forgit_worktree_delete=gwd
+forgit_worktree=gt
+forgit_worktree_add=gta
+forgit_worktree_delete=gtd
 
 # utils
 alias restart='exec zsh'
 alias l='lsd -hal'
 # restores tmux without creating an empty session on startup
-alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t tmp && tmux attach || tmux attach'
+alias tmux-restore='pgrep -vxq tmux && tmux new -d -s tmp && tmux run-shell "$HOME/.tmux/plugins/tmux-resurrect/scripts/restore.sh" && tmux kill-session -t tmp && tmux attach || tmux attach'
 alias t="tmux-restore"
 
 # alternatives
@@ -216,21 +216,23 @@ alias tree='tre'
 alias mkdn='glow'
 
 # neovim
+## distros
 alias avim='NVIM_APPNAME=nvim-astrovim command nvim'
 alias lvim='NVIM_APPNAME=nvim-lazyvim command nvim'
 alias dvim='NVIM_APPNAME=nvim-dagadbm command nvim'
 alias vvim='NVIM_APPNAME=nvim command nvim'
 
+## default
 export NVIM_APPNAME="nvim-astrovim"
+export EDITOR="nvim"
+export GIT_EDITOR="nvim"
+
 alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
 
-export EDITOR="nvim"
-export GIT_EDITOR="nvim"
-
-vims() {
-  local distros=(~/.config/nvim-*(N:t:s/nvim-//))
+nvim-fzf() {
+  local distros=($HOME/.config/nvim-*(N:t:s/nvim-//))
 
   if [[ -z "$distros" ]]; then
     command nvim "$@"
@@ -242,6 +244,12 @@ vims() {
     NVIM_APPNAME="nvim-$distro" command nvim "$@"
   fi
 }
+
+alias nvims="nvim-fzf"
+alias vims="nvim-fzf"
+alias vis="nvim-fzf"
+alias vs="nvim-fzf"
+
 ## bob
 export PATH="$HOME/Library/Application Support/bob/nvim-bin:$PATH"
 
@@ -251,72 +259,17 @@ source "$HOME/.config/broot/launcher/zsh/br"
 # herdr
 alias h=herdr
 
-# tailscale
-nightshift() {
-  case $1 in
-    '')
-      [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
-      sudo pmset -a disablesleep 1 || return
-      trap 'trap - INT; sudo pmset -a disablesleep 0; print "nightshift: off"; return 130' INT
-      pmset displaysleepnow
-      print "nightshift: on"
-      print "nightshift: press any key to end"
-      while read -rk1; do
-        read -rq "?nightshift: end? [y/n] " && break
-        print
-      done
-      trap - INT
-      print
-      sudo pmset -a disablesleep 0 && print "nightshift: off" ;;
-    on)
-      [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
-      sudo pmset -a disablesleep 1 && pmset displaysleepnow ;;
-    off) sudo pmset -a disablesleep 0 && print "nightshift: off" ;;
-    login)
-      local out
-      out=$(sudo brew services start tailscale 2>&1) || { print -r -- "$out"; print "tailscale: login failed"; return 1; }
-      sudo tailscale login --ssh || { print "tailscale: login failed"; return 1; }
-      print "tailscale: logged in" ;;
-    connect)
-      local out
-      out=$(sudo brew services start tailscale 2>&1) || { print -r -- "$out"; print "tailscale: connect failed"; return 1; }
-      sudo tailscale up --ssh || { print "tailscale: connect failed"; return 1; }
-      print "tailscale: connected" ;;
-    disconnect)
-      sudo tailscale down || { print "tailscale: disconnect failed"; return 1; }
-      local out
-      out=$(sudo brew services stop tailscale 2>&1) || { print -r -- "$out"; print "tailscale: disconnect failed"; return 1; }
-      print "tailscale: disconnected" ;;
-    logout)
-      sudo tailscale logout || { print "tailscale: logout failed"; return 1; }
-      local out
-      out=$(sudo brew services stop tailscale 2>&1) || { print -r -- "$out"; print "tailscale: logout failed"; return 1; }
-      print "tailscale: logged out" ;;
-    status)
-      pmset -g | grep -q 'SleepDisabled[[:space:]]*1' && print "nightshift: on" || print "nightshift: off"
-      local ts=$(tailscale status --json 2>/dev/null | jq -r .BackendState 2>/dev/null)
-      case $ts in
-        Running) print "tailscale: connected" ;;
-        Stopped|'') print "tailscale: disconnected" ;;
-        NeedsLogin) print "tailscale: needs login" ;;
-        *) print "tailscale: $ts" ;;
-      esac ;;
-    *)
-      local -a rows=(
-        'nightshift'            'on, wait; enter asks to end'
-        'nightshift on'         'sleep disabled, display off'
-        'nightshift off'        'sleep enabled'
-        'nightshift login'      'log in to tailscale'
-        'nightshift logout'     'log out of tailscale, stop service'
-        'nightshift connect'    'connect to tailscale'
-        'nightshift disconnect' 'disconnect from tailscale'
-        'nightshift status'     'show sleep and tailscale state'
-      )
-      print "usage: nightshift [on|off|login|logout|connect|disconnect|status]"
-      printf '  %-21s  %s\n' "${(@)rows}" ;;
-  esac
-}
+# nightshift
+source "$HOME/.config/shell/nightshift.zsh"
+
 alias n=nightshift
+
+#claude
+source "$HOME/.config/shell/claude-fzf.zsh"
+
+alias c="_claude"
+alias cr='_claude_fzf_resume'
+alias ct='_claude_fzf_worktree'
 
 # bun
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
@@ -331,82 +284,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-
-# ai tools
-## claude code
-# models and efforts come from claude's newest model catalog cache
-# our flags go before "$@" so user args (incl. after --) stay last and untouched;
-# defaults are skipped when the user passes their own
-c() {
-  local -a opts
-  (( ${@[(I)--permission-mode|--permission-mode=*|--dangerously-skip-permissions|--allow-dangerously-skip-permissions]} )) \
-    || opts+=(--permission-mode auto)
-  # any argument skips the pickers
-  if (( $# )); then
-    command claude "${opts[@]}" "$@"
-    return
-  fi
-
-  local catalog=(~/.claude/cache/model-catalog/*.json(N.om[1]))
-  if [[ -z "$catalog" ]]; then
-    command claude "${opts[@]}" "$@"
-    return
-  fi
-
-  local model=$(jq -r '.catalog.config.models | .[] | "\(.id)\t\(.name)"' $catalog \
-    | fzf --prompt='claude model> ' --height=~40% --no-preview --with-nth '2..' | awk '{print $1}')
-  [[ -z "$model" ]] && return
-
-  local efforts=$(jq -r --arg m "$model" '.catalog.config.models[] | select(.id == $m) | .thinking.effort_options[]?.id' $catalog)
-  if [[ -z "$efforts" ]]; then
-    command claude --model "$model" "${opts[@]}" "$@"
-    return
-  fi
-
-  local effort=$(print -l $efforts | fzf --prompt='claude effort> ' --height=~30% --no-preview)
-  [[ -z "$effort" ]] && return
-
-  command claude --model "$model" --effort "$effort" "${opts[@]}" "$@"
-}
-
-## codex
-# models and efforts come from codex's model catalog cache
-# flags: -m/--model, -s/--sandbox (read-only|workspace-write|danger-full-access), -c key=value
-cx() {
-  local -a opts
-  (( ${@[(I)-s|--sandbox|--sandbox=*|-a|--ask-for-approval|--ask-for-approval=*|--approve-for-me|--full-auto|--dangerously-bypass-approvals-and-sandbox]} )) \
-    || opts+=(--sandbox workspace-write)
-  # any argument skips the pickers
-  if (( $# )); then
-    command codex "${opts[@]}" "$@"
-    return
-  fi
-
-  local catalog=(~/.codex/models_cache.json(N))
-  if [[ -z "$catalog" ]]; then
-    command codex "${opts[@]}" "$@"
-    return
-  fi
-
-  local model=$(jq -r '.models | map(select(.visibility == "list")) | .[] | "\(.slug)\t\(.display_name)"' $catalog \
-    | fzf --prompt='codex model> ' --height=~40% --no-preview --with-nth '2..' | awk '{print $1}')
-  [[ -z "$model" ]] && return
-
-  local efforts=$(jq -r --arg m "$model" '.models[] | select(.slug == $m) | .supported_reasoning_levels[]?.effort' $catalog)
-  if [[ -z "$efforts" ]]; then
-    command codex --model "$model" "${opts[@]}" "$@"
-    return
-  fi
-
-  local effort=$(print -l $efforts | fzf --prompt='codex effort> ' --height=~30% --no-preview)
-  [[ -z "$effort" ]] && return
-
-  command codex --model "$model" -c model_reasoning_effort="$effort" "${opts[@]}" "$@"
-}
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[[ -f ~/.config/shell/p10k.mise.zsh ]] && source ~/.config/shell/p10k.mise.zsh
-[[ -f ~/.config/shell/p10k.astrodark.zsh ]] && source ~/.config/shell/p10k.astrodark.zsh
+[[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"
+[[ -f "$HOME/.config/shell/p10k.mise.zsh" ]] && source "$HOME/.config/shell/p10k.mise.zsh"
+[[ -f "$HOME/.config/shell/p10k.astrodark.zsh" ]] && source "$HOME/.config/shell/p10k.astrodark.zsh"
 # }}}}}}
-source ~/zshrc.work.zsh
+source "$HOME/zshrc.work.zsh"
