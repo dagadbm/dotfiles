@@ -16,7 +16,7 @@ nightshift() {
       sudo pmset -a disablesleep 0 && print "nightshift: off" ;;
     on)
       [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
-      sudo pmset -a disablesleep 1 && pmset displaysleepnow ;;
+      sudo pmset -a disablesleep 1 && pmset displaysleepnow && print "nightshift: on" ;;
     off) sudo pmset -a disablesleep 0 && print "nightshift: off" ;;
     login)
       local out
