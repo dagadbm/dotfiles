@@ -3,7 +3,9 @@
 
 # Use Ctrl-Z to cd to a different directory using fzf! (similar to using z)
 bindkey '^Z' fzf-cd-widget
-# Use Ctrl-F to print files using fzf (same as Ctrl-T)
+# Use Ctrl-T to print files using fzf
+bindkey '^T' fzf-file-widget
+# Use Ctrl-F to print files using fzf
 bindkey '^F' fzf-file-widget
 # Use Ctrl-R for backward search with fzf
 bindkey '^R' fzf-history-widget
@@ -16,15 +18,18 @@ export FZF_DEFAULT_OPTS="$FZF_THEME \
   --border \
   --height=~50% \
   --bind=',:toggle-preview' \
-  --bind='ctrl-p:half-page-up' \
-  --bind='ctrl-n:half-page-down' \
   --bind='ctrl-u:preview-half-page-up' \
   --bind='ctrl-d:preview-half-page-down' \
   --preview-window='right,60%,wrap' \
   --preview='([[ -d {} ]] && tre -l 2 --color=always {}) || ([[ -f {} ]] && bat --style=plain,numbers --color=always {}) || echo {}'"
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
-export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
-export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='rg --files --follow'
+export FZF_ALT_C_COMMAND='fd --type d --follow --exclude .git'
+export FZF_CTRL_T_COMMAND='fd --type f --type d --follow --exclude .git'
+
+# Ctrl-X in file/dir pickers (Ctrl-F/Ctrl-T, Ctrl-Z) toggles hidden + gitignored
+_fzf_toggle_hidden="--bind='ctrl-x:transform:[ \"\$FZF_PROMPT\" = \"hidden> \" ] && echo \"change-prompt(> )+reload(\$FZF_DEFAULT_COMMAND)\" || echo \"change-prompt(hidden> )+reload(\$FZF_DEFAULT_COMMAND --hidden --no-ignore)\"'"
+export FZF_CTRL_T_OPTS="$_fzf_toggle_hidden"
+export FZF_ALT_C_OPTS="$_fzf_toggle_hidden"
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.

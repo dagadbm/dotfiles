@@ -21,7 +21,7 @@ claude plugin marketplace update
 
 ## plugins: <plugin>::<enabled>, install re-enables so state is applied after
 plugins=(
-  mattpocock-skills@claude-plugins-official::false
+  mattpocock-skills@claude-plugins-official::true
   superpowers@claude-plugins-official::false
   caveman@caveman::true
   agent-skills@addy-agent-skills::true
