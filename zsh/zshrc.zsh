@@ -265,12 +265,13 @@ source "$HOME/.config/shell/nightshift.zsh"
 alias n=nightshift
 
 #claude
+typeset -ga CLAUDE_FZF_CMD=(cave claude)
 source "$HOME/.config/shell/claude-fzf.zsh"
 
 alias c="_claude"
 alias cr='_claude_fzf_resume'
 alias ct='_claude_fzf_worktree'
-alias cx="claude"
+alias cx="cave claude"
 
 # bun
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

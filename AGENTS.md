@@ -6,8 +6,8 @@ Personal macOS dev environment. Each tool owns a top-level directory; Dotbot sym
 
 - Work only inside this repo; Dotbot already mirrors it into `~`.
 - Run `mise run dotbot` after you add, remove, or rename an entry in `dotbot.conf.yaml`.
-- Treat `submodules/` as read-only; change it only through `mise run update:submodules`.
-- Ask first before: changing submodule refs, editing multi-profile files (`git/gitconfig*`, `ssh/config`, `zsh/zshrc.work.zsh`), running `mise run update` or `mise run update:submodules`, adding a top-level directory.
+- Treat `submodules/` as read-only; change it only through `mise run submodules:update`.
+- Ask first before: changing submodule refs, editing multi-profile files (`git/gitconfig*`, `ssh/config`, `zsh/zshrc.work.zsh`), running `mise run update` or `mise run submodules:update`, adding a top-level directory.
 
 ## Commands
 
@@ -15,17 +15,17 @@ Personal macOS dev environment. Each tool owns a top-level directory; Dotbot sym
 mise tasks                           # list tasks (mise.toml runs scripts/*.sh)
 mise run                             # pick a task interactively
 mise run dotbot                      # relink after changing dotbot.conf.yaml
-mise run update                      # update everything (ask first)
-mise run update:nvim                 # update Neovim, LSP, plugins
-mise run update:herdr                # update herdr
-mise run update:claude               # update agent tooling
-mise run update:submodules           # update submodules (ask first)
-mise run update:brew                 # update Homebrew
-mise run update:mise                 # update mise
-mise run prune                       # prune everything (brew + mise + claude)
-mise run prune:brew                  # prune Homebrew to match Brewfile
-mise run prune:mise                  # prune mise
-mise run prune:claude                # prune claude to match scripts/claude-update.sh
+mise run update                      # update everything
+mise run nvim:update                 # update Neovim, LSP, plugins
+mise run herdr:update                # update herdr
+mise run claude:update               # update agent tooling
+mise run submodules:update           # update submodules
+mise run brew:update                 # update Homebrew
+mise run mise:update                 # update mise
+mise run prune                       # prune everything
+mise run brew:prune                  # prune Homebrew to match Brewfile
+mise run mise:prune                  # prune mise
+mise run claude:prune                # prune claude to match scripts/claude-update.sh
 mise run macos:defaults              # apply macOS preferences
 ```
 

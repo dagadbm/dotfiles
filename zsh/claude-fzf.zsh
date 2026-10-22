@@ -1,5 +1,7 @@
 # claude-fzf
 typeset -g _CLAUDE_FZF_SRC=${${(%):-%x}:A}
+# launcher command; set CLAUDE_FZF_CMD before sourcing to override
+(( $#CLAUDE_FZF_CMD )) || typeset -ga CLAUDE_FZF_CMD=(claude)
 
 _claude_data() {
   local -a catalog=($HOME/.claude/cache/model-catalog/*.json(N.om[1]))
@@ -27,7 +29,7 @@ _claude_data() {
 claude-fzf() {
   local -a flags=("$@" --permission-mode auto)
   if [[ -z "$(_claude_data catalog)" ]]; then
-    command claude "${flags[@]}"
+    command "${CLAUDE_FZF_CMD[@]}" "${flags[@]}"
     return
   fi
 
@@ -42,7 +44,7 @@ claude-fzf() {
     model_flags+=(--effort "$effort")
   fi
 
-  command claude "${model_flags[@]}" "${flags[@]}"
+  command "${CLAUDE_FZF_CMD[@]}" "${model_flags[@]}" "${flags[@]}"
 }
 
 _claude_fzf_resume() {
@@ -54,7 +56,7 @@ _claude_fzf_resume() {
       --preview-window='right:60%:wrap' </dev/null | cut -f1
   )
   [[ -z "$pick" ]] && return
-  command claude --resume "${pick:t:r}" --permission-mode auto
+  command "${CLAUDE_FZF_CMD[@]}" --resume "${pick:t:r}" --permission-mode auto
 }
 
 _claude_fzf_worktree() {

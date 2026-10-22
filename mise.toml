@@ -13,27 +13,27 @@ file = "scripts/dotbot.sh"
 description = "Update everything"
 file = "scripts/update.sh"
 
-[tasks."update:brew"]
+[tasks."brew:update"]
 description = "Update Homebrew"
 file = "scripts/brew-update.sh"
 
-[tasks."update:mise"]
+[tasks."mise:update"]
 description = "Update mise"
 file = "scripts/mise-update.sh"
 
-[tasks."update:nvim"]
+[tasks."nvim:update"]
 description = "Update Neovim, LSP, plugins"
 file = "scripts/nvim-update.sh"
 
-[tasks."update:herdr"]
+[tasks."herdr:update"]
 description = "Update herdr"
 file = "scripts/herdr-update.sh"
 
-[tasks."update:claude"]
+[tasks."claude:update"]
 description = "Update AI tooling"
 file = "scripts/claude-update.sh"
 
-[tasks."update:submodules"]
+[tasks."submodules:update"]
 description = "Update submodules"
 file = "scripts/submodules-update.sh"
 
@@ -41,15 +41,15 @@ file = "scripts/submodules-update.sh"
 description = "Prune everything (brew + mise + claude)"
 file = "scripts/prune.sh"
 
-[tasks."prune:brew"]
+[tasks."brew:prune"]
 description = "Prune Homebrew to match Brewfile"
 file = "scripts/brew-prune.sh"
 
-[tasks."prune:mise"]
+[tasks."mise:prune"]
 description = "Prune mise"
 file = "scripts/mise-prune.sh"
 
-[tasks."prune:claude"]
+[tasks."claude:prune"]
 description = "Prune claude to match scripts/claude-update.sh"
 file = "scripts/claude-prune.sh"
 

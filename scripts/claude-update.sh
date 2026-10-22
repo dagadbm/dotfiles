@@ -7,19 +7,6 @@ source "$(dirname "$0")/utils.sh"
 ## ccstatusline
 pnpm add -g ccstatusline@latest
 
-## language servers for the *-lsp plugins, each from its official install method
-rustup component add rust-analyzer
-
-mise use -g \
-  npm:pyright@latest \
-  go:golang.org/x/tools/gopls@latest \
-  aqua:LuaLS/lua-language-server@latest
-
-## claude code only supports typescript-language-server which needs ts6
-mise use -g \
-  npm:typescript@6 \
-  npm:typescript-language-server@latest \
-
 ## marketplaces
 marketplaces=(
   anthropics/claude-plugins-official
@@ -32,17 +19,17 @@ for marketplace in "${marketplaces[@]}"; do
 done
 claude plugin marketplace update
 
-## plugins: <plugin>:<enabled>, install re-enables so state is applied after
+## plugins: <plugin>::<enabled>, install re-enables so state is applied after
 plugins=(
-  mattpocock-skills@claude-plugins-official:true
-  superpowers@claude-plugins-official:true
-  caveman@caveman:true
-  agent-skills@addy-agent-skills:true
-  pstack@potetos-for-everyone:true
+  mattpocock-skills@claude-plugins-official::false
+  superpowers@claude-plugins-official::false
+  caveman@caveman::true
+  agent-skills@addy-agent-skills::true
+  pstack@potetos-for-everyone::false
 )
 for entry in "${plugins[@]}"; do
-  plugin="${entry%:*}"
-  enabled="${entry##*:}"
+  plugin="${entry%::*}"
+  enabled="${entry##*::}"
   claude plugin install "$plugin"
   claude plugin update "$plugin"
   # enable/disable fail when already in that state
