@@ -124,4 +124,4 @@ cask "anomalyco/tap/hex", trusted: true
 cask "agentsview"
 cask "codexbar"
 ### local
-cask "lm-studio"
+cask "lm-studio", args: { appdir: "/Applications" } # can only run on /Applications

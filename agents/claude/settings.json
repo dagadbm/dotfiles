@@ -241,9 +241,9 @@
   "enabledPlugins": {
     "caveman@caveman": true,
     "agent-skills@addy-agent-skills": true,
-    "mattpocock-skills@claude-plugins-official": true,
-    "pstack@potetos-for-everyone": true,
-    "superpowers@claude-plugins-official": true,
+    "mattpocock-skills@claude-plugins-official": false,
+    "pstack@potetos-for-everyone": false,
+    "superpowers@claude-plugins-official": false,
     "cowork-plugin-management@synced": false
   },
   "extraKnownMarketplaces": {
@@ -277,11 +277,11 @@
   "modelSettings": {
     "claude-fable-5-1": {
       "effortLevel": "low",
-      "autoCompactWindow": 500000
+      "autoCompactWindow": 400000
     },
     "claude-opus-5-5": {
       "effortLevel": "low",
-      "autoCompactWindow": 500000
+      "autoCompactWindow": 400000
     },
     "claude-haiku-5-5": {
       "effortLevel": "medium",
