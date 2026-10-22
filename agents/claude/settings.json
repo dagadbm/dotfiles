@@ -241,7 +241,7 @@
   "enabledPlugins": {
     "caveman@caveman": true,
     "agent-skills@addy-agent-skills": true,
-    "mattpocock-skills@claude-plugins-official": false,
+    "mattpocock-skills@claude-plugins-official": true,
     "pstack@potetos-for-everyone": false,
     "superpowers@claude-plugins-official": false,
     "cowork-plugin-management@synced": false

@@ -46,6 +46,8 @@ brew "zenith"
 brew "sd"
 brew "dust"
 brew "glow"
+brew "poppler"
+brew "tre-command"
 ## development
 brew "mise"
 brew "k9s"
