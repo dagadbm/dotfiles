@@ -14,6 +14,7 @@ bindkey '^R' fzf-history-widget
 [ -f "$HOME/.config/shell/fzf.astrodark.zsh" ] && source "$HOME/.config/shell/fzf.astrodark.zsh"
 
 export FZF_DEFAULT_OPTS="$FZF_THEME \
+  --ansi \
   --layout=reverse \
   --border \
   --height=~50% \
