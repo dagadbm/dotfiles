@@ -4,21 +4,17 @@ import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.
 
 exclude = List("submodules/**")
 
-local gitconfigs =
-  List(
-    "git/gitconfig",
-    "git/gitconfig_global",
-    "git/gitconfig_personal",
-    "git/gitconfig_work",
-    "git/delta.astrodark.gitconfig",
-  )
-
 steps {
+  // repo hygiene
+  ["detect_private_key"] = Builtins.detect_private_key
+  ["check_merge_conflict"] = Builtins.check_merge_conflict
+  ["check_symlinks"] = Builtins.check_symlinks
+  ["check_executables_have_shebangs"] = Builtins.check_executables_have_shebangs
+
   // shell
-  ["shellcheck"] {
-    glob = "**/*.sh"
-    batch = true
-    check = "shellcheck -x -S warning {{files}}"
+  ["shellcheck"] = (Builtins.shellcheck) {
+    // hk batches files, so follow `source`d files that are not in the batch
+    env { ["SHELLCHECK_OPTS"] = "-x" }
   }
 
   // zsh
@@ -28,31 +24,25 @@ steps {
   }
 
   // toml
-  ["taplo"] {
-    glob = "**/*.toml"
-    batch = true
-    check = "taplo check {{files}}"
+  ["taplo"] = Builtins.taplo
+  ["taplo_format"] = (Builtins.taplo_format) {
+    // vendored astrodark themes stay byte-identical to upstream
+    exclude = List("helix/themes/**", "wezterm/colors/**")
   }
+  ["mise"] = Builtins.mise
 
   // yaml
-  ["yaml"] {
-    glob = List("**/*.yml", "**/*.yaml")
-    batch = true
-    check = "ruby -ryaml -e 'ARGV.each { |f| YAML.load_file(f) }' {{files}}"
-  }
+  ["yq"] = Builtins.yq
 
   // json
-  ["json"] {
-    glob = "**/*.json"
-    // vscode is jsonc
-    exclude = "vscode/**"
-    batch = true
-    check = "for f in {{files}}; do jq empty \"$f\" >/dev/null; done"
+  ["jq"] = (Builtins.jq) {
+    // Alfred writes its own json
+    exclude = "macos/Alfred.alfredpreferences/**"
   }
 
   // git config
   ["gitconfig"] {
-    glob = gitconfigs
+    glob = List("git/gitconfig*", "git/*.gitconfig")
     check = "for f in {{files}}; do git config -f \"$f\" --list >/dev/null; done"
   }
 
@@ -73,20 +63,12 @@ steps {
     types = null
     glob = "**/*.lua"
   }
-  ["selene_astrovim"] = (Builtins.selene) {
+  // one run per neovim config, each with its own selene.toml
+  ["selene"] = (Builtins.selene) {
     types = null
-    dir = "neovim/astrovim"
-    glob = "**/*.lua"
-  }
-  ["selene_lazyvim"] = (Builtins.selene) {
-    types = null
-    dir = "neovim/lazyvim"
-    glob = "**/*.lua"
-  }
-  ["selene_dagadbm"] = (Builtins.selene) {
-    types = null
-    dir = "neovim/dagadbm"
-    glob = "**/*.lua"
+    glob = "neovim/**/*.lua"
+    workspace_indicator = "selene.toml"
+    dir = "{{workspace}}"
   }
 
   // pkl
@@ -119,13 +101,6 @@ steps {
     check = "ssh -G -F ssh/config localhost >/dev/null"
   }
 
-  // python
-  ["python"] {
-    glob = "**/*.py"
-    check =
-      "for f in {{files}}; do python3 -c 'import ast, sys; ast.parse(open(sys.argv[1]).read(), sys.argv[1])' \"$f\"; done"
-  }
-
   // markdown
   ["rumdl_format"] = Builtins.rumdl_format
   ["rumdl"] = (Builtins.rumdl) {
@@ -133,16 +108,7 @@ steps {
   }
 }
 
+// top-level steps already create the check, fix and pre-commit hooks
 hooks {
-  ["pre-commit"] {
-    fix = true
-    stash = "git"
-    steps = outer.steps
-  }
   ["pre-push"] { steps = outer.steps }
-  ["check"] { steps = outer.steps }
-  ["fix"] {
-    fix = true
-    steps = outer.steps
-  }
 }

@@ -1,40 +1,40 @@
 # lsd astrodark theme
 # colorscheme taken from ~/.local/share/nvim-astrovim/lazy/astrotheme/lua/astrotheme/palettes/astrodark.lua
-user: rgb_(94,183,255)          # syntax.blue
-group: rgb_(105,108,118)        # syntax.comment
+user: rgb_(94,183,255) # syntax.blue
+group: rgb_(105,108,118) # syntax.comment
 permission:
-  read: rgb_(135,192,95)        # syntax.green
-  write: rgb_(223,171,37)       # syntax.yellow
-  exec: rgb_(255,131,139)       # syntax.red
+  read: rgb_(135,192,95) # syntax.green
+  write: rgb_(223,171,37) # syntax.yellow
+  exec: rgb_(255,131,139) # syntax.red
   exec-sticky: rgb_(221,151,241) # syntax.purple
-  no-access: rgb_(89,92,102)    # syntax.mute
-  octal: rgb_(74,194,184)       # syntax.cyan
-  acl: rgb_(74,194,184)         # syntax.cyan
-  context: rgb_(74,194,184)     # syntax.cyan
+  no-access: rgb_(89,92,102) # syntax.mute
+  octal: rgb_(74,194,184) # syntax.cyan
+  acl: rgb_(74,194,184) # syntax.cyan
+  context: rgb_(74,194,184) # syntax.cyan
 date:
-  hour-old: rgb_(135,192,95)    # syntax.green
-  day-old: rgb_(74,194,184)     # syntax.cyan
-  older: rgb_(105,108,118)      # syntax.comment
+  hour-old: rgb_(135,192,95) # syntax.green
+  day-old: rgb_(74,194,184) # syntax.cyan
+  older: rgb_(105,108,118) # syntax.comment
 size:
-  none: rgb_(89,92,102)         # syntax.mute
-  small: rgb_(135,192,95)       # syntax.green
-  medium: rgb_(223,171,37)      # syntax.yellow
-  large: rgb_(245,152,58)       # syntax.orange
+  none: rgb_(89,92,102) # syntax.mute
+  small: rgb_(135,192,95) # syntax.green
+  medium: rgb_(223,171,37) # syntax.yellow
+  large: rgb_(245,152,58) # syntax.orange
 inode:
-  valid: rgb_(221,151,241)      # syntax.purple
-  invalid: rgb_(89,92,102)      # syntax.mute
+  valid: rgb_(221,151,241) # syntax.purple
+  invalid: rgb_(89,92,102) # syntax.mute
 links:
-  valid: rgb_(221,151,241)      # syntax.purple
-  invalid: rgb_(89,92,102)      # syntax.mute
-tree-edge: rgb_(58,62,71)       # ui.border
+  valid: rgb_(221,151,241) # syntax.purple
+  invalid: rgb_(89,92,102) # syntax.mute
+tree-edge: rgb_(58,62,71) # ui.border
 git-status:
-  default: rgb_(89,92,102)      # syntax.mute
-  unmodified: rgb_(89,92,102)   # syntax.mute
-  ignored: rgb_(89,92,102)      # syntax.mute
-  new-in-index: rgb_(135,192,95)   # syntax.green
+  default: rgb_(89,92,102) # syntax.mute
+  unmodified: rgb_(89,92,102) # syntax.mute
+  ignored: rgb_(89,92,102) # syntax.mute
+  new-in-index: rgb_(135,192,95) # syntax.green
   new-in-workdir: rgb_(135,192,95) # syntax.green
-  typechange: rgb_(223,171,37)  # syntax.yellow
-  deleted: rgb_(255,131,139)    # syntax.red
-  renamed: rgb_(74,194,184)     # syntax.cyan
-  modified: rgb_(223,171,37)    # syntax.yellow
+  typechange: rgb_(223,171,37) # syntax.yellow
+  deleted: rgb_(255,131,139) # syntax.red
+  renamed: rgb_(74,194,184) # syntax.cyan
+  modified: rgb_(223,171,37) # syntax.yellow
   conflicted: rgb_(255,131,139) # syntax.red

@@ -70,4 +70,3 @@ run = "hk fix --all"
 [tasks."macos:defaults"]
 description = "Apply macOS preferences"
 file = "macos/defaults.sh"
-
