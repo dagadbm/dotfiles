@@ -5,7 +5,6 @@ import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.
 exclude = List("submodules/**")
 
 steps {
-  // repo hygiene
   ["detect_private_key"] = Builtins.detect_private_key
   ["check_merge_conflict"] = Builtins.check_merge_conflict
   ["check_symlinks"] = Builtins.check_symlinks
@@ -13,8 +12,7 @@ steps {
 
   // shell
   ["shellcheck"] = (Builtins.shellcheck) {
-    // hk batches files, so follow `source`d files that are not in the batch
-    env { ["SHELLCHECK_OPTS"] = "-x" }
+    env { ["SHELLCHECK_OPTS"] = "--external-sources --source-path=SCRIPTDIR" }
   }
 
   // zsh
@@ -25,10 +23,7 @@ steps {
 
   // toml
   ["taplo"] = Builtins.taplo
-  ["taplo_format"] = (Builtins.taplo_format) {
-    // vendored astrodark themes stay byte-identical to upstream
-    exclude = List("helix/themes/**", "wezterm/colors/**")
-  }
+  ["taplo_format"] = Builtins.taplo_format
   ["mise"] = Builtins.mise
 
   // yaml
@@ -36,8 +31,12 @@ steps {
 
   // json
   ["jq"] = (Builtins.jq) {
-    // Alfred writes its own json
-    exclude = "macos/Alfred.alfredpreferences/**"
+    exclude =
+      List(
+        "macos/Alfred.alfredpreferences/**",
+        "agents/claude/settings.json",
+        "**/lazy-lock.json",
+      )
   }
 
   // git config
@@ -63,7 +62,6 @@ steps {
     types = null
     glob = "**/*.lua"
   }
-  // one run per neovim config, each with its own selene.toml
   ["selene"] = (Builtins.selene) {
     types = null
     glob = "neovim/**/*.lua"
@@ -72,11 +70,13 @@ steps {
   }
 
   // pkl
+  ["pkl_format"] = Builtins.pkl_format
+
+  // hk
   ["hk"] {
     glob = "hk.pkl"
-    check = "hk validate"
+    check = "hk --quiet validate"
   }
-  ["pkl_format"] = Builtins.pkl_format
 
   // plist
   ["plist"] {
@@ -98,7 +98,7 @@ steps {
   // ssh
   ["ssh"] {
     glob = List("ssh/config", "ssh/personal", "ssh/work")
-    check = "ssh -G -F ssh/config localhost >/dev/null"
+    check = "ssh -T -G -F ssh/config localhost >/dev/null"
   }
 
   // markdown
@@ -108,7 +108,11 @@ steps {
   }
 }
 
-// top-level steps already create the check, fix and pre-commit hooks
 hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = "git"
+    steps = outer.steps
+  }
   ["pre-push"] { steps = outer.steps }
 }

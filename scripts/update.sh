@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# shellcheck source=scripts/utils.sh
 source "$(dirname "$0")/utils.sh"
 
 # tmux
@@ -21,14 +20,21 @@ scripts/submodules-update.sh
 # brew
 scripts/brew-update.sh
 
-# astrodark theme
-## bat
+# fzf
+"$HOME/.fzf/install" --key-bindings --completion --no-update-rc --no-bash --no-fish
+
+# bat
 bat cache --build
+
+# zsh
 ## fast-syntax-highlighting
 zsh -c 'source "$HOME/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" && fast-theme -q "$HOME/.config/shell/fsh.astrodark.ini"'
 
 # mise
 scripts/mise-update.sh
+
+# hk
+scripts/hk-update.sh
 
 # herdr
 scripts/herdr-update.sh
@@ -38,9 +44,6 @@ pnpm setup || true
 
 # claude
 scripts/claude-update.sh
-
-# fzf
-"$HOME/.fzf/install" --key-bindings --completion --no-update-rc --no-bash --no-fish
 
 # macos
 softwareupdate --download --install --all

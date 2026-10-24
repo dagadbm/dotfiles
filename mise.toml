@@ -31,6 +31,10 @@ file = "scripts/brew-update.sh"
 description = "Update mise"
 file = "scripts/mise-update.sh"
 
+[tasks."hk:update"]
+description = "Update hk, install git hooks"
+file = "scripts/hk-update.sh"
+
 [tasks."nvim:update"]
 description = "Update Neovim, LSP, plugins"
 file = "scripts/nvim-update.sh"

@@ -40,7 +40,9 @@ label = { fg = "#5EB7FF" }
 "markup.link" = { fg = "#DFAB25", modifiers = ["bold"] }
 "markup.link.label" = { fg = "#87C05F" }
 "markup.link.text" = { fg = "#DFAB25", modifiers = ["bold"] }
-"markup.link.url" = { fg = "#5EB7FF", modifiers = ["italic"], underline = { style = "line" } }
+"markup.link.url" = { fg = "#5EB7FF", modifiers = [
+  "italic",
+], underline = { style = "line" } }
 "markup.list" = { fg = "#5EB7FF" }
 "markup.raw" = { fg = "#FF838B" }
 "markup.strikethrough" = { modifiers = ["crossed_out"] }

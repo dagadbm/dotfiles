@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-# shellcheck source=scripts/utils.sh
 source "$(dirname "$0")/utils.sh"
 
 # Ask for the administrator password upfront
@@ -29,10 +28,8 @@ xcode-select --install || true
 # macos
 ./macos/defaults.sh
 
-# submodules
+# dotbot
 scripts/submodules-update.sh
-
-# dotfiles
 scripts/dotbot.sh
 
 # brew
@@ -41,13 +38,11 @@ brew bundle --file macos/Brewfile
 # mise
 mise trust mise.toml
 mise install
-mise exec -- hk install --mise
 
 # neovim
 bob install latest
 bob install nightly
 bob use nightly
-scripts/nvim-update.sh
 
 # broot
 mkdir -p "$HOME/.config/broot/launcher/zsh"
@@ -56,4 +51,3 @@ broot --set-install-state installed
 
 # update
 scripts/update.sh
-

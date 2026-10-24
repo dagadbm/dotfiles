@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# shellcheck source=scripts/utils.sh
 source "$(dirname "$0")/utils.sh"
 
-# shellcheck source=scripts/prune-utils.sh
 source "$(dirname "$0")/prune-utils.sh"
 
 BREWFILE="macos/Brewfile"

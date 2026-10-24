@@ -26,6 +26,7 @@ mise run dotbot                           # relink after changing dotbot.conf.ya
 mise run update                           # update everything
 mise run nvim:update                      # update Neovim, LSP, plugins
 mise run herdr:update                     # update herdr
+mise run hk:update                        # update hk, install git hooks
 mise run claude:update                    # update agent tooling
 mise run submodules:update                # update submodules
 mise run brew:update                      # update Homebrew
