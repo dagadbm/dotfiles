@@ -42,6 +42,9 @@ scripts/herdr-update.sh
 # pnpm
 pnpm setup || true
 
+# nvim
+scripts/nvim-update.sh
+
 # claude
 scripts/claude-update.sh
 

@@ -207,7 +207,6 @@ alias t="tmux-restore"
 alias ls='lsd'
 alias du='dust'
 alias cat='bat'
-alias time='hyperfine'
 alias cloc='tokei'
 alias top='btm'
 alias htop='zenith'

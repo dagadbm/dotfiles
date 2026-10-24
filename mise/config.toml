@@ -12,23 +12,17 @@ golang = "latest"
 node = "lts"
 pnpm = "latest"
 rust = "latest"
-python = ["latest", "2.7.18"]
+python = "latest"
 uv = "latest"
+# needed for scripts/claude-update.sh
+"npm:@caveman-ai/cli" = "latest"
 # needed for lazyvim
 lua = "5.1"
-
-# needed for claude code lsp plugins
-"npm:pyright" = "latest"
-# claude code only supports typescript-language-server which needs ts6
-"npm:typescript" = "6"
-"npm:typescript-language-server" = "latest"
-"go:golang.org/x/tools/gopls" = "latest"
-"aqua:LuaLS/lua-language-server" = "latest"
 
 [settings]
 experimental = true
 activate_aggressive = true
 # https://mise.jdx.dev/lang/python.html#mise-uv
 python.uv_venv_create_args = ["--seed"]
-# use pnpm instead of npm
+# use pnpm instead of npm (except caveman, see scripts/claude-update.sh)
 npm.package_manager = "pnpm"

@@ -8,8 +8,8 @@ jq = "latest"
 stylua = "latest"
 "aqua:Kampfkarren/selene" = "latest"
 rumdl = "latest"
-hk = { version = "latest", workflow = "release.yml" }
 pkl = "latest"
+hk = { version = "latest", workflow = "release.yml" }
 
 [tasks.bootstrap]
 description = "Download and set up everything on a new machine"
