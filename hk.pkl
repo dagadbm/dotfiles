@@ -1,0 +1,138 @@
+amends "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Config.pkl"
+
+import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.pkl"
+
+// `mise run lint` runs `hk fix --all`: formatters fix, then every step checks.
+exclude = List("submodules/**")
+
+local gitconfigs =
+  List(
+    "git/gitconfig",
+    "git/gitconfig_global",
+    "git/gitconfig_personal",
+    "git/gitconfig_work",
+    "git/delta.astrodark.gitconfig",
+  )
+
+steps {
+  // shell
+  ["shellcheck"] {
+    glob = "**/*.sh"
+    batch = true
+    check = "shellcheck -x -S warning {{files}}"
+  }
+
+  // zsh
+  ["zsh"] {
+    glob = "zsh/*.zsh"
+    check = "for f in {{files}}; do zsh -n \"$f\"; done"
+  }
+
+  // toml
+  ["taplo"] {
+    env { ["RUST_LOG"] = "warn" }
+    glob = "**/*.toml"
+    batch = true
+    check = "taplo check {{files}}"
+  }
+
+  // yaml
+  ["yaml"] {
+    glob = List("**/*.yml", "**/*.yaml")
+    batch = true
+    check = "ruby -ryaml -e 'ARGV.each { |f| YAML.load_file(f) }' {{files}}"
+  }
+
+  // json (vscode/*.json is JSONC, jq rejects it)
+  ["json"] {
+    glob = "**/*.json"
+    exclude = "vscode/**"
+    batch = true
+    check = "for f in {{files}}; do jq empty \"$f\" >/dev/null; done"
+  }
+
+  // git config
+  ["gitconfig"] {
+    glob = gitconfigs
+    check = "for f in {{files}}; do git config -f \"$f\" --list >/dev/null; done"
+  }
+
+  // tmux
+  ["tmux"] {
+    glob = "tmux/tmux.conf"
+    check = "tmux -L hk-lint -f tmux/tmux.conf start-server \\; kill-server"
+  }
+
+  // brewfile
+  ["brewfile"] {
+    glob = "macos/Brewfile"
+    check = "brew bundle check --no-upgrade --file=macos/Brewfile >/dev/null"
+  }
+
+  // lua
+  ["stylua"] = (Builtins.stylua) {
+    types = null
+    glob = "**/*.lua"
+  }
+  ["selene"] = (Builtins.selene) {
+    types = null
+    dir = "neovim/astrovim"
+    glob = "**/*.lua"
+  }
+
+  // pkl
+  ["hk"] {
+    glob = "hk.pkl"
+    check = "hk validate"
+  }
+  ["pkl_format"] = Builtins.pkl_format
+
+  // plist
+  ["plist"] {
+    glob = "**/*.plist"
+    batch = true
+    check = "plutil -lint -s {{files}}"
+  }
+
+  // ghostty (cask does not link the CLI; find the app via its brew target)
+  ["ghostty"] {
+    glob = "ghostty/config.ghostty"
+    check =
+      #"""
+      app=$(brew info --cask --json=v2 ghostty | jq -r '.casks[0].artifacts[] | select(.app) | .target')
+      "$app/Contents/MacOS/ghostty" +validate-config --config-file=ghostty/config.ghostty
+      """#
+  }
+
+  // ssh config (personal/work are Included from config)
+  ["ssh"] {
+    glob = List("ssh/config", "ssh/personal", "ssh/work")
+    check = "ssh -G -F ssh/config localhost >/dev/null"
+  }
+
+  // python
+  ["python"] {
+    glob = "**/*.py"
+    check =
+      "for f in {{files}}; do python3 -c 'import ast, sys; ast.parse(open(sys.argv[1]).read(), sys.argv[1])' \"$f\"; done"
+  }
+
+  // markdown
+  ["rumdl_format"] = Builtins.rumdl_format
+  ["rumdl"] = (Builtins.rumdl) {
+    depends = "rumdl_format"
+  }
+}
+
+hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = "git"
+    steps = outer.steps
+  }
+  ["check"] { steps = outer.steps }
+  ["fix"] {
+    fix = true
+    steps = outer.steps
+  }
+}
