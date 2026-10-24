@@ -1,5 +1,4 @@
-#!/usr/bin/osascript
-
+local script = [[
 tell application "Ghostty"
   -- the bootstrap window may not exist yet at cold launch
   repeat 100 times
@@ -24,3 +23,11 @@ tell application "Ghostty"
   perform action "toggle_fullscreen" on focused terminal of selected tab of startupWindow
   close window bootWindow
 end tell
+]]
+
+return {
+  startup = function()
+    local ok, result = hs.osascript.applescript(script)
+    assert(ok, result)
+  end,
+}

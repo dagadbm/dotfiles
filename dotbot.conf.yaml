@@ -69,6 +69,7 @@
     ~/.ssh/work: ssh/work
 
     # macos apps
+    ~/.hammerspoon: macos/hammerspoon
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
     ~/Library/Application Support/Alfred/Alfred.alfredpreferences: macos/Alfred.alfredpreferences
 

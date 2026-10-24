@@ -6,7 +6,7 @@ language = en
 theme = astrodark
 term = xterm-256color
 
-initial-command = ~/.config/ghostty/startup.applescript
+initial-command = hs -c 'require("ghostty").startup()'
 
 font-family = JetBrainsMono Nerd Font Mono
 font-size = 12
