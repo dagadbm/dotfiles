@@ -1,8 +1,7 @@
 {
-  "neodev": {
-    "library": {
-      "enabled": true,
-      "plugins": true
+  "lspconfig": {
+    "lua_ls": {
+      "Lua.format.enable": false
     }
   },
   "neoconf": {
@@ -12,9 +11,10 @@
       }
     }
   },
-  "lspconfig": {
-    "lua_ls": {
-      "Lua.format.enable": false
+  "neodev": {
+    "library": {
+      "enabled": true,
+      "plugins": true
     }
   }
 }

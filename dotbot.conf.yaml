@@ -6,8 +6,8 @@
       force: true
       relink: true
 - clean:
-    "~/":
-    "~/.config":
+    ~/:
+    ~/.config:
       recursive: true
 - create:
     # extra folders cache related actions
@@ -46,7 +46,6 @@
     ~/.oh-my-zsh/custom/plugins/fast-syntax-highlighting: submodules/fast-syntax-highlighting
     ~/.oh-my-zsh/custom/plugins/fzf-tab: submodules/fzf-tab
     ~/.oh-my-zsh/custom/plugins/forgit: submodules/forgit
-
     # tools
     ~/.fzf: submodules/fzf
     ~/.config/bat: bat
@@ -62,41 +61,33 @@
     ~/.gitconfig_personal: git/gitconfig_personal
     ~/.gitconfig_work: git/gitconfig_work
     ~/.config/git/ignore: git/gitignore
-
     # ssh
     ~/.ssh/config: ssh/config
     ~/.ssh/personal: ssh/personal
     ~/.ssh/work: ssh/work
-
     # macos apps
     ~/.hammerspoon: macos/hammerspoon
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
     ~/Library/Application Support/Alfred/Alfred.alfredpreferences: macos/Alfred.alfredpreferences
-
     # nvim
     ## my config
     ~/.config/nvim-dagadbm: neovim/dagadbm
     ## distros
     ~/.config/nvim-lazyvim: neovim/lazyvim
     ~/.config/nvim-astrovim: neovim/astrovim
-
     # terminals
     ~/.config/wezterm: wezterm
     ~/.config/ghostty: ghostty
-
     # vscode
     ~/Library/Application Support/Code/User/settings.json: vscode/settings.json
     ~/Library/Application Support/Code/User/keybindings.json: vscode/keybindings.json
     ~/Library/Application Support/Cursor/User/settings.json: vscode/settings.json
     ~/Library/Application Support/Cursor/User/keybindings.json: vscode/keybindings.json
-
     # helix
     ~/.config/helix/config.toml: helix/config.toml
     ~/.config/helix/themes: helix/themes
-
     # herdr
     ~/.config/herdr/config.toml: herdr/config.toml
-
     # agents
     ## claude
     ~/.claude/settings.json: agents/claude/settings.json

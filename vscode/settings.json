@@ -1,6 +1,96 @@
 {
-  "vim.leader": "<space>",
-  "vim.useCtrlKeys": true,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "amp.tab.enabled": true,
+  "amp.url": "https://ampcode.com/",
+  "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
+  "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.accessibilitySupport": "off",
+  "editor.minimap.enabled": false,
+  "editor.wordBasedSuggestions": "off",
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "go.toolsManagement.autoUpdate": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "kilo-code.allowedCommands": [
+    "git log",
+    "git diff",
+    "git show",
+    "npm",
+    "mkdir",
+    "git diff dev...local-review",
+    "git"
+  ],
+  "kilo-code.debug": false,
+  "kilo-code.deniedCommands": [],
+  "multiCommand.commands": [
+    {
+      "command": "multiCommand.searchWordUnderCursor",
+      "sequence": [
+        "editor.action.addSelectionToNextFindMatch",
+        "editor.action.clipboardCopyAction",
+        "workbench.action.findInFiles",
+        {
+          "command": "editor.action.clipboardPasteAction"
+        },
+        "search.action.focusSearchList"
+      ]
+    },
+    {
+      "command": "multiCommand.gotoReferenceAndClose",
+      "sequence": [
+        "list.select",
+        "closeReferenceSearch"
+      ]
+    },
+    {
+      "command": "multiCommand.joinAndCloseOthers",
+      "sequence": [
+        "workbench.action.joinAllGroups",
+        "workbench.action.closeOtherEditors"
+      ]
+    }
+  ],
+  "python.defaultInterpreterPath": "/Users/dagadbm/.local/share/mise/installs/python/3.14.0/bin/python",
+  "terminal.integrated.commandsToSkipShell": [
+    "kilo-code.new.agentManagerOpen",
+    "kilo-code.new.agentManager.showTerminal"
+  ],
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vim.easymotion": true,
   "vim.handleKeys": {
     "<C-a>": true,
     "<C-b>": true,
@@ -26,162 +116,141 @@
     "<C-w>": true,
     "<C-x>": true,
     "<C-y>": true,
-    "<C-z>": true,
+    "<C-z>": true
   },
-  "vim.insertModeKeyBindings": [
-    {
-      "before": ["j", "k"],
-      "after": ["<Esc>"],
-    },
-  ],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "e"],
-      "commands": ["workbench.view.explorer"],
-    },
-    {
-      "before": ["<leader>", "g", "g"],
-      "commands": ["workbench.view.scm"],
-    },
-    {
-      "before": ["<C-w>", "h"],
-      "commands": ["workbench.action.focusLeftGroup"],
-    },
-    {
-      "before": ["<C-w>", "j"],
-      "commands": ["workbench.action.focusBelowGroup"],
-    },
-    {
-      "before": ["<C-w>", "k"],
-      "commands": ["workbench.action.focusAboveGroup"],
-    },
-    {
-      "before": ["<C-w>", "l"],
-      "commands": ["workbench.action.focusRightGroup"],
-    },
-    {
-      "before": ["<C-w>", "s"],
-      "commands": ["workbench.action.splitEditorDown"],
-    },
-    {
-      "before": ["<C-w>", "v"],
-      "commands": ["workbench.action.splitEditorRight"],
-    },
-    {
-      "before": ["<C-w>", "c"],
-      "commands": ["workbench.action.closeActiveEditor"],
-    },
-    {
-      "before": ["<C-w>", "o"],
-      "commands": ["workbench.action.closeOtherEditors"],
-    },
-    {
-      "before": ["<C-w>", "="],
-      "commands": ["workbench.action.evenEditorWidths"],
-    },
-  ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "y"],
-      "commands": ["editor.action.clipboardCopyAction"],
-    },
-  ],
-  "vim.easymotion": true,
-  "vim.incsearch": true,
-  "vim.useSystemClipboard": true,
   "vim.hlsearch": true,
   "vim.ignorecase": true,
+  "vim.incsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "after": [
+        "<Esc>"
+      ],
+      "before": [
+        "j",
+        "k"
+      ]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "e"
+      ],
+      "commands": [
+        "workbench.view.explorer"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "g"
+      ],
+      "commands": [
+        "workbench.view.scm"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "h"
+      ],
+      "commands": [
+        "workbench.action.focusLeftGroup"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "j"
+      ],
+      "commands": [
+        "workbench.action.focusBelowGroup"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "k"
+      ],
+      "commands": [
+        "workbench.action.focusAboveGroup"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "l"
+      ],
+      "commands": [
+        "workbench.action.focusRightGroup"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.splitEditorDown"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "v"
+      ],
+      "commands": [
+        "workbench.action.splitEditorRight"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "c"
+      ],
+      "commands": [
+        "workbench.action.closeActiveEditor"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "o"
+      ],
+      "commands": [
+        "workbench.action.closeOtherEditors"
+      ]
+    },
+    {
+      "before": [
+        "<C-w>",
+        "="
+      ],
+      "commands": [
+        "workbench.action.evenEditorWidths"
+      ]
+    }
+  ],
   "vim.smartcase": true,
-  "terminal.integrated.env.osx": {
-    "FIG_NEW_SESSION": "1",
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features",
-  },
-  "workbench.panel.showLabels": false,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "multiCommand.commands": [
+  "vim.useCtrlKeys": true,
+  "vim.useSystemClipboard": true,
+  "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "command": "multiCommand.searchWordUnderCursor",
-      "sequence": [
-        "editor.action.addSelectionToNextFindMatch",
-        "editor.action.clipboardCopyAction",
-        "workbench.action.findInFiles",
-        {
-          "command": "editor.action.clipboardPasteAction",
-        },
-        "search.action.focusSearchList",
+      "before": [
+        "<leader>",
+        "y"
       ],
-    },
-    {
-      "command": "multiCommand.gotoReferenceAndClose",
-      "sequence": ["list.select", "closeReferenceSearch"],
-    },
-    {
-      "command": "multiCommand.joinAndCloseOthers",
-      "sequence": [
-        "workbench.action.joinAllGroups",
-        "workbench.action.closeOtherEditors",
-      ],
-    },
+      "commands": [
+        "editor.action.clipboardCopyAction"
+      ]
+    }
   ],
-  "[less]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "diffEditor.ignoreTrimWhitespace": false,
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter",
-  },
-  "python.defaultInterpreterPath": "/Users/dagadbm/.local/share/mise/installs/python/3.14.0/bin/python",
   "window.commandCenter": true,
-  "amp.url": "https://ampcode.com/",
-  "editor.wordBasedSuggestions": "off",
-  "amp.tab.enabled": true,
-  "kilo-code.allowedCommands": [
-    "git log",
-    "git diff",
-    "git show",
-    "npm",
-    "mkdir",
-    "git diff dev...local-review",
-    "git"
-  ],
-  "kilo-code.deniedCommands": [],
-  "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
-  "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
-  "workbench.startupEditor": "none",
-  "editor.minimap.enabled": false,
-  "github.copilot.nextEditSuggestions.enabled": true,
-  "kilo-code.debug": false,
-  "explorer.confirmDragAndDrop": false,
-  "explorer.confirmDelete": false,
-  "go.toolsManagement.autoUpdate": true,
   "workbench.colorTheme": "Dark Modern",
-  "editor.accessibilitySupport": "off",
-  "terminal.integrated.commandsToSkipShell": [
-    "kilo-code.new.agentManagerOpen",
-    "kilo-code.new.agentManager.showTerminal"
-  ],
+  "workbench.panel.showLabels": false,
+  "workbench.startupEditor": "none"
 }

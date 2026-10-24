@@ -1,18 +1,255 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "agentPushNotifEnabled": false,
+  "alwaysThinkingEnabled": false,
+  "autoContinueAtUsageLimit": false,
+  "autoMemoryEnabled": false,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: PUBLIC — github.com/dagadbm/dotfiles (confirmed via gh)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Default / protected branches**: Default branch `master`; no rulesets or protected branches listed (dagadbm/dotfiles)",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet",
+      "**Source control**: The trusted repo (dagadbm/dotfiles on github.com) and its remote only — no additional orgs configured",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: personal dotfiles/tooling maintenance (scripts, mise tasks, macOS/dev-environment setup)",
+      "**Trusted repo**: dagadbm/dotfiles (public) — working directory ~/Users/dagadbm/dotfiles and its github.com remote; since this repo is PUBLIC, only this repo's own work belongs here — ported/foreign content and secrets/sensitive data are never cleared in by visibility",
+      "**Org-specific CLIs**: None configured — project-specific tools observed: mise, herdr, caveman/cave, sphinx, tailscale (routine within this repo's scripts/ and mise tasks)"
+    ]
+  },
+  "disableBundledSkills": true,
+  "editorMode": "vim",
+  "enabledPlugins": {
+    "agent-skills@addy-agent-skills": true,
+    "caveman@caveman": true,
+    "cowork-plugin-management@synced": false,
+    "mattpocock-skills@claude-plugins-official": true,
+    "pstack@potetos-for-everyone": false,
+    "superpowers@claude-plugins-official": false
+  },
   "env": {
-    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
-    "DISABLE_ERROR_REPORTING": "1",
-    "DISABLE_BUG_COMMAND": "1",
-    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
-    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
-    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787/w/claude",
-    "_CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL": "1",
+    "CAVEMAN_DEFAULT_MODE": "ultracave",
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "DISABLE_BUG_COMMAND": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
     "ENABLE_TOOL_SEARCH": "auto",
-    "CAVEMAN_DEFAULT_MODE": "ultracave"
+    "_CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL": "1"
+  },
+  "extraKnownMarketplaces": {
+    "addy-agent-skills": {
+      "source": {
+        "repo": "addyosmani/agent-skills",
+        "source": "github"
+      }
+    },
+    "caveman": {
+      "source": {
+        "repo": "JuliusBrussee/caveman",
+        "source": "github"
+      }
+    },
+    "claude-plugins-official": {
+      "source": {
+        "repo": "anthropics/claude-plugins-official",
+        "source": "github"
+      }
+    },
+    "potetos-for-everyone": {
+      "source": {
+        "repo": "TheOnlyFusionCube/potetos-for-everyone",
+        "source": "github"
+      }
+    }
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "~/.agents/scripts/bash-validator-hook.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "/Users/dagadbm/.local/share/caveman-blocks/bin/caveman-blocks hook --harness claude",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node' '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/caveman' shrink-hook",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/dagadbm/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "^(startup|resume|clear|compact|fork)$"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ]
   },
   "includeCoAuthoredBy": false,
+  "model": "haiku",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "autoCompactWindow": 400000,
+      "effortLevel": "low"
+    },
+    "claude-haiku-5-5": {
+      "autoCompactWindow": 250000,
+      "effortLevel": "medium"
+    },
+    "claude-opus-5-5": {
+      "autoCompactWindow": 400000,
+      "effortLevel": "low"
+    },
+    "claude-sonnet-5-5": {
+      "autoCompactWindow": 250000,
+      "effortLevel": "low"
+    }
+  },
   "permissions": {
     "allow": [
       "Bash(find:*)",
@@ -77,255 +314,18 @@
       "Read(**/*.keystore)"
     ]
   },
-  "model": "haiku",
-  "disableBundledSkills": true,
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.agents/scripts/bash-validator-hook.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/dagadbm/.local/share/caveman-blocks/bin/caveman-blocks hook --harness claude",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node' '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/caveman' shrink-hook",
-            "timeout": 30
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      },
-      {
-        "matcher": "^(startup|resume|clear|compact|fork)$",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash '/Users/dagadbm/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "PostToolUseFailure": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "SubagentStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "SubagentStop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/node/lts/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
-            "timeout": 30
-          }
-        ]
-      }
-    ]
-  },
-  "worktree": {
-    "baseRef": "fresh"
-  },
+  "preferredNotifChannel": "auto",
+  "promptSuggestionEnabled": false,
+  "skipDangerousModePermissionPrompt": true,
+  "spinnerTipsEnabled": false,
   "statusLine": {
-    "type": "command",
     "command": "ccstatusline",
     "padding": 0,
-    "refreshInterval": 1
+    "refreshInterval": 1,
+    "type": "command"
   },
-  "enabledPlugins": {
-    "caveman@caveman": true,
-    "agent-skills@addy-agent-skills": true,
-    "mattpocock-skills@claude-plugins-official": true,
-    "pstack@potetos-for-everyone": false,
-    "superpowers@claude-plugins-official": false,
-    "cowork-plugin-management@synced": false
-  },
-  "extraKnownMarketplaces": {
-    "claude-plugins-official": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/claude-plugins-official"
-      }
-    },
-    "caveman": {
-      "source": {
-        "source": "github",
-        "repo": "JuliusBrussee/caveman"
-      }
-    },
-    "potetos-for-everyone": {
-      "source": {
-        "source": "github",
-        "repo": "TheOnlyFusionCube/potetos-for-everyone"
-      }
-    },
-    "addy-agent-skills": {
-      "source": {
-        "source": "github",
-        "repo": "addyosmani/agent-skills"
-      }
-    }
-  },
-  "spinnerTipsEnabled": false,
-  "alwaysThinkingEnabled": false,
-  "modelSettings": {
-    "claude-fable-5-1": {
-      "effortLevel": "low",
-      "autoCompactWindow": 400000
-    },
-    "claude-opus-5-5": {
-      "effortLevel": "low",
-      "autoCompactWindow": 400000
-    },
-    "claude-haiku-5-5": {
-      "effortLevel": "medium",
-      "autoCompactWindow": 250000
-    },
-    "claude-sonnet-5-5": {
-      "effortLevel": "low",
-      "autoCompactWindow": 250000
-    }
-  },
-  "promptSuggestionEnabled": false,
   "tui": "fullscreen",
-  "autoMemoryEnabled": false,
-  "skipDangerousModePermissionPrompt": true,
-  "editorMode": "vim",
-  "preferredNotifChannel": "auto",
-  "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false,
-  "autoMode": {
-    "environment": [
-      "### Org-wide",
-      "**Organization**: None configured",
-      "**Cloud provider(s)**: None configured",
-      "**Repository visibility**: PUBLIC — github.com/dagadbm/dotfiles (confirmed via gh)",
-      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
-      "**Secrets management**: None configured",
-      "**Default / protected branches**: Default branch `master`; no rulesets or protected branches listed (dagadbm/dotfiles)",
-      "**CI/CD deploy targets**: None configured",
-      "**Network posture**: None configured",
-      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet",
-      "**Source control**: The trusted repo (dagadbm/dotfiles on github.com) and its remote only — no additional orgs configured",
-      "**Trusted internal domains**: None configured",
-      "**Trusted cloud buckets**: None configured",
-      "**Key internal services**: None configured",
-      "**Internal package registry**: None configured",
-      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
-      "**Data retention / declassification**: None configured",
-      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
-      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
-      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
-      "### User-specific",
-      "**Primary use of Claude Code**: personal dotfiles/tooling maintenance (scripts, mise tasks, macOS/dev-environment setup)",
-      "**Trusted repo**: dagadbm/dotfiles (public) — working directory ~/Users/dagadbm/dotfiles and its github.com remote; since this repo is PUBLIC, only this repo's own work belongs here — ported/foreign content and secrets/sensitive data are never cleared in by visibility",
-      "**Org-specific CLIs**: None configured — project-specific tools observed: mise, herdr, caveman/cave, sphinx, tailscale (routine within this repo's scripts/ and mise tasks)"
-    ]
+  "worktree": {
+    "baseRef": "fresh"
   }
 }
