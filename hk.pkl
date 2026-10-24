@@ -2,7 +2,6 @@ amends "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Config.pk
 
 import "package://github.com/jdx/hk/releases/download/v2.8.0/hk@2.8.0#/Builtins.pkl"
 
-// `mise run lint` runs `hk fix --all`: formatters fix, then every step checks.
 exclude = List("submodules/**")
 
 local gitconfigs =
@@ -30,7 +29,6 @@ steps {
 
   // toml
   ["taplo"] {
-    env { ["RUST_LOG"] = "warn" }
     glob = "**/*.toml"
     batch = true
     check = "taplo check {{files}}"
@@ -43,9 +41,10 @@ steps {
     check = "ruby -ryaml -e 'ARGV.each { |f| YAML.load_file(f) }' {{files}}"
   }
 
-  // json (vscode/*.json is JSONC, jq rejects it)
+  // json
   ["json"] {
     glob = "**/*.json"
+    // vscode is jsonc
     exclude = "vscode/**"
     batch = true
     check = "for f in {{files}}; do jq empty \"$f\" >/dev/null; done"
@@ -74,9 +73,19 @@ steps {
     types = null
     glob = "**/*.lua"
   }
-  ["selene"] = (Builtins.selene) {
+  ["selene_astrovim"] = (Builtins.selene) {
     types = null
     dir = "neovim/astrovim"
+    glob = "**/*.lua"
+  }
+  ["selene_lazyvim"] = (Builtins.selene) {
+    types = null
+    dir = "neovim/lazyvim"
+    glob = "**/*.lua"
+  }
+  ["selene_dagadbm"] = (Builtins.selene) {
+    types = null
+    dir = "neovim/dagadbm"
     glob = "**/*.lua"
   }
 
@@ -94,7 +103,7 @@ steps {
     check = "plutil -lint -s {{files}}"
   }
 
-  // ghostty (cask does not link the CLI; find the app via its brew target)
+  // ghostty
   ["ghostty"] {
     glob = "ghostty/config.ghostty"
     check =
@@ -104,7 +113,7 @@ steps {
       """#
   }
 
-  // ssh config (personal/work are Included from config)
+  // ssh
   ["ssh"] {
     glob = List("ssh/config", "ssh/personal", "ssh/work")
     check = "ssh -G -F ssh/config localhost >/dev/null"
@@ -130,6 +139,7 @@ hooks {
     stash = "git"
     steps = outer.steps
   }
+  ["pre-push"] { steps = outer.steps }
   ["check"] { steps = outer.steps }
   ["fix"] {
     fix = true

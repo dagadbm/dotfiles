@@ -45,7 +45,7 @@ map("v", [[<Leader>tl]], [[<Cmd>ToggleTermSendVisualSelection<CR>]], { desc = "S
 map("n", [[<Leader>e]], [[<Cmd>NvimTreeToggle<CR>]], { desc = "Toggle file tree" })
 
 local lazygit = nil
-function _G.lazygit_toggle()
+local function lazygit_toggle()
 	if not lazygit then
 		lazygit = require("toggleterm.terminal").Terminal:new({ cmd = "lazygit", direction = "float", hidden = true })
 	end
@@ -120,11 +120,11 @@ map("n", [[<Leader>/]], function()
 end, { desc = "Search current buffer" })
 -- Type <Leader>* to search everywhere for the selected word on normal and visual mode
 map("n", [[<Leader>*]], function()
-	require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>"), cwd = cwd })
+	require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>") })
 end, { desc = "Search word under cursor" })
 -- file search
 map("n", [[<Leader>p]], function()
-	require("telescope.builtin").find_files({ cwd = cwd })
+	require("telescope.builtin").find_files()
 end, { desc = "Find files" })
 -- Type <Leader>P to search for files with the content of the word under cursor
 map("n", [[<Leader>P]], function()
@@ -132,11 +132,11 @@ map("n", [[<Leader>P]], function()
 end, { desc = "Find files with word under cursor" })
 -- global search
 map("n", [[<Leader>f]], function()
-	require("telescope.builtin").grep_string({ search = vim.fn.input("Search For > "), cwd = cwd })
+	require("telescope.builtin").grep_string({ search = vim.fn.input("Search For > ") })
 end, { desc = "Search for text" })
 -- Type <Leader>F to pass args to rp
 map("n", [[<Leader>F]], function()
-	require("telescope.builtin").live_grep({ cwd = cwd })
+	require("telescope.builtin").live_grep()
 end, { desc = "Live grep" })
 
 -- vim related searches

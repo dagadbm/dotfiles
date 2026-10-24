@@ -86,7 +86,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ~/.agents/scripts/bash-validator-hook.py"
+            "command": "~/.agents/scripts/bash-validator-hook.sh"
           }
         ]
       },
