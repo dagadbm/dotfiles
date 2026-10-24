@@ -102,5 +102,5 @@
     ~/.claude/settings.json: agents/claude/settings.json
     ~/.config/ccstatusline/settings.json: agents/claude/ccstatusline.settings.json
     ## scripts
-    ~/.agents/scripts/bash-validator-hook.py: agents/scripts/bash-validator-hook.py
+    ~/.agents/scripts/bash-validator-hook.sh: agents/scripts/bash-validator-hook.sh
     ~/.agents/scripts/notify-hook.sh: agents/scripts/notify-hook.sh
