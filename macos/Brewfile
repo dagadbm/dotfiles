@@ -1,10 +1,4 @@
 # brew
-## nvim
-brew "tree-sitter", args: ["HEAD"]
-brew "bob"
-brew "universal-ctags"
-brew "tree-sitter-cli"
-brew "luarocks"
 ## shell
 brew "bash"
 brew "zsh"
@@ -58,7 +52,14 @@ brew "git-lfs"
 brew "cmake"
 ## editors
 brew "helix"
-## ai
+### nvim
+brew "tree-sitter", args: ["HEAD"]
+brew "bob"
+brew "universal-ctags"
+brew "tree-sitter-cli"
+brew "luarocks"
+## agents
+### utils
 brew "agent-browser"
 
 # cask
@@ -70,6 +71,8 @@ cask_args appdir: "~/Applications"
 ## terminal
 cask "wezterm@nightly"
 cask "ghostty"
+## utils
+cask "hammerspoon"
 ## productivity
 cask "penc", args: { appdir: "/Applications" }
 cask "alfred", args: { appdir: "/Applications" }
@@ -87,10 +90,8 @@ cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "zed"
 ## browsers
 cask "arc", args: { appdir: "/Applications" }
+cask "crest-browser", args: { appdir: "/Applications" }
 cask "google-chrome"
-cask "brave-browser"
-cask "firefox"
-cask "terminal-browser"
 ## social
 cask "discord", args: { appdir: "/Applications" }
 cask "whatsapp", args: { appdir: "/Applications" }
@@ -110,20 +111,18 @@ cask "dbeaver-community"
 ## meetings
 cask "zoom"
 cask "microsoft-teams"
-## ai
-### chat
-cask "google-gemini", args: { appdir: "/Applications" }
-cask "manus", args: { appdir: "/Applications" }
+## agents
+### gui
 cask "claude", args: { appdir: "/Applications" }
 cask "chatgpt", args: { appdir: "/Applications" }
-## harness
+cask "google-gemini", args: { appdir: "/Applications" }
+## tui
 cask "claude-code@latest"
-cask "codex"
 ### speech to text
 tap "anomalyco/tap", trusted: true
 cask "anomalyco/tap/hex", trusted: true
 ### utils
 cask "agentsview"
 cask "codexbar"
-### local
+cask "terminal-browser"
 cask "lm-studio", args: { appdir: "/Applications" } # can only run on /Applications

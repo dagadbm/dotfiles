@@ -4,9 +4,9 @@ local act = wezterm.action
 
 wezterm.on('gui-startup', function(cmd)
   local tmux_tab, tmux_pane, window = mux.spawn_window(cmd or {})
-  tmux_tab:set_title 'tmux'
+  tmux_tab:set_title 'WezTerm · tmux'
   local herdr_tab, herdr_pane = window:spawn_tab {}
-  herdr_tab:set_title 'herdr'
+  herdr_tab:set_title 'WezTerm · herdr'
   tmux_tab:activate()
   window:gui_window():toggle_fullscreen()
 
