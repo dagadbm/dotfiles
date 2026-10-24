@@ -44,3 +44,6 @@ scripts/claude-update.sh
 
 # macos
 softwareupdate --download --install --all
+
+# tailscale
+scripts/tailscale-update.sh
