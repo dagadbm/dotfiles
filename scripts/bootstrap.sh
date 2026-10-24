@@ -34,9 +34,6 @@ scripts/dotbot.sh
 # setup brew
 brew bundle --file macos/Brewfile
 
-# tailscale
-zsh -ic 'nightshift login && nightshift connect'
-
 # set homebrew's zsh as the default shell for everyone
 sudo sh -c "echo /opt/homebrew/bin/zsh >> /etc/shells"
 sudo chsh -s "/opt/homebrew/bin/zsh"

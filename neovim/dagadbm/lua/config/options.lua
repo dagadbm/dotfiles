@@ -3,21 +3,21 @@ vim.opt.exrc = true
 vim.opt.secure = true
 
 -- <Leader> key avoids default vim key collision
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
 -- Open new split panes to right and bottom, which feels more natural than the default
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- Enable filetype plugins
-vim.cmd 'filetype plugin indent on'
+vim.cmd("filetype plugin indent on")
 -- Enable syntax highlighting
-vim.cmd 'syntax enable'
+vim.cmd("syntax enable")
 
 -- set foldmethod to markers
-vim.opt.foldmethod = 'marker'
+vim.opt.foldmethod = "marker"
 -- using nvim_treesitter
-vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- vim.opt.foldmethod = "expr"
 -- Allows to hide buffers instead of closing them when files are not saved
 vim.opt.hidden = true
@@ -25,7 +25,7 @@ vim.opt.hidden = true
 -- Show tabs and space
 vim.opt.list = true
 vim.opt.tabstop = 4
-vim.opt.listchars = { tab = '→ ', nbsp = '␣', extends = '»', precedes = '«', trail = '•' }
+vim.opt.listchars = { tab = "→ ", nbsp = "␣", extends = "»", precedes = "«", trail = "•" }
 
 -- updatetime for cursor events and time to wait until next key press
 vim.opt.updatetime = 2000
@@ -35,12 +35,12 @@ vim.opt.timeoutlen = 500
 vim.opt.cmdheight = 1
 
 -- always show signcolumns
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 -- Setup 256 color support
 vim.opt.termguicolors = true
 
 -- set utf8 as standard encoding
-vim.opt.encoding = 'utf8'
+vim.opt.encoding = "utf8"
 
 -- Indent wrapped lines
 vim.opt.breakindent = true
@@ -50,29 +50,29 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Make ripgrep be the default vimgrep
-vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 
 -- buffer title
 vim.opt.title = true
-vim.opt.titlestring = '%f'
+vim.opt.titlestring = "%f"
 
 -- Add vertical bar when reaching 80 chars
-vim.opt.colorcolumn = '80'
+vim.opt.colorcolumn = "80"
 
 -- [[ Backups ]]
 -- Maintain undo history between sessions
-vim.opt.undodir = vim.fn.expand('~/.cache/nvim-dagadbm/undos//')
+vim.opt.undodir = vim.fn.expand("~/.cache/nvim-dagadbm/undos//")
 vim.opt.undofile = true
 vim.opt.undolevels = 100000
 vim.opt.undoreload = 100000
 -- Backup everything to prevent code loss catastrophes
 vim.opt.backup = true
 vim.opt.writebackup = true
-vim.opt.backupdir = vim.fn.expand('~/.cache/nvim-dagadbm/backups//')
+vim.opt.backupdir = vim.fn.expand("~/.cache/nvim-dagadbm/backups//")
 vim.opt.swapfile = false
 -- [[ Sessions ]]
 -- recommended options from auto-session
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Ignore case when searching
 vim.opt.ignorecase = true

@@ -259,15 +259,6 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned on
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
 
 ###############################################################################
-# Tailscale                                                                   #
-###############################################################################
-
-# Disable Remote Login (sshd): remote shells go through Tailscale SSH instead,
-# which listens only on the tailnet, so nothing answers SSH on the LAN
-# (needs Full Disk Access for the terminal running this script)
-sudo systemsetup -f -setremotelogin off
-
-###############################################################################
 # Screen                                                                      #
 ###############################################################################
 

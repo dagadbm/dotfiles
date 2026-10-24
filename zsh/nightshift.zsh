@@ -38,6 +38,16 @@ nightshift() {
       local out
       out=$(sudo brew services stop tailscale 2>&1) || { print -r -- "$out"; print "tailscale: logout failed"; return 1; }
       print "tailscale: logged out" ;;
+    check)
+      local backend_state
+      backend_state="$(tailscale status --json 2>/dev/null | jq -r .BackendState 2>/dev/null || true)"
+      if [[ $backend_state == NeedsLogin ]]; then
+        nightshift login && nightshift connect
+      fi
+      if sudo systemsetup -getremotelogin | grep -q ': On'; then
+        print "tailscale: remote login is on"
+        print "sudo systemsetup -setremotelogin off"
+      fi ;;
     status)
       pmset -g | grep -q 'SleepDisabled[[:space:]]*1' && print "nightshift: on" || print "nightshift: off"
       local ts=$(tailscale status --json 2>/dev/null | jq -r .BackendState 2>/dev/null)
@@ -56,9 +66,10 @@ nightshift() {
         'nightshift logout'     'log out of tailscale, stop service'
         'nightshift connect'    'connect to tailscale'
         'nightshift disconnect' 'disconnect from tailscale'
+        'nightshift check'      'log in if needed, warn if remote login is on'
         'nightshift status'     'show sleep and tailscale state'
       )
-      print "usage: nightshift [on|off|login|logout|connect|disconnect|status]"
+      print "usage: nightshift [on|off|login|logout|connect|disconnect|check|status]"
       printf '  %-21s  %s\n' "${(@)rows}" ;;
   esac
 }

@@ -20,7 +20,4 @@ brew upgrade
 brew upgrade --cask wezterm@nightly --greedy-latest
 
 # tailscale
-mosh_server="$(command -v mosh-server)"
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "$mosh_server"
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp "$mosh_server"
 brew doctor || true

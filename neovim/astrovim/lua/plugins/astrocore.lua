@@ -70,8 +70,8 @@ return {
           writebackup = true, -- backup before overwriting
           ignorecase = true, -- ignore case when searching
           smartcase = true,
-          backupdir = vim.fn.expand('~/.cache/nvim-astrovim/backups//'),
-          undodir = vim.fn.expand('~/.cache/nvim-astrovim/undos//'),
+          backupdir = vim.fn.expand "~/.cache/nvim-astrovim/backups//",
+          undodir = vim.fn.expand "~/.cache/nvim-astrovim/undos//",
           undofile = true,
           undolevels = 100000,
           undoreload = 100000,
