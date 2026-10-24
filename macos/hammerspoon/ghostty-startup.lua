@@ -26,8 +26,8 @@ end tell
 ]]
 
 return {
-  startup = function()
-    local ok, result = hs.osascript.applescript(script)
-    assert(ok, result)
-  end,
+	startup = function()
+		local ok, result = hs.osascript.applescript(script)
+		assert(ok, result)
+	end,
 }

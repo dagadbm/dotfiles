@@ -20,7 +20,7 @@ single source of truth for what lands where. Third-party code lives in
 ## Commands
 
 ```bash
-mise tasks                                # list tasks (mise.toml runs scripts/*.sh)
+mise tasks                                # list tasks
 mise run                                  # pick a task interactively
 mise run dotbot                           # relink after changing dotbot.conf.yaml
 mise run update                           # update everything
@@ -35,8 +35,7 @@ mise run brew:prune                       # prune Homebrew to match Brewfile
 mise run mise:prune                       # prune mise
 mise run claude:prune                     # prune claude to match scripts/claude-update.sh
 mise run macos:defaults                   # apply macOS preferences
-mise run macos:print-admin-commands      # print admin commands (full-disk-access)
-mise run lint                             # lint all configs and scripts
+mise run lint                             # format and lint all configs and scripts
 ```
 
 ### Submodules

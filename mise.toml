@@ -8,6 +8,8 @@ jq = "latest"
 stylua = "latest"
 "aqua:Kampfkarren/selene" = "latest"
 rumdl = "latest"
+hk = { version = "latest", workflow = "release.yml" }
+pkl = "latest"
 
 [tasks.bootstrap]
 description = "Download and set up everything on a new machine"
@@ -62,8 +64,8 @@ description = "Prune claude to match scripts/claude-update.sh"
 file = "scripts/claude-prune.sh"
 
 [tasks.lint]
-description = "Lint shell scripts with shellcheck"
-file = "scripts/lint.sh"
+description = "Format and lint all configs and scripts"
+run = "hk fix --all"
 
 [tasks."macos:defaults"]
 description = "Apply macOS preferences"
