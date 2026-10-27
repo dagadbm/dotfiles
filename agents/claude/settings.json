@@ -11,9 +11,10 @@
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
     "ENABLE_TOOL_SEARCH": "auto",
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787/w/claude",
-    "_CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL": "1"
+    "_CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL": "1",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "haiku",
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
   },
-  "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
       "Bash(find:*)",
@@ -75,9 +76,27 @@
       "Read(**/.my.cnf)",
       "Read(**/.docker/config.json)",
       "Read(**/*.jks)",
-      "Read(**/*.keystore)"
+      "Read(**/*.keystore)",
+      "Bash(sudo:*)",
+      "Read(**/.ssh/**)",
+      "Edit(**/.ssh/**)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Write(**/.env)",
+      "Write(**/.env.*)"
     ],
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(git rebase:*)",
+      "Bash(curl -X POST:*)",
+      "Bash(curl -X PUT:*)",
+      "Bash(curl -X DELETE:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ]
   },
   "model": "haiku",
   "disableBundledSkills": true,
@@ -97,7 +116,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "'/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node' '/Users/dagadbm/.local/share/mise/installs/npm-caveman-ai-cli/latest/bin/caveman' shrink-hook"
+            "command": "'/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node' '/Users/dagadbm/.local/share/mise/installs/npm-caveman-ai-cli/4.0.1/bin/caveman' shrink-hook"
           }
         ]
       },
@@ -231,12 +250,13 @@
     "refreshInterval": 1
   },
   "enabledPlugins": {
-    "agent-skills@addy-agent-skills": true,
+    "agent-skills@addy-agent-skills": false,
     "caveman@caveman": true,
     "cowork-plugin-management@synced": false,
     "mattpocock-skills@claude-plugins-official": true,
     "pstack@potetos-for-everyone": false,
-    "superpowers@claude-plugins-official": false
+    "superpowers@claude-plugins-official": false,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "addy-agent-skills": {
@@ -262,6 +282,12 @@
         "source": "github",
         "repo": "TheOnlyFusionCube/potetos-for-everyone"
       }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
     }
   },
   "spinnerTipsEnabled": false,
@@ -269,7 +295,7 @@
   "modelSettings": {
     "claude-fable-5-1": {
       "effortLevel": "low",
-      "autoCompactWindow": 400000
+      "autoCompactWindow": 250000
     },
     "claude-haiku-5-5": {
       "effortLevel": "medium",
@@ -277,13 +303,14 @@
     },
     "claude-opus-5-5": {
       "effortLevel": "low",
-      "autoCompactWindow": 400000
+      "autoCompactWindow": 250000
     },
     "claude-sonnet-5-5": {
       "effortLevel": "low",
       "autoCompactWindow": 250000
     }
   },
+  "idleCompaction": true,
   "promptSuggestionEnabled": false,
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
@@ -291,5 +318,10 @@
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "cleanupPeriodDays": 36500
 }

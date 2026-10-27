@@ -19,7 +19,8 @@ for marketplace in "${marketplaces[@]}"; do
 done
 claude plugin marketplace update
 
-# plugins: <plugin>::<enabled>, install re-enables so state is applied after
+# plugins: <plugin>::<installed>; disabled plugins still list their skills, so
+# unwanted ones are uninstalled instead
 plugins=(
   mattpocock-skills@claude-plugins-official::true
   superpowers@claude-plugins-official::false
@@ -30,14 +31,15 @@ plugins=(
 )
 for entry in "${plugins[@]}"; do
   plugin="${entry%::*}"
-  enabled="${entry##*::}"
-  claude plugin install "$plugin"
-  claude plugin update "$plugin"
-  # enable/disable fail when already in that state
-  if [[ "$enabled" == true ]]; then
+  installed="${entry##*::}"
+  if [[ "$installed" == true ]]; then
+    claude plugin install "$plugin"
+    claude plugin update "$plugin"
+    # enable fails when already enabled
     claude plugin enable "$plugin" 2>/dev/null || true
   else
-    claude plugin disable "$plugin" 2>/dev/null || true
+    # uninstall fails when not installed
+    claude plugin uninstall "$plugin" 2>/dev/null || true
   fi
 done
 
