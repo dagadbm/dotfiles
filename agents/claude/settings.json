@@ -1,5 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "cleanupPeriodDays": 36500,
   "env": {
     "CAVEMAN_DEFAULT_MODE": "ultracave",
     "PONYTAIL_DEFAULT_MODE": "full",
@@ -10,10 +11,14 @@
     "DISABLE_ERROR_REPORTING": "1",
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
     "ENABLE_TOOL_SEARCH": "auto",
-    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787/w/claude",
-    "_CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL": "1",
     "CLAUDE_CODE_SUBAGENT_MODEL": "haiku",
-    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false",
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787/w/claude",
+    "_CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
   },
   "permissions": {
     "allow": [
@@ -85,7 +90,6 @@
       "Write(**/.env)",
       "Write(**/.env.*)"
     ],
-    "defaultMode": "auto",
     "ask": [
       "Bash(git push:*)",
       "Bash(git reset --hard:*)",
@@ -96,7 +100,8 @@
       "Bash(curl -X DELETE:*)",
       "Bash(git push --force:*)",
       "Bash(git push -f:*)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "model": "haiku",
   "disableBundledSkills": true,
@@ -116,7 +121,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "'/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node' '/Users/dagadbm/.local/share/mise/installs/npm-caveman-ai-cli/4.0.1/bin/caveman' shrink-hook"
+            "command": "'/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node' '/Users/dagadbm/.local/share/mise/installs/npm-caveman-ai-cli/latest/bin/caveman' shrink-hook"
           }
         ]
       },
@@ -250,12 +255,9 @@
     "refreshInterval": 1
   },
   "enabledPlugins": {
-    "agent-skills@addy-agent-skills": false,
     "caveman@caveman": true,
     "cowork-plugin-management@synced": false,
     "mattpocock-skills@claude-plugins-official": true,
-    "pstack@potetos-for-everyone": false,
-    "superpowers@claude-plugins-official": false,
     "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
@@ -310,18 +312,13 @@
       "autoCompactWindow": 250000
     }
   },
-  "idleCompaction": true,
   "promptSuggestionEnabled": false,
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
+  "idleCompaction": true,
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false,
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  },
-  "cleanupPeriodDays": 36500
+  "agentPushNotifEnabled": false
 }
