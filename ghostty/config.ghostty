@@ -6,7 +6,7 @@ language = en
 theme = astrodark
 term = xterm-256color
 
-initial-command = hs -c 'require("ghostty").startup()'
+initial-command = /opt/homebrew/bin/hs -c 'require("ghostty-startup").startup()'
 
 font-family = JetBrainsMono Nerd Font Mono
 font-size = 12
