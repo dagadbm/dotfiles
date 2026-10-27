@@ -1,52 +1,50 @@
-# lsd astrodark theme
-# colorscheme taken from ~/.local/share/nvim-astrovim/lazy/astrotheme/lua/astrotheme/palettes/astrodark.lua
 # astrodark theme, derived
-# legend: <palette key>: <roles>
+# legend: <palette key>: <variables set>
 # syntax.blue: user
-# syntax.comment: group, date older
-# syntax.purple: permission exec-sticky, inode valid, links valid
-# syntax.green: permission read, date hour-old, size small, git new-in-index/new-in-workdir
-# syntax.yellow: permission write, size medium, git typechange/modified
-# syntax.orange: size large
-# syntax.red: permission exec, git deleted/conflicted
-# syntax.cyan: permission octal/acl/context, date day-old, git renamed
+# syntax.comment: group, date.older
+# syntax.green: permission.read, date.hour-old, size.small, git-status.new-in-index, git-status.new-in-workdir
+# syntax.yellow: permission.write, size.medium, git-status.typechange, git-status.modified
+# syntax.red: permission.exec, git-status.deleted, git-status.conflicted
+# syntax.purple: permission.exec-sticky, inode.valid, links.valid
+# syntax.mute: permission.no-access, size.none, inode.invalid, links.invalid, git-status.default, git-status.unmodified, git-status.ignored
+# syntax.cyan: permission.octal, permission.acl, permission.context, date.day-old, git-status.renamed
+# syntax.orange: size.large
 # ui.border: tree-edge
-# syntax.mute: permission no-access, size none, inode/links invalid, git default/unmodified/ignored
-user: rgb_(94,183,255) # syntax.blue
-group: rgb_(105,108,118) # syntax.comment
+user: rgb_(94,183,255)
+group: rgb_(105,108,118)
 permission:
-  read: rgb_(135,192,95) # syntax.green
-  write: rgb_(223,171,37) # syntax.yellow
-  exec: rgb_(255,131,139) # syntax.red
-  exec-sticky: rgb_(221,151,241) # syntax.purple
-  no-access: rgb_(89,92,102) # syntax.mute
-  octal: rgb_(74,194,184) # syntax.cyan
-  acl: rgb_(74,194,184) # syntax.cyan
-  context: rgb_(74,194,184) # syntax.cyan
+  read: rgb_(135,192,95)
+  write: rgb_(223,171,37)
+  exec: rgb_(255,131,139)
+  exec-sticky: rgb_(221,151,241)
+  no-access: rgb_(89,92,102)
+  octal: rgb_(74,194,184)
+  acl: rgb_(74,194,184)
+  context: rgb_(74,194,184)
 date:
-  hour-old: rgb_(135,192,95) # syntax.green
-  day-old: rgb_(74,194,184) # syntax.cyan
-  older: rgb_(105,108,118) # syntax.comment
+  hour-old: rgb_(135,192,95)
+  day-old: rgb_(74,194,184)
+  older: rgb_(105,108,118)
 size:
-  none: rgb_(89,92,102) # syntax.mute
-  small: rgb_(135,192,95) # syntax.green
-  medium: rgb_(223,171,37) # syntax.yellow
-  large: rgb_(245,152,58) # syntax.orange
+  none: rgb_(89,92,102)
+  small: rgb_(135,192,95)
+  medium: rgb_(223,171,37)
+  large: rgb_(245,152,58)
 inode:
-  valid: rgb_(221,151,241) # syntax.purple
-  invalid: rgb_(89,92,102) # syntax.mute
+  valid: rgb_(221,151,241)
+  invalid: rgb_(89,92,102)
 links:
-  valid: rgb_(221,151,241) # syntax.purple
-  invalid: rgb_(89,92,102) # syntax.mute
-tree-edge: rgb_(58,62,71) # ui.border
+  valid: rgb_(221,151,241)
+  invalid: rgb_(89,92,102)
+tree-edge: rgb_(58,62,71)
 git-status:
-  default: rgb_(89,92,102) # syntax.mute
-  unmodified: rgb_(89,92,102) # syntax.mute
-  ignored: rgb_(89,92,102) # syntax.mute
-  new-in-index: rgb_(135,192,95) # syntax.green
-  new-in-workdir: rgb_(135,192,95) # syntax.green
-  typechange: rgb_(223,171,37) # syntax.yellow
-  deleted: rgb_(255,131,139) # syntax.red
-  renamed: rgb_(74,194,184) # syntax.cyan
-  modified: rgb_(223,171,37) # syntax.yellow
-  conflicted: rgb_(255,131,139) # syntax.red
+  default: rgb_(89,92,102)
+  unmodified: rgb_(89,92,102)
+  ignored: rgb_(89,92,102)
+  new-in-index: rgb_(135,192,95)
+  new-in-workdir: rgb_(135,192,95)
+  typechange: rgb_(223,171,37)
+  deleted: rgb_(255,131,139)
+  renamed: rgb_(74,194,184)
+  modified: rgb_(223,171,37)
+  conflicted: rgb_(255,131,139)

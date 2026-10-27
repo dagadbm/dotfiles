@@ -70,42 +70,33 @@ export MODULE=submodules/repo_name && \
 Every tool uses astrodark (astrotheme Neovim plugin); take every colour from
 upstream `$AT` = `~/.local/share/nvim-astrovim/lazy/astrotheme`: palette
 `$AT/lua/astrotheme/palettes/astrodark.lua`, extras
-`$AT/extras/<tool>/*.astrodark.*` (zsh uses `fish/`). On upstream change,
-update each file by its class.
+`$AT/extras/<tool>/*.astrodark.*`.
 
 ### Vendored: re-copy the extra unchanged
 
-| Target                          | Extra from                      |
-| ------------------------------- | ------------------------------- |
-| `ghostty/themes/`               | `ghostty/`                      |
-| `wezterm/colors/`               | `wezterm/`                      |
-| `helix/themes/`                 | `helix/`                        |
-| `lazygit/themes/`               | `lazygit/`                      |
-| `bat/themes/`                   | `sublime/`                      |
-| `git/delta.astrodark.gitconfig` | `delta/`                        |
-
-### Patched: re-copy, keep local fix
-
-- `zsh/fzf.astrodark.zsh`: exports `FZF_THEME`.
+- `ghostty/themes/` from `ghostty/`
+- `wezterm/colors/` from `wezterm/`
+- `helix/themes/` from `helix/`
+- `lazygit/themes/` from `lazygit/`
+- `bat/themes/` from `sublime/`
+- `git/delta.astrodark.gitconfig` from `delta/`
 
 ### Derived: hand-edit from the palette
 
-Each derived file holds its role map in one comment block
-(`ccstatusline` uses a `"//"` array): a title line, a legend line, one line per
-palette key with full names (`syntax.*` or `ui.*`), then optional `notes:`
-lines for rules the file itself does not show. Keep it current and in this
-shape:
-
-```zsh
-# astrodark theme, derived
-# legend: <palette key>: <roles>
-# ui.accent: dir
-# syntax.green: prompt char, status ok, git clean
-# notes: <rule the file itself does not show>
-```
-
-- `zsh/`: `p10k.astrodark.zsh`, `fsh.astrodark.ini`, `ls-colors.astrodark.zsh`,
-  `lsd.astrodark.yaml`, `broot.conf.toml` `[skin]`, `zshrc.zsh` autosuggest
+- `zsh/`: `p10k.astrodark.zsh`, `fzf.astrodark.zsh`, `fsh.astrodark.ini`,
+  `ls-colors.astrodark.zsh`, `lsd.astrodark.yaml`, `broot.conf.toml` `[skin]`,
+  `zshrc.zsh` autosuggest
 - `tmux/astrodark.tmux`
 - `herdr/config.toml` `[theme.custom]`
 - `agents/claude/ccstatusline.settings.json`
+
+Each file keeps its changes in one comment block starting with
+`astrodark theme, derived`:
+
+```zsh
+# astrodark theme, derived
+# legend: <palette key>: <variables set>
+# ui.base: fzf_bg, fzf_gutter
+# syntax.blue: fzf_hl, fzf_prompt
+# notes: <changes that are not obvious from reading the file>
+```

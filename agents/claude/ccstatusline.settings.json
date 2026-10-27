@@ -1,7 +1,7 @@
 {
   "//": [
     "astrodark theme, derived",
-    "legend: <palette key>: <roles>",
+    "legend: <palette key>: <variables set>",
     "ui.accent: model (bold), thinking-effort",
     "syntax.orange: context-length, context-percentage, compaction-counter (dim)",
     "syntax.cyan: tokens-*",

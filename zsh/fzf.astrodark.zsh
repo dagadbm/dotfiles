@@ -1,22 +1,28 @@
-# fzf astrodark theme
-# colorscheme taken from ~/.local/share/nvim-astrovim/lazy/astrotheme/extras/fzf/astrodark.sh
-# palette: ~/.local/share/nvim-astrovim/lazy/astrotheme/lua/astrotheme/palettes/astrodark.lua
-fzf_fg='#ADB0BB'          # syntax.text
-fzf_fg_plus='#ADB0BB'     # ui.text_active
-fzf_bg='#1A1D23'          # ui.base
-fzf_bg_plus='#1E222A'     # ui.current_line
-fzf_gutter='#1A1D23'      # ui.base
-fzf_border='#3A3E47'      # ui.border
-fzf_accent='#5EB7FF'      # syntax.blue
+# astrodark theme, derived
+# legend: <palette key>: <variables set>
+# syntax.text: fzf_fg, fzf_query
+# ui.text_active: fzf_fg_plus
+# ui.base: fzf_bg, fzf_gutter
+# ui.current_line: fzf_bg_plus
+# ui.border: fzf_border, fzf_info
+# syntax.blue: fzf_accent, fzf_hl, fzf_hl_plus, fzf_marker, fzf_pointer, fzf_prompt, fzf_spinner
+# ui.accent: fzf_header
+fzf_fg='#ADB0BB'
+fzf_fg_plus='#ADB0BB'
+fzf_bg='#1A1D23'
+fzf_bg_plus='#1E222A'
+fzf_gutter='#1A1D23'
+fzf_border='#3A3E47'
+fzf_accent='#5EB7FF'
 fzf_hl=$fzf_accent
 fzf_hl_plus=$fzf_accent
 fzf_marker=$fzf_accent
 fzf_pointer=$fzf_accent
 fzf_prompt=$fzf_accent
 fzf_spinner=$fzf_accent
-fzf_header='#50A4E9'      # ui.accent
-fzf_info='#3A3E47'        # ui.border
-fzf_query='#ADB0BB'       # syntax.text
+fzf_header='#50A4E9'
+fzf_info='#3A3E47'
+fzf_query='#ADB0BB'
 
 export FZF_THEME=" \
   --color=fg:$fzf_fg,bg:$fzf_bg,hl:$fzf_hl,gutter:$fzf_gutter \

@@ -1,16 +1,14 @@
-# LS_COLORS astrodark theme
-# colorscheme taken from ~/.local/share/nvim-astrovim/lazy/astrotheme/lua/astrotheme/palettes/astrodark.lua
 # astrodark theme, derived
-# legend: <palette key>: <roles>
-# bold syntax.blue: dirs (di, tw, ow, st)
-# syntax.cyan: symlinks (ln)
-# syntax.red: broken/missing symlinks (or, mi); ext archives
-# syntax.yellow: sockets, pipes, devices (so, pi, bd, cd); ext config/data
-# bold syntax.green: executables (ex)
-# bold syntax.orange: setuid, setgid (su, sg)
-# syntax.purple: ext images, media
-# syntax.text: ext docs
-# syntax.comment: ext logs, backups, lock
+# legend: <palette key>: <variables set>
+# bold syntax.blue: di, tw, ow, st
+# syntax.cyan: ln
+# syntax.red: or, mi, archive exts
+# syntax.yellow: so, pi, bd, cd, config/data exts
+# bold syntax.green: ex
+# bold syntax.orange: su, sg
+# syntax.purple: image/media exts
+# syntax.text: doc exts
+# syntax.comment: backup/log exts
 () {
   local red='38;2;255;131;139'      # syntax.red
   local orange='38;2;245;152;58'    # syntax.orange
