@@ -89,7 +89,6 @@ cask "microsoft-onenote", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "zed"
 ## browsers
-cask "arc", args: { appdir: "/Applications" }
 cask "crest-browser", args: { appdir: "/Applications" }
 cask "google-chrome"
 ## social

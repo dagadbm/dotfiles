@@ -1,5 +1,3 @@
-# colorscheme based on ~/.local/share/nvim-astrovim/lazy/astrotheme/extras/delta/astrodark.gitconfig (upstream main, fix for AstroNvim/astrotheme#184)
-# included from gitconfig_global
 [delta]
   minus-style                   = syntax "#53373D"
   minus-non-emph-style          = syntax "#53373D"

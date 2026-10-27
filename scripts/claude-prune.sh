@@ -18,10 +18,10 @@ _expected_marketplaces() {
     sed -n 's/^[[:space:]]*\([^[:space:]/]*\/[^[:space:]]*\)[[:space:]]*$/\1/p' | sort -u
 }
 
-# Plugins declared in claude-update.sh as id:true|false, as "id<TAB>enabled|disabled".
+# Plugins declared in claude-update.sh as id::true|false, as "id<TAB>enabled|disabled".
 _expected_plugin_states() {
   sed -n '/^plugins=(/,/^)/p' "$UPDATE_SCRIPT" |
-    sed -nE 's/^[[:space:]]*([^[:space:]:]+@[^[:space:]:]+):(true|false)[[:space:]]*$/\1\t\2/p' |
+    sed -nE 's/^[[:space:]]*([^[:space:]:]+@[^[:space:]:]+)::(true|false)[[:space:]]*$/\1\t\2/p' |
     sed -e 's/\ttrue$/\tenabled/' -e 's/\tfalse$/\tdisabled/' | sort -u
 }
 

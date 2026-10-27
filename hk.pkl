@@ -54,7 +54,7 @@ steps {
   // brewfile
   ["brewfile"] {
     glob = "macos/Brewfile"
-    check = "brew bundle check --no-upgrade --file=macos/Brewfile >/dev/null"
+    check = "brew bundle check -q --no-upgrade --file=macos/Brewfile"
   }
 
   // lua

@@ -52,6 +52,7 @@
     ~/.config/delta/astrodark.gitconfig: git/delta.astrodark.gitconfig
     ~/.config/mise/config.toml: mise/config.toml
     ~/.tmux.conf: tmux/tmux.conf
+    ~/.config/tmux/astrodark.tmux: tmux/astrodark.tmux
     ~/.config/lazygit/config.yml: lazygit/config.yml
     ~/.config/lazygit/themes: lazygit/themes
     ~/.config/gh/config.yml: gh/config.yml

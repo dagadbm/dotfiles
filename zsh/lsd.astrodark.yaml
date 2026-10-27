@@ -1,5 +1,17 @@
 # lsd astrodark theme
 # colorscheme taken from ~/.local/share/nvim-astrovim/lazy/astrotheme/lua/astrotheme/palettes/astrodark.lua
+# astrodark theme, derived
+# legend: <palette key>: <roles>
+# syntax.blue: user
+# syntax.comment: group, date older
+# syntax.purple: permission exec-sticky, inode valid, links valid
+# syntax.green: permission read, date hour-old, size small, git new-in-index/new-in-workdir
+# syntax.yellow: permission write, size medium, git typechange/modified
+# syntax.orange: size large
+# syntax.red: permission exec, git deleted/conflicted
+# syntax.cyan: permission octal/acl/context, date day-old, git renamed
+# ui.border: tree-edge
+# syntax.mute: permission no-access, size none, inode/links invalid, git default/unmodified/ignored
 user: rgb_(94,183,255) # syntax.blue
 group: rgb_(105,108,118) # syntax.comment
 permission:

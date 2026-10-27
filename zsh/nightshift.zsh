@@ -1,22 +1,35 @@
+_nightshift_timed() {
+  local hours=$1
+  [[ -n $hours ]] || read -r "hours?nightshift: hours? "
+  [[ $hours =~ ^[0-9]+(\.[0-9]+)?$ ]] && (( hours > 0 )) || { print "nightshift: invalid hours"; return 1; }
+  local -F deadline=$(( SECONDS + hours * 3600 ))
+  [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
+  sudo pmset -a disablesleep 1 || return
+  trap 'trap - INT; sudo pmset -a disablesleep 0; print "nightshift: off"; return 130' INT
+  pmset displaysleepnow
+  print "nightshift: on"
+  print "nightshift: auto off in ${hours}h"
+  print "nightshift: press any key to end"
+  while true; do
+    local -i left=$(( deadline - SECONDS ))
+    (( left > 0 )) || break
+    # wake every 30s to keep sudo cached for the unattended off
+    if ! read -rk1 -t $(( left < 30 ? left : 30 )); then
+      sudo -nv 2>/dev/null
+      continue
+    fi
+    # unanswered prompt times out so the deadline still applies
+    read -rq -t 30 "?nightshift: end? [y/n] " && break
+    print
+  done
+  trap - INT
+  print
+  sudo pmset -a disablesleep 0 && print "nightshift: off"
+}
+
 nightshift() {
   case $1 in
-    '')
-      [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
-      sudo pmset -a disablesleep 1 || return
-      trap 'trap - INT; sudo pmset -a disablesleep 0; print "nightshift: off"; return 130' INT
-      pmset displaysleepnow
-      print "nightshift: on"
-      print "nightshift: press any key to end"
-      while read -rk1; do
-        read -rq "?nightshift: end? [y/n] " && break
-        print
-      done
-      trap - INT
-      print
-      sudo pmset -a disablesleep 0 && print "nightshift: off" ;;
-    on)
-      [[ $(pmset -g batt) == *"Battery Power"* ]] && print "nightshift: warning, on battery"
-      sudo pmset -a disablesleep 1 && pmset displaysleepnow && print "nightshift: on" ;;
+    on) _nightshift_timed "$2" ;;
     off) sudo pmset -a disablesleep 0 && print "nightshift: off" ;;
     login)
       local out
@@ -59,8 +72,7 @@ nightshift() {
       esac ;;
     *)
       local -a rows=(
-        'nightshift'            'on, wait, off'
-        'nightshift on'         'sleep disabled, display off'
+        'nightshift on [<hours>]' 'on, wait, off after <hours> or keypress, asks if omitted'
         'nightshift off'        'sleep enabled'
         'nightshift login'      'log in to tailscale'
         'nightshift logout'     'log out of tailscale, stop service'
@@ -69,7 +81,7 @@ nightshift() {
         'nightshift check'      'log in if needed, warn if remote login is on'
         'nightshift status'     'show sleep and tailscale state'
       )
-      print "usage: nightshift [on|off|login|logout|connect|disconnect|check|status]"
+      print "usage: nightshift [on [<hours>]|off|login|logout|connect|disconnect|check|status]"
       printf '  %-21s  %s\n' "${(@)rows}" ;;
   esac
 }

@@ -10,6 +10,27 @@ leave_broot = false
 # astrodark theme
 # ~/.local/share/nvim-astrovim/lazy/astrotheme/lua/astrotheme/palettes/astrodark.lua
 # git/delta.astrodark.gitconfig
+# astrodark theme, derived
+# legend: <palette key>: <roles>
+# syntax.text: default, parent, input, status_normal, status_ellipsis, preview_title, preview, diff_added, diff_removed, hex_ascii_graphic, staging_area_title
+# syntax.comment: default/parent/input/scrollbar_thumb/preview_title/staging_area_title unfocused, dates, content_extract, flag_label, diff_line_number
+# ui.border: tree, scrollbar_track, help_table_border, preview_separator
+# syntax.blue: directory (bold focused), help_headers
+# syntax.green: exe, perm_x, content_match, git_insertions, git_status_staged, git_status_new, help_code, hex_ascii_whitespace, good_to_bad_0..4
+# syntax.cyan: link, count, status_code
+# syntax.mute: pruning, perm__, git_status_current, git_status_ignored, preview_line_number, hex_null
+# syntax.yellow: perm_r, owner, group, git_status_modified, char_match, status_job, good_to_bad_5..6
+# syntax.red: perm_w, git_deletions, git_status_conflicted, git_status_other, file_error, status_error, hex_non_ascii, good_to_bad_9
+# syntax.orange: sparse, help_bold, hex_ascii_other, good_to_bad_7..8
+# syntax.purple: git_branch, flag_value, status_italic, status_bold, purpose_italic, purpose_bold, help_italic; mode_command_mark bg
+# ui.accent: scrollbar_thumb
+# ui.current_line: scrollbar_track unfocused; count, selected_line unfocused, help_code, diff_line_number bg
+# ui.selection: selected_line, preview_match bg
+# ui.statusline: mode_command_mark; status_* bg
+# ui.float: preview_title, staging_area_title bg
+# delta plus-style (#354632): diff_added bg
+# delta minus-style (#53373D): diff_removed bg
+# notes: unfocused after /; delta hexes from git/delta.astrodark.gitconfig
 [skin]
 default = "rgb(173, 176, 187) none / rgb(105, 108, 118) none"
 tree = "rgb(58, 62, 71) none"

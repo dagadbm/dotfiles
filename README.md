@@ -5,30 +5,31 @@ Welcome to my humble dotfiles repo.
 ## Install
 
 First run install script `./scripts/bootstrap.sh` to download and setup
-everything
+everything.
 
-## Updates
+## Commands
 
-Scripts live in `scripts/` and run as mise tasks from `mise.toml` (`mise tasks`
-lists them):
+Commands live in `scripts/` and run as mise tasks from `mise.toml`:
 
-- Run `mise run` to pick a task interactively
-- Run `mise run dotbot` to relink after changing `dotbot.conf.yaml`
-- Run `mise run update` to update everything
-- Run `mise run nvim:update` to update Neovim, LSP, plugins
-- Run `mise run herdr:update` to update herdr
-- Run `mise run submodules:update` to update submodules
-- Run `mise run brew:update` to update Homebrew
-- Run `mise run mise:update` to update mise
-- Run `mise run claude:update` to update agent tooling
-- Run `mise run prune` to prune everything (brew + mise + claude)
-- Run `mise run brew:prune` to prune Homebrew to match Brewfile
-- Run `mise run mise:prune` to prune mise
-- Run `mise run claude:prune` to prune claude to match scripts/claude-update.sh
-- Run `mise run macos:defaults` to apply macOS preferences
-- Run `mise run macos:print-admin-commands` to print admin commands
-- Run `mise run lint` to lint shell, zsh, toml, yaml, json, git config, tmux,
-  Brewfile, lua and markdown
+```bash
+mise tasks                                # list tasks
+mise run                                  # pick a task interactively
+mise run dotbot                           # relink after changing dotbot.conf.yaml
+mise run update                           # update everything
+mise run nvim:update                      # update Neovim, LSP, plugins
+mise run herdr:update                     # update herdr
+mise run hk:update                        # update hk, install git hooks
+mise run claude:update                    # update agent tooling
+mise run submodules:update                # update submodules
+mise run brew:update                      # update Homebrew
+mise run mise:update                      # update mise
+mise run prune                            # prune everything
+mise run brew:prune                       # prune Homebrew to match Brewfile
+mise run mise:prune                       # prune mise
+mise run claude:prune                     # prune claude to match scripts/claude-update.sh
+mise run macos:defaults                   # apply macOS preferences
+mise run lint                             # format and lint all configs and scripts
+```
 
 ## Helpers
 
@@ -49,7 +50,9 @@ export MODULE=submodules/repo_name && \
   git rm -f $MODULE
 ```
 
-#### Tailscale
+### Tailscale
+
+#### Setup name
 
 ```bash
 sudo scutil --set ComputerName dagadbm-personal-mac

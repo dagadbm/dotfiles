@@ -1,6 +1,20 @@
 # powerlevel10k astrodark theme
 # colorscheme taken from ~/.local/share/nvim-astrovim/lazy/astrotheme/lua/astrotheme/palettes/astrodark.lua
 # overrides colors from p10k.zsh and p10k.mise.zsh, so source it after both
+# astrodark theme, derived
+# legend: <palette key>: <roles>
+# ui.accent: dir
+# ui.border: ruler, multiline first prompt gap
+# syntax.blue: dir anchor, git untracked, mise flutter/lua/perl/postgres, azure, gcloud, google app cred, nordvpn, nix shell
+# syntax.green: prompt char ok, status ok, git clean, vcs icon, vcs clean/untracked, mise nodejs/julia, aws eb env, vim shell
+# syntax.yellow: git modified, vcs modified, exec time, mise python, toolbox, ranger, midnight commander
+# syntax.red: prompt char error, status error, git conflicted, context root, mise ruby/erlang
+# syntax.cyan: bg jobs, mise default/golang, vpn ip, nnn/lf/xplr
+# syntax.orange: mise rust/java, aws
+# syntax.purple: mise dotnet core/elixir/php/haskell, kubecontext, terraform
+# syntax.text: git meta, context (incl. remote, remote sudo)
+# syntax.comment: dir shortened, time, todo/timewarrior/taskwarrior
+# syntax.mute: git loading, vcs loading icon
 () {
   # palette
   local red='#FF838B'       # syntax.red

@@ -17,6 +17,25 @@ auto_switch = false
 # Override individual color tokens on top of the base theme.
 # Accepts: hex (#rrggbb), named colors, rgb(r,g,b), or panel_bg = "reset"
 # colorscheme taken from ~/.local/share/nvim-astrovim/lazy/astrotheme/lua/astrotheme/palettes/astrodark.lua
+# astrodark theme, derived
+# legend: <palette key>: <roles>
+# ui.accent: accent
+# ui.base: panel, sidebar
+# ui.current_line: active row
+# ui.selection: selection
+# ui.statusline: surface0
+# ui.border: surface1
+# ui.float: surface_dim
+# syntax.mute: overlay0
+# syntax.text: overlay1, subtext0
+# ui.text: text
+# syntax.purple: mauve
+# syntax.cyan: teal
+# syntax.orange: peach
+# syntax.green: green
+# syntax.yellow: yellow
+# syntax.red: red
+# syntax.blue: blue, [ui] accent (further down)
 [theme.custom]
 accent = "#50A4E9"
 panel_bg = "#1A1D23"
