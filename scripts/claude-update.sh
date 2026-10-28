@@ -70,3 +70,8 @@ caveman enable claude
 caveman telemetry off
 caveman off routing
 caveman providers cloud off
+
+# ponytail
+## hide the plugin band above the prompt
+## run `/ponytail band on` inside claude to shows it again
+echo off > "$HOME/.claude/.ponytail-band"
