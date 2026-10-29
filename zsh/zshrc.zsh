@@ -265,8 +265,9 @@ source "$HOME/.config/shell/nightshift.zsh"
 
 alias n=nightshift
 
-#claude
-typeset -ga CLAUDE_FZF_CMD=(cave claude)
+# claude
+## https://gist.github.com/flamerix-ai/c3905705cc4205e5de3011fa2e74efce
+typeset -ga CLAUDE_FZF_CMD=(env "BUN_OPTIONS=${BUN_OPTIONS:+$BUN_OPTIONS }--preload=$HOME/.claude/no-agent-summary.js" cave claude)
 source "$HOME/.config/shell/claude-fzf.zsh"
 
 alias c="_claude"
