@@ -13,13 +13,17 @@ font-size = 12
 
 maximize = true
 confirm-close-surface = false
-macos-titlebar-style = transparent
+macos-titlebar-style = tabs
+macos-window-buttons = hidden
 window-theme = auto
 
 window-padding-x = 0
 window-padding-y = 0
-window-padding-balance = true
+window-padding-balance = equal
 window-padding-color = background
+
+background-blur = macos-glass-clear
+copy-on-select = clipboard
 
 auto-update = "check"
 auto-update-channel = "stable"
