@@ -13,6 +13,7 @@ marketplaces=(
   addyosmani/agent-skills
   TheOnlyFusionCube/potetos-for-everyone
   DietrichGebert/ponytail
+  mvanhorn/last30days-skill
 )
 for marketplace in "${marketplaces[@]}"; do
   claude plugin marketplace add "$marketplace"
@@ -28,6 +29,7 @@ plugins=(
   agent-skills@addy-agent-skills::false
   pstack@potetos-for-everyone::false
   ponytail@ponytail::true
+  last30days@last30days-skill::true
 )
 for entry in "${plugins[@]}"; do
   plugin="${entry%::*}"

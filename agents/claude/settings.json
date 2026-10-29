@@ -256,7 +256,8 @@
     "caveman@caveman": true,
     "cowork-plugin-management@synced": false,
     "mattpocock-skills@claude-plugins-official": true,
-    "ponytail@ponytail": true
+    "ponytail@ponytail": true,
+    "last30days@last30days-skill": true
   },
   "extraKnownMarketplaces": {
     "addy-agent-skills": {
@@ -288,6 +289,12 @@
         "source": "github",
         "repo": "DietrichGebert/ponytail"
       }
+    },
+    "last30days-skill": {
+      "source": {
+        "source": "github",
+        "repo": "mvanhorn/last30days-skill"
+      }
     }
   },
   "spinnerTipsEnabled": false,
@@ -318,5 +325,6 @@
   "preferredNotifChannel": "auto",
   "idleCompaction": true,
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "awaySummaryEnabled": false
 }
