@@ -318,6 +318,7 @@
     }
   },
   "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
@@ -325,6 +326,5 @@
   "preferredNotifChannel": "auto",
   "idleCompaction": true,
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false,
-  "awaySummaryEnabled": false
+  "agentPushNotifEnabled": false
 }
