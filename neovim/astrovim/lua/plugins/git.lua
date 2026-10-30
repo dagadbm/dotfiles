@@ -66,8 +66,8 @@ cmd = {
     for _, refname in ipairs(git.run { "for-each-ref", "--format=%(refname)", "refs/heads", "refs/remotes" }) do
       if not refname:match "/HEAD$" then
         local ref = refname:gsub("^refs/heads/", ""):gsub("^refs/remotes/", "")
-        table.insert(branches, ref)
         local kind = vim.startswith(refname, "refs/heads/") and "local" or "remote"
+        table.insert(branches, { kind = kind, name = ref })
         if not checked_out[ref] then table.insert(items, { kind = kind, name = ref, ref = ref }) end
       end
     end
@@ -79,12 +79,18 @@ cmd = {
     }, function(compare)
       if not compare then return end
       local default = git.run({ "symbolic-ref", "--short", "refs/remotes/origin/HEAD" })[1] or "origin/main"
-      local bases = { default }
-      for _, ref in ipairs(branches) do
-        if ref ~= default then table.insert(bases, ref) end
+      -- local branches, then remote ones with origin's default first (branches is already local, then remote)
+      local bases = vim.tbl_filter(function(b) return b.kind == "local" end, branches)
+      table.insert(bases, { kind = "remote", name = default })
+      for _, b in ipairs(branches) do
+        if b.kind == "remote" and b.name ~= default then table.insert(bases, b) end
       end
-      vim.ui.select(bases, { prompt = config.messages.pick_base }, function(base)
-        if not base then return end
+      vim.ui.select(bases, {
+        prompt = config.messages.pick_base,
+        format_item = function(b) return config.messages.compare_item:format(b.kind, b.name, "") end,
+      }, function(b)
+        if not b then return end
+        local base = b.name
         local mb = git.run({ "merge-base", base, compare.ref or "HEAD" }, compare.path)[1]
         if not mb then return vim.notify(config.messages.no_merge_base:format(base), vim.log.levels.ERROR) end
         vim.cmd.tabnew()
