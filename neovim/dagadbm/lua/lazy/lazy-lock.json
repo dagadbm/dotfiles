@@ -49,7 +49,7 @@
   "vim-repeat": { "branch": "master", "commit": "8106e142dfdc278ff3eaaadd7b362ad7949d4357" },
   "vim-rhubarb": { "branch": "master", "commit": "5496d7c94581c4c9ad7430357449bb57fc59f501" },
   "vim-snippets": { "branch": "master", "commit": "4ed409154bcaa32fba6fd153cc0c915e44982872" },
-  "vim-test": { "branch": "master", "commit": "f688a3e084779aaaed01ddeba48a0a2164b228ef" },
+  "vim-test": { "branch": "master", "commit": "a9bfcd4ed4f6a4494a9f2569d8c9277ff31bb13e" },
   "vim-tmux-clipboard": { "branch": "master", "commit": "d4774dc7dfdd4b8a60613355ed32e6a1c18220cf" },
   "vim-tmux-navigator": { "branch": "master", "commit": "85b8e5f60c1690cde57dbb66467ce39cd1b63343" },
   "vim-unimpaired": { "branch": "master", "commit": "efdc6475f7ea789346716dabf9900ac04ee8604a" },
