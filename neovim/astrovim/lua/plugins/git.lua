@@ -5,16 +5,18 @@ config = {
   -- filetype of the tree buffer, how tree.find_window finds it
   tree_filetype = "GitReview",
   tree_width = 40,
-  -- folder name prefix of worktrees edit creates, next to the repo
+  -- folder name prefix of worktrees edit creates (next to the repo), how delete finds them
   worktree_prefix = "nvim-git-review-",
   -- user facing notifications and prompts; %s is filled with string.format
   messages = {
     no_review = "no review in this tab",
-    review_reset = "review was reset: <Leader>g.. to resume",
     no_open_reviews = "no open%s reviews",
-    no_worktrees = "no worktrees to delete",
+    no_worktrees = "no review worktrees to delete",
     no_merge_base = "no merge-base for %s",
-    confirm_worktree = "git %s?",
+    -- branch, worktree folder
+    confirm_add_worktree = "create worktree %s in %s?",
+    confirm_yes = "Yes",
+    confirm_no = "No",
     -- review kind (checkout, worktree, local, remote), branch, path (worktrees only)
     compare_item = "%-8s  %s  %s",
     -- base, compare branch, review kind
@@ -38,17 +40,14 @@ config = {
 }
 
 cmd = {
-  -- undo all review state (gitsigns base, quickfix, trees) without touching tabs
+  -- clear the quickfix list and gitsigns base, both global (works from any tab);
+  -- tabs, windows, buffers and trees stay as they are
   reset = function()
     require("gitsigns").reset_base(true)
     vim.fn.setqflist({}, "r", { items = {} })
-    for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-      vim.t[tab].review_files = nil
-      tree.close(tab)
-    end
   end,
 
-  -- pick compare and base, then open the review in a new tab
+  -- pick base and compare (as git diff base...compare), then open the review in a new tab
   new = function()
     local items = {}
     local checked_out = {}
@@ -71,26 +70,31 @@ cmd = {
         if not checked_out[ref] then table.insert(items, { kind = kind, name = ref, ref = ref }) end
       end
     end
-    vim.ui.select(items, {
-      prompt = config.messages.pick_compare,
-      format_item = function(i)
-        return config.messages.compare_item:format(i.kind, i.name, i.path and vim.fn.fnamemodify(i.path, ":~") or "")
-      end,
-    }, function(compare)
-      if not compare then return end
-      local default = git.run({ "symbolic-ref", "--short", "refs/remotes/origin/HEAD" })[1] or "origin/main"
-      -- local branches, then remote ones with origin's default first (branches is already local, then remote)
-      local bases = vim.tbl_filter(function(b) return b.kind == "local" end, branches)
-      table.insert(bases, { kind = "remote", name = default })
-      for _, b in ipairs(branches) do
-        if b.kind == "remote" and b.name ~= default then table.insert(bases, b) end
+    -- local branches, then remote ones; origin's default branch first in each (branches is already local, then remote)
+    local default = git.run({ "symbolic-ref", "--short", "refs/remotes/origin/HEAD" })[1] or "origin/main"
+    local default_local = default:gsub("^[^/]+/", "")
+    local bases = {}
+    for _, kind in ipairs { "local", "remote" } do
+      local first = kind == "local" and default_local or default
+      local kind_bases = vim.tbl_filter(function(b) return b.kind == kind and b.name ~= first end, branches)
+      if kind == "remote" or vim.iter(branches):any(function(b) return b.kind == "local" and b.name == first end) then
+        table.insert(kind_bases, 1, { kind = kind, name = first })
       end
-      vim.ui.select(bases, {
-        prompt = config.messages.pick_base,
-        format_item = function(b) return config.messages.compare_item:format(b.kind, b.name, "") end,
-      }, function(b)
-        if not b then return end
-        local base = b.name
+      vim.list_extend(bases, kind_bases)
+    end
+    vim.ui.select(bases, {
+      prompt = config.messages.pick_base,
+      format_item = function(b) return config.messages.compare_item:format(b.kind, b.name, "") end,
+    }, function(b)
+      if not b then return end
+      local base = b.name
+      vim.ui.select(items, {
+        prompt = config.messages.pick_compare,
+        format_item = function(i)
+          return config.messages.compare_item:format(i.kind, i.name, i.path and vim.fn.fnamemodify(i.path, ":~") or "")
+        end,
+      }, function(compare)
+        if not compare then return end
         local mb = git.run({ "merge-base", base, compare.ref or "HEAD" }, compare.path)[1]
         if not mb then return vim.notify(config.messages.no_merge_base:format(base), vim.log.levels.ERROR) end
         vim.cmd.tabnew()
@@ -106,11 +110,11 @@ cmd = {
     end)
   end,
 
-  -- pick an open review tab, then rebuild it
+  -- pick an open review tab (the current one first), then rebuild it from git: quickfix, gitsigns base and tree
   resume = function()
     review.pick(config.messages.pick_resume, function(tab)
       vim.api.nvim_set_current_tabpage(tab)
-      review.load(vim.t.review)
+      review.open(vim.t.review)
     end)
   end,
 
@@ -127,41 +131,39 @@ cmd = {
     review.pick(config.messages.pick_edit, function(tab)
       vim.api.nvim_set_current_tabpage(tab)
       local r = vim.t.review
-      local path, name = git.add_worktree(r.ref)
-      if path then review.open { base = r.base, mb = r.mb, kind = "worktree", name = name, path = path } end
+      git.add_worktree(
+        r.ref,
+        function(path, name) review.open { base = r.base, mb = r.mb, kind = "worktree", name = name, path = path } end
+      )
     end, function(r) return not r.path end, " local or remote")
   end,
 
-  -- pick any linked worktree of the current repo, remove it and close its review tabs
+  -- pick a worktree edit created (config.worktree_prefix), remove it and close its review tabs
   delete = function()
-    local worktrees = git.worktrees()
+    local worktrees = git.review_worktrees()
     if #worktrees == 0 then return vim.notify(config.messages.no_worktrees, vim.log.levels.WARN) end
     vim.ui.select(
       worktrees,
       { prompt = config.messages.pick_delete, format_item = function(w) return w.branch .. "  " .. w.path end },
       function(w)
-        if not w or not git.remove_worktree(w.path, w.repo) then return end
-        for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-          local r = vim.t[tab].review
-          if r and r.path == w.path then
-            cmd.reset()
-            vim.cmd.tabclose(vim.api.nvim_tabpage_get_number(tab))
+        if not w then return end
+        git.remove_worktree(w.path, w.repo, function()
+          for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+            local r = vim.t[tab].review
+            if r and r.path == w.path then
+              cmd.reset()
+              vim.cmd.tabclose(vim.api.nvim_tabpage_get_number(tab))
+            end
           end
-        end
-        -- drop buffers of the deleted files
-        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-          if vim.startswith(vim.api.nvim_buf_get_name(buf), w.path .. "/") then
-            vim.api.nvim_buf_delete(buf, { force = true })
+          -- drop buffers of the deleted files
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.startswith(vim.api.nvim_buf_get_name(buf), w.path .. "/") then
+              vim.api.nvim_buf_delete(buf, { force = true })
+            end
           end
-        end
+        end)
       end
     )
-  end,
-
-  -- rebuild the current tab's review: quickfix, gitsigns base and tree
-  sync = function()
-    if not vim.t.review then return vim.notify(config.messages.no_review, vim.log.levels.WARN) end
-    review.open(vim.t.review)
   end,
 
   -- show or hide the current tab's review tree
@@ -176,7 +178,7 @@ review = {
   -- load review r into the current tab: quickfix (one entry per file), gitsigns base and tree
   load = function(r)
     local changed = git.changed_files(r)
-    vim.t.review_files = changed -- the tree reads these; reset clears them
+    vim.t.review_files = changed -- the tree reads these
     -- replaces difftool's list; quickfixtextfunc before items, so an open quickfix window redraws with it
     vim.fn.setqflist({}, "r", { quickfixtextfunc = files.quickfix_text })
     vim.fn.setqflist({}, "r", {
@@ -199,6 +201,11 @@ review = {
       return r ~= nil and (not filter or filter(r))
     end, vim.api.nvim_list_tabpages())
     if #tabs == 0 then return vim.notify(config.messages.no_open_reviews:format(kind or ""), vim.log.levels.WARN) end
+    -- current tab first, so picking the top entry acts on the review in front of you
+    local current = vim.api.nvim_get_current_tabpage()
+    if vim.tbl_contains(tabs, current) then
+      tabs = vim.list_extend({ current }, vim.tbl_filter(function(tab) return tab ~= current end, tabs))
+    end
     if #tabs == 1 then return cb(tabs[1]) end
     vim.ui.select(tabs, { prompt = prompt, format_item = function(tab) return vim.t[tab].name end }, function(tab)
       if tab then cb(tab) end
@@ -248,46 +255,51 @@ git = {
     return changed
   end,
 
-  -- check ref out into a sibling worktree after confirming; returns its path and branch, or nil
-  add_worktree = function(ref)
+  -- ask prompt (yes/no picker), then run git args in the repo containing path; on_success
+  -- runs only if git succeeds, otherwise git's error is shown
+  confirm_run = function(prompt, args, path, on_success)
+    local yes, no = config.messages.confirm_yes, config.messages.confirm_no
+    vim.ui.select({ yes, no }, { prompt = prompt }, function(choice)
+      if choice ~= yes then return end
+      local _, out = git.run(args, path)
+      if out.exit_status ~= 0 then return vim.notify(table.concat(out.stderr, "\n"), vim.log.levels.ERROR) end
+      on_success()
+    end)
+  end,
+
+  -- check ref out into a sibling worktree after confirming, then on_success(path, branch)
+  add_worktree = function(ref, on_success)
     local root = git.run({ "rev-parse", "--show-toplevel" })[1]
     local local_branch = ref:match "^origin/(.+)$"
     local path = vim.fs.dirname(root) .. "/" .. config.worktree_prefix .. (local_branch or ref):gsub("/", "-")
     -- remote branch: create a local tracking branch, a worktree cannot check out origin/x itself
     local args = local_branch and { "worktree", "add", "--track", "-b", local_branch, path, ref }
       or { "worktree", "add", path, ref }
-    if vim.fn.confirm(config.messages.confirm_worktree:format(table.concat(args, " ")), "&Yes\n&No", 2) ~= 1 then
-      return
-    end
-    local _, out = git.run(args)
-    if out.exit_status ~= 0 then return vim.notify(table.concat(out.stderr, "\n"), vim.log.levels.ERROR) end
-    return path, local_branch or ref
+    local prompt = config.messages.confirm_add_worktree:format(local_branch or ref, vim.fn.fnamemodify(path, ":~"))
+    git.confirm_run(prompt, args, nil, function() on_success(path, local_branch or ref) end)
   end,
 
-  -- linked worktrees of the current repo: { path, branch, repo }; repo is the main worktree
-  -- (listed first, never offered: git cannot remove it), where remove_worktree runs git
-  worktrees = function()
+  -- worktrees of the current repo that edit created (folder starts with config.worktree_prefix):
+  -- { path, branch, repo }; repo is the main worktree (listed first), where remove_worktree runs git
+  review_worktrees = function()
     local lines = git.run { "worktree", "list" }
     local repo = lines[1] and lines[1]:match "^%S+"
-    return vim.tbl_map(function(line)
+    local worktrees = {}
+    for _, line in ipairs(vim.list_slice(lines, 2)) do
       local path, rest = line:match "^(%S+)%s+%S+%s*(.*)$"
-      return { path = path, branch = rest:match "%[(.-)%]" or rest, repo = repo }
-    end, vim.list_slice(lines, 2))
+      if path and vim.startswith(vim.fs.basename(path), config.worktree_prefix) then
+        table.insert(worktrees, { path = path, branch = rest:match "%[(.-)%]" or rest, repo = repo })
+      end
+    end
+    return worktrees
   end,
 
-  -- remove the worktree at path after confirming, running git from repo (git refuses
-  -- to remove the worktree it runs in); fails on uncommitted changes. Returns true on success
-  remove_worktree = function(path, repo)
-    local args = { "worktree", "remove", path }
-    if vim.fn.confirm(config.messages.confirm_worktree:format(table.concat(args, " ")), "&Yes\n&No", 2) ~= 1 then
-      return false
-    end
-    local _, out = git.run(args, repo)
-    if out.exit_status ~= 0 then
-      vim.notify(table.concat(out.stderr, "\n"), vim.log.levels.ERROR)
-      return false
-    end
-    return true
+  -- remove the worktree at path (picking it in delete is the confirmation), running git from repo
+  -- (git refuses to remove the worktree it runs in), then on_success(); git refuses on uncommitted changes
+  remove_worktree = function(path, repo, on_success)
+    local _, out = git.run({ "worktree", "remove", path }, repo)
+    if out.exit_status ~= 0 then return vim.notify(table.concat(out.stderr, "\n"), vim.log.levels.ERROR) end
+    on_success()
   end,
 }
 
@@ -347,7 +359,6 @@ tree = {
   -- open the review file tree as a left sidebar in the current tab
   open = function()
     local changed = vim.t.review_files
-    if not changed then return vim.notify(config.messages.review_reset, vim.log.levels.WARN) end
     local NuiTree, NuiLine = require "nui.tree", require "nui.line"
 
     -- nest paths into folders; files arrive in tree order (git.changed_files sorts them), so keep insertion order
@@ -483,7 +494,6 @@ return {
             ["<Leader>g.c"] = { cmd.close, desc = "Close review" },
             ["<Leader>g.e"] = { cmd.edit, desc = "Edit local or remote review in a worktree" },
             ["<Leader>g.d"] = { cmd.delete, desc = "Delete review worktree" },
-            ["<Leader>g.s"] = { cmd.sync, desc = "Sync review" },
             ["<Leader>g.r"] = { cmd.reset, desc = "Reset review state" },
             ["<Leader>g.-"] = { cmd.toggle_tree, desc = "Toggle review tree" },
           },
