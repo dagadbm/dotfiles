@@ -68,6 +68,7 @@ return {
           swapfile = false, -- no swap files
           backup = true, -- keep backup after write
           writebackup = true, -- backup before overwriting
+          autoread = true, -- reload unmodified buffers changed on disk
           ignorecase = true, -- ignore case when searching
           smartcase = true,
           backupdir = vim.fn.expand "~/.cache/nvim-astrovim/backups//",
@@ -115,6 +116,15 @@ return {
         },
       },
       autocmds = {
+        -- check disk for external changes when focus or buffer changes
+        autoread_check = {
+          {
+            event = { "FocusGained", "BufEnter" },
+            pattern = "*",
+            desc = "Reload buffers changed outside Neovim",
+            command = "checktime",
+          },
+        },
         -- Change vim backupfile name: filename@2000-01-01_00:00
         backup_extension = {
           {
