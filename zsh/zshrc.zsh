@@ -194,9 +194,9 @@ alias g='git'
 # forgit_squash=gsq
 # forgit_reword=grw
 # forgit_blame=gbl
-forgit_worktree=gt
-forgit_worktree_add=gta
-forgit_worktree_delete=gtd
+# forgit_worktree=gwt
+# forgit_worktree_add=gwa
+# forgit_worktree_delete=gwd
 
 # utils
 alias restart='exec zsh'
