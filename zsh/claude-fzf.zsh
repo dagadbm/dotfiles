@@ -9,6 +9,11 @@ typeset -g _CLAUDE_FZF_DROP_MESSAGE='^(<local-command-caveat>|<system-reminder>|
 typeset -g _CLAUDE_FZF_DROP_LINE='<command-message>' # drop matching lines
 typeset -g _CLAUDE_FZF_UNWRAP_TAG='</?(command-name|command-args|local-command-stdout|bash-input|bash-stdout|bash-stderr)>' # remove tag, keep text
 
+# git root, or the current dir outside a repo
+_claude_root() {
+  git rev-parse --show-toplevel 2>/dev/null || print -r -- $PWD
+}
+
 _claude_data() {
   local -a catalog=($HOME/.claude/cache/model-catalog/*.json(N.om[1]))
   case $1 in
@@ -16,8 +21,9 @@ _claude_data() {
     models) (( $#catalog )) && jq -r '.catalog.config.models[] | "\(.id)\t\(.name)"' $catalog ;;
     efforts) (( $#catalog )) && jq -r --arg m "$2" '.catalog.config.models[] | select(.id == $m) | .thinking.effort_options[]?.id' $catalog ;;
     sessions)
-      local dir="$HOME/.claude/projects/${PWD//[^a-zA-Z0-9]/-}"
-      local -a files=($dir/*.jsonl(N.om))
+      # sessions of the git root and of every folder under it, newest first
+      local key=${$(_claude_root)//[^a-zA-Z0-9]/-}
+      local -a files=($HOME/.claude/projects/(${key}|${key}-*)/*.jsonl(N.om))
       (( $#files )) || { print -u2 "claude: no sessions for $PWD"; return 1 }
       local title_key='"aiTitle":"'
       local prompt_key='"role":"user","content":"'
@@ -58,9 +64,10 @@ _claude_data() {
 }
 
 _claude_fzf_default() {
-  local -a flags=("$@" --permission-mode auto)
+  local -a flags=("$@")
+  local root=$(_claude_root)
   if [[ -z "$(_claude_data catalog)" ]]; then
-    command "${CLAUDE_FZF_CMD[@]}" "${flags[@]}"
+    (cd "$root" && command "${CLAUDE_FZF_CMD[@]}" "${flags[@]}")
     return
   fi
 
@@ -75,7 +82,7 @@ _claude_fzf_default() {
     model_flags+=(--effort "$effort")
   fi
 
-  command "${CLAUDE_FZF_CMD[@]}" "${model_flags[@]}" "${flags[@]}"
+  (cd "$root" && command "${CLAUDE_FZF_CMD[@]}" "${model_flags[@]}" "${flags[@]}")
 }
 
 _claude_fzf_resume() {
@@ -96,7 +103,7 @@ _claude_fzf_resume() {
         --preview="$preview" --preview-window='right:60%:wrap' | cut -f1
   )
   [[ -z "$pick" ]] && return
-  command "${CLAUDE_FZF_CMD[@]}" --resume "${pick:t:r}" --permission-mode auto
+  command "${CLAUDE_FZF_CMD[@]}" --resume "${pick:t:r}"
 }
 
 _claude_fzf_worktree() {

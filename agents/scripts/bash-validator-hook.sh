@@ -63,8 +63,8 @@ fi
 
 # secrets: the Read() denies in settings.json do not stop cat/grep/sed/...
 # .env.example/.sample/.template are not secrets; .envrc (direnv) often is
-secrets='(\.env(rc|[.][a-zA-Z0-9_-]+)?|\.ssh/|id_(rsa|ed25519|ecdsa|dsa)|\.pem|\.p12|\.pfx|\.ppk|\.gpg|\.aws/credentials|\.azure/|gcloud/|\.kube/config|\.netrc|\.npmrc|\.pypirc|\.pgpass|\.my\.cnf|\.git-credentials|\.docker/config\.json|\.(bash|zsh)_history|vault_pass|secrets\.(ya?ml|json)|credentials\.json|\.tfstate|\.jks|\.keystore)([[:space:]"'"'"'/;|&)]|$)'
-if grep -Eo -- "$secrets" <<<"$command" | grep -Evq '^\.env\.(example|sample|template)'; then
+secrets='((^|[[:space:]"'"'"'/=<>:])\.env(rc|[.][a-zA-Z0-9_.-]+)?|\.ssh|id_(rsa|ed25519|ecdsa|dsa)|\.pem|\.p12|\.pfx|\.ppk|\.gpg|\.aws/credentials|\.azure/|gcloud/|\.kube/config|\.netrc|\.npmrc|\.pypirc|\.pgpass|\.my\.cnf|\.git-credentials|\.docker/config\.json|\.(bash|zsh)_history|vault_pass|secrets\.(ya?ml|json)|credentials\.json|\.tfstate|\.jks|\.keystore)([[:space:]"'"'"'/;|&)]|$)'
+if grep -Eo -- "$secrets" <<<"$command" | grep -Evq '^.?\.env\.(example|sample|template)([^.[:alnum:]_-]|$)'; then
   ask "Command references a secret file."
 fi
 if matches "${start}security[[:space:]]+(find|dump)-|${start}(printenv|env)([[:space:]]*$|[[:space:]]*\|)"; then
