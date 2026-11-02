@@ -81,8 +81,8 @@ return {
           neovim_skill = "@" .. vim.fn.stdpath "config" .. "/lua/plugins/ai-neovim-skill.md",
         },
         tools = {
-          claude_haiku = {
-            cmd = { "zsh", "-ic", "claude --model haiku --effort low" },
+          claude = {
+            cmd = { "zsh", "-ic", "claude --model haiku --effort medium" },
             native_scroll = true,
           },
           claude_fzf = {
