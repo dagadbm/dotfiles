@@ -332,7 +332,7 @@
   "theme": "custom:astrodark",
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
-  "idleCompaction": true,
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "idleCompaction": true
 }
