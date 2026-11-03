@@ -1,6 +1,11 @@
 -- config: settings, variable names and messages; fixed once loaded
 -- state: what changes at runtime, kept in Lua between calls
 -- cmd: the <Leader>g. commands
+-- mappings: the <Leader>g. keymaps, set through astrocore
+-- autocmds: the config.namespace augroup, set through astrocore: handlers on buffer and tab switches, gitsigns
+-- updates, exit
+local config, state, cmd, mappings, autocmds
+
 -- handlers: autocmd callbacks (buffer and tab switches, gitsigns updates, exit)
 -- session: resession extension and hooks: save and restore review tabs, placeholders for missing worktrees
 -- review: open a review in a tab, pick review tabs, find the file shown
@@ -9,7 +14,7 @@
 -- git: git through fugitive (merge-base, changed files, worktrees) and the gitsigns base per tab
 -- files: how files and folders show (icons, colours, order) in the tree and quickfix
 -- tree: the review file tree sidebar
-local config, state, cmd, handlers, session, review, worktree, quickfix, git, files, tree
+local handlers, session, review, worktree, quickfix, git, files, tree
 
 config = {
   -- file marking placeholder folders as ours, so a later nvim (after a load resession aborted) can still remove them
@@ -78,20 +83,22 @@ config = {
 -- the namespace keeps them clear of other plugins' variables
 config.vars = vim.tbl_map(function(suffix) return config.namespace .. suffix end, config.vars)
 
-state = {
-  -- review tabs by tab handle: { mb, files, bufs = { [bufnr] = true } }; a plain Lua copy of the t: vars for
-  -- the TabEnter and gitsigns autocmds, which run on every tab or buffer switch (reading a t: table copies it whole)
-  active = {},
-  -- reviews of the session being loaded (resession extension data), from on_pre_load until restore
-  pending = nil,
-  -- folders on_pre_load made for missing worktrees, until restore removes them
-  placeholders = {},
-  -- quickfix history position of the user's list that was current when a review tab took over (0: none);
-  -- leaving the review tabs goes back to it
-  qf_back = 0,
-  -- buffers with a gitsigns change_base running (git.sync_base): true, or "again" to redo it when it ends
-  changing = {},
-}
+state = _G.git_review_state
+  or {
+    -- review tabs by tab handle: { mb, files, bufs = { [bufnr] = true } }; a plain Lua copy of the t: vars for
+    -- the TabEnter and gitsigns autocmds, which run on every tab or buffer switch (reading a t: table copies it whole)
+    active = {},
+    -- reviews of the session being loaded (resession extension data), from on_pre_load until restore
+    pending = nil,
+    -- folders on_pre_load made for missing worktrees, until restore removes them
+    placeholders = {},
+    -- quickfix history position of the user's list that was current when a review tab took over (0: none);
+    -- leaving the review tabs goes back to it
+    qf_back = 0,
+    -- buffers with a gitsigns change_base running (git.sync_base): true, or "again" to redo it when it ends
+    changing = {},
+  }
+_G.git_review_state = state
 
 cmd = {
   -- pick base and compare (as git diff base...compare), then open the review in a new tab
@@ -155,8 +162,11 @@ cmd = {
     end)
   end,
 
-  -- pick an open review tab (the current one first), then rebuild it from git: merge-base, quickfix, gitsigns base and tree
+  -- pick an open review tab (the current one first), then rebuild it from git: merge-base, quickfix, gitsigns base and tree;
+  -- no open review: start a new one
   resume = function()
+    local any = vim.iter(vim.api.nvim_list_tabpages()):any(function(tab) return vim.t[tab][config.vars.spec] ~= nil end)
+    if not any then return cmd.new() end
     review.pick(config.messages.pick_resume, function(tab)
       local r, current = vim.t[tab][config.vars.spec], review.current_file(tab)
       vim.api.nvim_set_current_tabpage(tab)
@@ -229,7 +239,7 @@ cmd = {
             for buf in pairs(state.active[tab] and state.active[tab].bufs or {}) do
               if vim.startswith(vim.api.nvim_buf_get_name(buf), "fugitive://") then blobs[buf] = true end
             end
-            -- the spec too: close_tab fires handlers.tab_enter, which would take a later one for a worktree removed
+            -- the spec too: close_tab fires handlers.tab_sync, which would take a later one for a worktree removed
             -- outside nvim (close_missing: warns)
             vim.t[tab][config.vars.spec], state.active[tab] = nil, nil
           end
@@ -263,6 +273,41 @@ cmd = {
   end,
 }
 
+mappings = {
+  n = {
+    ["<Leader>g."] = { desc = "Git review" },
+    ["<Leader>g.n"] = { cmd.new, desc = "New review" },
+    ["<Leader>g.."] = { cmd.resume, desc = "Resume review" },
+    ["<Leader>g.c"] = { cmd.close, desc = "Close review" },
+    ["<Leader>g.e"] = { cmd.edit, desc = "Edit local or remote review in a worktree" },
+    ["<Leader>g.d"] = { cmd.delete, desc = "Delete review worktree" },
+    ["<Leader>g.-"] = { cmd.toggle_tree, desc = "Toggle review tree" },
+  },
+}
+
+-- astrocore creates the group once, at startup: lazy's reloads (see state) keep the first run's callbacks.
+-- handlers is defined below, so each callback looks it up when it runs; a callback returning true would delete its
+-- autocmd, these return nothing
+autocmds = {
+  [config.namespace] = {
+    { event = "BufEnter", desc = "Review gitsigns base", callback = function(ev) handlers.buf_enter(ev) end },
+    {
+      event = "User",
+      pattern = "GitSignsUpdate",
+      desc = "Review gitsigns base once attached",
+      callback = function(ev) handlers.gitsigns_update(ev) end,
+    },
+    {
+      event = "BufReadPost",
+      desc = "Reset review gitsigns base",
+      callback = function(ev) handlers.buf_read_post(ev) end,
+    },
+    { event = "TabClosed", desc = "Drop closed review tabs", callback = function() handlers.tab_closed() end },
+    { event = "TabEnter", desc = "Refresh review tab", callback = function() handlers.tab_enter() end },
+    { event = "VimLeavePre", desc = "Remove review placeholders", callback = function() handlers.vim_leave_pre() end },
+  },
+}
+
 handlers = {
   -- BufEnter: gitsigns base per tab (see git.sync_base); it returns at once when the base is unchanged, and also
   -- resets buffers after the last review closes
@@ -286,10 +331,19 @@ handlers = {
     end
   end,
 
-  -- TabEnter (also after closing a tab, and after a session load or save): the current tab was entered: give its
-  -- buffers their gitsigns base; quickfix is global, so a review tab swaps in its list (no git) and other tabs clear
-  -- a review list but keep any other list
+  -- TabEnter: a review tab rebuilds from git like resume (files changed in other tabs show in its quickfix, tree and
+  -- gitsigns; review.open closes it when its worktree is gone); other tabs as tab_sync
   tab_enter = function()
+    local tab = vim.api.nvim_get_current_tabpage()
+    local r = vim.t[tab][config.vars.spec]
+    if r then return review.open(r, review.current_file(tab)) end
+    handlers.tab_sync()
+  end,
+
+  -- sync the current tab without git: from tab_switch (plain tabs), after closing a tab, and after a session load or
+  -- save: give its buffers their gitsigns base; quickfix is global, so a review tab swaps in its last list and other
+  -- tabs clear a review list but keep any other list
+  tab_sync = function()
     local tab = vim.api.nvim_get_current_tabpage()
     local r = vim.t[tab][config.vars.spec]
     -- worktree removed outside nvim while its tab was open: syncing would run git in it (async errors)
@@ -306,18 +360,6 @@ handlers = {
   -- VimLeavePre: placeholders of a load resession aborted: remove them now, the next nvim may never load that session
   vim_leave_pre = function() session.remove_placeholders(state.placeholders) end,
 }
-
--- by name (config.namespace) below; a callback returning true would delete its autocmd, the handlers return nothing
-vim.api.nvim_create_augroup(config.namespace, {})
-vim.api.nvim_create_autocmd("BufEnter", { group = config.namespace, callback = handlers.buf_enter })
-vim.api.nvim_create_autocmd(
-  "User",
-  { group = config.namespace, pattern = "GitSignsUpdate", callback = handlers.gitsigns_update }
-)
-vim.api.nvim_create_autocmd("BufReadPost", { group = config.namespace, callback = handlers.buf_read_post })
-vim.api.nvim_create_autocmd("TabClosed", { group = config.namespace, callback = handlers.tab_closed })
-vim.api.nvim_create_autocmd("TabEnter", { group = config.namespace, callback = handlers.tab_enter })
-vim.api.nvim_create_autocmd("VimLeavePre", { group = config.namespace, callback = handlers.vim_leave_pre })
 
 session = {
   -- extension: resession restores each tab's cwd after this, and a worktree deleted outside nvim aborts the whole
@@ -401,7 +443,7 @@ session = {
     end
     session.remove_placeholders(created)
     state.placeholders = vim.tbl_filter(function(p) return not vim.tbl_contains(created, p) end, state.placeholders)
-    handlers.tab_enter()
+    handlers.tab_sync()
   end,
 
   -- extension: { tab = tab number in the session, review = vim.t[config.vars.spec], current = path of the review file
@@ -587,7 +629,7 @@ worktree = {
 
   -- close review r in tab and every other tab reviewing the same worktree
   close_missing = function(tab, r)
-    -- forget them all before closing any: close_tab fires handlers.tab_enter, which would close them again
+    -- forget them all before closing any: close_tab fires handlers.tab_sync, which would close them again
     local tabs = vim.tbl_filter(function(t)
       local o = vim.t[t][config.vars.spec]
       return t == tab or (o and o.path == r.path)
@@ -634,7 +676,7 @@ worktree = {
     end
     vim.cmd.tabclose(vim.api.nvim_tabpage_get_number(tab))
     -- closing another tab fires no TabEnter: drop its quickfix list when the current tab is not a review
-    handlers.tab_enter()
+    handlers.tab_sync()
   end,
 
   -- wipe the buffers of files under path (a removed worktree), unsaved edits included,
@@ -1153,7 +1195,7 @@ return {
       -- resession's quickfix extension saves the current list without its title: save the user's list, never
       -- the review one (restore rebuilds it), then put it back
       resession.add_hook("pre_save", quickfix.leave)
-      resession.add_hook("post_save", handlers.tab_enter)
+      resession.add_hook("post_save", handlers.tab_sync)
     end,
   },
   { "tpope/vim-fugitive" },
@@ -1170,17 +1212,8 @@ return {
     ---@param opts AstroCoreOpts
     opts = function(_, opts)
       return require("astrocore").extend_tbl(opts, {
-        mappings = {
-          n = {
-            ["<Leader>g."] = { desc = "Git review" },
-            ["<Leader>g.n"] = { cmd.new, desc = "New review" },
-            ["<Leader>g.."] = { cmd.resume, desc = "Resume review" },
-            ["<Leader>g.c"] = { cmd.close, desc = "Close review" },
-            ["<Leader>g.e"] = { cmd.edit, desc = "Edit local or remote review in a worktree" },
-            ["<Leader>g.d"] = { cmd.delete, desc = "Delete review worktree" },
-            ["<Leader>g.-"] = { cmd.toggle_tree, desc = "Toggle review tree" },
-          },
-        },
+        mappings = mappings,
+        autocmds = autocmds,
       })
     end,
   },
