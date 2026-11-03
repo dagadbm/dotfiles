@@ -1,5 +1,5 @@
 # astrodark theme, derived
-# legend: <palette key>: <variables set>
+# legend: <palette key> (<derivation or taken from X>, optional): <variables set>
 # ui.statusline: COLOR_BAR
 # ui.accent: COLOR_ACCENT, BATTERY_BLUE
 # ui.base: COLOR_ACCENT_TEXT

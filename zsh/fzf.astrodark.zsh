@@ -1,5 +1,5 @@
 # astrodark theme, derived
-# legend: <palette key>: <variables set>
+# legend: <palette key> (<derivation or taken from X>, optional): <variables set>
 # syntax.text: fzf_fg, fzf_query
 # ui.text_active: fzf_fg_plus
 # ui.base: fzf_bg, fzf_gutter

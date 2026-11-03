@@ -1,11 +1,11 @@
 # astrodark theme, derived
-# legend: <palette key>: <variables set>
-# bold syntax.blue: di, tw, ow, st
+# legend: <palette key> (<derivation or taken from X>, optional): <variables set>
+# syntax.blue: di, tw, ow, st
 # syntax.cyan: ln
 # syntax.red: or, mi, archive exts
 # syntax.yellow: so, pi, bd, cd, config/data exts
-# bold syntax.green: ex
-# bold syntax.orange: su, sg
+# syntax.green: ex
+# syntax.orange: su, sg
 # syntax.purple: image/media exts
 # syntax.text: doc exts
 # syntax.comment: backup/log exts

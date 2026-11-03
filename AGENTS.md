@@ -74,29 +74,39 @@ upstream `$AT` = `~/.local/share/nvim-astrovim/lazy/astrotheme`: palette
 
 ### Vendored: re-copy the extra unchanged
 
-- `ghostty/themes/` from `ghostty/`
-- `wezterm/colors/` from `wezterm/`
-- `helix/themes/` from `helix/`
-- `lazygit/themes/` from `lazygit/`
-- `bat/themes/` from `sublime/`
-- `git/delta.astrodark.gitconfig` from `delta/`
+| File | Extra |
+| --- | --- |
+| `ghostty/themes/` | `ghostty/` |
+| `wezterm/colors/` | `wezterm/` |
+| `helix/themes/` | `helix/` |
+| `lazygit/themes/` | `lazygit/` |
+| `bat/themes/` | `sublime/` |
+| `git/delta.astrodark.gitconfig` | `delta/` |
 
 ### Derived: hand-edit from the palette
 
-- `zsh/`: `p10k.astrodark.zsh`, `fzf.astrodark.zsh`, `fsh.astrodark.ini`,
-  `ls-colors.astrodark.zsh`, `lsd.astrodark.yaml`, `broot.conf.toml` `[skin]`,
-  `zshrc.zsh` autosuggest
-- `tmux/astrodark.tmux`
-- `herdr/config.toml` `[theme.custom]`
-- `agents/claude/ccstatusline.settings.json`
+| File | Notes |
+| --- | --- |
+| `zsh/p10k.astrodark.zsh` |  |
+| `zsh/fzf.astrodark.zsh` |  |
+| `zsh/fsh.astrodark.ini` |  |
+| `zsh/ls-colors.astrodark.zsh` |  |
+| `zsh/lsd.astrodark.yaml` |  |
+| `zsh/broot.conf.toml` | only the `[skin]` section |
+| `zsh/zshrc.zsh` | only `ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE` |
+| `tmux/astrodark.tmux` |  |
+| `herdr/config.toml` | only the `[theme.custom]` section |
+| `agents/claude/ccstatusline.settings.json` |  |
+| `agents/claude/astrodark.json` |  |
 
 Each file keeps its changes in one comment block starting with
 `astrodark theme, derived`:
 
 ```zsh
 # astrodark theme, derived
-# legend: <palette key>: <variables set>
+# legend: <palette key> (<derivation or taken from X>, optional): <variables set>
 # ui.base: fzf_bg, fzf_gutter
+# syntax.green (blend 0.75 into ui.base, taken from delta plus-style): fzf_bg+
 # syntax.blue: fzf_hl, fzf_prompt
 # notes: <changes that are not obvious from reading the file>
 ```

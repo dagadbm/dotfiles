@@ -1,5 +1,5 @@
 # astrodark theme, derived
-# legend: <palette key>: <variables set>
+# legend: <palette key> (<derivation or taken from X>, optional): <variables set>
 # syntax.blue: user
 # syntax.comment: group, date.older
 # syntax.green: permission.read, date.hour-old, size.small, git-status.new-in-index, git-status.new-in-workdir

@@ -95,7 +95,7 @@ source "$HOME/fzf.config.zsh"
 # colors https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 # bindkey variables https://unix.stackexchange.com/a/117162
 # astrodark theme, derived
-# legend: <palette key>: <variables set>
+# legend: <palette key> (<derivation or taken from X>, optional): <variables set>
 # syntax.comment: ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#696C76'
 # accept suggestion word by word (ctrl+w)

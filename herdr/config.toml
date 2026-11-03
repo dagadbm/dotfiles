@@ -17,7 +17,7 @@ auto_switch = false
 # Override individual color tokens on top of the base theme.
 # Accepts: hex (#rrggbb), named colors, rgb(r,g,b), or panel_bg = "reset"
 # astrodark theme, derived
-# legend: <palette key>: <variables set>
+# legend: <palette key> (<derivation or taken from X>, optional): <variables set>
 # ui.accent: accent
 # ui.base: panel_bg, sidebar_bg
 # ui.current_line: active_row_bg

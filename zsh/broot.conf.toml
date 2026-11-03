@@ -8,7 +8,7 @@ external = "nvim +{line} {file:space-separated}"
 leave_broot = false
 
 # astrodark theme, derived
-# legend: <palette key>: <variables set>
+# legend: <palette key> (<derivation or taken from X>, optional): <variables set>
 # syntax.text: default, parent, input, status_normal, status_ellipsis, preview_title, preview, preview unfocused, diff_added, diff_removed, hex_ascii_graphic, staging_area_title
 # syntax.comment: default unfocused, parent unfocused, dates, content_extract, flag_label, input unfocused, scrollbar_thumb unfocused, preview_title unfocused, diff_line_number, staging_area_title unfocused
 # ui.border: tree, scrollbar_track, help_table_border, preview_separator
@@ -25,9 +25,9 @@ leave_broot = false
 # ui.statusline: status_error bg, status_job bg, status_normal bg, status_italic bg, status_bold bg, status_code bg, status_ellipsis bg, mode_command_mark
 # ui.accent: scrollbar_thumb
 # ui.float: preview_title bg, preview_title unfocused bg, staging_area_title bg, staging_area_title unfocused bg
-# delta plus-style (#354632): diff_added bg
-# delta minus-style (#53373D): diff_removed bg
-# notes: unfocused after /; delta hexes from git/delta.astrodark.gitconfig
+# syntax.green (blend 0.75 into ui.base, taken from delta plus-style): diff_added bg
+# syntax.red (blend 0.75 into ui.base, taken from delta minus-style): diff_removed bg
+# notes: unfocused after /
 [skin]
 default = "rgb(173, 176, 187) none / rgb(105, 108, 118) none"
 tree = "rgb(58, 62, 71) none"
