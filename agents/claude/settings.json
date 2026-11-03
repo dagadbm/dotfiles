@@ -298,6 +298,7 @@
     }
   },
   "spinnerTipsEnabled": false,
+  "syntaxHighlightingDisabled": false,
   "alwaysThinkingEnabled": false,
   "modelSettings": {
     "claude-fable-5-1": {
@@ -322,6 +323,7 @@
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
+  "theme": "custom:astrodark",
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "idleCompaction": true,

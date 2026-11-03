@@ -93,6 +93,7 @@
     ## claude
     ~/.claude/settings.json: agents/claude/settings.json
     ~/.claude/no-agent-summary.js: agents/claude/no-agent-summary.js
+    ~/.claude/themes/astrodark.json: agents/claude/astrodark.json
     ~/.config/ccstatusline/settings.json: agents/claude/ccstatusline.settings.json
     ## scripts
     ~/.agents/scripts/bash-validator-hook.sh: agents/scripts/bash-validator-hook.sh
