@@ -1,22 +1,11 @@
--- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
--- Configuration documentation can be found with `:h astrocore`
--- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
---       as this provides autocomplete and documentation while editing
-
--- https://docs.astronvim.com/recipes/sessions/
--- function for calculating the current session name
-local get_session_name = function()
-  local name = vim.fn.getcwd()
-  local branch = vim.fn.system "git branch --show-current"
-  if vim.v.shell_error == 0 then
-    return name .. vim.trim(branch --[[@as string]])
-  else
-    return name
-  end
-end
+-- options: vim options by scope (opt, g), set at startup (`:h astrocore-options`)
+-- mappings: keymaps by mode, added to AstroNvim's (`:h astrocore-mappings`)
+-- autocmds: autocommand groups by name (`:h astrocore-autocmds`): autoread, backup names, git branch sessions
+-- utils: helpers the mappings and autocmds share (git branch aware session name)
+local options, mappings, autocmds, utils
 
 ---@type LazySpec
-return {
+local spec = {
   "AstroNvim/astrocore",
   ---@param opts AstroCoreOpts
   opts = function(_, opts)
@@ -30,12 +19,14 @@ return {
         highlighturl = true, -- highlight URLs at start
         notifications = true, -- enable notifications at start
       },
+
       -- Configuration of treesitter features in Neovim
       treesitter = {
         highlight = true, -- enable/disable treesitter based highlighting
         indent = true, -- enable/disable treesitter based indentation
         auto_install = true, -- enable/disable automatic installation of detected languages
       },
+
       -- Configure project root detection, check status with `:AstroRootInfo`
       rooter = {
         -- automatically update working directory (update manually with `:AstroRoot`)
@@ -45,11 +36,13 @@ return {
           "lsp",
         },
       },
+
       -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
       diagnostics = {
         virtual_text = false,
         underline = true,
       },
+
       -- passed to `vim.filetype.add`
       filetypes = {
         -- see `:h vim.filetype.add` for usage
@@ -57,56 +50,7 @@ return {
         filename = {},
         pattern = {},
       },
-      -- vim options can be configured here
-      options = {
-        opt = { -- vim.opt.<key>
-          relativenumber = true, -- sets vim.opt.relativenumber
-          number = true, -- sets vim.opt.number
-          spell = false, -- sets vim.opt.spell
-          signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-          wrap = false, -- sets vim.opt.wrap
-          swapfile = false, -- no swap files
-          backup = true, -- keep backup after write
-          writebackup = true, -- backup before overwriting
-          autoread = true, -- reload unmodified buffers changed on disk
-          ignorecase = true, -- ignore case when searching
-          smartcase = true,
-          backupdir = vim.fn.expand "~/.cache/nvim-astrovim/backups//",
-          undodir = vim.fn.expand "~/.cache/nvim-astrovim/undos//",
-          undofile = true,
-          undolevels = 100000,
-          undoreload = 100000,
-        },
-        g = { -- vim.g.<key>
-          -- configure global vim variables (vim.g)
-          -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
-          -- This can be found in the `lua/lazy_setup.lua` file
-        },
-      },
-      -- Mappings can be configured through AstroCore as well.
-      -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
-      mappings = {
-        n = {
-          -- update save dirsession mapping to get the correct session name
-          ["<Leader>SS"] = {
-            function() require("resession").save(get_session_name(), { dir = "dirsession" }) end,
-            desc = "Save this dirsession",
-          },
-          -- update load dirsession mapping to get the correct session name
-          ["<Leader>S."] = {
-            function() require("resession").load(get_session_name(), { dir = "dirsession" }) end,
-            desc = "Load current dirsession",
-          },
-          ["<Leader>r"] = {
-            function() require("astrocore").rename_file() end,
-            desc = "Rename file",
-          },
-          ["<Leader>R"] = {
-            function() vim.cmd.restart() end,
-            desc = "Restart AstroNvim",
-          },
-        },
-      },
+
       -- Configuration table of session options for AstroNvim's session management powered by Resession
       sessions = {
         -- Configure auto saving
@@ -115,52 +59,156 @@ return {
           cwd = false,
         },
       },
-      autocmds = {
-        -- check disk for external changes when focus or buffer changes
-        autoread_check = {
-          {
-            event = { "FocusGained", "BufEnter" },
-            pattern = "*",
-            desc = "Reload buffers changed outside Neovim",
-            command = "checktime",
-          },
-        },
-        -- Change vim backupfile name: filename@2000-01-01_00:00
-        backup_extension = {
-          {
-            event = "BufWritePre",
-            pattern = "*",
-            desc = "Change vim backupfile name: filename@2000-01-01_00:00",
-            command = [[let &bex = '@' .. strftime("%F_%H:%M")]],
-          },
-        },
-        -- https://docs.astronvim.com/recipes/sessions/#git-branch-specific-directory-sessions
-        git_branch_sessions = {
-          -- auto save directory sessions on leaving
-          {
-            event = "VimLeavePre",
-            desc = "Save git branch directory sessions on close",
-            callback = vim.schedule_wrap(function()
-              if require("astrocore.buffer").is_valid_session() then
-                require("resession").save(get_session_name(), { dir = "dirsession", notify = false })
-              end
-            end),
-          },
-          -- auto restore previous previous directory session, remove if necessary
-          {
-            event = "VimEnter",
-            desc = "Restore previous directory session if neovim opened with no arguments",
-            nested = true, -- trigger other autocommands as buffers open
-            callback = function()
-              -- Only load the session if nvim was started with no args
-              if vim.fn.argc(-1) == 0 then
-                -- try to load a directory session using the current working directory
-                require("resession").load(get_session_name(), { dir = "dirsession", silence_errors = true })
-              end
-            end,
-          },
-        },
-      },
+
+      options = options,
+      mappings = mappings,
+      autocmds = autocmds,
     })
   end,
 }
+
+-- vim options: `:h astrocore-options`
+options = {
+  opt = { -- vim.opt.<key>
+    relativenumber = true, -- sets vim.opt.relativenumber
+    number = true, -- sets vim.opt.number
+    spell = false, -- sets vim.opt.spell
+    signcolumn = "yes", -- sets vim.opt.signcolumn to yes
+    wrap = false, -- sets vim.opt.wrap
+    swapfile = false, -- no swap files
+    backup = true, -- keep backup after write
+    writebackup = true, -- backup before overwriting
+    autoread = true, -- reload unmodified buffers changed on disk
+    ignorecase = true, -- ignore case when searching
+    smartcase = true,
+    backupdir = vim.fn.expand "~/.cache/nvim-astrovim/backups//",
+    undodir = vim.fn.expand "~/.cache/nvim-astrovim/undos//",
+    undofile = true,
+    undolevels = 100000,
+    undoreload = 100000,
+  },
+  g = { -- vim.g.<key>
+    -- configure global vim variables (vim.g)
+    -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
+    -- This can be found in the `lua/lazy_setup.lua` file
+  },
+}
+
+-- Mappings: `:h astrocore-mappings`
+-- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
+mappings = {
+  n = {
+    -- overrides AstroNvim <Leader>fl; directory search is AstroNvim <Leader>fc
+    ["<Leader>fl"] = {
+      function()
+        require("snacks").picker.lines {
+          pattern = vim.fn.expand "<cword>",
+          layout = { preset = "default", preview = true },
+        }
+      end,
+      desc = "Find lines under cursor",
+    },
+
+    -- sessions: update the save and load mappings to use the git branch aware session name
+    ["<Leader>SS"] = {
+      function() require("resession").save(utils.get_session_name(), { dir = "dirsession" }) end,
+      desc = "Save this dirsession",
+    },
+    ["<Leader>S."] = {
+      function() require("resession").load(utils.get_session_name(), { dir = "dirsession" }) end,
+      desc = "Load current dirsession",
+    },
+
+    -- files and editor
+    ["<Leader>r"] = {
+      function() require("astrocore").rename_file() end,
+      desc = "Rename file",
+    },
+    ["<Leader>R"] = {
+      function() vim.cmd.restart() end,
+      desc = "Restart AstroNvim",
+    },
+    ["-"] = { "<Cmd>Oil<CR>", desc = "Open parent directory" },
+  },
+
+  x = {
+    -- search: visual selection
+    ["<Leader>fc"] = {
+      function() require("snacks").picker.grep_word() end,
+      desc = "Find selection in directory",
+    },
+    ["<Leader>fl"] = {
+      function()
+        local text = require("snacks").picker.util.visual().text
+        require("snacks").picker.lines { pattern = text, layout = { preset = "default", preview = true } }
+      end,
+      desc = "Find lines under selection",
+    },
+  },
+}
+
+-- Autocommands: `:h astrocore-autocmds`
+autocmds = {
+  -- check disk for external changes when focus or buffer changes
+  autoread_check = {
+    {
+      event = { "FocusGained", "BufEnter" },
+      pattern = "*",
+      desc = "Reload buffers changed outside Neovim",
+      command = "checktime",
+    },
+  },
+
+  -- Change vim backupfile name: filename@2000-01-01_00:00
+  backup_extension = {
+    {
+      event = "BufWritePre",
+      pattern = "*",
+      desc = "Change vim backupfile name: filename@2000-01-01_00:00",
+      command = [[let &bex = '@' .. strftime("%F_%H:%M")]],
+    },
+  },
+
+  -- https://docs.astronvim.com/recipes/sessions/#git-branch-specific-directory-sessions
+  git_branch_sessions = {
+    -- auto save directory sessions on leaving
+    {
+      event = "VimLeavePre",
+      desc = "Save git branch directory sessions on close",
+      callback = vim.schedule_wrap(function()
+        if require("astrocore.buffer").is_valid_session() then
+          require("resession").save(utils.get_session_name(), { dir = "dirsession", notify = false })
+        end
+      end),
+    },
+    -- auto restore previous directory session, remove if necessary
+    {
+      event = "VimEnter",
+      desc = "Restore previous directory session if neovim opened with no arguments",
+      nested = true, -- trigger other autocommands as buffers open
+      callback = function()
+        -- Only load the session if nvim was started with no args
+        if vim.fn.argc(-1) == 0 then
+          -- try to load a directory session using the current working directory
+          require("resession").load(utils.get_session_name(), { dir = "dirsession", silence_errors = true })
+        end
+      end,
+    },
+  },
+}
+
+utils = {
+  -- https://docs.astronvim.com/recipes/sessions/
+  -- calculate the current session name: cwd plus git branch when inside a repo
+  get_session_name = function()
+    local name = vim.fn.getcwd()
+    local branch = vim.fn.system "git branch --show-current"
+    if vim.v.shell_error == 0 then
+      return name .. vim.trim(branch --[[@as string]])
+    else
+      return name
+    end
+  end,
+}
+
+return spec
