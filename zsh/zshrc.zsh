@@ -287,9 +287,11 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+# work
+source "$HOME/zshrc.work.zsh"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"
 [[ -f "$HOME/.config/shell/p10k.mise.zsh" ]] && source "$HOME/.config/shell/p10k.mise.zsh"
 [[ -f "$HOME/.config/shell/p10k.astrodark.zsh" ]] && source "$HOME/.config/shell/p10k.astrodark.zsh"
 # }}}}}}
-source "$HOME/zshrc.work.zsh"
