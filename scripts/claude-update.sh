@@ -14,6 +14,7 @@ marketplaces=(
   TheOnlyFusionCube/potetos-for-everyone
   DietrichGebert/ponytail
   mvanhorn/last30days-skill
+  heygen-com/hyperframes
 )
 for marketplace in "${marketplaces[@]}"; do
   claude plugin marketplace add "$marketplace"
@@ -23,13 +24,14 @@ claude plugin marketplace update
 # plugins: <plugin>::<installed>; disabled plugins still list their skills, so
 # unwanted ones are uninstalled instead
 plugins=(
-  mattpocock-skills@claude-plugins-official::true
+  mattpocock-skills@claude-plugins-official::false
   superpowers@claude-plugins-official::false
   caveman@caveman::true
-  agent-skills@addy-agent-skills::false
+  agent-skills@addy-agent-skills::true
   pstack@potetos-for-everyone::false
   ponytail@ponytail::true
   last30days@last30days-skill::true
+  hyperframes@hyperframes::false
 )
 for entry in "${plugins[@]}"; do
   plugin="${entry%::*}"

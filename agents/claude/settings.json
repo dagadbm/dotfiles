@@ -255,9 +255,10 @@
   "enabledPlugins": {
     "caveman@caveman": true,
     "cowork-plugin-management@synced": false,
-    "mattpocock-skills@claude-plugins-official": true,
     "ponytail@ponytail": true,
-    "last30days@last30days-skill": true
+    "last30days@last30days-skill": true,
+    "agent-skills@addy-agent-skills": true,
+    "hyperframes@hyperframes": true
   },
   "extraKnownMarketplaces": {
     "addy-agent-skills": {
@@ -294,6 +295,12 @@
       "source": {
         "source": "github",
         "repo": "mvanhorn/last30days-skill"
+      }
+    },
+    "hyperframes": {
+      "source": {
+        "source": "github",
+        "repo": "heygen-com/hyperframes"
       }
     }
   },
