@@ -257,8 +257,7 @@
     "cowork-plugin-management@synced": false,
     "ponytail@ponytail": true,
     "last30days@last30days-skill": true,
-    "agent-skills@addy-agent-skills": true,
-    "hyperframes@hyperframes": true
+    "agent-skills@addy-agent-skills": true
   },
   "extraKnownMarketplaces": {
     "addy-agent-skills": {
