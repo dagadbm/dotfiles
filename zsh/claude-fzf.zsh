@@ -21,10 +21,17 @@ _claude_data() {
     models) (( $#catalog )) && jq -r '.catalog.config.models[] | "\(.id)\t\(.name)"' $catalog ;;
     efforts) (( $#catalog )) && jq -r --arg m "$2" '.catalog.config.models[] | select(.id == $m) | .thinking.effort_options[]?.id' $catalog ;;
     sessions)
-      # sessions of the git root and of every folder under it, newest first
-      local key=${$(_claude_root)//[^a-zA-Z0-9]/-}
-      local -a files=($HOME/.claude/projects/(${key}|${key}-*)/*.jsonl(N.om))
-      (( $#files )) || { print -u2 "claude: no sessions for $PWD"; return 1 }
+      # sessions of the git root (or $PWD) and of every folder under it, newest first;
+      # none there: walk up to the nearest ancestor that has sessions
+      local dir=$(_claude_root) key
+      local -a files
+      while true; do
+        key=${dir//[^a-zA-Z0-9]/-}
+        files=($HOME/.claude/projects/(${key}|${key}-*)/*.jsonl(N.om))
+        (( $#files )) && break
+        [[ $dir == / ]] && { print -u2 "claude: no sessions for $PWD"; return 1 }
+        dir=${dir:h}
+      done
       local title_key='"aiTitle":"'
       local prompt_key='"role":"user","content":"'
       local titles_awk='
