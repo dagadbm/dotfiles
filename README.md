@@ -15,7 +15,12 @@ Commands live in `scripts/` and run as mise tasks from `mise.toml`:
 mise tasks                                # list tasks
 mise run                                  # pick a task interactively
 mise run dotbot                           # relink after changing dotbot.conf.yaml
-mise run update                           # update everything
+mise run update:sync                      # update everything, one task at a time
+mise run update:async                     # update everything, tasks in parallel
+mise run tmux:update                      # update tmux plugins
+mise run shell:update                     # update fzf, bat cache, fsh theme
+mise run macos:update                     # install macOS software updates
+mise run tailscale:update                 # update tailscale
 mise run nvim:update                      # update Neovim, LSP, plugins
 mise run herdr:update                     # update herdr
 mise run hk:update                        # update hk, install git hooks

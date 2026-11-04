@@ -69,6 +69,10 @@ export MODULE=submodules/repo_name && \
   `ssh/work`, `zsh/zshrc.work.zsh`.
 - `scripts/*.sh` run as `mise.toml` tasks and source `scripts/utils.sh` (cd to
   repo root, helpers); `*-prune.sh` also source `scripts/prune-utils.sh`.
+  Every task points at a script (`file = ...`), never inline `run` code.
+- `update-sync.sh` and `update-async.sh` run the `*:update` tasks in one
+  `mise run ... ::: ...`, sequentially (`--jobs 1`) or in parallel; add new
+  update tasks to both.
   `bootstrap.sh` runs directly, before mise exists.
 
 ## Theme: astrodark
