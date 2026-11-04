@@ -50,4 +50,4 @@ broot --print-shell-function zsh > "$HOME/.config/broot/launcher/zsh/br"
 broot --set-install-state installed
 
 # update
-scripts/update.sh
+scripts/update-sync.sh

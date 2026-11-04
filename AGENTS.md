@@ -12,8 +12,9 @@ single source of truth for what lands where. Third-party code lives in
   `mise run lint`.
 - `submodules/` is read-only; change it only via `mise run submodules:update`.
 - Ask first before: changing submodule refs, editing multi-profile
-  (personal/work) files, running `mise run update` or
-  `mise run submodules:update`, adding a top-level directory.
+  (personal/work) files, running `mise run update:sync`,
+  `mise run update:async` or `mise run submodules:update`, adding a top-level
+  directory.
 
 ## Commands
 
@@ -21,7 +22,12 @@ single source of truth for what lands where. Third-party code lives in
 mise tasks                                # list tasks
 mise run                                  # pick a task interactively
 mise run dotbot                           # relink after changing dotbot.conf.yaml
-mise run update                           # update everything
+mise run update:sync                      # update everything, one task at a time
+mise run update:async                     # update everything, tasks in parallel
+mise run tmux:update                      # update tmux plugins
+mise run shell:update                     # update fzf, bat cache, fsh theme
+mise run macos:update                     # install macOS software updates
+mise run tailscale:update                 # update tailscale
 mise run nvim:update                      # update Neovim, LSP, plugins
 mise run herdr:update                     # update herdr
 mise run hk:update                        # update hk, install git hooks

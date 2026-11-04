@@ -19,9 +19,29 @@ file = "scripts/bootstrap.sh"
 description = "Relink after changing dotbot.conf.yaml"
 file = "scripts/dotbot.sh"
 
-[tasks.update]
-description = "Update everything"
-file = "scripts/update.sh"
+[tasks."update:sync"]
+description = "Update everything (synchronously)"
+file = "scripts/update-sync.sh"
+
+[tasks."update:async"]
+description = "Update everything (asynchronously)"
+file = "scripts/update-async.sh"
+
+[tasks."macos:update"]
+description = "Install macOS software updates"
+file = "scripts/macos-update.sh"
+
+[tasks."tailscale:update"]
+description = "Update tailscale"
+file = "scripts/tailscale-update.sh"
+
+[tasks."tmux:update"]
+description = "Update tmux plugins, build tmux-thumbs"
+file = "scripts/tmux-update.sh"
+
+[tasks."shell:update"]
+description = "Update fzf, bat cache, fast-syntax-highlighting theme"
+file = "scripts/shell-update.sh"
 
 [tasks."brew:update"]
 description = "Update Homebrew"
