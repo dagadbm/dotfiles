@@ -89,7 +89,7 @@ file = "scripts/claude-prune.sh"
 
 [tasks.lint]
 description = "Format and lint all configs and scripts"
-run = "hk fix --all"
+file = "scripts/lint.sh"
 
 [tasks."macos:defaults"]
 description = "Apply macOS preferences"
