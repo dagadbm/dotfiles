@@ -19,45 +19,8 @@ single source of truth for what lands where. Third-party code lives in
 ## Commands
 
 ```bash
-mise tasks                                # list tasks
+mise tasks                                # list tasks (descriptions in mise.toml)
 mise run                                  # pick a task interactively
-mise run dotbot                           # relink after changing dotbot.conf.yaml
-mise run update:sync                      # update everything, one task at a time
-mise run update:async                     # update everything, tasks in parallel
-mise run tmux:update                      # update tmux plugins
-mise run shell:update                     # update fzf, bat cache, fsh theme
-mise run macos:update                     # install macOS software updates
-mise run tailscale:update                 # update tailscale
-mise run nvim:update                      # update Neovim, LSP, plugins
-mise run herdr:update                     # update herdr
-mise run hk:update                        # update hk, install git hooks
-mise run claude:update                    # update agent tooling
-mise run submodules:update                # update submodules
-mise run brew:update                      # update Homebrew
-mise run mise:update                      # update mise
-mise run prune                            # prune everything
-mise run brew:prune                       # prune Homebrew to match Brewfile
-mise run mise:prune                       # prune mise
-mise run claude:prune                     # prune claude to match scripts/claude-update.sh
-mise run macos:defaults                   # apply macOS preferences
-mise run lint                             # format and lint all configs and scripts
-```
-
-### Git Submodules
-
-#### Add
-
-```bash
-git submodule add https://github.com/wfxr/forgit.git submodules/forgit
-```
-
-#### Delete
-
-```bash
-export MODULE=submodules/repo_name && \
-  git submodule deinit -f $MODULE && \
-  rm -rf .git/modules/$MODULE && \
-  git rm -f $MODULE
 ```
 
 ## Layout
