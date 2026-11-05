@@ -101,7 +101,7 @@ state = _G.git_review_state
 _G.git_review_state = state
 
 cmd = {
-  -- pick base and compare (as git diff base...compare), then open the review in a new tab
+  -- pick compare and base (as git diff base...compare), then open the review in a new tab
   new = function()
     local items = {}
     local checked_out = {}
@@ -140,21 +140,26 @@ cmd = {
       end
       vim.list_extend(bases, kind_bases)
     end
-    vim.ui.select(bases, {
-      prompt = config.messages.pick_base,
-      format_item = function(b) return config.messages.compare_item:format(b.kind, b.name, "") end,
-    }, function(b)
-      if not b then return end
-      local base = b.name
-      vim.ui.select(items, {
-        prompt = config.messages.pick_compare,
-        format_item = function(i)
-          return config.messages.compare_item:format(i.kind, i.name, i.path and vim.fn.fnamemodify(i.path, ":~") or "")
-        end,
-      }, function(compare)
-        if not compare then return end
-        local r =
-          { base = base, kind = compare.kind, name = compare.name, repo = repo, ref = compare.ref, path = compare.path }
+    vim.ui.select(items, {
+      prompt = config.messages.pick_compare,
+      format_item = function(i)
+        return config.messages.compare_item:format(i.kind, i.name, i.path and vim.fn.fnamemodify(i.path, ":~") or "")
+      end,
+    }, function(compare)
+      if not compare then return end
+      vim.ui.select(bases, {
+        prompt = config.messages.pick_base,
+        format_item = function(b) return config.messages.compare_item:format(b.kind, b.name, "") end,
+      }, function(b)
+        if not b then return end
+        local r = {
+          base = b.name,
+          kind = compare.kind,
+          name = compare.name,
+          repo = repo,
+          ref = compare.ref,
+          path = compare.path,
+        }
         if not git.merge_base(r) then return end
         vim.cmd.tabnew()
         review.open(r)
