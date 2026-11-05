@@ -23,6 +23,20 @@ mise tasks                                # list tasks (descriptions in mise.tom
 mise run                                  # pick a task interactively
 ```
 
+## Commits
+
+`<type>: <subject>`, one line, lowercase, no scope, no trailing period.
+
+- `feat:` new or changed behaviour or config
+- `fix:` corrects something broken
+- `refactor:` same behaviour, restructured
+- `update:` version, lockfile or submodule bumps (`update: neovim`)
+- `docs:` documentation only
+
+No other types, no `(scope)`: name the tool at the start of the subject
+instead (`feat: claude auto-compact via env vars`, `fix: claude settings
+reorder`). Split unrelated changes into separate commits.
+
 ## Layout
 
 - `neovim/<name>/` links to `~/.config/nvim-<name>`, picked via
