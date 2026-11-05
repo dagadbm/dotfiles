@@ -39,11 +39,25 @@ _confirm() {
   [[ "$reply" =~ ^[Yy]$ ]]
 }
 
+# Renders an item: title first, each detail indented below it, empty details
+# as blank lines; a plain entry renders as itself. No single quotes: it is
+# embedded in fzf's preview command.
+# shellcheck disable=SC2016 # awk fields, not shell expansions
+_ITEM_AWK='NF == 1 {print pad $0; next} {print pad $2; for (i = 3; i <= NF; i++) print ($i == "" ? "" : pad "  " $i)}'
+
+# Print items ("key<TAB>title<TAB>detail...") as indented blocks, the same
+# layout _pick previews.
+_print_items() {
+  printf '%s\n' "$@" | awk -F'\t' -v pad='  ' "$_ITEM_AWK"
+}
+
 _PICK_SKIP="[skip] keep everything, move on"
 _PICK_ALL="[all] select every entry"
 
 # Multi-select entries with fzf and print the chosen ones, one per line.
 # Prints nothing when the user picks skip or aborts with Esc.
+# An entry may be an item, "key<TAB>title<TAB>detail...": only the key is
+# listed and printed, the preview shows the item like _print_item.
 _pick() {
   local prompt="$1" out
   shift
@@ -53,10 +67,16 @@ _pick() {
     --height=~50% \
     --prompt="$prompt> " \
     --header='TAB toggle, ctrl-a select all, Enter confirm, Esc skip' \
-    --bind='ctrl-a:select-all')" || return 0
+    --bind='ctrl-a:select-all' \
+    --delimiter=$'\t' \
+    --with-nth=1 \
+    --min-height=15 \
+    --preview="printf '%s\n' {} | awk -F'\t' -v pad= '$_ITEM_AWK'" \
+    --preview-window=wrap)" || return 0
+  out="$(cut -f1 <<<"$out")"
 
   if grep -qxF "$_PICK_ALL" <<<"$out"; then
-    printf '%s\n' "$@"
+    printf '%s\n' "$@" | cut -f1
   elif ! grep -qxF "$_PICK_SKIP" <<<"$out"; then
     printf '%s\n' "$out"
   fi

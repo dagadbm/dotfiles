@@ -12,23 +12,30 @@ _check_dependency fzf
 _check_dependency jq
 _check_file "$UPDATE_SCRIPT"
 
-# Marketplace GitHub repos declared in claude-update.sh, one per line.
-_expected_marketplaces() {
-  sed -n '/^marketplaces=(/,/^)/p' "$UPDATE_SCRIPT" |
-    sed -n 's/^[[:space:]]*\([^[:space:]/]*\/[^[:space:]]*\)[[:space:]]*$/\1/p' | sort -u
-}
-
-# Plugins declared in claude-update.sh as id::true|false, as "id<TAB>enabled|disabled".
-_expected_plugin_states() {
+# Plugins declared in claude-update.sh as repo::plugin::true|false,
+# as "repo<TAB>plugin<TAB>true|false".
+_declared_plugins() {
   sed -n '/^plugins=(/,/^)/p' "$UPDATE_SCRIPT" |
-    sed -nE 's/^[[:space:]]*([^[:space:]:]+@[^[:space:]:]+)::(true|false)[[:space:]]*$/\1\t\2/p' |
-    sed -e 's/\ttrue$/\tenabled/' -e 's/\tfalse$/\tdisabled/' | sort -u
+    sed -nE 's/^[[:space:]]*([^[:space:]]+\/[^[:space:]:]+)::([^[:space:]:]+)::(true|false)[[:space:]]*$/\1\t\2\t\3/p'
 }
 
-# Plugin ids (name@marketplace) declared in claude-update.sh, one per line.
-_expected_plugins() {
-  _expected_plugin_states | cut -f1
+# Marketplace GitHub repos with at least one ::true plugin, one per line.
+# Repos whose plugins are all ::false are not expected, so they are offered for removal.
+_expected_marketplaces() {
+  _declared_plugins | awk -F'\t' '$3 == "true" {print $1}' | sort -u
 }
+
+# ::true plugin ids (name@marketplace), one per line. ::false means uninstalled, as in
+# claude-update.sh, so installed ::false plugins are offered for uninstall.
+# The id needs the marketplace name, so plugins of marketplaces that are not
+# added are skipped.
+_expected_plugins() {
+  awk -F'\t' 'FILENAME == ARGV[1] {name[$1] = $2; next}
+              ($1 in name) && $3 == "true" {print $2 "@" name[$1]}' \
+    <(claude plugin marketplace list --json 2>/dev/null | jq -r '.[] | select(.repo) | [.repo, .name] | @tsv') \
+    <(_declared_plugins) | sort -u
+}
+
 
 # Plugins installed locally, enabled or disabled, as "id<TAB>scope<TAB>state".
 # claude.ai-synced plugins are skipped: they cannot be removed here.
@@ -66,6 +73,23 @@ _installed_marketplaces() {
          }' | sort -u
 }
 
+# One item for _print_items and _pick: key, title, then one detail per line.
+_item() {
+  local IFS=$'\t'
+  printf '%s\n' "$*"
+}
+
+# Detail line "scope: …, project: …, status: …"; project is left out when empty.
+_scope_detail() {
+  local scope="$1" project="${2/#$HOME/\~}" status="$3"
+  printf 'scope: %s%s, status: %s' "$scope" "${project:+, project: $project}" "$status"
+}
+
+# Detail line saying which claude-update.sh array keeps an entry.
+_keep_detail() {
+  printf "To keep, add to %s in %s: '%s'" "$1" "$UPDATE_SCRIPT" "$2"
+}
+
 _uninstall_plugins() {
   _section "Plugins not in $UPDATE_SCRIPT"
   local -a extra
@@ -77,33 +101,38 @@ _uninstall_plugins() {
     return 0
   fi
 
-  # Project-scoped plugins are labelled so they are not removed by accident.
-  local -a labels=()
-  local plugin scope state project_path
+  # Project and local scoped plugins show their project so they are not removed by accident.
+  local -a items=()
+  local plugin scope project_path repo
+  local -a details
   for plugin in "${extra[@]}"; do
     scope="$(_plugin_scope "$plugin")"
-    state="$(_plugin_state "$plugin")"
-    if [[ "$scope" == project ]]; then
+    project_path=""
+    if [[ "$scope" == project || "$scope" == local ]]; then
       project_path="$(_plugin_project_path "$plugin")"
-      labels+=("$plugin (project scoped: ${project_path/#$HOME/\~}, $state)")
-    else
-      labels+=("$plugin ($state)")
     fi
+    details=("$(_scope_detail "$scope" "$project_path" "$(_plugin_state "$plugin")")")
+    # update only adds GitHub marketplaces, so others get no keep hint
+    repo="$(_installed_marketplaces | awk -F'\t' -v name="${plugin#*@}" '$1 == name {print $2}')"
+    if [[ -n "$repo" ]]; then
+      details+=("$(_keep_detail plugins "$repo::${plugin%@*}::true")")
+    fi
+    items+=("$(_item "$plugin" "$plugin" "${details[@]}")")
   done
-  printf '  %s\n' "${labels[@]}"
+  _print_items "${items[@]}"
 
   local -a picked
-  mapfile -t picked < <(_pick "Uninstall plugins" "${labels[@]}" | sed -E 's/ \(.*\)$//')
+  mapfile -t picked < <(_pick "Uninstall plugins" "${items[@]}")
   if [[ ${#picked[@]} -eq 0 ]]; then
     echo "Skipped. Nothing removed."
     return 0
   fi
   for plugin in "${picked[@]}"; do
     scope="$(_plugin_scope "$plugin")"
-    if [[ "$scope" == project ]]; then
-      # Project-scoped plugins are only visible from the project they were installed in.
+    if [[ "$scope" == project || "$scope" == local ]]; then
+      # Project and local scoped plugins are only visible from the project they were installed in.
       project_path="$(_plugin_project_path "$plugin")"
-      (cd "$project_path" && claude plugin uninstall --scope project "$plugin") ||
+      (cd "$project_path" && claude plugin uninstall --scope "$scope" "$plugin") ||
         echo "Failed to uninstall $plugin from $project_path, continuing." >&2
     else
       claude plugin uninstall --scope "$scope" "$plugin" || echo "Failed to uninstall $plugin, continuing." >&2
@@ -113,22 +142,23 @@ _uninstall_plugins() {
 
 _remove_marketplaces() {
   _section "Marketplaces not in $UPDATE_SCRIPT"
-  local -a extra
-  mapfile -t extra < <(
+  local -a items
+  mapfile -t items < <(
     _installed_marketplaces |
       while IFS=$'\t' read -r name repo; do
-        grep -qxF "$repo" <(_expected_marketplaces) || printf '%s\n' "$name"
+        grep -qxF "$repo" <(_expected_marketplaces) ||
+          _item "$name" "$name" "repo: $repo" "$(_keep_detail plugins "$repo::<plugin>::true")"
       done
   )
-  if [[ ${#extra[@]} -eq 0 ]]; then
+  if [[ ${#items[@]} -eq 0 ]]; then
     echo "(none)"
     return 0
   fi
-  printf '  %s\n' "${extra[@]}"
+  _print_items "${items[@]}"
   _warn "removing a marketplace also removes plugins installed from it."
 
   local -a picked
-  mapfile -t picked < <(_pick "Remove marketplaces" "${extra[@]}")
+  mapfile -t picked < <(_pick "Remove marketplaces" "${items[@]}")
   if [[ ${#picked[@]} -eq 0 ]]; then
     echo "Skipped. Nothing removed."
     return 0
@@ -139,41 +169,83 @@ _remove_marketplaces() {
   done
 }
 
-# Declared plugins whose enabled state differs from claude-update.sh.
-_sync_plugin_states() {
-  _section "Plugins with enabled state not matching $UPDATE_SCRIPT"
-  local -a mismatched
-  mapfile -t mismatched < <(
-    join -t $'\t' \
-      <(_expected_plugin_states) \
-      <(_installed_plugins | cut -f1,3) |
-      awk -F'\t' '$2 != $3 {print $1 " (" $3 " -> " $2 ")"}'
+
+# MCP server names declared in claude-update.sh as name::json::true, one per line.
+_expected_mcp_servers() {
+  sed -n '/^mcp_servers=(/,/^)/p' "$UPDATE_SCRIPT" |
+    sed -nE "s/^[[:space:]]*'?([^[:space:]':]+)::.*::true'?[[:space:]]*\$/\\1/p" | sort -u
+}
+
+# MCP servers in ~/.claude.json as "name<TAB>scope<TAB>project<TAB>status<TAB>json".
+# User scope lives at the top level (project "-"), local scope per project; project scope
+# (.mcp.json) belongs to its repo and is skipped.
+_installed_mcp_servers() {
+  jq -r '
+    ((.mcpServers // {}) | to_entries[] | [.key, "user", "-", "enabled", (.value | tojson)]),
+    ((.projects // {}) | to_entries[] | .key as $path | (.value.disabledMcpServers // []) as $off |
+      (.value.mcpServers // {}) | to_entries[] |
+      [.key, "local", $path, (if (.key | IN($off[])) then "disabled" else "enabled" end), (.value | tojson)])
+    | @tsv' "$HOME/.claude.json" 2>/dev/null
+}
+
+# Local and undeclared user servers; update only manages user scope by name.
+_remove_mcp_servers() {
+  _section "MCP servers not in $UPDATE_SCRIPT"
+  local -a extra keys=() items=()
+  mapfile -t extra < <(
+    _installed_mcp_servers |
+      while IFS=$'\t' read -r name scope path status json; do
+        if [[ "$scope" == user ]] && grep -qxF "$name" <(_expected_mcp_servers); then
+          continue
+        fi
+        printf '%s\t%s\t%s\t%s\t%s\n' "$name" "$scope" "$path" "$status" "$json"
+      done
   )
-  if [[ ${#mismatched[@]} -eq 0 ]]; then
+  if [[ ${#extra[@]} -eq 0 ]]; then
     echo "(none)"
     return 0
   fi
-  printf '  %s\n' "${mismatched[@]}"
+
+  local line name scope path status json project
+  for line in "${extra[@]}"; do
+    IFS=$'\t' read -r name scope path status json <<<"$line"
+    project=""
+    keys+=("$name")
+    if [[ "$scope" == local ]]; then
+      project="$path"
+      # a local server can exist in several projects, so its key adds the project
+      keys[-1]+=" ${path/#$HOME/\~}"
+    fi
+    # literal ${HOME} keeps the pasted entry portable; Claude Code expands it
+    items+=("$(_item "${keys[-1]}" "$name" "$(_scope_detail "$scope" "$project" "$status")" \
+      "$(_keep_detail mcp_servers "$name::${json//$HOME/\${HOME\}}::true")")")
+  done
+  _print_items "${items[@]}"
 
   local -a picked
-  mapfile -t picked < <(_pick "Apply enabled state" "${mismatched[@]}")
+  mapfile -t picked < <(_pick "Remove MCP servers" "${items[@]}")
   if [[ ${#picked[@]} -eq 0 ]]; then
-    echo "Skipped. Nothing changed."
+    echo "Skipped. Nothing removed."
     return 0
   fi
-  local label plugin
-  for label in "${picked[@]}"; do
-    plugin="${label%% *}"
-    if [[ "$label" == *"-> enabled)" ]]; then
-      claude plugin enable "$plugin" || echo "Failed to enable $plugin, continuing." >&2
-    else
-      claude plugin disable "$plugin" || echo "Failed to disable $plugin, continuing." >&2
-    fi
+  local key i
+  for key in "${picked[@]}"; do
+    for i in "${!keys[@]}"; do
+      [[ "${keys[$i]}" == "$key" ]] || continue
+      IFS=$'\t' read -r name scope path status json <<<"${extra[$i]}"
+      if [[ "$scope" == local ]]; then
+        # local servers are only visible from their project
+        (cd "$path" && claude mcp remove --scope local "$name") ||
+          echo "Failed to remove $name from $path, continuing." >&2
+      else
+        claude mcp remove --scope user "$name" || echo "Failed to remove $name, continuing." >&2
+      fi
+    done
   done
 }
 
 _uninstall_plugins
-_sync_plugin_states
 _remove_marketplaces
+_remove_mcp_servers
 
 _done

@@ -6,36 +6,47 @@ source "$(dirname "$0")/utils.sh"
 # ccstatusline
 pnpm add -g ccstatusline@latest
 
-# marketplaces
-marketplaces=(
-  anthropics/claude-plugins-official
-  JuliusBrussee/caveman
-  addyosmani/agent-skills
-  TheOnlyFusionCube/potetos-for-everyone
-  DietrichGebert/ponytail
-  mvanhorn/last30days-skill
-  heygen-com/hyperframes
+# plugins: <marketplace repo>::<plugin>::<installed>. A marketplace is added
+# while any of its plugins is installed and removed once none is; disabled
+# plugins still list their skills, so unwanted ones are uninstalled instead
+plugins=(
+  anthropics/claude-plugins-official::mattpocock-skills::true
+  anthropics/claude-plugins-official::superpowers::false
+  JuliusBrussee/caveman::caveman::true
+  addyosmani/agent-skills::agent-skills::false
+  TheOnlyFusionCube/potetos-for-everyone::pstack::false
+  DietrichGebert/ponytail::ponytail::false
+  mvanhorn/last30days-skill::last30days::false
+  heygen-com/hyperframes::hyperframes::false
 )
-for marketplace in "${marketplaces[@]}"; do
-  claude plugin marketplace add "$marketplace"
-done
+
+# plugin ids and `marketplace remove` use the marketplace name, not the repo;
+# empty when the marketplace is not added
+_marketplace_name() {
+  claude plugin marketplace list --json |
+    jq -r --arg repo "$1" '.[] | select(.repo == $repo) | .name'
+}
+
+repos="$(printf '%s\n' "${plugins[@]}" | sed 's/::.*//' | sort -u)"
+wanted_repos="$(printf '%s\n' "${plugins[@]}" | sed -n 's/::.*::true$//p' | sort -u)"
+
+while read -r repo; do
+  if grep -qxF "$repo" <<<"$wanted_repos"; then
+    claude plugin marketplace add "$repo"
+  fi
+done <<<"$repos"
 claude plugin marketplace update
 
-# plugins: <plugin>::<installed>; disabled plugins still list their skills, so
-# unwanted ones are uninstalled instead
-plugins=(
-  mattpocock-skills@claude-plugins-official::false
-  superpowers@claude-plugins-official::false
-  caveman@caveman::true
-  agent-skills@addy-agent-skills::true
-  pstack@potetos-for-everyone::false
-  ponytail@ponytail::true
-  last30days@last30days-skill::true
-  hyperframes@hyperframes::false
-)
 for entry in "${plugins[@]}"; do
-  plugin="${entry%::*}"
-  installed="${entry##*::}"
+  repo="${entry%%::*}"
+  rest="${entry#*::}"
+  installed="${rest##*::}"
+  name="$(_marketplace_name "$repo")"
+  # marketplace not added, so none of its plugins can be installed
+  if [[ -z "$name" ]]; then
+    continue
+  fi
+  plugin="${rest%::*}@$name"
   if [[ "$installed" == true ]]; then
     claude plugin install "$plugin"
     claude plugin update "$plugin"
@@ -44,6 +55,43 @@ for entry in "${plugins[@]}"; do
   else
     # uninstall fails when not installed
     claude plugin uninstall "$plugin" 2>/dev/null || true
+  fi
+done
+
+# after the plugin loop, so their plugins uninstall first
+while read -r repo; do
+  if ! grep -qxF "$repo" <<<"$wanted_repos"; then
+    name="$(_marketplace_name "$repo")"
+    if [[ -n "$name" ]]; then
+      claude plugin marketplace remove "$name"
+    fi
+  fi
+done <<<"$repos"
+
+# mcp servers: '<name>::<json>::<installed>', user scope. The json is what
+# `claude mcp add-json` takes; keep secrets out of it, this file is committed.
+# Single quote entries and write paths as a literal ${HOME}: Claude Code expands
+# it when starting the server, so entries work on every machine
+# caveman is not listed: `caveman enable claude` below owns its entry and
+# refuses to disable once anything else rewrote it
+mcp_servers=(
+)
+for entry in "${mcp_servers[@]}"; do
+  name="${entry%%::*}"
+  installed="${entry##*::}"
+  json="${entry#*::}"
+  json="${json%::*}"
+  current="$(jq -c --arg name "$name" '.mcpServers[$name] // empty' "$HOME/.claude.json")"
+  if [[ "$installed" == true ]]; then
+    # rewrite only on change: other tools (caveman) check their entry is untouched
+    if [[ "$(jq -cS . <<<"$json")" != "$(jq -cS . <<<"${current:-null}")" ]]; then
+      if [[ -n "$current" ]]; then
+        claude mcp remove --scope user "$name"
+      fi
+      claude mcp add-json --scope user "$name" "$json"
+    fi
+  elif [[ -n "$current" ]]; then
+    claude mcp remove --scope user "$name"
   fi
 done
 
