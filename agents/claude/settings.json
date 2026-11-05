@@ -257,17 +257,9 @@
   "enabledPlugins": {
     "caveman@caveman": true,
     "cowork-plugin-management@synced": false,
-    "ponytail@ponytail": true,
-    "last30days@last30days-skill": true,
-    "agent-skills@addy-agent-skills": true
+    "mattpocock-skills@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
-    "addy-agent-skills": {
-      "source": {
-        "source": "github",
-        "repo": "addyosmani/agent-skills"
-      }
-    },
     "caveman": {
       "source": {
         "source": "github",
@@ -278,30 +270,6 @@
       "source": {
         "source": "github",
         "repo": "anthropics/claude-plugins-official"
-      }
-    },
-    "potetos-for-everyone": {
-      "source": {
-        "source": "github",
-        "repo": "TheOnlyFusionCube/potetos-for-everyone"
-      }
-    },
-    "ponytail": {
-      "source": {
-        "source": "github",
-        "repo": "DietrichGebert/ponytail"
-      }
-    },
-    "last30days-skill": {
-      "source": {
-        "source": "github",
-        "repo": "mvanhorn/last30days-skill"
-      }
-    },
-    "hyperframes": {
-      "source": {
-        "source": "github",
-        "repo": "heygen-com/hyperframes"
       }
     }
   },
