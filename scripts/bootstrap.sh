@@ -3,8 +3,7 @@ set -euxo pipefail
 
 source "$(dirname "$0")/utils.sh"
 
-# Ask for the administrator password upfront
-sudo -v
+_sudo_keepalive
 
 # disable homebrew analytics and other telemetry
 export HOMEBREW_NO_ANALYTICS=1
@@ -50,4 +49,13 @@ broot --print-shell-function zsh > "$HOME/.config/broot/launcher/zsh/br"
 broot --set-install-state installed
 
 # update
-scripts/update-sync.sh
+scripts/tmux-update.sh
+scripts/brew-update.sh
+scripts/shell-update.sh
+scripts/mise-update.sh
+scripts/hk-update.sh
+scripts/herdr-update.sh
+scripts/nvim-update.sh
+scripts/claude-update.sh
+scripts/macos-update.sh
+scripts/tailscale-update.sh

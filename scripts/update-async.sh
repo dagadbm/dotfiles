@@ -3,9 +3,7 @@ set -euo pipefail
 
 source "$(dirname "$0")/utils.sh"
 
-sudo -v
-# keep sudo ticket alive until script exits so later tasks do not re-prompt
-while true; do sudo -n true; sleep 50; kill -0 "$$" || exit; done 2>/dev/null &
+_sudo_keepalive
 
 mise run --jobs 100 \
   ::: tmux:update \
