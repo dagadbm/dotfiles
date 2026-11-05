@@ -39,6 +39,7 @@ mise trust mise.toml
 mise install
 
 # neovim
+bob erase
 bob install latest
 bob install nightly
 bob use nightly
