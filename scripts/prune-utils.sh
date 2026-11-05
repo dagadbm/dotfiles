@@ -1,6 +1,32 @@
 #!/usr/bin/env bash
 # Shared helpers for scripts/*-prune.sh. Source it after utils.sh, do not run it.
 
+_section() {
+  echo
+  echo "== $1 =="
+}
+
+_done() {
+  echo
+  echo "Done."
+}
+
+_check_dependency() {
+  local cmd="$1"
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "Error: $cmd not found" >&2
+    exit 1
+  fi
+}
+
+_check_file() {
+  local file="$1"
+  if [[ ! -f "$file" ]]; then
+    echo "Error: $file not found" >&2
+    exit 1
+  fi
+}
+
 # Print a warning shown before the user picks or confirms.
 _warn() {
   echo
