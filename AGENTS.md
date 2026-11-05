@@ -12,9 +12,7 @@ single source of truth for what lands where. Third-party code lives in
   `mise run lint`.
 - `submodules/` is read-only; change it only via `mise run submodules:update`.
 - Ask first before: changing submodule refs, editing multi-profile
-  (personal/work) files, running `mise run update:sync`,
-  `mise run update:async` or `mise run submodules:update`, adding a top-level
-  directory.
+  (personal/work) files, running `mise run update`, adding a top-level directory.
 
 ## Commands
 
@@ -47,9 +45,8 @@ reorder`). Split unrelated changes into separate commits.
 - `scripts/*.sh` run as `mise.toml` tasks and source `scripts/utils.sh` (cd to
   repo root, helpers); `*-prune.sh` also source `scripts/prune-utils.sh`.
   Every task points at a script (`file = ...`), never inline `run` code.
-- `update-sync.sh` and `update-async.sh` run the `*:update` tasks in one
-  `mise run ... ::: ...`, sequentially (`--jobs 1`) or in parallel; add new
-  update tasks to both.
+- `update.sh` runs the `*:update` tasks in parallel in one
+  `mise run ... ::: ...`; add new update tasks there.
   `bootstrap.sh` runs directly, before mise exists.
 
 ## Theme: astrodark
