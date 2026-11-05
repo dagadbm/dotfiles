@@ -4,16 +4,14 @@
     "legend: <palette key> (<derivation or taken from X>, optional): <variables set>",
     "ui.accent: model, thinking-effort",
     "syntax.orange: context-length, context-percentage, compaction-counter",
-    "syntax.cyan: tokens-*",
+    "syntax.cyan: tokens-*, session-cost",
     "syntax.cyan (each RGB channel x0.75, rounded: #38928A): cache-*",
     "syntax.purple: session-usage, reset-timer, weekly-usage, weekly-reset-timer",
     "syntax.green: git-branch, worktree-branch",
     "syntax.green (each RGB channel x0.75, rounded: #659047): current-working-dir",
     "syntax.yellow (taken from p10k clean/modified): git-changes",
     "syntax.text: custom-command pmset, custom-command date",
-    "syntax.mute: line 1 separators (incl. |), line 3 separators",
-    "ui.border: line 3 dir separator",
-    "none: line 2 separators (incl. |)",
+    "ui.border: all separators (incl. |)",
     "notes: format hex:RRGGBB, needs colorLevel 3",
     "notes: one hue per group, never shared; syntax.red only for errors/warnings; a label takes its value's colour (widgets cannot colour by threshold)",
     "notes: tokens-cached and cache-hit-rate labels: Nerd Font bolt U+F0E7 (JetBrainsMono Nerd Font Mono) plus a trailing space, so it clears the value"
@@ -36,7 +34,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "2",
         "type": "separator"
       },
@@ -50,7 +48,7 @@
         "type": "thinking-effort"
       },
       {
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "6c7c85e2-f175-49fe-94d0-188b91855437",
         "type": "separator"
       },
@@ -65,7 +63,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "b61b9c60-f5a9-43d4-bed5-acaa3c12ca91",
         "type": "separator"
       },
@@ -81,7 +79,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "30053e95-207e-4cd8-8074-04e127510fc8",
         "type": "separator"
       },
@@ -97,7 +95,7 @@
         "type": "compaction-counter"
       },
       {
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "2ac31cb2-ad80-4f63-af7a-5a0cd6ba11ca",
         "type": "separator"
       },
@@ -112,7 +110,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "880d9336-618e-4b8c-833e-0b28d411d95b",
         "type": "separator"
       },
@@ -126,7 +124,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "d6a9d8b2-9a22-4843-94d0-7e2399370898",
         "type": "separator"
       },
@@ -140,7 +138,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "6c1403fa-e36d-4bb9-8110-0551e1db9418",
         "type": "separator"
       },
@@ -153,7 +151,28 @@
         "type": "tokens-total"
       },
       {
-        "color": "hex:595C66",
+        "character": " ",
+        "color": "hex:3A3E47",
+        "id": "d3974bc0-5c2b-473b-acac-e138affa9c5b",
+        "type": "separator"
+      },
+      {
+        "color": "hex:4AC2B8",
+        "id": "43cf7f33-96a8-4758-b80b-8e5865330202",
+        "metadata": {
+          "label": ""
+        },
+        "rawValue": true,
+        "type": "session-cost"
+      },
+      {
+        "character": " ",
+        "color": "hex:3A3E47",
+        "id": "e3ccc5f5-6fee-470f-8b2f-6bc34e2ee0d4",
+        "type": "separator"
+      },
+      {
+        "color": "hex:3A3E47",
         "id": "20463b9a-2cb1-458b-9b78-6f24059fcea5",
         "type": "separator"
       },
@@ -168,7 +187,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "2903f9c0-ed7f-4f52-b1b1-cc4033634013",
         "type": "separator"
       },
@@ -183,7 +202,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "8dc33301-97e0-4faf-9d6a-75e85ed073b6",
         "type": "separator"
       },
@@ -208,7 +227,7 @@
       },
       {
         "character": "|",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "9f3b7d21-6a4e-4c08-8e5d-2b1a7f0c63d9",
         "type": "separator"
       },
@@ -230,6 +249,7 @@
       },
       {
         "character": " ",
+        "color": "hex:3A3E47",
         "id": "a4ab1031-7b70-4387-b5c6-0102b9f20bfa",
         "type": "separator"
       },
@@ -244,11 +264,13 @@
       },
       {
         "character": " ",
+        "color": "hex:3A3E47",
         "id": "577f560c-7124-472f-aa59-d0502f966c82",
         "type": "separator"
       },
       {
         "character": "|",
+        "color": "hex:3A3E47",
         "id": "cff836ae-add1-4ef9-aad6-0caa1d1f6199",
         "type": "separator"
       },
@@ -262,6 +284,7 @@
       },
       {
         "character": " ",
+        "color": "hex:3A3E47",
         "id": "af868092-e705-435d-9ff0-a9941b079e3d",
         "type": "separator"
       },
@@ -283,7 +306,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "724ec545-488d-43b8-aae2-a0c584ad9844",
         "type": "separator"
       },
@@ -309,7 +332,7 @@
       },
       {
         "character": " ",
-        "color": "hex:595C66",
+        "color": "hex:3A3E47",
         "id": "7e333116-de33-4888-b64c-fd1a5a6a6c63",
         "type": "separator"
       },
