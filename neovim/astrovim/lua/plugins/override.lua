@@ -23,6 +23,11 @@ return {
     enabled = false,
   },
   {
+    "folke/which-key.nvim",
+    -- default no_overlap shrinks the popup to nothing when the cursor sits near the bottom
+    opts = { win = { no_overlap = false } },
+  },
+  {
     "folke/todo-comments.nvim",
     opts = function(_, opts)
       return require("astrocore").extend_tbl(opts, {
