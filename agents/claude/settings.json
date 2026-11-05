@@ -3,6 +3,8 @@
   "cleanupPeriodDays": 36500,
   "env": {
     "CAVEMAN_DEFAULT_MODE": "ultracave",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "75",
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "300000",
     "PONYTAIL_DEFAULT_MODE": "full",
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
@@ -308,20 +310,16 @@
   "alwaysThinkingEnabled": false,
   "modelSettings": {
     "claude-fable-5-1": {
-      "effortLevel": "low",
-      "autoCompactWindow": 250000
+      "effortLevel": "low"
     },
     "claude-haiku-5-5": {
-      "effortLevel": "medium",
-      "autoCompactWindow": 250000
+      "effortLevel": "medium"
     },
     "claude-opus-5-5": {
-      "effortLevel": "low",
-      "autoCompactWindow": 250000
+      "effortLevel": "low"
     },
     "claude-sonnet-5-5": {
-      "effortLevel": "low",
-      "autoCompactWindow": 250000
+      "effortLevel": "low"
     }
   },
   "promptSuggestionEnabled": false,
