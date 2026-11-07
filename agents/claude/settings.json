@@ -133,6 +133,16 @@
             "timeout": 30
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/dagadbm/.local/share/caveman-blocks/bin/caveman-blocks hook --harness claude",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "SessionStart": [
@@ -293,6 +303,10 @@
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "theme": "custom:astrodark",
@@ -300,5 +314,7 @@
   "preferredNotifChannel": "auto",
   "idleCompaction": true,
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "voiceEnabled": true,
+  "switchModelsOnFlag": false
 }
