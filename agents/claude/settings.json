@@ -121,6 +121,16 @@
         "hooks": [
           {
             "type": "command",
+            "command": "/Users/dagadbm/.local/share/caveman-blocks/bin/caveman-blocks hook --harness claude",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
             "command": "'/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node' '/Users/dagadbm/.local/share/mise/installs/npm-caveman-ai-cli/latest/bin/caveman' shrink-hook"
           }
         ]
@@ -131,16 +141,6 @@
             "type": "command",
             "command": "'/Users/dagadbm/.caveman/bin/caveman-proxy' native-hook claude --adapter '/Users/dagadbm/.local/share/mise/installs/npm-caveman-ai-cli/4.0.1/lib/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node '/Users/dagadbm/.local/share/mise/installs/node/lts/bin/node'",
             "timeout": 30
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/dagadbm/.local/share/caveman-blocks/bin/caveman-blocks hook --harness claude",
-            "timeout": 5
           }
         ]
       }
@@ -313,8 +313,8 @@
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "idleCompaction": true,
+  "switchModelsOnFlag": false,
   "autoContinueAtUsageLimit": false,
   "agentPushNotifEnabled": false,
-  "voiceEnabled": true,
-  "switchModelsOnFlag": false
+  "voiceEnabled": true
 }
