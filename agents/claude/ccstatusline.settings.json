@@ -214,28 +214,6 @@
           "label": "⬆ "
         },
         "type": "cache-write"
-      },
-      {
-        "id": "4bc5b5e0-58a1-4985-927c-57aa798fa49c",
-        "type": "flex-separator"
-      },
-      {
-        "color": "hex:ADB0BB",
-        "commandPath": "pmset -g batt | awk '/InternalBattery/{s=$0; if(s~/discharging/){e=\"🔋\"} else if(s~/ charging;/){e=\"⚡\"} else if(s~/AC|charg/){e=\"🔌 \"} else {e=\"❔\"}; gsub(/;/,\"\",$3); t=\" ~?:??\"; if(s~/charged/) t=\" charged\"; else if(match(s,/[0-9]+:[0-9]+ remaining/)) t=\" ~\" substr(s,RSTART,RLENGTH-10); print e $3 t}'",
-        "id": "5e1a0c3b-8d2f-4a7e-9b61-3f0d2c7a9e14",
-        "type": "custom-command"
-      },
-      {
-        "character": "|",
-        "color": "hex:3A3E47",
-        "id": "9f3b7d21-6a4e-4c08-8e5d-2b1a7f0c63d9",
-        "type": "separator"
-      },
-      {
-        "color": "hex:ADB0BB",
-        "commandPath": "date '+%A %d/%m %H:%M'",
-        "id": "d2baedb3-b677-4a53-8edd-ca52618d3492",
-        "type": "custom-command"
       }
     ],
     [
@@ -340,6 +318,28 @@
         "color": "hex:DFAB25",
         "id": "81a7e7c3-fb3f-4703-a653-017920e25936",
         "type": "git-changes"
+      },
+      {
+        "id": "4bc5b5e0-58a1-4985-927c-57aa798fa49c",
+        "type": "flex-separator"
+      },
+      {
+        "color": "hex:ADB0BB",
+        "commandPath": "pmset -g batt | awk '/InternalBattery/{s=$0; if(s~/discharging/){e=\"🔋\"} else if(s~/ charging;/){e=\"⚡\"} else if(s~/AC|charg/){e=\"🔌 \"} else {e=\"❔\"}; gsub(/;/,\"\",$3); t=\" ~?:??\"; if(s~/charged/) t=\" charged\"; else if(match(s,/[0-9]+:[0-9]+ remaining/)) t=\" ~\" substr(s,RSTART,RLENGTH-10); print e $3 t}'",
+        "id": "5e1a0c3b-8d2f-4a7e-9b61-3f0d2c7a9e14",
+        "type": "custom-command"
+      },
+      {
+        "character": "|",
+        "color": "hex:3A3E47",
+        "id": "9f3b7d21-6a4e-4c08-8e5d-2b1a7f0c63d9",
+        "type": "separator"
+      },
+      {
+        "color": "hex:ADB0BB",
+        "commandPath": "date '+%A %d/%m %H:%M'",
+        "id": "d2baedb3-b677-4a53-8edd-ca52618d3492",
+        "type": "custom-command"
       }
     ]
   ],
