@@ -97,6 +97,8 @@ state = _G.git_review_state
     qf_back = 0,
     -- buffers with a gitsigns change_base running (git.sync_base): true, or "again" to redo it when it ends
     changing = {},
+    -- vim.lsp.start before the fugitive spec's init wrapped it; here so a reload does not wrap the wrapper
+    lsp_start = nil,
   }
 _G.git_review_state = state
 
@@ -741,9 +743,15 @@ quickfix = {
         changed
       ),
     })
-    local current = vim.api.nvim_get_current_buf()
-    for i, f in ipairs(changed) do
-      if f.bufnr == current then return vim.fn.setqflist({}, "a", { idx = i }) end
+    quickfix.select(vim.api.nvim_get_current_buf())
+  end,
+
+  -- make the entry of buf current in the review list (]q [q continue from it), if the current list is the review one
+  select = function(buf)
+    local l = vim.fn.getqflist { title = 1, items = 1 }
+    if l.title ~= config.namespace then return end
+    for i, item in ipairs(l.items) do
+      if item.bufnr == buf then return vim.fn.setqflist({}, "a", { idx = i }) end
     end
   end,
 
@@ -997,6 +1005,9 @@ git = {
     if not ok then state.changing[buf] = nil end
   end,
 
+  -- buf is a fugitive:// buffer (a blob, not a file on disk)
+  is_fugitive = function(buf) return vim.startswith(vim.api.nvim_buf_get_name(buf), "fugitive://") end,
+
   -- sync_base every buffer shown in the current tab
   sync_tab = function()
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
@@ -1119,6 +1130,8 @@ tree = {
           vim.api.nvim_win_set_width(win, config.tree_width)
         end
         vim.cmd.buffer(node.file.bufnr)
+        -- the quickfix list follows, so ]q [q go on from this file
+        quickfix.select(node.file.bufnr)
       else
         if node:is_expanded() then
           node:collapse()
@@ -1203,7 +1216,30 @@ return {
       resession.add_hook("post_save", handlers.tab_sync)
     end,
   },
-  { "tpope/vim-fugitive" },
+  {
+    "tpope/vim-fugitive",
+    -- no language server on fugitive:// buffers (blobs of local and remote reviews, deleted files): servers take a
+    -- root from the path inside the URI and start a second instance with the wrong project settings, whose
+    -- diagnostics are bogus, and stay stale on made-up file:// paths. vim.lsp.enable only skips buffers with a
+    -- buftype, which blobs cannot get (gitsigns skips such buffers). Starts without a bufnr (none-ls) pass through
+    init = function()
+      state.lsp_start = state.lsp_start or vim.lsp.start
+      vim.lsp.start = function(lsp_config, opts)
+        if opts and opts.bufnr and git.is_fugitive(opts.bufnr) then return end
+        return state.lsp_start(lsp_config, opts)
+      end
+    end,
+  },
+  {
+    "nvimtools/none-ls.nvim",
+    -- none-ls attaches its one client to each buffer itself (no bufnr to vim.lsp.start): same rule as above
+    opts = function(_, opts)
+      local should_attach = opts.should_attach
+      opts.should_attach = function(bufnr)
+        return not git.is_fugitive(bufnr) and (not should_attach or should_attach(bufnr))
+      end
+    end,
+  },
   {
     "lewis6991/gitsigns.nvim",
     -- undocumented gitsigns option: re-read the base text on every update. Without it, git.sync_base's
