@@ -77,9 +77,6 @@ return {
         mux = {
           enabled = false,
         },
-        prompts = {
-          neovim_skill = "@" .. vim.fn.stdpath "config" .. "/lua/plugins/ai-neovim-skill.md",
-        },
         tools = {
           claude = {
             cmd = { "zsh", "-ic", "claude --model haiku --effort medium" },
