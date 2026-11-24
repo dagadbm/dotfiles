@@ -10,11 +10,11 @@ pnpm add -g ccstatusline@latest
 # while any of its plugins is installed and removed once none is; disabled
 # plugins still list their skills, so unwanted ones are uninstalled instead
 plugins=(
-  anthropics/claude-plugins-official::mattpocock-skills::true
+  anthropics/claude-plugins-official::mattpocock-skills::false
   anthropics/claude-plugins-official::superpowers::false
   JuliusBrussee/caveman::caveman::true
   addyosmani/agent-skills::agent-skills::false
-  TheOnlyFusionCube/potetos-for-everyone::pstack::false
+  cursor/plugins::pstack::true
   DietrichGebert/ponytail::ponytail::false
   mvanhorn/last30days-skill::last30days::false
   heygen-com/hyperframes::hyperframes::false

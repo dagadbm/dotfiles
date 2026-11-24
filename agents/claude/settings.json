@@ -267,7 +267,7 @@
   "enabledPlugins": {
     "caveman@caveman": true,
     "cowork-plugin-management@synced": false,
-    "mattpocock-skills@claude-plugins-official": true
+    "pstack@cursor-plugins": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -276,10 +276,10 @@
         "repo": "JuliusBrussee/caveman"
       }
     },
-    "claude-plugins-official": {
+    "cursor-plugins": {
       "source": {
         "source": "github",
-        "repo": "anthropics/claude-plugins-official"
+        "repo": "cursor/plugins"
       }
     }
   },
