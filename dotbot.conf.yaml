@@ -70,6 +70,7 @@
     ~/.hammerspoon: macos/hammerspoon
     ~/Library/Preferences/com.knollsoft.Rectangle.plist: macos/Rectangle.plist
     ~/Library/Application Support/Alfred/Alfred.alfredpreferences: macos/Alfred.alfredpreferences
+    ~/Library/Application Support/Spaceman/config.toml: spaceman/config.toml
     # nvim
     ## my config
     ~/.config/nvim-dagadbm: neovim/dagadbm

@@ -73,6 +73,7 @@ cask "wezterm@nightly"
 cask "ghostty"
 ## utils
 cask "hammerspoon"
+cask "anomalyco/tap/spaceman", trusted: true
 ## productivity
 cask "penc", args: { appdir: "/Applications" }
 cask "alfred", args: { appdir: "/Applications" }

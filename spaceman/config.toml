@@ -1,0 +1,89 @@
+# Spaceman configuration.
+version = 1
+
+[[rules]]
+bundle_id = "com.github.wez.wezterm"
+action = "route"
+workspace = 1
+
+[[rules]]
+bundle_id = "com.openai.codex"
+action = "route"
+workspace = 3
+
+[[rules]]
+bundle_id = "com.apple.Safari"
+action = "route"
+workspace = 5
+
+[[rules]]
+bundle_id = "com.google.Chrome"
+action = "route"
+workspace = 5
+
+[[rules]]
+bundle_id = "com.google.GeminiMacOS"
+action = "route"
+workspace = 3
+
+[[rules]]
+bundle_id = "com.pauldavis.crest"
+action = "route"
+workspace = 1
+
+[[rules]]
+bundle_id = "com.mitchellh.ghostty"
+action = "route"
+workspace = 1
+
+[[rules]]
+bundle_id = "net.whatsapp.WhatsApp"
+action = "route"
+workspace = 2
+
+[[rules]]
+bundle_id = "com.hnc.Discord"
+action = "route"
+workspace = 2
+
+[[rules]]
+bundle_id = "com.microsoft.teams2"
+action = "route"
+workspace = 2
+
+[[rules]]
+bundle_id = "com.anthropic.claudefordesktop"
+action = "route"
+workspace = 3
+
+[[rules]]
+bundle_id = "com.bitwarden.desktop"
+action = "float"
+
+[[rules]]
+bundle_id = "com.apple.Notes"
+action = "float"
+
+[[rules]]
+bundle_id = "md.obsidian"
+action = "float"
+
+[[rules]]
+bundle_id = "com.microsoft.VSCode"
+action = "route"
+workspace = 3
+
+[[rules]]
+bundle_id = "com.apple.finder"
+action = "route"
+workspace = 1
+
+[[rules]]
+bundle_id = "com.apple.Preview"
+action = "route"
+workspace = 1
+
+[[rules]]
+bundle_id = "com.apple.systempreferences"
+action = "route"
+workspace = 1
