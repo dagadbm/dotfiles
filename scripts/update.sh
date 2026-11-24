@@ -8,7 +8,6 @@ _sudo_keepalive
 mise run --jobs 100 \
   ::: tmux:update \
   ::: submodules:update \
-  ::: brew:update \
   ::: shell:update \
   ::: mise:update \
   ::: hk:update \
@@ -18,3 +17,5 @@ mise run --jobs 100 \
   ::: alfred-workflows:update \
   ::: macos:update \
   ::: tailscale:update
+
+mise run brew:update
