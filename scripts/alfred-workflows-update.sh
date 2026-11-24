@@ -17,12 +17,18 @@ rm -f "$out"
 
 # then my settings, for the workflow Alfred runs: written to its Configure
 # Workflow values (prefs.plist), so ⌘⇧r in Alfred keeps them
-# my sources: the defaults plus my own
-prompts_plugins="$("$(dirname "$update")/plugins")
-t3dotgg/tstack
-anthropics/skills claude-api
-anthropics/skills academy-guide
-anthropics/skills discernment-nudge"
+# my sources, in place of the defaults
+plugins=(
+  "claude vercel-labs/agent-skills"
+  "claude anthropics/claude-plugins-official superpowers"
+  "claude addyosmani/agent-skills agent-skills"
+  "claude t3dotgg/tstack"
+  "claude cursor/plugins pstack"
+  "claude forrestchang/andrej-karpathy-skills"
+  "claude anthropics/skills"
+  "claude anthropics/claude-plugins-official mattpocock-skills"
+)
+prompts_plugins="$(printf '%s\n' "${plugins[@]}")"
 prompts_custom_dir="$PWD/$workflow/custom"
 prompts_custom_name=dagadbm
 prefs="$workflow/src/prefs.plist"
@@ -32,3 +38,6 @@ for key in prompts_plugins prompts_custom_dir prompts_custom_name; do
 done
 export prompts_plugins prompts_custom_dir prompts_custom_name
 "$update"
+
+# reload workflow
+osascript -e 'tell application id "com.runningwithcrayons.Alfred" to reload workflow "com.dagadbm.prompts"'
