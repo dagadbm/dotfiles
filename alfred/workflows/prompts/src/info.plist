@@ -23,7 +23,7 @@
 	<key>createdby</key>
 	<string>dagadbm</string>
 	<key>description</key>
-	<string>Copy a Claude plugin skill as a prompt</string>
+	<string>Copy a prompt to the clipboard</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -72,7 +72,7 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Copy a Claude plugin skill or your own prompt to the clipboard. Type to filter, ↩ opens a collection or copies a prompt, ⌘⌫ goes back, ⌘⇧r updates the prompts (needs git and jq), ⌘⇧. edits and tests the sources. Configure the sources and your custom prompts in Configure Workflow.</string>
+	<string>Copy a prompt (Claude plugins, any repo or folder of Markdown files, your own) to the clipboard. Type to filter, ↩ opens a collection or copies a prompt, ⌘⌫ goes back, ⌘⇧r updates the prompts (needs git and jq), ⌘⇧. edits and tests the sources. Configure the sources and your custom prompts in Configure Workflow.</string>
 	<key>uidata</key>
 	<dict>
 		<key>576FE682-8AC1-4239-BDDE-4873883EDD50</key>

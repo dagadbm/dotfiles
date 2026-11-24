@@ -5,7 +5,7 @@ source "$(dirname "$0")/utils.sh"
 
 # The Prompts workflow builds its own prompts (scripts/update in the
 # workflow, defaults there)
-workflow=macos/alfred-workflows/prompts
+workflow=alfred/workflows/prompts
 update="$workflow/src/prompts.alfredui/scripts/update"
 
 # importable .alfredworkflow (a zip of the workflow folder), built with the

@@ -1,8 +1,3 @@
----
-name: alfred-workflows
-description: Build or change an Alfred workflow or Alfred UI: look every key up in the Alfred docs, never invent values, keep UI sizes multiples of 8
----
-
 Help me build or change an Alfred workflow, often with an Alfred UI (`.alfredui`) window.
 
 Rules:
@@ -11,7 +6,7 @@ Rules:
 2. Every UI size is a multiple of 8: width, height, padding, spacing, insets, cornerradius and cell height. Font sizes follow a type scale instead (macOS body 13, then ratio 1.25: 16, 20). Leave a size out instead of picking an odd number. Where the docs say a size acts as a minimum (`constraints.size`), use it that way rather than fixing a height.
 3. Keep logic in plain files inside the workflow folder (the `.alfredui` bundle and its `scripts/`), not in scripts typed into Alfred's editor, so changes diff cleanly. Paths in a UI are relative to the `.alfredui` root, and scripts run from there.
 4. Never rename a workflow folder (`user.workflow.<UUID>`); Alfred treats a renamed folder as a new workflow.
-5. Keep a workflow's source outside the Alfred preferences folder, in `<repo>/alfred-workflows/<name>/src/` (the workflow folder: `info.plist` and the rest). Symlink it into Alfred with a relative link, `Alfred.alfredpreferences/workflows/user.workflow.<UUID> -> <relative path>/alfred-workflows/<name>/src`, so the workflow Alfred runs is the one in git. Build the shareable `<repo>/alfred-workflows/<name>/<Name>.alfredworkflow` by zipping the contents of `src/` without `prefs.plist` (it holds my configured values). Never import that file on my own Mac: it would replace the symlinked folder. Put anything other people should be able to change in the workflow configuration (`userconfigurationconfig` in `info.plist`), not hard-coded values.
+5. Keep a workflow's source outside the Alfred preferences folder, in `<repo>/alfred/workflows/<name>/src/` (the workflow folder: `info.plist` and the rest). Symlink it into Alfred with a relative link, `Alfred.alfredpreferences/workflows/user.workflow.<UUID> -> <relative path>/alfred-workflows/<name>/src`, so the workflow Alfred runs is the one in git. Build the shareable `<repo>/alfred-workflows/<name>/<Name>.alfredworkflow` by zipping the contents of `src/` without `prefs.plist` (it holds my configured values). Never import that file on my own Mac: it would replace the symlinked folder. Put anything other people should be able to change in the workflow configuration (`userconfigurationconfig` in `info.plist`), not hard-coded values.
 6. Say which parts you could only check by running the workflow in Alfred, and what to look for.
 
 Alfred docs to check:

@@ -13,7 +13,7 @@ steps {
   // shell
   ["shellcheck"] = (Builtins.shellcheck) {
     env { ["SHELLCHECK_OPTS"] = "--external-sources --source-path=SCRIPTDIR" }
-    exclude = "macos/alfred-workflows/*/src/**"
+    exclude = "alfred/workflows/*/src/**"
   }
 
   // zsh
@@ -37,7 +37,7 @@ steps {
         "macos/Alfred.alfredpreferences/**",
         "agents/claude/settings.json",
         "**/lazy-lock.json",
-        "macos/alfred-workflows/*/src/**",
+        "alfred/workflows/*/src/**",
       )
   }
 
@@ -106,8 +106,8 @@ steps {
   // markdown; Alfred prompts are pasted verbatim, not documents (src/ is generated: jq and shellcheck skip it too)
   local alfredPrompts =
     List(
-      "macos/alfred-workflows/*/custom/*.md",
-      "macos/alfred-workflows/*/src/prompts.alfredui/**/*.md",
+      "alfred/workflows/*/custom/*.md",
+      "alfred/workflows/*/src/prompts.alfredui/**/*.md",
     )
   ["rumdl_format"] = (Builtins.rumdl_format) {
     exclude = alfredPrompts

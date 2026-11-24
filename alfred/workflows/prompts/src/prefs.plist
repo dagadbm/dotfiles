@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>prompts_custom_dir</key>
-	<string>/Users/dagadbm/dotfiles/macos/alfred-workflows/prompts/custom</string>
+	<string>/Users/dagadbm/dotfiles/alfred/workflows/prompts/custom</string>
 	<key>prompts_custom_name</key>
 	<string>dagadbm</string>
 	<key>prompts_plugins</key>
