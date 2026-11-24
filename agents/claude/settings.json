@@ -262,7 +262,8 @@
     "type": "command",
     "command": "ccstatusline",
     "padding": 0,
-    "refreshInterval": 1
+    "refreshInterval": 1,
+    "hideVimModeIndicator": true
   },
   "enabledPlugins": {
     "caveman@caveman": true,
@@ -316,5 +317,6 @@
   "switchModelsOnFlag": false,
   "autoContinueAtUsageLimit": false,
   "agentPushNotifEnabled": false,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "prStatusFooterEnabled": false
 }

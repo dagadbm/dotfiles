@@ -9,7 +9,7 @@
     "syntax.purple: session-usage, reset-timer, weekly-usage, weekly-reset-timer",
     "syntax.green: git-branch, worktree-branch",
     "syntax.green (each RGB channel x0.75, rounded: #659047): current-working-dir",
-    "syntax.yellow (taken from p10k clean/modified): git-changes",
+    "syntax.yellow (taken from p10k clean/modified): git-changes, git-pr",
     "syntax.text: custom-command pmset, custom-command date",
     "ui.border: all separators (incl. |)",
     "notes: format hex:RRGGBB, needs colorLevel 3",
@@ -280,6 +280,9 @@
       {
         "color": "hex:87C05F",
         "id": "b5acfcd3-4508-49bb-a99c-e438e2e23492",
+        "metadata": {
+          "hide": "no-git"
+        },
         "type": "git-branch"
       },
       {
@@ -317,7 +320,25 @@
       {
         "color": "hex:DFAB25",
         "id": "81a7e7c3-fb3f-4703-a653-017920e25936",
+        "metadata": {
+          "hide": "no-git,zero"
+        },
         "type": "git-changes"
+      },
+      {
+        "character": " ",
+        "color": "hex:3A3E47",
+        "id": "3c1e9a52-7d4b-4f86-a0e2-91b6c5d8f407",
+        "type": "separator"
+      },
+      {
+        "color": "hex:DFAB25",
+        "id": "8e2f4b17-c6a9-4d3e-b5f0-7a19d2e6c843",
+        "metadata": {
+          "hide": "no-git,no-data,status,title"
+        },
+        "rawValue": true,
+        "type": "git-pr"
       },
       {
         "id": "4bc5b5e0-58a1-4985-927c-57aa798fa49c",
