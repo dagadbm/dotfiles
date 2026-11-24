@@ -23,6 +23,11 @@ return {
     enabled = false,
   },
   {
+    "mason-org/mason.nvim",
+    -- project binaries (mise, .venv/bin) win over mason's
+    opts = { PATH = "append" },
+  },
+  {
     "folke/which-key.nvim",
     -- default no_overlap shrinks the popup to nothing when the cursor sits near the bottom
     opts = { win = { no_overlap = false } },

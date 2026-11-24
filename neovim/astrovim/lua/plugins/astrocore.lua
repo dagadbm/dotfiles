@@ -15,7 +15,7 @@ local spec = {
         large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
         autopairs = true, -- enable autopairs at start
         cmp = true, -- enable completion at start
-        diagnostics = { virtual_text = true, virtual_lines = true }, -- diagnostic settings on startup
+        diagnostics = { virtual_text = true, virtual_lines = false }, -- diagnostic settings on startup
         highlighturl = true, -- highlight URLs at start
         notifications = true, -- enable notifications at start
       },
@@ -39,7 +39,8 @@ local spec = {
 
       -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
       diagnostics = {
-        virtual_text = false,
+        virtual_text = { current_line = true },
+        virtual_lines = false,
         underline = true,
       },
 
@@ -74,7 +75,7 @@ options = {
     number = true, -- sets vim.opt.number
     spell = false, -- sets vim.opt.spell
     signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-    wrap = false, -- sets vim.opt.wrap
+    wrap = true, -- sets vim.opt.wrap
     swapfile = false, -- no swap files
     backup = true, -- keep backup after write
     writebackup = true, -- backup before overwriting
