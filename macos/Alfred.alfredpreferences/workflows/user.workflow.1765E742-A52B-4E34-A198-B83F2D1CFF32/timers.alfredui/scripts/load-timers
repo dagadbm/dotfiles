@@ -1,0 +1,19 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// Main
+function run() {
+  const active = new Timers("active")
+  const updateObj = {
+    ...(active.notifications),
+    update: { ids: { activeTimers: { data: { src: active.uiData }}}}
+  }
+
+  // If no active timers, disable pulse
+  if (active.isEmpty) updateObj.pulse = { interval: 0 }
+
+  // Update UI
+  return JSON.stringify(updateObj)
+}

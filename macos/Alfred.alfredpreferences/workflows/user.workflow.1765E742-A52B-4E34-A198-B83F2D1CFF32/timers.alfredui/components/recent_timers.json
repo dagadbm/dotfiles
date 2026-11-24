@@ -1,0 +1,95 @@
+{
+  "constraints": { "grid": { "row": 3 }, "size": { "height": 320 } },
+  "id": "recentTimers",
+  "type": "dataview",
+  "placeholder": "There are no recent timers",
+  "padding": 0,
+  "spacing": 0,
+  "events": [{
+    "triggers": "changed",
+    "action": {
+      "type": "script",
+      "src": "scripts/new-timer",
+      "args": [
+        "updateSheet",
+        "{value:self.selected.uid}",
+        "{value:newNameTextField.text}"
+      ]
+    }
+  }],
+  "cell": {
+    "height": 64,
+    "init": {
+      "recentcell.background": null,
+      "selectedstripe.background": "secondarySystemFillColor",
+      "duration.colour": "labelColor"
+    },
+    "selected": {
+      "recentcell.background": "secondarySystemFillColor",
+      "selectedstripe.background": "alfredSelectedResultBackgroundColor",
+      "duration.colour": "labelColor"
+    },
+    "root": {
+      "id": "recentcell",
+      "type": "view",
+      "layout": "flex",
+      "cols": 2,
+      "rows": 2,
+      "padding": 4,
+      "cornerradius": 6,
+      "events": [{
+        "triggers": "doubleclicked",
+        "action": {
+          "type": "script",
+          "src": "scripts/new-timer",
+          "args": [
+            "renewTimer",
+            "{data:uid}"
+          ]
+        }
+      }],
+      "components": [
+        {
+          "constraints": { "grid": { "row": 0, "col": 0, "rowspan": 2 }, "size": { "width": 4 }, "insets": { "right": 10 } },
+          "id": "selectedstripe",
+          "type": "view",
+          "layout": "stack",
+          "cornerradius": 2
+        },
+        {
+          "constraints": { "grid": { "row": 0, "col": 1, "colweight": 1 } },
+          "id": "duration",
+          "type": "label",
+          "text": "00:00:00",
+          "font": { "size": 30, "weight": "thin", "monospaced": "digits" }
+        },
+        {
+          "constraints": { "grid": { "row": 1, "col": 1 } },
+          "id": "name",
+          "type": "label",
+          "text": "Name",
+          "colour": "secondaryLabelColor"
+        },
+        {
+          "constraints": { "grid": { "row": 0, "col": 2, "rowspan": 2 }, "position": "right", "insets": { "right": 10 } },
+          "id": "progressbutton",
+          "type": "button",
+          "image": { "type": "symbol", "src": "play.fill" },
+          "bordered": false,
+          "font": { "size": 22 },
+          "events": [{
+            "triggers": "actioned",
+            "action": {
+              "type": "script",
+              "src": "scripts/new-timer",
+              "args": [
+                "renewTimer",
+                "{data:uid}"
+              ]
+            }
+          }]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "constraints": { "region": "centre" },
+  "id": "activeTimers",
+  "type": "dataview",
+  "spacing": 12,
+  "padding": 12,
+  "autoadjustcontentinsets": false,
+  "placeholder": "Press ⌘N to add a timer",
+  "cell": {
+    "height": 52,
+    "root": {
+      "type": "view",
+      "layout": "border",
+      "components": [
+        {
+          "constraints": { "region": "centre" },
+          "type": "view",
+          "layout": "inline",
+          "direction": "vertical",
+          "spacing": 1,
+          "components": [
+            {
+              "id": "countdown",
+              "type": "label",
+              "font": { "size": 30, "weight": "thin", "monospaced": "digits" }
+            },
+            {
+              "id": "name",
+              "type": "label",
+              "colour": "secondaryLabelColor"
+            }
+          ]
+        },
+        {
+          "constraints": { "region": "right", "size": { "width": 50 } },
+          "type": "view",
+          "layout": "stack",
+          "components": [
+            {
+              "id": "progress",
+              "type": "progress",
+              "colour": "alfredSelectedResultBackgroundColor",
+              "style": "round",
+              "thickness": 4
+            },
+            {
+              "id": "progressbutton",
+              "type": "button",
+              "bordered": false,
+              "image": { "type": "symbol", "src": "pause" },
+              "font": { "size": 22 },
+              "events": [{
+                "triggers": "actioned",
+                "action": {
+                  "type": "script",
+                  "src": "scripts/play-pause-remove-renew",
+                  "args": "{data:uid}"
+                }
+              }]
+            }
+          ]
+        }
+      ],
+      "menu": [
+        {
+          "text": "Restart Timer",
+          "action": {
+            "type": "script",
+            "src": "scripts/play-pause-remove-renew",
+            "args": [ "{data:uid}", "renew" ]
+          }
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "text": "Remove Timer",
+          "action": {
+            "type": "script",
+            "src": "scripts/play-pause-remove-renew",
+            "args": [ "{data:uid}", "remove" ]
+          }
+        }
+      ]
+    }
+  }
+}

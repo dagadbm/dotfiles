@@ -1,0 +1,11 @@
+{
+  "constraints": { "region": "centre" },
+  "id": "itemGrid",
+  "type": "view",
+  "layout": "grid",
+  "cols": "{var:page_cols}",
+  "rows": "{var:page_rows}",
+  "spacing": 16,
+  "padding": 16,
+  "components": []
+}

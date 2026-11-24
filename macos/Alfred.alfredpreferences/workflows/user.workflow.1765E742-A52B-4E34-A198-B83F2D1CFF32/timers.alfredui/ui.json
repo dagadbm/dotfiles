@@ -1,0 +1,96 @@
+{
+  "bundleid": "com.alfredapp.ui.timers",
+  "iconpath": "../icon.png",
+  "variablesconfig": {
+    "max_recent": { "default": 5, "persist": true, "scriptenv": true },
+    "sound_name": { "default": "Pop", "persist": true, "scriptenv": true },
+    "post_notification": { "default": true, "persist": true, "scriptenv": true },
+    "remove_notification": { "default": true, "persist": true, "scriptenv": true },
+    "active_timers": { "default": [], "persist": true, "scriptenv": true },
+    "recent_timers": { "default": [], "persist": true, "scriptenv": true }
+  },
+  "colours": { "darkbar": "#00000055" },
+  "pulse": {
+    "interval": 1,
+    "intervalmode": "regular",
+    "src": "scripts/load-timers"
+  },
+  "window": {
+    "title": "Timers",
+    "blur": true,
+    "size": { "width": 256 },
+    "minsize": { "width": 256, "height": 256 },
+    "maxsize": { "width": 512, "height": 1024 },
+    "fullsizecontentview": true,
+    "titlevisibility": false,
+    "titlebarappearstransparent": true,
+    "fullscreenable": false,
+    "frameautosave": true,
+    "toolbar": { "type": "unified" },
+    "root": {
+      "events": [{
+        "triggers": "preload",
+        "action": { "type": "script", "src": "scripts/load-timers" }
+      }],
+      "type": "view",
+      "layout": "border",
+      "padding": 0,
+      "components": [
+        {
+          "constraints": { "region": "top" },
+          "type": "view",
+          "padding": 12,
+          "background": "darkbar",
+          "layout": "stack",
+          "components": [
+            {
+              "constraints": { "position": "centre" },
+              "type": "label",
+              "font": { "size": 22 },
+              "text": "Timers"
+            },
+            {
+              "constraints": { "position": "right" },
+              "type": "button",
+              "font": { "size": 24 },
+              "bordered": false,
+              "image": { "type": "symbol", "src": "plus.app.fill" },
+              "tooltip": "New timer… ⌘N",
+              "shortcut": "⌘N",
+              "events": [{
+                "triggers": "actioned",
+                "action": { "type": "json", "src": "components/new_timer_sheet.json" }
+              }]
+            }
+          ]
+        },
+        "{file:components/active_timers.json}",
+        {
+          "constraints": { "region": "bottom" },
+          "type": "view",
+          "layout": "stack",
+          "padding": 8,
+          "background": "darkbar",
+          "components": [
+            {
+              "constraints": { "position": "right" },
+              "type": "button",
+              "bordered": false,
+              "image": { "type": "symbol", "src": "gearshape.fill" },
+              "font": { "size": 16 },
+              "tooltip": "Settings… ⌘,",
+              "shortcut": "⌘,",
+              "events": [{
+                "triggers": "actioned",
+                "action": {
+                  "type": "json",
+                  "src": "components/config_sheet.json"
+                }
+              }]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

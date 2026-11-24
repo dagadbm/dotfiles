@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.alfredapp.vitor.timers</string>
+	<key>connections</key>
+	<dict>
+		<key>3CB248E9-22D7-4972-9781-206A33527C68</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>72864BC8-0F7E-4B1C-B4F9-268A0A01F5DF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Vítor Galvão</string>
+	<key>description</key>
+	<string>Start and manage multiple timers</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Timers</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>{var:timers_keyword}</string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string>{const:alfred_workflow_description}</string>
+				<key>text</key>
+				<string>{const:alfred_workflow_name}</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>3CB248E9-22D7-4972-9781-206A33527C68</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>launchmode</key>
+				<integer>1</integer>
+				<key>path</key>
+				<string>timers.alfredui</string>
+				<key>stackview</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.userinterface.alfredui</string>
+			<key>uid</key>
+			<string>72864BC8-0F7E-4B1C-B4F9-268A0A01F5DF</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>## Usage
+
+Launch an external timers interface via the `timers` keyword.
+
+![Keyword to initiate view](images/about/keyword.png)
+
+![Timers main view](images/about/main.png)
+
+Add a new timer with &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;N&lt;/kbd&gt;.
+
+![Adding a new timer](images/about/new.png)
+
+Restart and remove running timers via their right-click context menu.</string>
+	<key>uidata</key>
+	<dict>
+		<key>3CB248E9-22D7-4972-9781-206A33527C68</key>
+		<dict>
+			<key>xpos</key>
+			<real>80</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+		<key>72864BC8-0F7E-4B1C-B4F9-268A0A01F5DF</key>
+		<dict>
+			<key>xpos</key>
+			<real>320</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>timers</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Timers Keyword</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>timers_keyword</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<string>26.1</string>
+	<key>webaddress</key>
+	<string>https://github.com/alfredapp/timers-workflow/</string>
+</dict>
+</plist>

@@ -1,0 +1,14 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// Main
+function run(argv) {
+  const nextPage = parseInt(argv[0])
+  const launchItems = new LaunchItems()
+  launchItems.rebuildPagination = true
+  launchItems.loadPage(launchItems.currPage + nextPage)
+  launchItems.selectItem(launchItems.visibleItems[0])
+  return JSON.stringify(launchItems.uiData)
+}

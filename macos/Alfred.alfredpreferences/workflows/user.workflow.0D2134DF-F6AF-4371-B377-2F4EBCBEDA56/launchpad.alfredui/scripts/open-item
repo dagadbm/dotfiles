@@ -1,0 +1,16 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// Main
+function run(argv) {
+  const launchItems = new LaunchItems()
+
+  const targetItem = argv.length > 0 ?
+    launchItems.visibleItems.find(item => item.id === argv[0]) :
+    launchItems.selectedItem
+
+  launchItems.openItem(targetItem)
+  return JSON.stringify({ finish: {} })
+}

@@ -1,0 +1,119 @@
+{
+  "bundleid": "com.alfredapp.vitor.launchpad",
+  "log": {
+    "level": "info",
+    "internal": true
+  },
+  "templates": {
+    "appItem": {
+      "id": "{param:id}",
+      "background": "{param:background}",
+      "type": "view",
+      "layout": "border",
+      "cornerradius": 16,
+      "padding": 8,
+      "vetomovablebybackground": true,
+      "events": [{
+        "triggers": "clicked",
+        "action": { "type": "script", "src": "scripts/open-item", "args": "{param:id}" }
+      }],
+      "components": [
+        {
+          "constraints": { "region": "centre" },
+          "type": "imageview",
+          "image": { "type": "fileicon", "src": "{param:image}" }
+        },
+        {
+          "id": "{param:labelID}",
+          "constraints": { "region": "bottom" },
+          "type": "label",
+          "textalign": "centre",
+          "colour": "{param:colour}",
+          "text": "{param:text}"
+        }
+      ]
+    }
+  },
+  "variablesconfig": {
+    "page_cols": { "scriptenv": true, "default": 7 },
+    "page_rows": { "scriptenv": true, "default": 5 },
+    "is_searching": { "scriptenv": true, "default": false },
+    "curr_page": { "scriptenv": true, "default": 0 },
+    "visible_items_ids": { "scriptenv": true, "default": [] },
+    "app_dirs": { "scriptenv": true, "default": [
+      "/Applications",
+      "/System/Applications",
+      "/System/Volumes/Preboot/Cryptexes/App/System/Applications"
+    ]},
+    "all_items": { "persist": true, "scriptenv": true, "default": [
+      { "id": "default00", "selected": false, "name": "App Store", "paths": ["/System/Applications/App Store.app"] },
+      { "id": "default01", "selected": false, "name": "Safari", "paths": ["/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"] },
+      { "id": "default02", "selected": false, "name": "Mail", "paths": ["/System/Applications/Mail.app"] },
+      { "id": "default03", "selected": false, "name": "Contacts", "paths": ["/System/Applications/Contacts.app"] },
+      { "id": "default04", "selected": false, "name": "Calendar", "paths": ["/System/Applications/Calendar.app"] },
+      { "id": "default05", "selected": false, "name": "Reminders", "paths": ["/System/Applications/Reminders.app"] },
+      { "id": "default06", "selected": false, "name": "Notes", "paths": ["/System/Applications/Notes.app"] },
+      { "id": "default07", "selected": false, "name": "FaceTime", "paths": ["/System/Applications/FaceTime.app"] },
+      { "id": "default08", "selected": false, "name": "Messages", "paths": ["/System/Applications/Messages.app"] },
+      { "id": "default09", "selected": false, "name": "Maps", "paths": ["/System/Applications/Maps.app"] },
+      { "id": "default10", "selected": false, "name": "Find My", "paths": ["/System/Applications/FindMy.app"] },
+      { "id": "default11", "selected": false, "name": "Photos", "paths": ["/System/Applications/Photos.app"] },
+      { "id": "default12", "selected": false, "name": "Photo Booth", "paths": ["/System/Applications/Photo Booth.app"] },
+      { "id": "default13", "selected": false, "name": "Image Playground", "paths": ["/System/Applications/Image Playground.app"] },
+      { "id": "default14", "selected": false, "name": "Music", "paths": ["/System/Applications/Music.app"] },
+      { "id": "default15", "selected": false, "name": "Podcasts", "paths": ["/System/Applications/Podcasts.app"] },
+      { "id": "default16", "selected": false, "name": "Voice Memos", "paths": ["/System/Applications/VoiceMemos.app"] },
+      { "id": "default17", "selected": false, "name": "TV", "paths": ["/System/Applications/TV.app"] },
+      { "id": "default18", "selected": false, "name": "QuickTime Player", "paths": ["/System/Applications/QuickTime Player.app"] },
+      { "id": "default19", "selected": false, "name": "Weather", "paths": ["/System/Applications/Weather.app"] },
+      { "id": "default20", "selected": false, "name": "Stocks", "paths": ["/System/Applications/Stocks.app"] },
+      { "id": "default21", "selected": false, "name": "Books", "paths": ["/System/Applications/Books.app"] },
+      { "id": "default22", "selected": false, "name": "Clock", "paths": ["/System/Applications/Clock.app"] },
+      { "id": "default23", "selected": false, "name": "Calculator", "paths": ["/System/Applications/Calculator.app"] },
+      { "id": "default24", "selected": false, "name": "Freeform", "paths": ["/System/Applications/Freeform.app"] },
+      { "id": "default25", "selected": false, "name": "Home", "paths": ["/System/Applications/Home.app"] },
+      { "id": "default26", "selected": false, "name": "Siri", "paths": ["/System/Applications/Siri.app"] },
+      { "id": "default27", "selected": false, "name": "Shortcuts", "paths": ["/System/Applications/Shortcuts.app"] },
+      { "id": "default28", "selected": false, "name": "Passwords", "paths": ["/System/Applications/Passwords.app"] },
+      { "id": "default29", "selected": false, "name": "TextEdit", "paths": ["/System/Applications/TextEdit.app"] },
+      { "id": "default30", "selected": false, "name": "Dictionary", "paths": ["/System/Applications/Dictionary.app"] },
+      { "id": "default31", "selected": false, "name": "Font Book", "paths": ["/System/Applications/Font Book.app"] },
+      { "id": "default32", "selected": false, "name": "Preview", "paths": ["/System/Applications/Preview.app"] },
+      { "id": "default33", "selected": false, "name": "Time Machine", "paths": ["/System/Applications/Time Machine.app"] },
+      { "id": "default34", "selected": false, "name": "System Settings", "paths": ["/System/Applications/System Settings.app"] }
+    ]}
+  },
+  "window": {
+    "size": { "width": 1100, "height": 850 },
+    "root": {
+      "type": "view",
+      "layout": "border",
+      "events": [{
+        "triggers": "preload",
+        "action": { "type": "script", "src": "scripts/init-load" }
+      }],
+      "shortcuts": [
+        { "shortcut": "↩", "action": { "type": "script", "src": "scripts/open-item" } },
+        { "shortcut": "↑", "action": { "type": "script", "src": "scripts/navigate-item", "args": "up" } },
+        { "shortcut": "↓", "action": { "type": "script", "src": "scripts/navigate-item", "args": "down" } },
+        { "shortcut": "←", "action": { "type": "script", "src": "scripts/navigate-item", "args": "left" } },
+        { "shortcut": "→", "action": { "type": "script", "src": "scripts/navigate-item", "args": "right" } },
+        { "shortcut": "⌥↑", "action": { "type": "script", "src": "scripts/shift-item", "args": "up" } },
+        { "shortcut": "⌥↓", "action": { "type": "script", "src": "scripts/shift-item", "args": "down" } },
+        { "shortcut": "⌥←", "action": { "type": "script", "src": "scripts/shift-item", "args": "left" } },
+        { "shortcut": "⌥→", "action": { "type": "script", "src": "scripts/shift-item", "args": "right" } },
+        { "shortcut": "⌘⌥←", "action": { "type": "script", "src": "scripts/move-item", "args": "prev" } },
+        { "shortcut": "⌘⌥→", "action": { "type": "script", "src": "scripts/move-item", "args": "next" } },
+        { "shortcut": "⌘←", "action": { "type": "script", "src": "scripts/navigate-page", "args": "-1" } },
+        { "shortcut": "⌘→", "action": { "type": "script", "src": "scripts/navigate-page", "args": "+1" } },
+        { "shortcut": "⌘⌫", "action": { "type": "script", "src": "scripts/delete-item" } },
+        { "shortcut": "⌘C", "action": { "type": "script", "src": "scripts/copy-item" } }
+      ],
+      "components": [
+        "{file:components/search.json}",
+        "{file:components/items.json}",
+        "{file:components/pagination.json}"
+      ]
+    }
+  }
+}

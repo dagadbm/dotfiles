@@ -1,0 +1,35 @@
+{
+  "sheet": {
+    "root": {
+      "type": "view",
+      "layout": "form",
+      "padding": 32,
+      "spacing": 4,
+      "components": [
+        { "type": "label", "text": "↩" }, { "type": "label", "text": "Open selection and close window" },
+        { "type": "label", "text": "⎋" }, { "type": "label", "text": "Close window or cheat sheet" },
+        { "type": "label", "text": "⌘C" }, { "type": "label", "text": "Copy path" },
+        { "constraints": { "size": { "width": 60, "height": 16 } } }, {},
+        { "type": "label", "text": "↑" }, { "type": "label", "text": "Move selection up" },
+        { "type": "label", "text": "↓" }, { "type": "label", "text": "Move selection down" },
+        { "type": "label", "text": "←" }, { "type": "label", "text": "Move selection left" },
+        { "type": "label", "text": "→" }, { "type": "label", "text": "Move selection right" },
+        { "constraints": { "size": { "height": 16 } } }, {},
+        { "type": "label", "text": "⌘←" }, { "type": "label", "text": "Previous page" },
+        { "type": "label", "text": "⌘→" }, { "type": "label", "text": "Next page" },
+        { "type": "label", "text": "⌘[1-9]" }, { "type": "label", "text": "Navigate pages 1 through 9" },
+        { "constraints": { "size": { "height": 16 } } }, {},
+        { "type": "label", "text": "⌥↑" }, { "type": "label", "text": "Shift position up" },
+        { "type": "label", "text": "⌥↓" }, { "type": "label", "text": "Shift position down" },
+        { "type": "label", "text": "⌥←" }, { "type": "label", "text": "Shift position left" },
+        { "type": "label", "text": "⌥→" }, { "type": "label", "text": "Shift position right" },
+        { "constraints": { "size": { "height": 16 } } }, {},
+        { "type": "label", "text": "⌘⌫" }, { "type": "label", "text": "Bump to end of list" },
+        { "type": "label", "text": "⌘⌥←" }, { "type": "label", "text": "Bump to previous page with empty slot" },
+        { "type": "label", "text": "⌘⌥→" }, { "type": "label", "text": "Bump to next page with empty slot" },
+        { "constraints": { "size": { "height": 16 } } }, {},
+        { "type": "label", "text": "⌘?" }, { "type": "label", "text": "Open cheat sheet" }
+      ]
+    }
+  }
+}

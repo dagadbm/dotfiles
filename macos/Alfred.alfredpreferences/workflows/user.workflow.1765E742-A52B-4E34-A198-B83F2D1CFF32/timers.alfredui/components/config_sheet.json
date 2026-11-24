@@ -1,0 +1,119 @@
+{
+  "sheet": {
+    "id": "configSheet",
+    "root": {
+      "type": "view",
+      "layout": "border",
+      "padding": 16,
+      "spacing": 16,
+      "components": [
+        {
+          "constraints": { "region": "bottom", "position": "right" },
+          "type": "button",
+          "text": "Close",
+          "events": [{
+            "triggers": "actioned",
+            "action": { "type": "json", "src": { "sheet": { "close": "configSheet" } } }
+          }]
+        },
+        {
+          "constraints": { "region": "centre" },
+          "type": "view",
+          "layout": "form",
+          "spacing": 4,
+          "components": [
+            {
+              "constraints": { "position": "right" },
+              "type": "label",
+              "text": "Sound:"
+            },
+            {
+              "constraints": { "position": "left" },
+              "type": "view",
+              "layout": "inline",
+              "direction": "horizontal",
+              "spacing": 8,
+              "components": [
+                {
+                  "id": "soundpicker",
+                  "type": "picker",
+                  "items": [
+                    { "text": "" },
+                    { "text": "Basso", "value": "Basso" },
+                    { "text": "Blow", "value": "Blow" },
+                    { "text": "Bottle", "value": "Bottle" },
+                    { "text": "Frog", "value": "Frog" },
+                    { "text": "Funk", "value": "Funk" },
+                    { "text": "Glass", "value": "Glass" },
+                    { "text": "Hero", "value": "Hero" },
+                    { "text": "Morse", "value": "Morse" },
+                    { "text": "Ping", "value": "Ping" },
+                    { "text": "Pop", "value": "Pop" },
+                    { "text": "Purr", "value": "Purr" },
+                    { "text": "Sosumi", "value": "Sosumi" },
+                    { "text": "Submarine", "value": "Submarine" },
+                    { "text": "Tink", "value": "Tink" }
+                  ],
+                  "selected": "{var:sound_name}",
+                  "events": [{
+                    "triggers": "actioned",
+                    "action": {
+                      "type": "json",
+                      "variables": { "sound_name": "{value:self.selected.text}" },
+                      "src": { "sound": { "src": "{var:sound_name}" } }
+                    }
+                  }]
+                },
+                {
+                  "type": "button",
+                  "focus": true,
+                  "bordered": false,
+                  "font": { "size": 16 },
+                  "image": { "type": "symbol", "src": "play.fill" },
+                  "events": [{
+                    "triggers": "actioned",
+                    "action": {
+                      "type": "json",
+                      "src": { "sound": { "src": "{var:sound_name}" } }
+                    }
+                  }]
+                }
+              ]
+            },
+            { "constraints": { "size": { "height": 4 } } }, {},
+            {
+              "constraints": { "position": "right" },
+              "type": "label",
+              "text": "Notifications:"
+            },
+            {
+              "type": "checkbox",
+              "text": "Post notification on expired timers",
+              "checked": "{var:post_notification}",
+              "events": [{
+                "triggers": "actioned",
+                "action": {
+                  "type": "json",
+                  "variables": { "post_notification": "{value:self.checked}" }
+                }
+              }]
+            },
+            {},
+            {
+              "type": "checkbox",
+              "text": "Remove notification when removing timer",
+              "checked": "{var:remove_notification}",
+              "events": [{
+                "triggers": "actioned",
+                "action": {
+                  "type": "json",
+                  "variables": { "remove_notification": "{value:self.checked}" }
+                }
+              }]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

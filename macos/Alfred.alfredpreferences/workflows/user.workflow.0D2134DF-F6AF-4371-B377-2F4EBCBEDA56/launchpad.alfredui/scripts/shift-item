@@ -1,0 +1,19 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// Main
+function run(argv) {
+  const direction = argv[0]
+  const launchItems = new LaunchItems()
+
+  if (launchItems.isSearching) throw "Cannot move items while searching"
+
+  const newPosition = launchItems.allItems.indexOf(launchItems.findAdjacent(direction))
+  const selectedItem = launchItems.selectedItem
+  launchItems.removeItem(selectedItem)
+  launchItems.allItems.splice(newPosition, 0, selectedItem)
+  launchItems.loadPage(launchItems.currPage)
+  return JSON.stringify(launchItems.uiData)
+}

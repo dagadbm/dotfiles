@@ -1,0 +1,180 @@
+#!/usr/bin/osascript -l JavaScript
+
+function envVar(varName) {
+  return $.NSProcessInfo
+    .processInfo
+    .environment
+    .objectForKey(varName).js
+}
+
+class Timers {
+  constructor(timersType) {
+    const timersVar = `${timersType}_timers`
+
+    this.timersType = timersType
+    this.timersVar = timersVar
+    this.timers = JSON.parse(envVar(timersVar)).map(timerObj => new Timer(timerObj))
+  }
+
+  single(timerUID) {
+    return this.timers.find(timer => timer.uid === timerUID)
+  }
+
+  sort() {
+    this.timers.forEach(timer => { if (timer.paused) timer.end = Timer.epoch() + timer.paused })
+    this.timers.sort((a, b) => a.end - b.end)
+  }
+
+  prepend(timer) {
+    this.timers.unshift(timer)
+  }
+
+  remove(timerUID) {
+    this.timers.splice(this.timers.findIndex(timer => timer.uid === timerUID), 1)
+  }
+
+  truncate(max) {
+    this.timers.length = Math.min(this.timers.length, max)
+  }
+
+  deduplicate() {
+    const unique = this.timers.reduce((all, timer) => {
+      const dupeCheck = `${timer.name} ${timer.seconds}`
+      if (all.seen.has(dupeCheck)) return all
+
+      all.seen.add(dupeCheck)
+      all.ordered.push(timer)
+      return all
+    }, { ordered: [], seen: new Set() })
+
+    this.timers.splice(0, this.timers.length, ...unique.ordered);
+  }
+
+  get isEmpty() {
+    return this.timers.length === 0
+  }
+
+  get uiData() {
+    switch(this.timersType) {
+      case "active": return this.timers.map(timer => timer.asActive)
+      case "recent": return this.timers.map(timer => timer.asRecent)
+      default: throw `Unrecognised timers type: ${this.timersType}`
+    }
+  }
+
+  get notifications() {
+    const currentEpoch = Timer.epoch()
+
+    // Collect finished timers
+    const finishedTimers = this.timers.filter(timer => !timer.paused && timer.end <= currentEpoch)
+
+    // No notification if no timer ended
+    if (finishedTimers.length === 0) return {}
+
+    // Notify if conditions are met
+    const finishedNow = finishedTimers.find(timer => timer.end === currentEpoch) // Timer ended this second
+    const repeatFinisher = (finishedTimers[0].end - currentEpoch) % 3 === 0 // Every third second of the oldest finished timer
+
+    if (finishedNow || repeatFinisher) return {
+      sound: { src: envVar("sound_name") },
+      ...(envVar("post_notification") === "1" && { notification: { post: finishedTimers.map(timer => ({ uid: timer.uid, title: "Timer Ended", text: timer.name }))}})
+    }
+
+    // Otherwise nothing to notify
+    return {}
+  }
+}
+
+class Timer {
+  constructor(timer) {
+    Object.assign(this, timer)
+  }
+
+  static fromStrict(name, seconds) {
+    return new Timer({
+      uid: $.NSProcessInfo.processInfo.globallyUniqueString.js,
+      name: name,
+      seconds: seconds,
+      paused: false,
+      end: Timer.epoch() + seconds
+    })
+  }
+
+  static fromNatural(rawInput) {
+    if (/^[\d\.]+$/.test(rawInput)) {
+      const parsedTotal = Math.floor(parseFloat(rawInput) * 60)
+      return Timer.fromStrict(Timer.sexagesimal(parsedTotal), parsedTotal)
+    }
+
+    const rawH = rawInput.match(/([\d\.]+\s*(?:hours?|hrs?|h))(?:\b|\d|$)/)?.[1]
+    const rawM = rawInput.match(/([\d\.]+\s*(?:minutes?|mins?|m))(?:\b|\d|$)/)?.[1]
+    const rawS = rawInput.match(/([\d\.]+\s*(?:seconds?|secs?|s))(?:\b|\d|$)/)?.[1]
+
+    const parsedH = parseFloat(rawH || 0)
+    const parsedM = parseFloat(rawM || 0)
+    const parsedS = parseFloat(rawS || 0)
+
+    const parsedTotal = Math.floor((parsedH * 3600) + (parsedM * 60) + parsedS)
+    const parsedName = rawInput
+      .replace(rawH, "")
+      .replace(rawM, "")
+      .replace(rawS, "")
+      .trim() || Timer.sexagesimal(parsedTotal)
+
+    return Timer.fromStrict(parsedName, parsedTotal)
+  }
+
+  static epoch() {
+    return Math.floor(Date.now() / 1000)
+  }
+
+  static sexagesimal(seconds) {
+    const total = Math.abs(seconds)
+    const h = Math.floor(total / 3600)
+    const m = Math.floor((total % 3600) / 60)
+    const s = total % 60
+
+    const sign = seconds < 0 ? '-' : ''
+    const pad = num => num.toString().padStart(2, '0')
+
+    return `${sign}${pad(h)}:${pad(m)}:${pad(s)}`
+  }
+
+  pause() {
+    this.paused = this.end - Timer.epoch()
+  }
+
+  play() {
+    this.end = this.paused + Timer.epoch()
+    this.paused = false
+  }
+
+  get asActive() {
+    const currentEpoch = Timer.epoch()
+    const remaining = this.paused || this.end - currentEpoch
+    const finished = !this.paused && this.end <= currentEpoch
+    const progressButton = this.paused ? "play.fill" : (finished ? "xmark" : "pause")
+
+    return {
+      "name.text": this.name,
+      "countdown.text": Timer.sexagesimal(remaining),
+      "countdown.colour": finished ? "systemOrangeColor" : "labelColor",
+      "progress.progress": remaining / this.seconds,
+      "progressbutton.image.src": progressButton,
+      "uid": this.uid
+    }
+  }
+
+  get asRecent() {
+    return {
+      "duration.text": Timer.sexagesimal(this.seconds),
+      "name.text": this.name,
+      "seconds": this.seconds,
+      "uid": this.uid
+    }
+  }
+}
+
+// Expose to global scope when imported from other files
+this.Timers = Timers
+this.Timer = Timer

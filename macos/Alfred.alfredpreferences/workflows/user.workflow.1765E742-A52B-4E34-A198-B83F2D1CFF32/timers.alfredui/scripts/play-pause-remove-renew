@@ -1,0 +1,39 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// Main
+function run(argv) {
+  const timerUID = argv[0]
+  const forceAction = argv[1]
+
+  const active = new Timers("active")
+  const timer = active.single(timerUID)
+
+  const buttonState = timer.paused ? "play" : (timer.end < Timer.epoch() ? "remove" : "pause")
+
+  const updateObj = {
+    pulse: { now: true },
+    variables: { [active.timersVar]: active.timers }
+  }
+
+  if (forceAction === "renew") {
+    timer.end = timer.seconds + Timer.epoch()
+    timer.paused = false
+  }
+  else if (forceAction === "remove" || buttonState === "remove") {
+    active.remove(timer.uid)
+    if (envVar("remove_notification") === "1") updateObj.notification = { remove: [ timer.uid ] }
+  }
+  else if (buttonState === "pause") {
+    timer.pause()
+    active.sort()
+  }
+  else if (buttonState === "play")  {
+    timer.play()
+    active.sort()
+  }
+
+  return JSON.stringify(updateObj)
+}

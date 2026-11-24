@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.alfredapp.vitor.launchpad</string>
+	<key>connections</key>
+	<dict>
+		<key>DDE5831D-1018-4E4C-899D-F0A3FAA9BBF2</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>22CB7105-90A4-42FF-B90A-DE5C201BD75F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
+			</dict>
+		</array>
+		<key>E4BEEEBC-DEA3-4AC4-B575-3AF0E89180C8</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>22CB7105-90A4-42FF-B90A-DE5C201BD75F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Vítor Galvão</string>
+	<key>description</key>
+	<string>Open apps from a customisable grid</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Launchpad</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>launchmode</key>
+				<integer>0</integer>
+				<key>path</key>
+				<string>launchpad.alfredui</string>
+				<key>stackview</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.userinterface.alfredui</string>
+			<key>uid</key>
+			<string>22CB7105-90A4-42FF-B90A-DE5C201BD75F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>{var:launch_keyword}</string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string>{const:alfred_workflow_description}</string>
+				<key>text</key>
+				<string>{const:alfred_workflow_name}</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>DDE5831D-1018-4E4C-899D-F0A3FAA9BBF2</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>2</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>E4BEEEBC-DEA3-4AC4-B575-3AF0E89180C8</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>## Usage
+
+Show a grid of apps to open via the `launchpad` keyword.
+
+![Keyword to show grid](images/about/keyword.png)
+
+![Grid of apps](images/about/ui.png)
+
+Type to filter, use the arrow keys to move and &lt;kbd&gt;↩&lt;/kbd&gt; to open. Rearranging apps is keyboard-based too.
+
+Click the `?` in the search bar or press &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;?&lt;/kbd&gt; to view the cheat sheet.
+
+Configure the [Hotkey](https://www.alfredapp.com/help/workflows/triggers/hotkey/) for faster triggering.</string>
+	<key>uidata</key>
+	<dict>
+		<key>22CB7105-90A4-42FF-B90A-DE5C201BD75F</key>
+		<dict>
+			<key>xpos</key>
+			<real>285</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+		<key>DDE5831D-1018-4E4C-899D-F0A3FAA9BBF2</key>
+		<dict>
+			<key>xpos</key>
+			<real>80</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+		<key>E4BEEEBC-DEA3-4AC4-B575-3AF0E89180C8</key>
+		<dict>
+			<key>xpos</key>
+			<real>80</real>
+			<key>ypos</key>
+			<real>200</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>launchpad</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Launch Keyword</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>launch_keyword</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<string>26.1</string>
+	<key>webaddress</key>
+	<string>https://github.com/alfredapp/launchpad-workflow/</string>
+</dict>
+</plist>

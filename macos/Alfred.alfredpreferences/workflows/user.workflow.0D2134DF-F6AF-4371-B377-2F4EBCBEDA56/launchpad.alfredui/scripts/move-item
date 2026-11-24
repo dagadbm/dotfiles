@@ -1,0 +1,70 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// Main
+function run(argv) {
+  const direction = argv[0]
+  const launchItems = new LaunchItems()
+
+  if (launchItems.isSearching) throw "Cannot move items while searching"
+
+  const selectedItem = launchItems.selectedItem
+  const selectedItemIndex = launchItems.allItems.indexOf(selectedItem)
+  const pageForSelected = launchItems.pageForIndex(selectedItemIndex)
+  const onLastPage = launchItems.currPage === launchItems.pageCount - 1
+  const lastItemOnPage = launchItems.visibleItems.length === 1
+  const minIndexForPage = pageForSelected * launchItems.maxPageItems
+  const maxIndexForPage = minIndexForPage + launchItems.maxPageItems - 1
+
+  if (direction === "next") {
+    const emptyIndexShift = launchItems.allItems
+      .slice(maxIndexForPage + 1)
+      .findIndex(item => item.isEmpty)
+
+    launchItems.removeItem(selectedItem)
+    launchItems.cleanupPage(pageForSelected)
+
+    // If no empty slots, add page and return early
+    if (emptyIndexShift === -1) {
+      launchItems.allItems.push(selectedItem)
+
+      launchItems.loadPage(launchItems.pageCount - 1)
+      return JSON.stringify(launchItems.uiData)
+    }
+
+    // When there are empty slots
+    const newPosition = lastItemOnPage ? emptyIndexShift : maxIndexForPage + emptyIndexShift + 1
+    launchItems.allItems.splice(newPosition, 1, selectedItem)
+
+    launchItems.loadPage(launchItems.pageForIndex(newPosition))
+    return JSON.stringify(launchItems.uiData)
+  } else if (direction === "prev") {
+    const emptyIndexShift = launchItems.allItems
+      .slice(0, minIndexForPage)
+      .reverse()
+      .findIndex((item, index, arr) => item.isEmpty && !arr[index + 1].isEmpty)
+
+    launchItems.removeItem(selectedItem)
+    if (!onLastPage) launchItems.cleanupPage(pageForSelected)
+
+    // If no empty slots, add page before first one, pad it, and return early
+    if (emptyIndexShift === -1) {
+      launchItems.allItems.unshift(selectedItem)
+      launchItems.allItems.splice(1, 0, ...Array(launchItems.maxPageItems - 1).fill(new AppItem({})))
+
+      launchItems.loadPage(0)
+      return JSON.stringify(launchItems.uiData)
+    }
+
+    // When there are empty slots
+    const newPosition = minIndexForPage - emptyIndexShift - 1
+    launchItems.allItems.splice(newPosition, 1, selectedItem)
+
+    launchItems.loadPage(launchItems.pageForIndex(newPosition))
+    return JSON.stringify(launchItems.uiData)
+  } else {
+    throw "Invalid direction"
+  }
+}

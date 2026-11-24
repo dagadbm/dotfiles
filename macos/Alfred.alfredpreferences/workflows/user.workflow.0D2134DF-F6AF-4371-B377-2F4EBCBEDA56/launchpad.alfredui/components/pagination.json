@@ -1,0 +1,9 @@
+{
+  "constraints": { "region": "bottom", "position": "centre" },
+  "id": "pagination",
+  "type": "view",
+  "layout": "inline",
+  "spacing": 16,
+  "padding": 16,
+  "components": []
+}

@@ -1,0 +1,109 @@
+{
+  "sheet": {
+    "id": "newtimerSheet",
+    "root": {
+      "events": [{
+        "triggers": "preload",
+        "action": {
+          "type": "script",
+          "src": "scripts/new-timer",
+          "args": "loadRecent"
+        }
+      }],
+      "shortcuts": [
+        { "shortcut": "↑", "action": { "type": "function", "src": "recentTimers", "args": "selectprevious" } },
+        { "shortcut": "↓", "action": { "type": "function", "src": "recentTimers", "args": "selectnext" } }
+      ],
+      "type": "view",
+      "layout": "flex",
+      "padding": 8,
+      "spacing": 8,
+      "rows": 6,
+      "cols": 1,
+      "components": [
+        {
+          "constraints": { "grid": { "row": 0 } },
+          "id": "newDurationLabel",
+          "type": "label",
+          "text": "00:00:00",
+          "textalign": "centre",
+          "font": { "size": 30, "monospaced": "digits" }
+        },
+        {
+          "constraints": { "grid": { "row": 1 } },
+          "type": "textfield",
+          "placeholder": "Create a timer",
+          "focusring": false,
+          "focus": true,
+          "font": { "size": 20 },
+          "events": [
+            {
+              "triggers": "changed",
+              "action": {
+                "type": "script",
+                "src": "scripts/new-timer",
+                "args": [
+                  "updateSheet",
+                  "{value:recentTimers.selected.uid}",
+                  "{value:self.text}"
+                ]
+              }
+            },
+            {
+              "triggers": "actioned",
+              "action": {
+                "type": "script",
+                "src": "scripts/new-timer",
+                "args": [
+                  "newTimer",
+                  "{value:recentTimers.selected.uid}",
+                  "{value:self.text}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "constraints": { "grid": { "row": 2 } },
+          "type": "label",
+          "text": "Give a name and duration e.g. Stop working 10m",
+          "colour": "tertiaryLabelColor"
+        },
+        "{file:components/recent_timers.json}",
+        {
+          "constraints": { "grid": { "row": 4 } },
+          "id": "newStartButton",
+          "type": "button",
+          "text": "Start",
+          "enabled": false,
+          "shortcut": "↩",
+          "events": [{
+            "triggers": "actioned",
+            "action": {
+              "type": "script",
+              "src": "scripts/new-timer",
+              "args": [
+                "newTimer",
+                "{value:recentTimers.selected.uid}",
+                "{value:newNameTextField.text}"
+              ]
+            }
+          }]
+        },
+        {
+          "constraints": { "grid": { "row": 5 } },
+          "type": "button",
+          "text": "Cancel",
+          "shortcut": "⎋",
+          "events": [{
+            "triggers": "actioned",
+            "action": {
+              "type": "json",
+              "src": { "sheet": { "close": "newtimerSheet" } }
+            }
+          }]
+        }
+      ]
+    }
+  }
+}

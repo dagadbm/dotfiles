@@ -1,0 +1,84 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// Helpers
+function updateSheet(timer, placeholder) {
+  const sheetInfo = {
+    newDurationLabel: { text: Timer.sexagesimal(timer.seconds) },
+    newStartButton: { enabled: timer.seconds > 0 }
+  }
+
+  if (placeholder) sheetInfo.newNameTextField = { placeholder: placeholder }
+
+  return JSON.stringify({ update: { ids: sheetInfo } })
+}
+
+function newTimer(name, seconds) {
+  // Generate new timer with new ID
+  const timer = Timer.fromStrict(name, seconds)
+
+  // Prepend to recent, remove duplicates, and truncate
+  const recent = new Timers("recent")
+  recent.prepend(timer)
+  recent.deduplicate()
+  recent.truncate(parseInt(envVar("max_recent")))
+
+  // Prepend to active and sort
+  const active = new Timers("active")
+  active.prepend(timer)
+  active.sort()
+
+  // Output UI changes
+  return JSON.stringify({
+    sheet: { close: "newtimerSheet" },
+    pulse: { now: true, interval: 1 },
+    variables: {
+      [active.timersVar]: active.timers,
+      [recent.timersVar]: recent.timers
+    }
+  })
+}
+
+// Main
+function run(argv) {
+  const target = argv[0] // "updateSheet", "newTimer", "loadRecent", "renewTimer"
+  const timerUID = argv[1]
+  const rawInput = argv[2]
+
+  const pickedTimer = timerUID?.length > 0 ? new Timers("recent").single(timerUID) : false
+  const parsedTimer = rawInput?.length > 0 ? Timer.fromNatural(rawInput) : false
+
+  // Populating recent timers
+  if (target === "loadRecent") return JSON.stringify({ update: { ids: { recentTimers: { data: { src: new Timers("recent").uiData }}}}})
+
+  // Renewing a timer from recent
+  if (target === "renewTimer") return newTimer(pickedTimer.name, pickedTimer.seconds)
+
+  // Updating values from dataview change or text input
+  if (target === "updateSheet") {
+    // Set placeholder conditionally: Only when not typing into the text field, and always to the selected item (if any)
+    const placeholder = envVar("alfred_ui_source") === "newNameTextField" ? undefined : pickedTimer?.name
+
+    if (parsedTimer) {
+      if (parsedTimer.seconds > 0) return updateSheet(parsedTimer, placeholder)
+      if (pickedTimer) return updateSheet(Timer.fromStrict(parsedTimer.name, pickedTimer.seconds), placeholder)
+      return updateSheet(parsedTimer, placeholder)
+    }
+
+    if (pickedTimer) return updateSheet(pickedTimer, placeholder)
+
+    return updateSheet(Timer.fromStrict("", 0), placeholder)
+  }
+
+  // Starting a timer
+  if (target === "newTimer") {
+    if (parsedTimer) {
+      if (parsedTimer.seconds > 0) return newTimer(parsedTimer.name, parsedTimer.seconds)
+      if (pickedTimer) return newTimer(parsedTimer.name, pickedTimer.seconds)
+    }
+
+    if (pickedTimer) return newTimer(pickedTimer.name, pickedTimer.seconds)
+  }
+}

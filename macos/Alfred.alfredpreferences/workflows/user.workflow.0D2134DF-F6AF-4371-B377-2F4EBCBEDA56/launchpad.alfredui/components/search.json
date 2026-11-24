@@ -1,0 +1,46 @@
+{
+  "constraints": { "region": "top", "position": "centre", "insets": { "top": 16 } },
+  "type": "view",
+  "layout": "border",
+  "padding": 8,
+  "spacing": 8,
+  "background": "#00000033",
+  "cornerradius": 8,
+  "components": [
+    {
+      "constraints": { "region": "centre" },
+      "type": "textfield",
+      "focus": true,
+      "bordered": false,
+      "focusring": false,
+      "background": null,
+      "font": { "size": 16 },
+      "textinsets": { "horizontal": 0, "vertical": 0 },
+      "placeholder": "Search",
+      "placeholdercolour": { "light": "rgb(0, 0, 0, 0.2)", "dark": "rgb(255, 255, 255, 0.2)" },
+      "events": [
+        {
+          "triggers": "changed",
+          "action": { "type": "script", "src": "scripts/filter-items", "args": "{value:self.text}" }
+        },
+        {
+          "triggers": "actioned",
+          "action": { "type": "script", "src": "scripts/open-item" }
+        }
+      ]
+    },
+    {
+      "constraints": { "region": "right" },
+      "type": "button",
+      "shortcut": "⌘?",
+      "bordered": false,
+      "opacity": 0.2,
+      "font": { "size": 16 },
+      "image": { "type": "symbol", "src": "questionmark.circle.fill" },
+      "events": [{
+        "triggers": "actioned",
+        "action": { "type": "json", "src": "components/cheatsheet.json" }
+      }]
+    }
+  ]
+}

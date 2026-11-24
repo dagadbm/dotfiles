@@ -1,0 +1,323 @@
+#!/usr/bin/osascript -l JavaScript
+
+function envVar(varName) {
+  return $.NSProcessInfo
+    .processInfo
+    .environment
+    .objectForKey(varName).js
+}
+
+class LaunchItems {
+  constructor() {
+    this.appDirs = JSON.parse(envVar("app_dirs"))
+    this.pageCols = parseInt(envVar("page_cols"))
+    this.pageRows = parseInt(envVar("page_rows"))
+    this.maxPageItems = this.pageCols * this.pageRows
+    this.isSearching = envVar("is_searching") === "1"
+    this.currPage = parseInt(envVar("curr_page"))
+    this.reloadVisible = false
+    this.rebuildPagination = false
+    this.updateIds = {}
+
+    const visibleItemsSet = new Set(JSON.parse(envVar("visible_items_ids")))
+    this.allItems = JSON.parse(envVar("all_items")).map(item => new AppItem(item))
+    this.visibleItems = this.allItems.filter(item => visibleItemsSet.has(item.id))
+  }
+
+  appendNewApps() {
+    const allApps = this.appDirs.reduce((appPaths, folderString) => {
+      const folderContents = new Set()
+      const folderURL = $.NSURL.fileURLWithPath(folderString)
+      const propertiesKeys = [$.NSURLIsDirectoryKey.js, $.NSURLIsApplicationKey.js]
+
+      // Enumerate directory
+      const directoryEnumerator = $.NSFileManager.defaultManager
+        .enumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler(
+          folderURL,
+          propertiesKeys,
+          $.NSDirectoryEnumerationSkipsHiddenFiles,
+          undefined)
+
+      // Loop through contents
+      while (true) {
+        const fileURL = directoryEnumerator.nextObject
+        if (!fileURL.js) break
+
+        // Properties
+        const fileProperties = fileURL.resourceValuesForKeysError(propertiesKeys, undefined).js
+
+        // Add path if app and do not traverse further
+        if (fileProperties["_NSURLIsApplicationKey"].js) {
+          folderContents.add(fileURL.path.js)
+          directoryEnumerator.skipDescendants
+          continue
+        }
+
+        // Skip if not a folder
+        if (!fileProperties["NSURLIsDirectoryKey"].js) continue
+      }
+
+      return appPaths.union(folderContents)
+    }, new Set())
+
+    const knownApps = new Set(this.allItems.flatMap(item => item.paths)) // Set for faster lookups
+    if (allApps.isSubsetOf(knownApps)) return this.appItems // If no new apps, return early
+
+    const unknownApps = Array.from(allApps.difference(knownApps))
+      .sort((a, b) => $(a).lastPathComponent.js.localeCompare($(b).lastPathComponent.js, undefined, { sensitivity: "base" }))
+
+    this.allItems.push(...unknownApps.map(appPath => AppItem.fromPath(appPath)))
+  }
+
+  filterApps(searchTerm) {
+    // Reset when deleting all text from search field
+    if (searchTerm.length === 0) {
+      this.rebuildPagination = true
+      this.isSearching = false
+      this.loadPage(this.currPage)
+      this.selectItem(this.visibleItems[0])
+      return
+    }
+
+    // Search
+    this.isSearching = true
+    this.reloadVisible = true
+
+    this.visibleItems = this.allItems.reduce((all, curr) => {
+      if (curr.isEmpty) return all
+
+      if (curr.paths.length > 1) {
+        curr.paths.forEach(appPath => {
+          const item = AppItem.fromPath(appPath)
+          if (item.match(searchTerm)) all.push(item)
+        })
+      } else {
+        if (curr.match(searchTerm)) all.push(curr)
+      }
+
+      return all
+    }, []).slice(0, this.maxPageItems) // One page maximum
+
+    this.selectItem(this.visibleItems[0])
+  }
+
+  loadPage(pageIndex) {
+    if (this.isSearching) throw "Cannot navigate pages while searching"
+
+    this.visibleItems = this.allItems
+      .slice(pageIndex * this.maxPageItems, pageIndex * this.maxPageItems + this.maxPageItems)
+      .filter(item => !item.isEmpty)
+
+    if (this.visibleItems.length === 0) throw "Page does not exist"
+
+    this.currPage = pageIndex
+    this.reloadVisible = true
+  }
+
+  findAdjacent(direction) {
+    const selectedItemIndex = this.visibleItems.indexOf(this.selectedItem)
+    const maxPageItemIndex = this.visibleItems.length - 1
+
+    switch (direction) {
+      case "up": return this.visibleItems[Math.max(selectedItemIndex - this.pageCols, 0)]
+      case "down": return this.visibleItems[Math.min(selectedItemIndex + this.pageCols, maxPageItemIndex)]
+      case "left": return this.visibleItems[Math.max(selectedItemIndex - 1, 0)]
+      case "right": return this.visibleItems[Math.min(selectedItemIndex + 1, maxPageItemIndex)]
+    }
+  }
+
+  openItem(item) {
+    if (item.paths.length > 1) throw "Groups not supported yet"
+
+    // Use NSTask to return immediatelly and let main window close
+    const task = $.NSTask.alloc.init
+    task.executableURL = $.NSURL.fileURLWithPath("/usr/bin/open")
+    task.arguments = item.paths
+    task.launchAndReturnError(false)
+  }
+
+  pageForIndex(itemIndex) {
+    return Math.floor(itemIndex / this.maxPageItems)
+  }
+
+  cleanupPage(pageIndex) {
+    const firtsItemIndexInPage = pageIndex * this.maxPageItems
+
+    // Append empty item to end of current page
+    this.allItems.splice(firtsItemIndexInPage + (this.maxPageItems - 1), 0, new AppItem({}))
+
+    // If on last page, pad remaining spots
+    if (pageIndex === this.pageCount - 1) {
+      this.allItems.fill(
+        new AppItem({}),
+        this.allItems.length,
+        this.allItems.length = (Math.ceil(this.allItems.length / this.maxPageItems)) * this.maxPageItems
+      )
+    }
+
+    // If first item is empty, then page is empty, so remove
+    if (this.allItems[firtsItemIndexInPage].isEmpty) this.allItems.splice(firtsItemIndexInPage, this.maxPageItems)
+  }
+
+  removeItem(item) {
+    this.allItems.splice(this.allItems.indexOf(item), 1)
+  }
+
+  deleteItem(item) {
+    if (this.isSearching) throw "Cannot delete items while searching"
+
+    // Needs rebuild in case the number of pagination buttons changes
+    this.rebuildPagination = true
+
+    // Indexes for later checks
+    const visibleItemIndex = this.visibleItems.indexOf(item)
+    const itemPageIndex = this.pageForIndex(this.allItems.indexOf(item))
+
+    // Remove item, cleanup page, and readd item to end (unless it no longer exists on the file system)
+    this.removeItem(item)
+    this.cleanupPage(itemPageIndex)
+    if (item.paths.some(path => $.NSFileManager.defaultManager.fileExistsAtPath(path))) this.allItems.push(item)
+
+    // Rebuild page
+    itemPageIndex === this.pageCount && this.visibleItems.length === 1 ? // If removing last item of last page
+      this.loadPage(itemPageIndex - 1) : // Load previous page index
+      this.loadPage(itemPageIndex)       // Load same page index
+
+    // Select item
+    if (visibleItemIndex === 0) { // If first position, stay in place
+      this.selectItem(this.visibleItems[0])
+    } else if (visibleItemIndex === this.visibleItems.length) { // If last item on page, select previous
+      this.selectItem(this.visibleItems[visibleItemIndex - 1])
+    } else { // Else select next (now current)
+      this.selectItem(this.visibleItems[visibleItemIndex])
+    }
+  }
+
+  selectItem(item) {
+    const selectedItem = this.selectedItem
+
+    if (selectedItem) {
+      selectedItem.selected = false
+      const selectedItemParams = selectedItem.uiData.params
+      this.updateIds[selectedItem.id] = { background: selectedItemParams.background }
+      this.updateIds[`${selectedItem.id}Label`] = { colour: selectedItemParams.colour }
+    }
+
+    item.selected = true
+    const itemParams = item.uiData.params
+    this.updateIds[item.id] = { background: itemParams.background }
+    this.updateIds[`${item.id}Label`] = { colour: itemParams.colour }
+  }
+
+  get selectedItem() {
+    return this.allItems.find(item => item.selected)
+  }
+
+  get pageCount() {
+    return Math.ceil(this.allItems.length / this.maxPageItems)
+  }
+
+  get uiPaginationButtons() {
+    return Array.from({ length: this.pageCount }, (_, index) => ({
+      id: `page${index}`,
+      opacity: this.currPage === index ? 1 : 0.2, // Highlight current page
+      type: "button",
+      bordered: false,
+      font: { size: 8 },
+      image: { type: "symbol", src: "circle.fill" },
+      shortcut: `⌘${index + 1}`,
+      events: [{
+        triggers: "actioned",
+        action: {
+          type: "script",
+          src: "scripts/navigate-page",
+          args: (index - this.currPage).toString()
+        }
+      }]
+    }))
+  }
+
+  get uiData() {
+    const data = {
+      variables: {
+        is_searching: this.isSearching,
+        curr_page: this.currPage,
+        all_items: this.allItems,
+      },
+      update: {
+        relayout: false,
+        ids: {}
+      }
+    }
+
+    const reload = this.reloadVisible || this.rebuildPagination
+
+    if (reload) {
+      data.variables.visible_items_ids = this.visibleItems.map(item => item.id)
+      data.update.ids.itemGrid = { components: this.visibleItems.map(item => item.uiData) }
+    }
+
+    if (this.rebuildPagination) {
+      data.update.relayout = true
+      data.update.ids.pagination = { components: this.uiPaginationButtons }
+    }
+
+    if (this.isSearching) data.update.ids.pagination = { components: [] } // Hide pagination while searching
+
+    Object.assign(data.update.ids, this.updateIds)
+
+    return data
+  }
+}
+
+class AppItem {
+  constructor(item) {
+    Object.assign(this, item)
+  }
+
+  static fromPath(appPath) {
+    return new AppItem({
+      id: appPath,
+      paths: [appPath],
+      name: $(appPath).lastPathComponent.stringByDeletingPathExtension.js,
+      selected: false
+    })
+  }
+
+  expandGroups() {
+    return this.paths.length > 0 ? this.paths.map(appPath => AppItem.fromPath(appPath)) : [this]
+  }
+
+  match(searchTerm) {
+    const rawAppName = this.name // Example: "AirPort Utility"
+    const splitAppName = rawAppName.split(/(?=[A-Z])| /).map(a => a.toLowerCase()) // Example: ["air", "port", "utility"]
+    const initialsAppName = splitAppName.map(a => a[0]).join("") // Example: "apu"
+    const appNames = [rawAppName.toLowerCase()].concat(splitAppName, initialsAppName)
+    return appNames.some(appName => appName.startsWith(searchTerm))
+  }
+
+  get isEmpty() {
+    return Object.keys(this).length === 0
+  }
+
+  get uiData() {
+    if (this.isEmpty) return null // Empty object is an empty item
+
+    return {
+      type: "template",
+      src: "appItem",
+      params: {
+        id: this.id,
+        background: this.selected ? "alfredSelectedResultBackgroundColor" : null, // Highlight current item
+        image: this.paths[0],
+        labelID: `${this.id}Label`,
+        colour: this.selected ? "alfredSelectedResultTextColor" : "labelColor",
+        text: this.name
+      }
+    }
+  }
+}
+
+// Expose to global scope when imported from other files
+this.LaunchItems = LaunchItems
+this.AppItem = AppItem
