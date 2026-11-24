@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# settings-lookup <source>, run async: lists a Claude marketplace's plugins to
+# pick with a double-click; anything else is a single row
+source "$(dirname "$0")/sources.sh"
+_parse "$1"
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+
+_say() {
+  printf note >"$data/pane"
+  _pane "$(_pane_note "$1")"
+}
+
+if [[ -z "$repo" || "$repo" != */* ]]; then
+  printf '[]' >"$data/found.json"
+  _say "Not a GitHub repo: \`$1\`"
+  exit
+fi
+if ! _clone "https://github.com/$repo.git" "$tmp/repo" "$ref" 2>/dev/null; then
+  printf '[]' >"$data/found.json"
+  _say "Could not get \`$repo\`${ref:+ at \`$ref\`}: no such public GitHub repo or branch."
+  exit
+fi
+marketplace="$tmp/repo/.claude-plugin/marketplace.json"
+if [[ -z "$plugin$path$pattern" && -f "$marketplace" ]]; then
+  jq --arg repo "$repo" '[.plugins[] | {line: "\($repo) \(.name)", name: .name, description: (.description // "")}]' \
+    "$marketplace" >"$tmp/rows.json"
+else
+  # the line as typed, a repo of skills or a folder of Markdown files
+  jq -n --arg line "$1" --arg name "${path:-$repo}" '[{line: $line, name: $name, description: "Double-click to add or remove"}]' \
+    >"$tmp/rows.json"
+fi
+cp "$tmp/rows.json" "$data/found.json"
+scripts/settings-toggle

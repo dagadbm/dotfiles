@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# The prompt sources, one per line (# starts a comment, the forms are in
+# scripts/sources.sh): prompts_test_sources (the settings' test), else the
+# ones saved from the ⌘⇧. settings, else the workflow configuration's Plugins
+# field, else these defaults
+source "$(dirname "$0")/sources.sh"
+
+if [[ -n "${prompts_test_sources:-}" ]]; then
+  printf '%s\n' "$prompts_test_sources"
+elif [[ -s "$data/plugins" ]]; then
+  cat "$data/plugins"
+elif [[ -n "${prompts_plugins:-}" ]]; then
+  printf '%s\n' "$prompts_plugins"
+else
+  cat <<'DEFAULTS'
+anthropics/claude-plugins-official mattpocock-skills
+anthropics/claude-plugins-official superpowers
+addyosmani/agent-skills agent-skills
+forrestchang/andrej-karpathy-skills
+anthropics/skills example-skills
+anthropics/skills document-skills
+vercel-labs/agent-skills
+DEFAULTS
+fi

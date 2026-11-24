@@ -1,0 +1,42 @@
+[
+  {
+    "description.text": "Build or change an Alfred workflow or Alfred UI: look every key up in the Alfred docs, never invent values, keep UI sizes multiples of 8",
+    "name.text": "alfred-workflows",
+    "uid": "custom--alfred-workflows"
+  },
+  {
+    "description.text": "Research a company to prepare for a software engineering interview",
+    "name.text": "company-research",
+    "uid": "custom--company-research"
+  },
+  {
+    "description.text": "Ask for a deeper version of a task, not a bigger one (felixrieseberg.com/how-to-be-more-ambitious)",
+    "name.text": "deeper",
+    "uid": "custom--deeper"
+  },
+  {
+    "description.text": "Fill-in template: task, definition of done, main goal, do and never",
+    "name.text": "generic-task",
+    "uid": "custom--generic-task"
+  },
+  {
+    "description.text": "Act as a technical interviewer guiding a LeetCode-style problem",
+    "name.text": "leetcode-help",
+    "uid": "custom--leetcode-help"
+  },
+  {
+    "description.text": "Plan a linear walkthrough explaining how the code works (simonwillison.net agentic engineering patterns)",
+    "name.text": "linear-walkthrough",
+    "uid": "custom--linear-walkthrough"
+  },
+  {
+    "description.text": "Interact with the user's running Neovim instance via RPC. Use this skill when you need to execute Lua or Vimscript inside Neovim, query buffer state, send commands, or interact with the Neovim runtime in any way. Triggers when the user asks about their current Neovim session, wants to run something inside Neovim, or when you need to inspect Neovim state (buffers, windows, options, LSP, etc.). Also use when running inside a Neovim terminal and needing to communicate with the parent editor.",
+    "name.text": "nvim",
+    "uid": "custom--nvim"
+  },
+  {
+    "description.text": "Plan back and forth: open questions and outline before writing the plan",
+    "name.text": "plan-magic-words",
+    "uid": "custom--plan-magic-words"
+  }
+]

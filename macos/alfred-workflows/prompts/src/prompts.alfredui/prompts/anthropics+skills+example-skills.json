@@ -1,0 +1,62 @@
+[
+  {
+    "description.text": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
+    "name.text": "algorithmic-art",
+    "uid": "anthropics+skills+example-skills--algorithmic-art"
+  },
+  {
+    "description.text": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+    "name.text": "brand-guidelines",
+    "uid": "anthropics+skills+example-skills--brand-guidelines"
+  },
+  {
+    "description.text": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
+    "name.text": "canvas-design",
+    "uid": "anthropics+skills+example-skills--canvas-design"
+  },
+  {
+    "description.text": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
+    "name.text": "doc-coauthoring",
+    "uid": "anthropics+skills+example-skills--doc-coauthoring"
+  },
+  {
+    "description.text": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+    "name.text": "frontend-design",
+    "uid": "anthropics+skills+example-skills--frontend-design"
+  },
+  {
+    "description.text": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).",
+    "name.text": "internal-comms",
+    "uid": "anthropics+skills+example-skills--internal-comms"
+  },
+  {
+    "description.text": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
+    "name.text": "mcp-builder",
+    "uid": "anthropics+skills+example-skills--mcp-builder"
+  },
+  {
+    "description.text": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+    "name.text": "skill-creator",
+    "uid": "anthropics+skills+example-skills--skill-creator"
+  },
+  {
+    "description.text": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a GIF of X doing Y for Slack.",
+    "name.text": "slack-gif-creator",
+    "uid": "anthropics+skills+example-skills--slack-gif-creator"
+  },
+  {
+    "description.text": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+    "name.text": "theme-factory",
+    "uid": "anthropics+skills+example-skills--theme-factory"
+  },
+  {
+    "description.text": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+    "name.text": "web-artifacts-builder",
+    "uid": "anthropics+skills+example-skills--web-artifacts-builder"
+  },
+  {
+    "description.text": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+    "name.text": "webapp-testing",
+    "uid": "anthropics+skills+example-skills--webapp-testing"
+  }
+]

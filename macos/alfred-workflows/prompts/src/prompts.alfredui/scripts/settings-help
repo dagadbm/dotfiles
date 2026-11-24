@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# ⌘⇧h in the settings sheet: swaps the right pane between the help and the
+# looked-up plugins
+source "$(dirname "$0")/sources.sh"
+if [[ "$(cat "$data/pane" 2>/dev/null)" == help ]]; then
+  printf list >"$data/pane"
+  _pane "$(_pane_list)"
+else
+  printf help >"$data/pane"
+  _pane "$(_pane_note "$(cat scripts/settings.md)")"
+fi

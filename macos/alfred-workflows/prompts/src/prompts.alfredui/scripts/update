@@ -1,0 +1,229 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Builds prompts.json and prompts/ from prompt files in GitHub repos and the
+# custom prompts, run from the .alfredui root (Alfred UI's working directory).
+# Settings come from the workflow configuration (environment variables), else
+# the defaults below:
+# - prompts_plugins: sources, one per line (scripts/plugins picks them, the
+#   forms are in scripts/sources.sh), each one or more collections
+#   A prompt's name and description come from its frontmatter, else its file
+#   name (its folder's when several files share it, e.g. SKILL.md) and first
+#   line of text
+# - prompts_custom_dir: folder of hand-written prompts (frontmatter name and
+#   description, then the body), none by default
+# - prompts_custom_name, prompts_custom_description: that collection's label
+# - prompts_out: folder to write to, the .alfredui root by default
+
+cd "$(dirname "$0")/.."
+source scripts/sources.sh
+out="${prompts_out:-.}"
+custom_dir="${prompts_custom_dir:-}"
+custom_dir="${custom_dir/#\~/$HOME}"
+custom_name="${prompts_custom_name:-Custom}"
+custom_description="${prompts_custom_description:-My own prompts}"
+
+
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+
+# frontmatter field of a SKILL.md, surrounding quotes removed, a multi-line
+# value joined into one
+_field() {
+  awk -v key="$1" '
+    NR == 1 && $0 == "---" { fm = 1; next }
+    fm && $0 == "---" { exit }
+    # a value on following indented lines (YAML block or folded), joined
+    found && /^[ \t]/ { sub(/^[ \t]+/, ""); value = value (value == "" ? "" : " ") $0; next }
+    found { exit }
+    fm && index($0, key ":") == 1 {
+      value = $0; sub("^" key ":[ \t]*", "", value); sub(/^[>|][-+]?$/, "", value); found = 1
+    }
+    END { gsub(/^["'\'']|["'\'']$/, "", value); print value }
+  ' "$2"
+}
+
+rm -rf "$out/prompts"
+mkdir -p "$out/prompts"
+collections="$tmp/collections.jsonl"
+: >"$collections"
+
+# file without frontmatter or leading blank lines
+_body() {
+  awk 'NR == 1 && $0 == "---" { fm = 1; next } fm && $0 == "---" { fm = 0; next } !fm && (body || NF) { body = 1; print }' "$1"
+}
+
+# _readme <dir>: first line of text of its README, a collection's description
+_readme() {
+  if [[ -f "$1/README.md" ]]; then
+    awk '{ line = $0; sub(/^[ \t]+/, "", line) } line != "" && line !~ /^[#\[!<>`|-]/ { print line; exit }' "$1/README.md"
+  fi
+}
+
+# _collection <name> <description> [label], prompt files (frontmatter name and
+# description, then the body) on stdin: writes prompts/<name>.json, a
+# prompts/<name>--<prompt>.md per prompt and the collection's entry
+_collection() {
+  local items="$tmp/$1.jsonl" file name uid
+  : >"$items"
+  local files base description
+  files="$(cat)"
+  while read -r file; do
+    [[ -n "$file" ]] || continue
+    name="$(_field name "$file")"
+    if [[ -z "$name" ]]; then
+      base="$(basename "$file")"
+      base="${base%.*}"
+      # a name shared with other files is the folder's job, as in SKILL.md
+      if (($(grep -c "/$base\.[^/]*$" <<<"$files") > 1)); then
+        base="$(basename "$(dirname "$file")")"
+      fi
+      name="$base"
+    fi
+    description="$(_field description "$file")"
+    if [[ -z "$description" ]]; then
+      # first line of text after the frontmatter
+      description="$(awk 'NR == 1 && $0 == "---" { fm = 1; next } fm && $0 == "---" { fm = 0; next }
+        !fm && NF && !/^[#\[!<>`|-]/ { print; exit }' "$file")"
+    fi
+    uid="$1--$name"
+    _body "$file" >"$out/prompts/$uid.md"
+    jq -nc --arg uid "$uid" --arg name "$name" --arg description "$description" \
+      '{uid: $uid, "name.text": $name, "description.text": $description}' \
+      >>"$items"
+  done <<<"$files"
+  jq -s 'sort_by(."name.text")' "$items" >"$out/prompts/$1.json"
+  jq -nc --arg name "$1" --arg description "$2" --arg label "${3:-$1}" \
+    '{uid: "plugin:\($name)", "name.text": $label, "description.text": $description}' \
+    >>"$collections"
+}
+
+# _market <repo> [ref]: its clone, made once per repo and ref
+_market() {
+  local dir="$tmp/market/$1${2:+@$2}"
+  if [[ ! -d "$dir" ]]; then
+    _clone "https://github.com/$1.git" "$dir" "${2:-}"
+  fi
+  echo "$dir"
+}
+
+# _files <repo> <ref> <path> <pattern>: its Markdown files as a collection
+_files() {
+  local market dir files name description
+  market="$(_market "$1" "$2")"
+  dir="$market${3:+/$3}"
+  if [[ -n "$4" ]]; then
+    files="$(find "$dir" -path "$dir/$4" -type f | sort)"
+  else
+    files="$(find "$dir" \( -name .git -o -name .github -o -name node_modules \) -prune -o \
+      \( -name '*.md' -o -name '*.mdc' \) -type f \
+      ! -iname 'readme.md' ! -iname 'license.md' ! -iname 'changelog.md' \
+      ! -iname 'contributing.md' ! -iname 'code_of_conduct.md' ! -iname 'security.md' \
+      -print | sort)"
+  fi
+  name="$(basename "${3:-$1}")"
+  description="$(_readme "$dir")"
+  [[ -n "$description" ]] || description="$(_readme "$market")"
+  _collection "${1//\//+}+${3//\//+}${4:++pattern}" "$description" "$name ($1)" <<<"$files"
+}
+
+# _plugin <repo> <plugin>: a marketplace plugin's skills (or, when the repo
+# is no marketplace, its skills/<name>/SKILL.md) as a collection
+_plugin() {
+  local repo="$1" plugin="$2" market meta source description dir manifest paths skills
+  market="$(_market "$repo")"
+  if [[ -f "$market/.claude-plugin/marketplace.json" ]]; then
+    meta="$(jq -c --arg p "$plugin" '.plugins[] | select(.name == $p)' \
+      "$market/.claude-plugin/marketplace.json")"
+  else
+    meta='{"source": "./"}'
+  fi
+  source="$(jq -c '.source // empty' <<<"${meta:-null}")"
+  description="$(jq -r '.description // ""' <<<"${meta:-null}")"
+  # no marketplace description: the README's first paragraph line
+  if [[ -z "$description" ]]; then
+    description="$(_readme "$market")"
+  fi
+  if [[ -z "$source" ]]; then
+    echo "plugin $plugin not found in $repo" >&2
+    exit 1
+  fi
+
+  # marketplace plugin sources: "./path", {source: url|github|git-subdir, ...}
+  dir="$tmp/plugin/$plugin"
+  case "$(jq -r 'if type == "string" then "path" else .source end' <<<"$source")" in
+    path) dir="$market/$(jq -r . <<<"$source")" ;;
+    url | git-subdir)
+      _clone "$(jq -r .url <<<"$source")" "$dir" \
+        "$(jq -r '.ref // empty' <<<"$source")" "$(jq -r '.sha // empty' <<<"$source")"
+      dir="$dir/$(jq -r '.path // "."' <<<"$source")"
+      ;;
+    github)
+      _clone "https://github.com/$(jq -r .repo <<<"$source").git" "$dir" \
+        "$(jq -r '.ref // empty' <<<"$source")" "$(jq -r '.sha // empty' <<<"$source")"
+      ;;
+    *)
+      echo "unsupported source for $plugin: $source" >&2
+      exit 1
+      ;;
+  esac
+
+  # skills listed in the marketplace entry, else plugin.json, else the default
+  # skills/<name>/
+  manifest="$dir/.claude-plugin/plugin.json"
+  # (a string or an array; each path is a skill or a folder of skills)
+  # marketplace entry's skills win, as several plugins can share one source
+  if jq -e '.skills' <<<"$meta" >/dev/null; then
+    paths="$(jq -r '.skills | if type == "string" then . else .[] end' <<<"$meta")"
+  elif [[ -f "$manifest" ]] && jq -e '.skills' "$manifest" >/dev/null; then
+    paths="$(jq -r '.skills | if type == "string" then . else .[] end' "$manifest")"
+  else
+    paths=skills
+  fi
+  skills="$(while read -r path; do
+    if [[ -f "$dir/$path/SKILL.md" ]]; then
+      echo "$dir/$path/SKILL.md"
+    else
+      find "$dir/$path" -mindepth 2 -maxdepth 2 -name SKILL.md
+    fi
+  done <<<"$paths" | sort)"
+
+  # ids unique across repos: two repos can have a plugin of the same name
+  _collection "${repo//\//+}+$plugin" "$description" "$plugin ($repo)" <<<"$skills"
+}
+
+while read -r line <&3; do
+  _parse "$line"
+  [[ -n "$repo" ]] || continue
+  if [[ -n "$plugin" ]]; then
+    _plugin "$repo" "$plugin"
+  elif [[ -n "$path$pattern" ]]; then
+    _files "$repo" "$ref" "$path" "$pattern"
+  else
+    market="$(_market "$repo" "$ref")"
+    if [[ -f "$market/.claude-plugin/marketplace.json" ]]; then
+      for plugin in $(jq -r '.plugins[].name' "$market/.claude-plugin/marketplace.json"); do
+        _plugin "$repo" "$plugin"
+      done
+    else
+      _plugin "$repo" "$(basename "$repo")"
+    fi
+  fi
+done 3< <(scripts/plugins)
+
+# hand-written prompts, listed last
+custom="$([[ -n "$custom_dir" ]] && find "$custom_dir" \( -name '*.md' -o -name '*.mdc' \) 2>/dev/null | sort || true)"
+if [[ -n "$custom" ]]; then
+  _collection custom "$custom_description" "$custom_name" <<<"$custom"
+fi
+
+jq -s . "$collections" >"$out/prompts.json"
+
+# all.json, searched from the plugin list: the plugins, then every prompt with
+# its plugin's name in the description
+jq -n --slurpfile plugins "$out/prompts.json" '$plugins[0]' >"$tmp/all.json"
+while read -r uid label; do
+  jq --arg label "$label" '[.[] | ."description.text" = "\($label) · \(."description.text")"]' \
+    "$out/prompts/${uid#plugin:}.json"
+done < <(jq -r '.[] | "\(.uid) \(."name.text")"' "$out/prompts.json") \
+  | jq -s --slurpfile all "$tmp/all.json" '$all[0] + add' >"$out/all.json"

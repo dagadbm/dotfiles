@@ -1,0 +1,33 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Shared by the scripts. Files written by scripts/alfred-workflows-update.sh:
+// prompts.json lists the plugins, prompts/<plugin>.json its prompts and
+// prompts/<plugin>--<prompt>.md each prompt
+function read(path) {
+  return $.NSString.stringWithContentsOfFileEncodingError(path, $.NSUTF8StringEncoding, undefined).js
+}
+
+// Update for the preview pane: a plugin's description and its prompts, or a
+// prompt's description and the text that ↩ copies
+function preview(uid) {
+  if (!uid) return { preview: { text: "" } }
+  const plugin = uid.startsWith("plugin:")
+  const list = JSON.parse(read(plugin ? "./prompts.json" : `./prompts/${uid.split("--")[0]}.json`))
+  const item = list.find(item => item.uid === uid) || {}
+  const body = plugin ?
+    JSON.parse(read(`./prompts/${uid.slice("plugin:".length)}.json`)).map(p => `- **${p["name.text"]}**`).join("\n") :
+    read(`./prompts/${uid}.md`)
+  const text = `### ${item["name.text"]}\n\n${item["description.text"]}\n\n---\n\n${body}`
+  return { preview: { text, behaviour: { mode: "replace", scroll: "start" } } }
+}
+
+// Show the list at path, with an empty search and its first row previewed;
+// remembers it for scripts/search (plugins, or a plugin)
+function show(path) {
+  const data = `${$.NSProcessInfo.processInfo.environment.objectForKey("HOME").js}/Library/Application Support/Alfred/Workflow Data/com.dagadbm.prompts`
+  $.NSFileManager.defaultManager.createDirectoryAtPathWithIntermediateDirectoriesAttributesError(data, true, $(), $())
+  $(path === "./prompts.json" ? "plugins" : "plugin").writeToFileAtomicallyEncodingError(`${data}/list`, true, $.NSUTF8StringEncoding, $())
+  const src = JSON.parse(read(path))
+  const ids = { search: { text: "" }, list: { data: { src } }, ...preview(src.length ? src[0].uid : "") }
+  return JSON.stringify({ update: { ids } })
+}

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# settings-save <sources>: saves them where scripts/plugins reads them, and
+# closes the settings sheet
+source "$(dirname "$0")/sources.sh"
+mkdir -p "$data"
+printf '%s\n' "$1" >"$data/plugins"
+jq -nc '{sheet: {close: "settings"}}'

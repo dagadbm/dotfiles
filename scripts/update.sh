@@ -15,5 +15,6 @@ mise run --jobs 100 \
   ::: herdr:update \
   ::: nvim:update \
   ::: claude:update \
+  ::: alfred-workflows:update \
   ::: macos:update \
   ::: tailscale:update

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>prompts_custom_dir</key>
+	<string>/Users/dagadbm/dotfiles/macos/alfred-workflows/prompts/custom</string>
+	<key>prompts_custom_name</key>
+	<string>dagadbm</string>
+	<key>prompts_plugins</key>
+	<string>anthropics/claude-plugins-official mattpocock-skills
+anthropics/claude-plugins-official superpowers
+addyosmani/agent-skills agent-skills
+forrestchang/andrej-karpathy-skills
+anthropics/skills example-skills
+anthropics/skills document-skills
+vercel-labs/agent-skills
+t3dotgg/tstack
+anthropics/skills claude-api
+anthropics/skills academy-guide
+anthropics/skills discernment-nudge</string>
+</dict>
+</plist>

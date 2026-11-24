@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# settings-test <sources>, run async: builds each source line on its own into
+# a scratch folder and reports its collections or its error
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+report=""
+while read -r line; do
+  [[ -n "$(sed 's/#.*//; s/[[:space:]]//g' <<<"$line")" ]] || continue
+  if error="$(prompts_test_sources="$line" prompts_out="$tmp" scripts/update 2>&1 >/dev/null)"; then
+    report+="$(jq -r '.[] | "- ✅ **\(."name.text")**: \(."description.text")"' "$tmp/prompts.json")"$'\n'
+    report+="$(for f in "$tmp"/prompts/*.json; do
+      jq -r '"  \(length) prompts: " + ([.[0:5][] | "`" + ."name.text" + "`"] | join(", "))' "$f"
+    done)"$'\n'
+  else
+    report+="- ❌ \`$line\`: $(tail -1 <<<"$error")"$'\n'
+  fi
+  find "$tmp" -mindepth 1 -delete
+done <<<"$1"
+printf note >"$data/pane"
+_pane "$(_pane_note "### Test"$'\n\n'"${report:-Nothing to test.}")"

@@ -1,0 +1,132 @@
+[
+  {
+    "description.text": "Audits existing interfaces for WCAG 2.2 AA conformance and remediates the violations found. Use when auditing a page or component for accessibility, running axe-core or pa11y, triaging a11y violations, or checking screen reader and contrast issues before shipping.",
+    "name.text": "accessibility-engineering",
+    "uid": "addyosmani+agent-skills+agent-skills--accessibility-engineering"
+  },
+  {
+    "description.text": "Guides stable API and interface design. Use when designing APIs, module boundaries, or any public interface. Use when creating REST or GraphQL endpoints, defining type contracts between modules, or establishing boundaries between frontend and backend.",
+    "name.text": "api-and-interface-design",
+    "uid": "addyosmani+agent-skills+agent-skills--api-and-interface-design"
+  },
+  {
+    "description.text": "Tests in real browsers via Chrome DevTools MCP. Use when building or debugging anything that runs in a browser. Use when you need to inspect the DOM, capture console errors, analyze network requests, profile performance, or verify visual output with real runtime data. Requires the chrome-devtools MCP server to be configured.",
+    "name.text": "browser-testing-with-devtools",
+    "uid": "addyosmani+agent-skills+agent-skills--browser-testing-with-devtools"
+  },
+  {
+    "description.text": "Automates CI/CD pipeline setup. Use when setting up or modifying build and deployment pipelines. Use when you need to automate quality gates, configure test runners in CI, or establish deployment strategies.",
+    "name.text": "ci-cd-and-automation",
+    "uid": "addyosmani+agent-skills+agent-skills--ci-cd-and-automation"
+  },
+  {
+    "description.text": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch. Use when asked to review a diff or a pull request, even when the diff is pasted inline and the review looks quick to do from reading it.",
+    "name.text": "code-review-and-quality",
+    "uid": "addyosmani+agent-skills+agent-skills--code-review-and-quality"
+  },
+  {
+    "description.text": "Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. Use when asked to simplify, clean up, or reduce the nesting of a function or module that already works, even when the code is pasted inline and nothing else needs to change.",
+    "name.text": "code-simplification",
+    "uid": "addyosmani+agent-skills+agent-skills--code-simplification"
+  },
+  {
+    "description.text": "Establishes a project's quality bar as a written contract and stops agents quietly lowering it. Interviews the user on which dimensions matter, supplies sane default thresholds when they have no number in mind, records everything in CONSTRAINTS.md, and watches the diff for a weakened bar — new @ts-ignore or eslint-disable suppressions, skipped or deleted tests, assertions stripped out, unimplemented stubs, thresholds edited down. Use when no quality bar is written down, when the user says \"set up constraints\" or \"define our standards\", when the user wants dimensions they care about — accessibility, web performance, coverage — set up as enforced constraints, when an agent keeps silencing checks or skipping tests to get to green, when you need a coverage or performance threshold and don't know what number to pick, or when an agent writes more code than anyone will read.",
+    "name.text": "constraint-driven-development",
+    "uid": "addyosmani+agent-skills+agent-skills--constraint-driven-development"
+  },
+  {
+    "description.text": "Optimizes agent context setup. Use when starting a new session, when agent output quality degrades, when switching between tasks, or when you need to configure rules files and context for a project.",
+    "name.text": "context-engineering",
+    "uid": "addyosmani+agent-skills+agent-skills--context-engineering"
+  },
+  {
+    "description.text": "Guides systematic root-cause debugging. Use when tests fail, builds break, something that worked yesterday broke, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need to figure out what broke and why — a systematic approach to finding and fixing the root cause rather than guessing. Use when asked what broke, why a test started failing, or why code throws, even when the diff, the function, or the stack trace is pasted inline and the cause looks obvious from reading it, so that the cause is named, the fix is minimal, and the reply says how to confirm it.",
+    "name.text": "debugging-and-error-recovery",
+    "uid": "addyosmani+agent-skills+agent-skills--debugging-and-error-recovery"
+  },
+  {
+    "description.text": "Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when migrating a database schema in production, such as renaming or dropping a column without downtime (expand/contract). Use when deciding whether to maintain or sunset existing code.",
+    "name.text": "deprecation-and-migration",
+    "uid": "addyosmani+agent-skills+agent-skills--deprecation-and-migration"
+  },
+  {
+    "description.text": "Records decisions and documentation, and detects when documentation has drifted from the code it describes. Use when you need to document an architecture decision (ADR) or the reasoning behind a design choice, when changing public APIs, shipping features, when docs may be stale or out of sync with the code they describe, when working out which module docs are still accurate, or when setting up a check so docs cannot silently go out of date again.",
+    "name.text": "documentation-and-adrs",
+    "uid": "addyosmani+agent-skills+agent-skills--documentation-and-adrs"
+  },
+  {
+    "description.text": "Subjects every non-trivial decision to a fresh-context adversarial review before it stands. Use when you want every assumption cross-examined before proceeding, when stress-testing a plan for hidden failure modes, when correctness matters more than speed, when working in unfamiliar code, when stakes are high (production auth, security-sensitive logic, a high-stakes migration, irreversible operations), or any time a confident output would be cheaper to verify now than to debug later.",
+    "name.text": "doubt-driven-development",
+    "uid": "addyosmani+agent-skills+agent-skills--doubt-driven-development"
+  },
+  {
+    "description.text": "Builds production-quality, accessible, responsive user-facing UIs. Use when building or modifying interfaces and pages, creating components, implementing layouts, meeting WCAG accessibility requirements, managing state, or when the output needs to look and feel production-quality rather than AI-generated.",
+    "name.text": "frontend-ui-engineering",
+    "uid": "addyosmani+agent-skills+agent-skills--frontend-ui-engineering"
+  },
+  {
+    "description.text": "Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, splitting uncommitted work in a messy working tree into clean atomic commits, opening or reviewing a pull request (PR), pushing to a remote, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. Use when asked to write a commit message or a changelog entry for a change, or to split a change into commits, even when the diff is pasted inline and the message seems easy to write from it.",
+    "name.text": "git-workflow-and-versioning",
+    "uid": "addyosmani+agent-skills+agent-skills--git-workflow-and-versioning"
+  },
+  {
+    "description.text": "Refines raw ideas into sharp, actionable concepts through structured divergent and convergent thinking. Use when an idea is still vague, when you need to stress-test assumptions before committing to a plan, or when you want to expand options before converging on one. Triggers on \"ideate\", \"refine this idea\", or \"stress-test my plan\".",
+    "name.text": "idea-refine",
+    "uid": "addyosmani+agent-skills+agent-skills--idea-refine"
+  },
+  {
+    "description.text": "Delivers changes incrementally in thin, verifiable slices. Use when implementing any feature or change that touches more than one file, or when picking up the next task from a plan. Use when rolling a change out behind a feature flag, when you're about to write a large amount of code at once, or when a task feels too big to land in one step.",
+    "name.text": "incremental-implementation",
+    "uid": "addyosmani+agent-skills+agent-skills--incremental-implementation"
+  },
+  {
+    "description.text": "Extracts what the user actually wants instead of what they think they should want. Achieves this through one-question-at-a-time interview until ~95% confidence about the underlying intent. Use when an ask is underspecified (\"build me X\" without \"for whom\" or \"why now\"), when the user explicitly invokes (\"interview me\", \"grill me\", \"are we sure?\", \"stress-test my thinking\"), or when you catch yourself silently filling in ambiguous requirements before any plan, spec, or code exists.",
+    "name.text": "interview-me",
+    "uid": "addyosmani+agent-skills+agent-skills--interview-me"
+  },
+  {
+    "description.text": "Instruments code so production behavior is visible and diagnosable. Use when adding logging, metrics, tracing, or alerting. Use when shipping any feature that runs in production and you need evidence it works. Use when production issues are reported but you can't tell what happened from the available data.",
+    "name.text": "observability-and-instrumentation",
+    "uid": "addyosmani+agent-skills+agent-skills--observability-and-instrumentation"
+  },
+  {
+    "description.text": "Optimizes application performance across frontend, backend, queries, and databases. Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or when profiling reveals bottlenecks.",
+    "name.text": "performance-optimization",
+    "uid": "addyosmani+agent-skills+agent-skills--performance-optimization"
+  },
+  {
+    "description.text": "Breaks work into ordered tasks. Use when you have a spec or clear requirements and need to break work into implementable tasks. Use when a task feels too large to start, when you need to estimate scope, or when parallel work is possible.",
+    "name.text": "planning-and-task-breakdown",
+    "uid": "addyosmani+agent-skills+agent-skills--planning-and-task-breakdown"
+  },
+  {
+    "description.text": "Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions or session cookies, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved.",
+    "name.text": "security-and-hardening",
+    "uid": "addyosmani+agent-skills+agent-skills--security-and-hardening"
+  },
+  {
+    "description.text": "Prepares production launches. Use when preparing to deploy to production, or when asking what needs to be in place before shipping. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a rollback strategy.",
+    "name.text": "shipping-and-launch",
+    "uid": "addyosmani+agent-skills+agent-skills--shipping-and-launch"
+  },
+  {
+    "description.text": "Grounds every implementation decision in official documentation. Use when you want to verify an approach against the official docs before implementing it, or when you want authoritative, source-cited code free from outdated patterns. Use when building with any framework or library where correctness matters.",
+    "name.text": "source-driven-development",
+    "uid": "addyosmani+agent-skills+agent-skills--source-driven-development"
+  },
+  {
+    "description.text": "Creates specs before coding. Use when starting a new project, feature, or significant change and no specification exists yet. Use when drafting a PRD or requirements document with objectives and scope, or when requirements are unclear, ambiguous, or only exist as a vague idea. Use when a single requirement spans several independently testable capabilities and needs decomposing into a capability map of modules before specifying. Use when evolving a shipped spec — scoping a V1, deferring ideas to a V2 backlog, or writing a follow-up spec for a change to an existing feature.",
+    "name.text": "spec-driven-development",
+    "uid": "addyosmani+agent-skills+agent-skills--spec-driven-development"
+  },
+  {
+    "description.text": "Drives development with tests using the red-green-refactor loop. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing functionality. Use when asked to add tests to a function, fix a bug in it or change its behavior, even when the code is pasted inline, the request does not mention tests and the answer looks obvious from reading it. The skill writes the failing test first and changes the function second, never the change alone.",
+    "name.text": "test-driven-development",
+    "uid": "addyosmani+agent-skills+agent-skills--test-driven-development"
+  },
+  {
+    "description.text": "Discovers and invokes agent skills. Use when starting a session, or when you need to decide which skill or workflow applies to the piece of work at hand. This is the meta-skill that governs how all other skills are discovered and invoked.",
+    "name.text": "using-agent-skills",
+    "uid": "addyosmani+agent-skills+agent-skills--using-agent-skills"
+  }
+]

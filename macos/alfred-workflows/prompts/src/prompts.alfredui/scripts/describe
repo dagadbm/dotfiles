@@ -1,0 +1,9 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// describe <uid>: show the selected row in the preview pane
+function run(argv) {
+  return JSON.stringify({ update: { ids: preview(argv[0]) } })
+}

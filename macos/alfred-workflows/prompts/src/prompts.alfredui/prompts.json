@@ -1,0 +1,62 @@
+[
+  {
+    "description.text": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
+    "name.text": "mattpocock-skills (anthropics/claude-plugins-official)",
+    "uid": "plugin:anthropics+claude-plugins-official+mattpocock-skills"
+  },
+  {
+    "description.text": "Superpowers teaches Claude brainstorming, subagent driven development with built in code review, systematic debugging, and red/green TDD. Additionally, it teaches Claude how to author and test new skills.",
+    "name.text": "superpowers (anthropics/claude-plugins-official)",
+    "uid": "plugin:anthropics+claude-plugins-official+superpowers"
+  },
+  {
+    "description.text": "Production-grade engineering skills covering every phase of software development: spec, plan, build, verify, review, and ship.",
+    "name.text": "agent-skills (addyosmani/agent-skills)",
+    "uid": "plugin:addyosmani+agent-skills+agent-skills"
+  },
+  {
+    "description.text": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
+    "name.text": "andrej-karpathy-skills (forrestchang/andrej-karpathy-skills)",
+    "uid": "plugin:forrestchang+andrej-karpathy-skills+andrej-karpathy-skills"
+  },
+  {
+    "description.text": "Collection of example skills demonstrating various capabilities including skill creation, MCP building, visual design, algorithmic art, internal communications, web testing, artifact building, Slack GIFs, and theme styling",
+    "name.text": "example-skills (anthropics/skills)",
+    "uid": "plugin:anthropics+skills+example-skills"
+  },
+  {
+    "description.text": "Collection of document processing suite including Excel, Word, PowerPoint, and PDF capabilities",
+    "name.text": "document-skills (anthropics/skills)",
+    "uid": "plugin:anthropics+skills+document-skills"
+  },
+  {
+    "description.text": "A collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities.",
+    "name.text": "agent-skills (vercel-labs/agent-skills)",
+    "uid": "plugin:vercel-labs+agent-skills+agent-skills"
+  },
+  {
+    "description.text": "The agent skills I use every day, cleaned up so anyone can use them. They work",
+    "name.text": "tstack (t3dotgg/tstack)",
+    "uid": "plugin:t3dotgg+tstack+tstack"
+  },
+  {
+    "description.text": "Claude API and SDK documentation skill for building LLM-powered applications",
+    "name.text": "claude-api (anthropics/skills)",
+    "uid": "plugin:anthropics+skills+claude-api"
+  },
+  {
+    "description.text": "Recommends relevant Claude Academy courses, tutorials, and use cases when users ask how to use Claude",
+    "name.text": "academy-guide (anthropics/skills)",
+    "uid": "plugin:anthropics+skills+academy-guide"
+  },
+  {
+    "description.text": "Appends two or three short follow-up questions after a substantive answer to help users check key facts, probe the reasoning, and notice missing context",
+    "name.text": "discernment-nudge (anthropics/skills)",
+    "uid": "plugin:anthropics+skills+discernment-nudge"
+  },
+  {
+    "description.text": "My own prompts",
+    "name.text": "dagadbm",
+    "uid": "plugin:custom"
+  }
+]

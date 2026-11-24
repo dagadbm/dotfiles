@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# ⌘⇧.: the sources in a sheet: a lookup field to pick a repo's plugins, the
+# editable list and a pane that shows what was found or tested
+source "$(dirname "$0")/sources.sh"
+mkdir -p "$data"
+scripts/plugins >"$data/draft"
+printf '[]' >"$data/found.json"
+side="$(_pane_list)"
+printf list >"$data/pane"
+looking="$(_pane "$(_pane_note "Looking up…")")"
+testing="$(_pane "$(_pane_note "Testing…")")"
+jq -nc --rawfile text "$data/draft" --argjson side "$side" --argjson looking "$looking" --argjson testing "$testing" '{sheet: {
+  id: "settings",
+  root: {
+    type: "view", layout: "flex", cols: 2, rows: 3, padding: 16, spacing: 16,
+    shortcuts: [{ shortcut: "⌘⇧h", action: { type: "script", src: "scripts/settings-help" } }],
+    components: [
+      {
+        constraints: { grid: { col: 0, row: 0, colspan: 2 } },
+        id: "lookup", type: "textfield", focus: true, font: { size: 16 },
+        placeholder: "GitHub link or owner/repo, ↩ to look it up and pick its plugins, ⌘⇧h help",
+        events: [{ triggers: "actioned", action: [
+          { type: "json", src: $looking },
+          { type: "script", src: "scripts/settings-lookup", args: "{value:self.text}", async: true }
+        ] }]
+      },
+      {
+        constraints: { grid: { col: 0, row: 1 }, size: { width: 560, height: 448 } },
+        type: "view", layout: "border", spacing: 8,
+        components: [
+          { constraints: { region: "top" }, type: "label", text: "Installed Sources", font: { size: 16 } },
+          {
+            constraints: { region: "centre" },
+            id: "sources", type: "textarea", editable: true, bordertype: "bezel",
+            font: { size: 13 }, textinsets: { horizontal: 8, vertical: 8 }, text: $text,
+            events: [{ triggers: "typingstopped",
+              action: { type: "script", src: "scripts/settings-draft", args: "{value:self.text}" } }]
+          }
+        ]
+      },
+      $side,
+      {
+        constraints: { grid: { col: 0, row: 2 } },
+        type: "button", text: "Test", shortcut: "⌘T",
+        events: [{ triggers: "actioned", action: [
+          { type: "json", src: $testing },
+          { type: "script", src: "scripts/settings-test", args: "{value:sources.text}", async: true }
+        ] }]
+      },
+      {
+        constraints: { grid: { col: 1, row: 2 } },
+        type: "button", text: "Save", shortcut: "↩",
+        events: [{ triggers: "actioned", action: [
+          { type: "script", src: "scripts/settings-save", args: "{value:sources.text}" },
+          { type: "json", src: { update: { ids: { preview: { text: "Updating prompts…" } } } } },
+          { type: "script", src: "scripts/refresh", async: true }
+        ] }]
+      }
+    ]
+  }
+}}'

@@ -63,6 +63,10 @@ file = "scripts/herdr-update.sh"
 description = "Update AI tooling"
 file = "scripts/claude-update.sh"
 
+[tasks."alfred-workflows:update"]
+description = "Update Alfred workflows"
+file = "scripts/alfred-workflows-update.sh"
+
 [tasks."submodules:update"]
 description = "Update submodules"
 file = "scripts/submodules-update.sh"

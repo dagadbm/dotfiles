@@ -1,0 +1,239 @@
+{
+  "bundleid": "com.dagadbm.prompts",
+  "variablesconfig": {
+    "prompts_custom_description": {
+      "scriptenv": true,
+      "src": "variable"
+    },
+    "prompts_custom_dir": {
+      "scriptenv": true,
+      "src": "variable"
+    },
+    "prompts_custom_name": {
+      "scriptenv": true,
+      "src": "variable"
+    },
+    "prompts_plugins": {
+      "scriptenv": true,
+      "src": "variable"
+    }
+  },
+  "window": {
+    "root": {
+      "components": [
+        {
+          "constraints": {
+            "region": "top"
+          },
+          "events": [
+            {
+              "action": [
+                {
+                  "args": "{value:search.text}",
+                  "src": "scripts/search",
+                  "type": "script"
+                },
+                {
+                  "args": "filterdata",
+                  "src": "list",
+                  "type": "function"
+                }
+              ],
+              "triggers": "changed"
+            },
+            {
+              "action": {
+                "args": "{value:list.selected.uid}",
+                "src": "scripts/select",
+                "type": "script"
+              },
+              "triggers": "actioned"
+            }
+          ],
+          "focus": true,
+          "font": {
+            "size": 16
+          },
+          "id": "search",
+          "placeholder": "Search, ↩ open or copy, ⌘⌫ back, ⌘⇧r update, ⌘⇧. sources",
+          "type": "textfield"
+        },
+        {
+          "cell": {
+            "height": 56,
+            "init": {
+              "cell.background": null
+            },
+            "root": {
+              "cols": 1,
+              "components": [
+                {
+                  "constraints": {
+                    "grid": {
+                      "col": 0,
+                      "row": 0
+                    }
+                  },
+                  "font": {
+                    "size": 16
+                  },
+                  "id": "name",
+                  "type": "label"
+                },
+                {
+                  "colour": "secondaryLabelColor",
+                  "constraints": {
+                    "grid": {
+                      "col": 0,
+                      "row": 1
+                    }
+                  },
+                  "id": "description",
+                  "type": "label"
+                }
+              ],
+              "cornerradius": 8,
+              "events": [
+                {
+                  "action": {
+                    "args": "{data:uid}",
+                    "src": "scripts/select",
+                    "type": "script"
+                  },
+                  "triggers": "doubleclicked"
+                }
+              ],
+              "id": "cell",
+              "layout": "flex",
+              "padding": 8,
+              "rows": 2,
+              "type": "view"
+            },
+            "selected": {
+              "cell.background": "alfredSelectedResultBackgroundColor"
+            }
+          },
+          "constraints": {
+            "region": "centre"
+          },
+          "data": {
+            "filter": {
+              "args": [
+                "name.text",
+                "description.text"
+              ],
+              "match": "{value:search.text}",
+              "type": "basic"
+            },
+            "src": "{fileraw:prompts.json}",
+            "type": "basic"
+          },
+          "events": [
+            {
+              "action": {
+                "args": "{value:self.selected.uid}",
+                "src": "scripts/describe",
+                "type": "script"
+              },
+              "triggers": "changed"
+            }
+          ],
+          "id": "list",
+          "placeholder": "No prompts, ⌘⇧r to update",
+          "type": "dataview"
+        },
+        {
+          "background": null,
+          "constraints": {
+            "region": "right",
+            "size": {
+              "height": 384,
+              "width": 560
+            }
+          },
+          "id": "preview",
+          "type": "markdownarea"
+        }
+      ],
+      "events": [
+        {
+          "action": [
+            {
+              "args": "--reset",
+              "src": "scripts/search",
+              "type": "script"
+            },
+            {
+              "args": "{value:list.selected.uid}",
+              "src": "scripts/describe",
+              "type": "script"
+            }
+          ],
+          "triggers": "launched"
+        }
+      ],
+      "layout": "border",
+      "padding": 16,
+      "shortcuts": [
+        {
+          "action": {
+            "args": "selectprevious",
+            "src": "list",
+            "type": "function"
+          },
+          "shortcut": "↑"
+        },
+        {
+          "action": {
+            "args": "selectnext",
+            "src": "list",
+            "type": "function"
+          },
+          "shortcut": "↓"
+        },
+        {
+          "action": {
+            "src": "scripts/select",
+            "type": "script"
+          },
+          "shortcut": "⌘⌫"
+        },
+        {
+          "action": [
+            {
+              "src": {
+                "update": {
+                  "ids": {
+                    "preview": {
+                      "text": "Updating prompts…"
+                    }
+                  }
+                }
+              },
+              "type": "json"
+            },
+            {
+              "async": true,
+              "src": "scripts/refresh",
+              "type": "script"
+            }
+          ],
+          "shortcut": "⌘⇧r"
+        },
+        {
+          "action": {
+            "src": "scripts/settings",
+            "type": "script"
+          },
+          "shortcut": "⌘⇧."
+        }
+      ],
+      "spacing": 16,
+      "type": "view"
+    },
+    "size": {
+      "height": 640,
+      "width": 1200
+    }
+  }
+}

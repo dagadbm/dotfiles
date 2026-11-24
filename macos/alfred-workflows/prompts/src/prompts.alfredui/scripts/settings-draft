@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# settings-draft <text>: keeps the sheet's text, for settings-toggle
+source "$(dirname "$0")/sources.sh"
+printf '%s\n' "$1" >"$data/draft"

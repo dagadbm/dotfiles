@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# search [text]: on the plugin list, a search looks through every prompt
+# (all.json); an empty one shows the plugins again. Inside a plugin it does
+# nothing. $data/list remembers the list shown: plugins, all or a plugin.
+# search --reset: the plugin list, as at launch
+source "$(dirname "$0")/sources.sh"
+mkdir -p "$data"
+state="$data/list"
+if [[ "${1:-}" == --reset ]]; then
+  printf plugins >"$state"
+  exit
+fi
+current="$(cat "$state" 2>/dev/null || echo plugins)"
+want="$current"
+case "$current" in
+  plugins) [[ -n "${1:-}" ]] && want=all ;;
+  all) [[ -z "${1:-}" ]] && want=plugins ;;
+esac
+[[ "$want" == "$current" ]] && exit
+printf '%s' "$want" >"$state"
+file=prompts.json
+[[ "$want" == all ]] && file=all.json
+# the whole data, filter included, in case an update replaces it
+jq -c '{update: {ids: {list: {data: {
+  type: "basic", src: .,
+  filter: {type: "basic", match: "{value:search.text}", args: ["name.text", "description.text"]}
+}}}}}' "$file"

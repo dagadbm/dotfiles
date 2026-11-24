@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# settings-toggle [line]: adds the looked-up line to the sources, or removes
+# it, then redraws the sources and the picked marks
+source "$(dirname "$0")/sources.sh"
+draft="$data/draft"
+touch "$draft"
+if [[ -n "${1:-}" ]]; then
+  if grep -qxF "$1" "$draft"; then
+    grep -vxF "$1" "$draft" >"$draft.new" || true
+    mv "$draft.new" "$draft"
+  else
+    printf '%s\n' "$1" >>"$draft"
+  fi
+fi
+printf list >"$data/pane"
+_pane "$(_pane_list)" "$(jq -nc --rawfile text "$draft" '{ids: {sources: {text: $text}}}')"

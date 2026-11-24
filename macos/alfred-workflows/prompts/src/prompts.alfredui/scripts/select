@@ -1,0 +1,13 @@
+#!/usr/bin/osascript -l JavaScript
+
+// Load common functions
+eval?.($.NSString.stringWithContentsOfFileEncodingError("./scripts/common", $.NSUTF8StringEncoding, undefined).js)
+
+// select <uid>: a plugin opens its prompts, a prompt is copied and the UI closes
+// select: back to the plugin list
+function run(argv) {
+  const uid = argv[0]
+  if (!uid) return show("./prompts.json")
+  if (uid.startsWith("plugin:")) return show(`./prompts/${uid.slice("plugin:".length)}.json`)
+  return JSON.stringify({ copy: { type: "text", src: read(`./prompts/${uid}.md`) }, finish: {} })
+}

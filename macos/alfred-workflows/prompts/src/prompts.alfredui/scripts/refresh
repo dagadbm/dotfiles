@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# ⌘⇧r, run async: rebuild the prompts, then reload the list and say how it
+# went in the preview
+if error="$(scripts/update 2>&1 >/dev/null)"; then
+  text="Prompts updated."
+else
+  text="Update failed:"$'\n\n```\n'"$error"$'\n```'
+fi
+osascript -l JavaScript scripts/select | jq -c --arg text "$text" '.update.ids.preview.text = $text'
