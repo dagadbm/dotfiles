@@ -64,7 +64,7 @@ jq -nc --rawfile text "$data/draft" --argjson side "$side" --argjson looking "$l
               },
               {
                 constraints: { grid: { col: 1, row: 0 }, size: { width: 100 } },
-                type: "button", text: "Save", background: "controlAccentColor", contenttintcolour: "white", cornerradius: 6,
+                type: "button", text: "Save",
                 events: [{ triggers: "actioned", action: [
                   { type: "script", src: "scripts/settings-save", args: "{value:sources.text}" },
                   { type: "json", src: { update: { ids: { preview: { text: "Updating prompts…" } } } } },
