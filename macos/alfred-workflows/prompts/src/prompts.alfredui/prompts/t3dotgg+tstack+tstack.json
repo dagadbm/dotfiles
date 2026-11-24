@@ -1,47 +1,47 @@
 [
   {
-    "description.text": "Monitor a pull request through review and CI. Use when the user asks to monitor, watch, or babysit a PR.",
+    "uid": "t3dotgg+tstack+tstack--babysit-pr",
     "name.text": "babysit-pr",
-    "uid": "t3dotgg+tstack+tstack--babysit-pr"
+    "description.text": "Monitor a pull request through review and CI. Use when the user asks to monitor, watch, or babysit a PR."
   },
   {
-    "description.text": "Trigger this if the user says 'council'.",
+    "uid": "t3dotgg+tstack+tstack--council",
     "name.text": "council",
-    "uid": "t3dotgg+tstack+tstack--council"
+    "description.text": "Trigger this if the user says 'council'."
   },
   {
-    "description.text": "File a concise pull request. Use when the user asks to file, open, or create a PR.",
+    "uid": "t3dotgg+tstack+tstack--file-pr",
     "name.text": "file-pr",
-    "uid": "t3dotgg+tstack+tstack--file-pr"
+    "description.text": "File a concise pull request. Use when the user asks to file, open, or create a PR."
   },
   {
-    "description.text": "Trigger this if the user says 'full send'.",
+    "uid": "t3dotgg+tstack+tstack--full-send",
     "name.text": "full-send",
-    "uid": "t3dotgg+tstack+tstack--full-send"
+    "description.text": "Trigger this if the user says 'full send'."
   },
   {
-    "description.text": "Trigger this if the user says 'full stop', even as a closing \"Full stop.\" that reads like emphasis.",
+    "uid": "t3dotgg+tstack+tstack--full-stop",
     "name.text": "full-stop",
-    "uid": "t3dotgg+tstack+tstack--full-stop"
+    "description.text": "Trigger this if the user says 'full stop', even as a closing \"Full stop.\" that reads like emphasis."
   },
   {
-    "description.text": "Use whenever leaving comments on GitHub.",
+    "uid": "t3dotgg+tstack+tstack--leaving-pr-comments",
     "name.text": "leaving-pr-comments",
-    "uid": "t3dotgg+tstack+tstack--leaving-pr-comments"
+    "description.text": "Use whenever leaving comments on GitHub."
   },
   {
-    "description.text": "For getting old prs up to date. Use when asked to rebase a pr or \"modernize\".",
+    "uid": "t3dotgg+tstack+tstack--modernize",
     "name.text": "modernize",
-    "uid": "t3dotgg+tstack+tstack--modernize"
+    "description.text": "For getting old prs up to date. Use when asked to rebase a pr or \"modernize\"."
   },
   {
-    "description.text": "Use when the user says \"sol loop\".",
+    "uid": "t3dotgg+tstack+tstack--sol-loop",
     "name.text": "sol-loop",
-    "uid": "t3dotgg+tstack+tstack--sol-loop"
+    "description.text": "Use when the user says \"sol loop\"."
   },
   {
-    "description.text": "Take over existing work. Use when the user asks to take over a PR, branch, or agent thread, or requests a takeover.",
+    "uid": "t3dotgg+tstack+tstack--takeover",
     "name.text": "takeover",
-    "uid": "t3dotgg+tstack+tstack--takeover"
+    "description.text": "Take over existing work. Use when the user asks to take over a PR, branch, or agent thread, or requests a takeover."
   }
 ]

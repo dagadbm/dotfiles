@@ -5,8 +5,9 @@ source "$(dirname "$0")/sources.sh"
 mkdir -p "$data"
 scripts/plugins >"$data/draft"
 printf '[]' >"$data/found.json"
-side="$(_pane_list)"
-printf list >"$data/pane"
+# opens on the help; a lookup (↩) swaps it for what was found
+side="$(_pane_note "$(cat scripts/settings.md)")"
+printf help >"$data/pane"
 looking="$(_pane "$(_pane_note "Looking up…")")"
 testing="$(_pane "$(_pane_note "Testing…")")"
 jq -nc --rawfile text "$data/draft" --argjson side "$side" --argjson looking "$looking" --argjson testing "$testing" '{sheet: {
@@ -18,7 +19,7 @@ jq -nc --rawfile text "$data/draft" --argjson side "$side" --argjson looking "$l
       {
         constraints: { grid: { col: 0, row: 0, colspan: 2 } },
         id: "lookup", type: "textfield", focus: true, font: { size: 16 },
-        placeholder: "GitHub link or owner/repo, ↩ to look it up and pick its plugins, ⌘⇧h help",
+        placeholder: "Paste a GitHub link or owner/repo, ↩ to pick its sources, ⌘⇧h for help",
         events: [{ triggers: "actioned", action: [
           { type: "json", src: $looking },
           { type: "script", src: "scripts/settings-lookup", args: "{value:self.text}", async: true }
@@ -38,23 +39,40 @@ jq -nc --rawfile text "$data/draft" --argjson side "$side" --argjson looking "$l
           }
         ]
       },
-      $side,
       {
-        constraints: { grid: { col: 0, row: 2 } },
-        type: "button", text: "Test", shortcut: "⌘T",
-        events: [{ triggers: "actioned", action: [
-          { type: "json", src: $testing },
-          { type: "script", src: "scripts/settings-test", args: "{value:sources.text}", async: true }
-        ] }]
+        constraints: { grid: { col: 1, row: 1 }, size: { width: 560, height: 448 } },
+        type: "view", layout: "border", spacing: 8,
+        components: [
+          { constraints: { region: "top" }, type: "label", text: "Details", font: { size: 16 } },
+          $side
+        ]
       },
       {
-        constraints: { grid: { col: 1, row: 2 } },
-        type: "button", text: "Save", shortcut: "↩",
-        events: [{ triggers: "actioned", action: [
-          { type: "script", src: "scripts/settings-save", args: "{value:sources.text}" },
-          { type: "json", src: { update: { ids: { preview: { text: "Updating prompts…" } } } } },
-          { type: "script", src: "scripts/refresh", async: true }
-        ] }]
+        constraints: { grid: { col: 0, row: 2, colspan: 2 } },
+        type: "view", layout: "border",
+        components: [{
+          constraints: { region: "right" },
+          type: "view", layout: "flex", cols: 2, rows: 1, spacing: 8,
+          components: [
+              {
+                constraints: { grid: { col: 0, row: 0 }, size: { width: 100 } },
+                type: "button", text: "Test",
+                events: [{ triggers: "actioned", action: [
+                  { type: "json", src: $testing },
+                  { type: "script", src: "scripts/settings-test", args: "{value:sources.text}", async: true }
+                ] }]
+              },
+              {
+                constraints: { grid: { col: 1, row: 0 }, size: { width: 100 } },
+                type: "button", text: "Save", background: "controlAccentColor", contenttintcolour: "white", cornerradius: 6,
+                events: [{ triggers: "actioned", action: [
+                  { type: "script", src: "scripts/settings-save", args: "{value:sources.text}" },
+                  { type: "json", src: { update: { ids: { preview: { text: "Updating prompts…" } } } } },
+                  { type: "script", src: "scripts/refresh", async: true }
+                ] }]
+              }
+          ]
+        }]
       }
     ]
   }

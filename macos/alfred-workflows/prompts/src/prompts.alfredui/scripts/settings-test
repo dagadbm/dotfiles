@@ -5,7 +5,7 @@ tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 report=""
 while read -r line; do
-  [[ -n "$(sed 's/#.*//; s/[[:space:]]//g' <<<"$line")" ]] || continue
+  [[ -n "$(sed 's/[[:space:]]//g' <<<"$line")" ]] || continue
   if error="$(prompts_test_sources="$line" prompts_out="$tmp" scripts/update 2>&1 >/dev/null)"; then
     report+="$(jq -r '.[] | "- ✅ **\(."name.text")**: \(."description.text")"' "$tmp/prompts.json")"$'\n'
     report+="$(for f in "$tmp"/prompts/*.json; do

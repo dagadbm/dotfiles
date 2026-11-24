@@ -98,8 +98,13 @@ _collection() {
     >>"$collections"
 }
 
-# _market <repo> [ref]: its clone, made once per repo and ref
+# _market <repo> [ref]: its clone, made once per repo and ref; a local
+# folder as is
 _market() {
+  if [[ "$1" == /* ]]; then
+    echo "$1"
+    return
+  fi
   local dir="$tmp/market/$1${2:+@$2}"
   if [[ ! -d "$dir" ]]; then
     _clone "https://github.com/$1.git" "$dir" "${2:-}"
@@ -107,31 +112,56 @@ _market() {
   echo "$dir"
 }
 
-# _files <repo> <ref> <path> <pattern>: its Markdown files as a collection
-_files() {
-  local market dir files name description
-  market="$(_market "$1" "$2")"
-  dir="$market${3:+/$3}"
-  if [[ -n "$4" ]]; then
-    files="$(find "$dir" -path "$dir/$4" -type f | sort)"
-  else
-    files="$(find "$dir" \( -name .git -o -name .github -o -name node_modules \) -prune -o \
-      \( -name '*.md' -o -name '*.mdc' \) -type f \
-      ! -iname 'readme.md' ! -iname 'license.md' ! -iname 'changelog.md' \
-      ! -iname 'contributing.md' ! -iname 'code_of_conduct.md' ! -iname 'security.md' \
-      -print | sort)"
-  fi
-  name="$(basename "${3:-$1}")"
-  description="$(_readme "$dir")"
-  [[ -n "$description" ]] || description="$(_readme "$market")"
-  _collection "${1//\//+}+${3//\//+}${4:++pattern}" "$description" "$name ($1)" <<<"$files"
+# _markdown <dir>: its Markdown files, without the repo boilerplate
+_markdown() {
+  find "$1" \( -name .git -o -name .github -o -name node_modules \) -prune -o \
+    \( -name '*.md' -o -name '*.mdc' \) -type f \
+    ! -iname 'readme.md' ! -iname 'license.md' ! -iname 'changelog.md' \
+    ! -iname 'contributing.md' ! -iname 'code_of_conduct.md' ! -iname 'security.md' \
+    -print
 }
 
-# _plugin <repo> <plugin>: a marketplace plugin's skills (or, when the repo
+# _files <repo> <ref> <glob,...>: its Markdown files, or those the globs
+# match (from the repo root, a folder for its Markdown files), as a collection
+_files() {
+  local market glob found files="" base="" id name description
+  market="$(_market "$1" "$2")"
+  if [[ -z "$3" ]]; then
+    files="$(_markdown "$market")"
+  else
+    IFS=, read -ra list <<<"$3"
+    for glob in "${list[@]}"; do
+      glob="${glob%/}"
+      if [[ -d "$market/$glob" ]]; then
+        found="$(_markdown "$market/$glob")"
+      else
+        found="$(find "$market" -path "$market/.git" -prune -o -path "$market/$glob" -type f -print)"
+      fi
+      if [[ -z "$found" ]]; then
+        echo "no files match $glob in $1" >&2
+        exit 1
+      fi
+      files+="$found"$'\n'
+    done
+    # one glob: named after its folder, the part before any wildcard
+    if ((${#list[@]} == 1)); then
+      base="$(sed -E 's#(^|/)[^/]*[][*?].*##' <<<"${list[0]%/}")"
+    fi
+  fi
+  files="$(sort -u <<<"$files" | sed '/^$/d')"
+  name="$(basename "${base:-$1}")"
+  description="$(_readme "$market${base:+/$base}")"
+  [[ -n "$description" ]] || description="$(_readme "$market")"
+  id="${1#/}+$3"
+  id="$(tr -c 'A-Za-z0-9._-' '+' <<<"${id%/}" | sed 's/+*$//')"
+  _collection "$id" "$description" "$name ($1)" <<<"$files"
+}
+
+# _plugin <repo> <plugin> [ref]: a marketplace plugin's skills (or, when the repo
 # is no marketplace, its skills/<name>/SKILL.md) as a collection
 _plugin() {
   local repo="$1" plugin="$2" market meta source description dir manifest paths skills
-  market="$(_market "$repo")"
+  market="$(_market "$repo" "${3:-}")"
   if [[ -f "$market/.claude-plugin/marketplace.json" ]]; then
     meta="$(jq -c --arg p "$plugin" '.plugins[] | select(.name == $p)' \
       "$market/.claude-plugin/marketplace.json")"
@@ -194,21 +224,26 @@ _plugin() {
 
 while read -r line <&3; do
   _parse "$line"
-  [[ -n "$repo" ]] || continue
-  if [[ -n "$plugin" ]]; then
-    _plugin "$repo" "$plugin"
-  elif [[ -n "$path$pattern" ]]; then
-    _files "$repo" "$ref" "$path" "$pattern"
-  else
-    market="$(_market "$repo" "$ref")"
-    if [[ -f "$market/.claude-plugin/marketplace.json" ]]; then
-      for plugin in $(jq -r '.plugins[].name' "$market/.claude-plugin/marketplace.json"); do
-        _plugin "$repo" "$plugin"
-      done
-    else
-      _plugin "$repo" "$(basename "$repo")"
-    fi
-  fi
+  case "$type" in
+    "") ;;
+    claude)
+      market="$(_market "$repo" "$ref")"
+      if [[ -n "$plugin" ]]; then
+        _plugin "$repo" "$plugin" "$ref"
+      elif [[ -f "$market/.claude-plugin/marketplace.json" ]]; then
+        for plugin in $(jq -r '.plugins[].name' "$market/.claude-plugin/marketplace.json"); do
+          _plugin "$repo" "$plugin" "$ref"
+        done
+      else
+        _plugin "$repo" "$(basename "$repo")" "$ref"
+      fi
+      ;;
+    markdown) _files "$repo" "$ref" "$globs" ;;
+    *)
+      echo "unknown source type $type (claude or markdown): $line" >&2
+      exit 1
+      ;;
+  esac
 done 3< <(scripts/plugins)
 
 # hand-written prompts, listed last

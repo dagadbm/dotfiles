@@ -10,29 +10,24 @@ export GIT_TERMINAL_PROMPT=0
 # found.json (the last lookup)
 data="$HOME/Library/Application Support/Alfred/Workflow Data/com.dagadbm.prompts"
 
-# _parse <line>: sets repo, ref, path, pattern and plugin from a source line
-# (a comment or blank line leaves repo empty). Forms:
-# - [https://github.com/]<owner>/<repo>[.git]: a repo; a Claude marketplace
-#   gives every plugin, else its skills
-# - ... <plugin> or ...::<plugin>: one plugin of a marketplace
-# - [https://github.com/]<owner>/<repo>/tree/<ref>/<path>, or
-#   <owner>/<repo>/<path>, each optionally :<pattern>: Markdown files
-_parse() {
-  local line="${1%%#*}" src rest
-  repo="" ref="" path="" pattern="" plugin=""
-  read -r src plugin _ <<<"$line" || true
-  [[ -n "${src:-}" ]] || return 0
-  if [[ "$src" == *::* ]]; then
-    plugin="${src#*::}"
-    src="${src%%::*}"
+# _repo <repo>: sets repo, ref and path from [https://github.com/]<owner>/<repo>
+# [.git][@<ref>], a link to a folder (…/tree/<ref>/<path>), or a local folder
+# (starting with / or ~, kept as repo)
+_repo() {
+  local src="$1" rest
+  repo="" ref="" path=""
+  if [[ "$src" == /* || "$src" == "~"* ]]; then
+    repo="${src/#\~/$HOME}"
+    repo="${repo%/}"
+    return
   fi
   src="${src#https://}"
   src="${src#http://}"
   src="${src#github.com/}"
   src="${src%/}"
-  if [[ "$src" == *:* ]]; then
-    pattern="${src#*:}"
-    src="${src%%:*}"
+  if [[ "$src" == *@* ]]; then
+    ref="${src#*@}"
+    src="${src%%@*}"
   fi
   src="${src%.git}"
   repo="$(cut -d/ -f1-2 <<<"$src")"
@@ -46,6 +41,25 @@ _parse() {
   path="$rest"
 }
 
+# _parse <line>: sets type, repo, ref, globs and plugin from a source line (a
+# blank line leaves type empty). Forms:
+# - claude <repo> [plugin]: every plugin of a Claude marketplace, or one; a
+#   repo that is no marketplace is one plugin (its skills/<name>/SKILL.md)
+# - markdown <repo|folder> [glob,...]: its Markdown files, or those matching
+#   a glob (from the repo root; a folder gives its Markdown files); a link to
+#   a folder is that folder's glob
+_parse() {
+  local line="$1" src arg
+  type="" repo="" ref="" path="" globs="" plugin=""
+  read -r type src arg _ <<<"$line" || true
+  [[ -n "${type:-}" ]] || return 0
+  _repo "${src:-}"
+  case "$type" in
+    claude) plugin="${arg:-}" ;;
+    markdown) globs="${arg:-$path}" ;;
+  esac
+}
+
 # _clone <url> <dir> [ref] [sha]
 _clone() {
   git clone --quiet --filter=blob:none ${3:+--branch "$3"} "$1" "$2" || return
@@ -54,11 +68,11 @@ _clone() {
   fi
 }
 
-# The settings sheet's right pane, "side": the looked-up plugins (a dataview)
+# The settings sheet's right pane, "side" under its Details title: the looked-up plugins (a dataview)
 # or a note (a markdownarea: help, test results, errors), swapped with replace.
 # $data/pane remembers which, for ⌘⇧h to toggle; the caller writes it.
 # A replaced component brings its own constraints.
-side_constraints='{"grid": {"col": 1, "row": 1}, "size": {"width": 560, "height": 448}}'
+side_constraints='{"region": "centre"}'
 
 
 # _pane_list: the looked-up rows, ☑ when the draft has them

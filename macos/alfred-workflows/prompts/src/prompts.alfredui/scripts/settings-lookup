@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
-# settings-lookup <source>, run async: lists a Claude marketplace's plugins to
-# pick with a double-click; anything else is a single row
+# settings-lookup <source>, run async: a source line, or a bare repo or link,
+# as typed source lines to pick with a double-click: a Claude marketplace's
+# plugins, else the repo as a Claude plugin and as Markdown files
 source "$(dirname "$0")/sources.sh"
 _parse "$1"
+case "$type" in
+  claude | markdown) ;;
+  *)
+    _repo "$1"
+    type=""
+    ;;
+esac
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
@@ -11,6 +19,11 @@ _say() {
   _pane "$(_pane_note "$1")"
 }
 
+if [[ "$repo" == /* ]]; then
+  printf '[]' >"$data/found.json"
+  _say "A local folder needs no lookup: add \`markdown $repo\` to the list."
+  exit
+fi
 if [[ -z "$repo" || "$repo" != */* ]]; then
   printf '[]' >"$data/found.json"
   _say "Not a GitHub repo: \`$1\`"
@@ -22,13 +35,19 @@ if ! _clone "https://github.com/$repo.git" "$tmp/repo" "$ref" 2>/dev/null; then
   exit
 fi
 marketplace="$tmp/repo/.claude-plugin/marketplace.json"
-if [[ -z "$plugin$path$pattern" && -f "$marketplace" ]]; then
-  jq --arg repo "$repo" '[.plugins[] | {line: "\($repo) \(.name)", name: .name, description: (.description // "")}]' \
+at="$repo${ref:+@$ref}"
+if [[ -n "$type" ]]; then
+  # a typed line, as is
+  jq -n --arg line "$1" --arg name "${plugin:-${path:-$repo}}" '[{line: $line, name: $name, description: "Double-click to add or remove"}]' \
+    >"$tmp/rows.json"
+elif [[ -z "$path" && -f "$marketplace" ]]; then
+  jq --arg at "$at" '[.plugins[] | {line: "claude \($at) \(.name)", name: .name, description: (.description // "")}]' \
     "$marketplace" >"$tmp/rows.json"
 else
-  # the line as typed, a repo of skills or a folder of Markdown files
-  jq -n --arg line "$1" --arg name "${path:-$repo}" '[{line: $line, name: $name, description: "Double-click to add or remove"}]' \
-    >"$tmp/rows.json"
+  jq -n --arg at "$at" --arg path "$path" '[
+    (if $path == "" then {line: "claude \($at)", name: "\($at) as a Claude plugin", description: "Its skills/<name>/SKILL.md"} else empty end),
+    {line: ("markdown \($at)" + (if $path == "" then "" else " \($path)" end)), name: "\($at)\(if $path == "" then "" else "/\($path)" end) as Markdown", description: "Every .md and .mdc file, add a glob to pick some"}
+  ]' >"$tmp/rows.json"
 fi
 cp "$tmp/rows.json" "$data/found.json"
 scripts/settings-toggle

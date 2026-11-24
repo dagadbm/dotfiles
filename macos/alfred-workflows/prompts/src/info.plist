@@ -105,7 +105,7 @@
 				<integer>8</integer>
 			</dict>
 			<key>description</key>
-			<string>One source per line, # starts a comment. A GitHub link or owner/repo: a repo of skills, or every plugin of a Claude marketplace. owner/repo plugin: one plugin of a marketplace. A folder link (…/tree/&lt;branch&gt;/&lt;folder&gt;, optionally :&lt;pattern&gt;): its Markdown files. Empty uses the built-in list. ⌘⇧. in the window looks up, picks and tests sources, and what it saves takes precedence.</string>
+			<string>One source per line, starting with its type. claude &lt;repo&gt; [plugin]: every plugin of a Claude marketplace, or one. markdown &lt;repo or folder&gt; [glob,...]: its Markdown files, or those matching the globs. A repo is owner/repo or a GitHub link, optionally @&lt;ref&gt;; a folder starts with / or ~. Empty uses the built-in list. ⌘⇧. in the window looks up, picks and tests sources, and what it saves takes precedence.</string>
 			<key>label</key>
 			<string>Plugins</string>
 			<key>type</key>

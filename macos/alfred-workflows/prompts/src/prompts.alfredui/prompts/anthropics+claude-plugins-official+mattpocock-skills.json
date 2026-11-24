@@ -1,137 +1,137 @@
 [
   {
-    "description.text": "Ask which skill or flow fits your situation. A router over the skills in this repo.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--ask-matt",
     "name.text": "ask-matt",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--ask-matt"
+    "description.text": "Ask which skill or flow fits your situation. A router over the skills in this repo."
   },
   {
-    "description.text": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--code-review",
     "name.text": "code-review",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--code-review"
+    "description.text": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\"."
   },
   {
-    "description.text": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--codebase-design",
     "name.text": "codebase-design",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--codebase-design"
+    "description.text": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary."
   },
   {
-    "description.text": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--diagnosing-bugs",
     "name.text": "diagnosing-bugs",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--diagnosing-bugs"
+    "description.text": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow."
   },
   {
-    "description.text": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--domain-modeling",
     "name.text": "domain-modeling",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--domain-modeling"
+    "description.text": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR."
   },
   {
-    "description.text": "A relentless interview to sharpen a plan or design.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--grill-me",
     "name.text": "grill-me",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--grill-me"
+    "description.text": "A relentless interview to sharpen a plan or design."
   },
   {
-    "description.text": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--grill-with-docs",
     "name.text": "grill-with-docs",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--grill-with-docs"
+    "description.text": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go."
   },
   {
-    "description.text": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--grilling",
     "name.text": "grilling",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--grilling"
+    "description.text": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases."
   },
   {
-    "description.text": "Compact the current conversation into a handoff document for another agent to pick up.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--handoff",
     "name.text": "handoff",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--handoff"
+    "description.text": "Compact the current conversation into a handoff document for another agent to pick up."
   },
   {
-    "description.text": "Implement a piece of work based on a spec or set of tickets.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--implement",
     "name.text": "implement",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--implement"
+    "description.text": "Implement a piece of work based on a spec or set of tickets."
   },
   {
-    "description.text": "Implement the result of /to-spec and /to-tickets in code.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--implement-spec",
     "name.text": "implement-spec",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--implement-spec"
+    "description.text": "Implement the result of /to-spec and /to-tickets in code."
   },
   {
-    "description.text": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--improve-codebase-architecture",
     "name.text": "improve-codebase-architecture",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--improve-codebase-architecture"
+    "description.text": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick."
   },
   {
-    "description.text": "Use when writing a PR body.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--pr",
     "name.text": "pr",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--pr"
+    "description.text": "Use when writing a PR body."
   },
   {
-    "description.text": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--prototype",
     "name.text": "prototype",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--prototype"
+    "description.text": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like."
   },
   {
-    "description.text": "Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--research",
     "name.text": "research",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--research"
+    "description.text": "Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent."
   },
   {
-    "description.text": "Conduct a retrospective on a coding session.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--retro",
     "name.text": "retro",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--retro"
+    "description.text": "Conduct a retrospective on a coding session."
   },
   {
-    "description.text": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--setup-matt-pocock-skills",
     "name.text": "setup-matt-pocock-skills",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--setup-matt-pocock-skills"
+    "description.text": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills."
   },
   {
-    "description.text": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--tdd",
     "name.text": "tdd",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--tdd"
+    "description.text": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests."
   },
   {
-    "description.text": "Teach the user a new skill or concept, within this workspace.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--teach",
     "name.text": "teach",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--teach"
+    "description.text": "Teach the user a new skill or concept, within this workspace."
   },
   {
-    "description.text": "Turn a decision you can't fully answer into a questionnaire for someone else to fill in.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--to-questionnaire",
     "name.text": "to-questionnaire",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--to-questionnaire"
+    "description.text": "Turn a decision you can't fully answer into a questionnaire for someone else to fill in."
   },
   {
-    "description.text": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--to-spec",
     "name.text": "to-spec",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--to-spec"
+    "description.text": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed."
   },
   {
-    "description.text": "Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker (edges as text in one file per ticket locally, or native blocking links on a real tracker).",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--to-tickets",
     "name.text": "to-tickets",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--to-tickets"
+    "description.text": "Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker (edges as text in one file per ticket locally, or native blocking links on a real tracker)."
   },
   {
-    "description.text": "Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--triage",
     "name.text": "triage",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--triage"
+    "description.text": "Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs."
   },
   {
-    "description.text": "Stop. That last message did not land: re-pitch it.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--wait-what",
     "name.text": "wait-what",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--wait-what"
+    "description.text": "Stop. That last message did not land: re-pitch it."
   },
   {
-    "description.text": "Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--wayfinder",
     "name.text": "wayfinder",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--wayfinder"
+    "description.text": "Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear."
   },
   {
-    "description.text": "Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--wizard",
     "name.text": "wizard",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--wizard"
+    "description.text": "Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself."
   },
   {
-    "description.text": "Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.",
+    "uid": "anthropics+claude-plugins-official+mattpocock-skills--writing-for-agents",
     "name.text": "writing-for-agents",
-    "uid": "anthropics+claude-plugins-official+mattpocock-skills--writing-for-agents"
+    "description.text": "Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md."
   }
 ]

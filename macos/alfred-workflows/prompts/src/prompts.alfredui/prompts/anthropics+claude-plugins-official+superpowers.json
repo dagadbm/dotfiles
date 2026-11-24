@@ -1,77 +1,77 @@
 [
   {
-    "description.text": "You MUST use this before any creative work - creating features, building components, adding functionality, modifying behavior, or planning anything new, in software or out of it (a talk, a business, a renovation).",
+    "uid": "anthropics+claude-plugins-official+superpowers--brainstorming",
     "name.text": "brainstorming",
-    "uid": "anthropics+claude-plugins-official+superpowers--brainstorming"
+    "description.text": "You MUST use this before any creative work - creating features, building components, adding functionality, modifying behavior, or planning anything new, in software or out of it (a talk, a business, a renovation)."
   },
   {
-    "description.text": "Use when a superpowers session went wrong and your human partner wants to know why — repeated work, ignored plans, stumbles, poor results, a skill that didn't fire, \"it took too long\", \"why is it so expensive\", \"what is it doing\" — or wants to build a bug report for the superpowers maintainers, for the current session or a past one identified by id or path, on any harness.",
+    "uid": "anthropics+claude-plugins-official+superpowers--diagnosing-superpowers",
     "name.text": "diagnosing-superpowers",
-    "uid": "anthropics+claude-plugins-official+superpowers--diagnosing-superpowers"
+    "description.text": "Use when a superpowers session went wrong and your human partner wants to know why — repeated work, ignored plans, stumbles, poor results, a skill that didn't fire, \"it took too long\", \"why is it so expensive\", \"what is it doing\" — or wants to build a bug report for the superpowers maintainers, for the current session or a past one identified by id or path, on any harness."
   },
   {
-    "description.text": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+    "uid": "anthropics+claude-plugins-official+superpowers--dispatching-parallel-agents",
     "name.text": "dispatching-parallel-agents",
-    "uid": "anthropics+claude-plugins-official+superpowers--dispatching-parallel-agents"
+    "description.text": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies"
   },
   {
-    "description.text": "Use when executing an implementation plan in the current session as the implementer yourself — your human partner chose inline execution, or no subagent tool is available",
+    "uid": "anthropics+claude-plugins-official+superpowers--executing-plans",
     "name.text": "executing-plans",
-    "uid": "anthropics+claude-plugins-official+superpowers--executing-plans"
+    "description.text": "Use when executing an implementation plan in the current session as the implementer yourself — your human partner chose inline execution, or no subagent tool is available"
   },
   {
-    "description.text": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work",
+    "uid": "anthropics+claude-plugins-official+superpowers--finishing-a-development-branch",
     "name.text": "finishing-a-development-branch",
-    "uid": "anthropics+claude-plugins-official+superpowers--finishing-a-development-branch"
+    "description.text": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work"
   },
   {
-    "description.text": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+    "uid": "anthropics+claude-plugins-official+superpowers--receiving-code-review",
     "name.text": "receiving-code-review",
-    "uid": "anthropics+claude-plugins-official+superpowers--receiving-code-review"
+    "description.text": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation"
   },
   {
-    "description.text": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+    "uid": "anthropics+claude-plugins-official+superpowers--requesting-code-review",
     "name.text": "requesting-code-review",
-    "uid": "anthropics+claude-plugins-official+superpowers--requesting-code-review"
+    "description.text": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements"
   },
   {
-    "description.text": "Use when executing implementation plans with independent tasks in the current session",
+    "uid": "anthropics+claude-plugins-official+superpowers--subagent-driven-development",
     "name.text": "subagent-driven-development",
-    "uid": "anthropics+claude-plugins-official+superpowers--subagent-driven-development"
+    "description.text": "Use when executing implementation plans with independent tasks in the current session"
   },
   {
-    "description.text": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+    "uid": "anthropics+claude-plugins-official+superpowers--systematic-debugging",
     "name.text": "systematic-debugging",
-    "uid": "anthropics+claude-plugins-official+superpowers--systematic-debugging"
+    "description.text": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes"
   },
   {
-    "description.text": "Use when implementing any feature or bugfix, before writing implementation code",
+    "uid": "anthropics+claude-plugins-official+superpowers--test-driven-development",
     "name.text": "test-driven-development",
-    "uid": "anthropics+claude-plugins-official+superpowers--test-driven-development"
+    "description.text": "Use when implementing any feature or bugfix, before writing implementation code"
   },
   {
-    "description.text": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+    "uid": "anthropics+claude-plugins-official+superpowers--using-git-worktrees",
     "name.text": "using-git-worktrees",
-    "uid": "anthropics+claude-plugins-official+superpowers--using-git-worktrees"
+    "description.text": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback"
   },
   {
-    "description.text": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
+    "uid": "anthropics+claude-plugins-official+superpowers--using-superpowers",
     "name.text": "using-superpowers",
-    "uid": "anthropics+claude-plugins-official+superpowers--using-superpowers"
+    "description.text": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions"
   },
   {
-    "description.text": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+    "uid": "anthropics+claude-plugins-official+superpowers--verification-before-completion",
     "name.text": "verification-before-completion",
-    "uid": "anthropics+claude-plugins-official+superpowers--verification-before-completion"
+    "description.text": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always"
   },
   {
-    "description.text": "Use when you have a spec or requirements for a multi-step task, before touching code",
+    "uid": "anthropics+claude-plugins-official+superpowers--writing-plans",
     "name.text": "writing-plans",
-    "uid": "anthropics+claude-plugins-official+superpowers--writing-plans"
+    "description.text": "Use when you have a spec or requirements for a multi-step task, before touching code"
   },
   {
-    "description.text": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+    "uid": "anthropics+claude-plugins-official+superpowers--writing-skills",
     "name.text": "writing-skills",
-    "uid": "anthropics+claude-plugins-official+superpowers--writing-skills"
+    "description.text": "Use when creating new skills, editing existing skills, or verifying skills work before deployment"
   }
 ]
