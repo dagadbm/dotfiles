@@ -1,6 +1,6 @@
-amends "package://github.com/jdx/hk/releases/download/v2.11.1/hk@2.11.1#/Config.pkl"
+amends "package://github.com/jdx/hk/releases/download/v2.13.0/hk@2.13.0#/Config.pkl"
 
-import "package://github.com/jdx/hk/releases/download/v2.11.1/hk@2.11.1#/Builtins.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.13.0/hk@2.13.0#/Builtins.pkl"
 
 exclude = List("submodules/**")
 
@@ -13,6 +13,7 @@ steps {
   // shell
   ["shellcheck"] = (Builtins.shellcheck) {
     env { ["SHELLCHECK_OPTS"] = "--external-sources --source-path=SCRIPTDIR" }
+    exclude = "macos/alfred-workflows/*/src/**"
   }
 
   // zsh
@@ -36,6 +37,7 @@ steps {
         "macos/Alfred.alfredpreferences/**",
         "agents/claude/settings.json",
         "**/lazy-lock.json",
+        "macos/alfred-workflows/*/src/**",
       )
   }
 
@@ -101,10 +103,18 @@ steps {
     check = "ssh -T -G -F ssh/config localhost >/dev/null"
   }
 
-  // markdown
-  ["rumdl_format"] = Builtins.rumdl_format
+  // markdown; Alfred prompts are pasted verbatim, not documents (src/ is generated: jq and shellcheck skip it too)
+  local alfredPrompts =
+    List(
+      "macos/alfred-workflows/*/custom/*.md",
+      "macos/alfred-workflows/*/src/prompts.alfredui/**/*.md",
+    )
+  ["rumdl_format"] = (Builtins.rumdl_format) {
+    exclude = alfredPrompts
+  }
   ["rumdl"] = (Builtins.rumdl) {
     depends = "rumdl_format"
+    exclude = alfredPrompts
   }
 }
 
