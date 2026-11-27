@@ -21,16 +21,21 @@ _claude_data() {
     models) (( $#catalog )) && jq -r '.catalog.config.models[] | "\(.id)\t\(.name)"' $catalog ;;
     efforts) (( $#catalog )) && jq -r --arg m "$2" '.catalog.config.models[] | select(.id == $m) | .thinking.effort_options[]?.id' $catalog ;;
     sessions)
-      # sessions of the git root (or $PWD) and of every folder under it, newest first;
+      # sessions of the git root (or $PWD), of the main checkout when in a linked worktree,
+      # and of every folder under either, newest first;
       # none there: walk up to the nearest ancestor that has sessions
-      local dir=$(_claude_root) key
-      local -a files
+      local dir=$(_claude_root) key pat common=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+      local -a files parts roots=($dir)
+      [[ $common == */.git ]] && roots+=(${common:h})
       while true; do
-        key=${dir//[^a-zA-Z0-9]/-}
-        files=($HOME/.claude/projects/(${key}|${key}-*)/*.jsonl(N.om))
+        parts=()
+        for key in ${roots//[^a-zA-Z0-9]/-}; do parts+=($key "$key-*"); done
+        pat="(${(j:|:)parts})"
+        files=($HOME/.claude/projects/${~pat}/*.jsonl(N.om))
         (( $#files )) && break
         [[ $dir == / ]] && { print -u2 "claude: no sessions for $PWD"; return 1 }
         dir=${dir:h}
+        roots=($dir)
       done
       local title_key='"aiTitle":"'
       local prompt_key='"role":"user","content":"'
